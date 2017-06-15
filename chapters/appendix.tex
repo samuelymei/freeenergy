@@ -1,0 +1,138 @@
+%\setcounter{section}{0}
+%%\setcounter{theorem}{0}
+%%\renewcommand{\thetheorem}{\thechapter.\arabic{theorem}}
+%\setcounter{equation}{0}
+%\setcounter{figure}{0}
+%\setcounter{table}{0}
+%\appendix
+%\addtocontents{toc}{\cftpagenumbersoff{chapter}} 
+%\chapter{Appendix}
+%\addtocontents{toc}{\protect\contentsline {chapter}{Appendix}{}{}}
+
+%\addtocontents{toc}{\cftpagenumberson{chapter}} 
+
+%\makeatletter
+%\addtocontents{toc}{\let\protect\l@chapter\protect\l@section}
+%\makeatother
+%\renewcommand{\thechapter}{A} 
+%\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+%\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+\begin{appendices}
+%	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+%	\makeatletter
+%	\addtocontents{toc}{%
+%		\begingroup
+%		\let\protect\l@chapter\protect\l@section
+%		\let\protect\l@section\protect\l@subsection
+%	}
+%	\makeatother
+\chapter{Optimal Means of Data Set\label{chapter:Appendix:Mean}}
+Suppose we have N measurements of a quantity x, which are denoted as \{$x_i$\}, with i = 1, \dots, N. Each measurement has a variance $\delta^2 x_i$. To find the optimal mean of this data set, we first write the mean of \{$x_i$\} as a weighted average of them
+\begin{equation}
+\bar{x}=\sum\limits_{i=1}^N a_i x_i,
+\label{Eq:Appendix:Mean:mean}
+\end{equation}
+in which $a_i$ are the normalized weights, i.e.
+\begin{equation}
+\sum\limits_{i=1}^Na_i=1.
+\label{Eq:Appendix:Mean:normalization}
+\end{equation} 
+According to the error propagation rule, if the measurements are independent, the variance of the mean $\bar{x}$ can be written as
+\begin{equation}
+\delta^2\bar{x}=\sum\limits_{i=1}^N{a_i}^2\delta^2x_i.
+\label{Eq:Appendix:Mean:variaceofmean}
+\end{equation}
+Minimizing $\delta^2\bar{x}$ with respect to $a_i$ under the constraint of Eq.~\ref{Eq:Appendix:Mean:normalization} using the Lagrange multiplier $\lambda$, we find
+\begin{align}
+\frac{\partial L}{\partial a_j}=&\frac{\partial}{\partial x_j}\left[\sum\limits_{i=1}^{N}{a_i}^2\delta^2x_i+\lambda\left(1-\sum\limits_{i=1}^Na_i\right)\right]\notag\\
+=&2a_j\delta^2x_j-\lambda\notag\\
+=&0
+\end{align}
+for all {$x_j$}. It can be easily identified that $a_j$ is inversed proportional to $\delta^2x_i$, i.e.
+\begin{equation}
+a_j=\frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}},
+\label{Eq:Appendix:Mean:aj}
+\end{equation}
+and
+\begin{equation}
+\bar{x}=\sum\limits_{i=1}^N \frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}} x_i,
+\label{Eq:Appendix:Mean:meanexpanded}
+\end{equation}
+
+\chapter{Statistical Uncertainty in the Estimator for Correlated Time Series Data\label{chapter:Appendix:Uncertainty}}
+\begin{chapquote}{Nassim Nicholas Taleb%, \textit{\url{https://en.wikiquote.org/wiki/Albert_Einstein}}
+	}
+	``It is not the estimate or the forecast that matters so much as the degree of confidence with the opinion.''
+\end{chapquote}
+Suppose we have a time series of correlated sequential observations of the randomly sampled variable $X$ denoted as $\{x_n\}, n=1,\dots,N$ that come from a stationary, time-reversible stochastic process. The expectation of $X$ can be estimated as the time average of the samples
+\begin{equation}
+  \hat X=\frac 1 N \sum\limits_{n=1}^{N} x_n.
+  \label{Eq:Appendix:expectationX}
+\end{equation}
+Because of the existence of correlation among the samples, the statistical uncertainty for the expectation, which is defined as
+\begin{equation}
+	\delta^2 \hat X \equiv \left<\left(\hat X-\left<\hat X\right>\right)^2\right> = \left<\hat X^2 \right> -\left<\hat X\right>^2,
+	\label{Eq:Appendix:uncertainty}
+\end{equation}
+is complicated. We first take Eq.~\ref{Eq:Appendix:expectationX} into Eq.~\ref{Eq:Appendix:uncertainty}, and split the sum into one term capturing the variance in the observations and a remaining term capturing the correlation between the observations as
+\begin{align}
+	\delta^2 \hat X=&\frac{1}{N^2}\sum\limits_{n,n^\prime=1}^{N}\left[\left<x_nx_{n^\prime}\right>-\left<x_n\right>\left<x_{n^\prime}\right>\right]\notag\\
+	               =&\frac{1}{N^2}\sum\limits_{n=1}^{N}\left[\left<x_n^2\right>-\left<x_n\right>^2\right]+\frac{1}{N^2}\sum\limits_{n\neq n^\prime=1}^{N}\left[\left<x_nx_{n^\prime}\right>-\left<x_n\right>\left<x_{n^\prime}\right>\right]
+\end{align}
+Because of the stationarity, it becomes
+\begin{align}
+	\delta^2 \hat X=& \frac 1N\left[\left<x_n^2\right>-\left<x_n\right>^2\right] \notag\\
+	&+\frac 1{N^2}\sum\limits_{t=1}^{N-1}\left(N-t\right)\left[\left<x_nx_{n+t}\right>+\left<x_{n+t}x_n\right>-\left<x_n\right>\left<x_{n+t}\right>-\left<x_{n+t}\right>\left<x_n\right>\right]
+\end{align}
+and because of the time-reversibility, it can be further simplified to
+\begin{align}
+	\delta^2 \hat X=& \frac 1N\left[\left<x_n^2\right>-\left<x_n\right>^2\right] \notag\\
+	&+\frac 2N\sum\limits_{t=1}^{N-1}\left(\frac{N-t}{N}\right)\left[\left<x_nx_{n+t}\right>-\left<x_n\right>\left<x_{n+t}\right>\right]\notag\\
+	\equiv &\frac{{\sigma_x}^2}{N}\left(1+2\tau\right)=\frac{{\sigma_x}^2}{N/g},
+\end{align}
+where ${\sigma_x}^2$, statistical inefficiency $g$, and autocorrelation time $\tau$ (in units of the sampling interval) are given by
+\begin{align}
+	&{\sigma_x}^2 \equiv \left<x_n^2\right>-\left<x_n\right>^2\\
+	&\tau \equiv \sum\limits_{t=1}^{N-1}\left(\frac{N-t}{N}\right)C_t\\
+	&C_t=\frac{\left<x_nx_{n+t}\right>-\left<x_n\right>\left<x_n\right>}{{\sigma_x}^2}\\
+	&g\equiv 1+2\tau
+\end{align}
+The quantity $g\equiv 1+2\tau>1$ can be thought of as a statistical inefficiency, in that $N/g$ gives the effective number of \textit{uncorrelated} configurations contained in the time series.
+
+\chapter{MBAR returns to BAR When Only Two States Are Considered}
+When there are only two states, the free energy for the 1st state in MBAR becomes
+\begin{align}
+f_1=&-{\beta_1}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_1 U_1(\mathbf{R}_n)\right)}}{\sum_{k=1}^{2}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right)}}}\notag\\
+   =&-{\beta_1}^{-1}\ln{\sum\limits_{j=1}^{2}\sum\limits_{n=1}^{N_j} \frac{\exp{\left(-\beta_1 U_1(\mathbf{R}_{jn})\right)}}{\sum_{k=1}^{2}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_{jn})\right)}}},
+\end{align}
+or equivalently we have
+\begin{equation}
+1=\sum\limits_{n=1}^{N} \frac{\exp{\left(\beta_1 f_1-\beta_1 U_1(\mathbf{R}_{n})\right)}}{N_1\exp{\left(\beta_1f_1-\beta_1U_1(\mathbf{R}_{n})\right)}+N_2\exp{\left(\beta_2f_2-\beta_2U_2(\mathbf{R}_{n})\right)}},
+\end{equation}
+\begin{align}
+N_1=&\sum\limits_{n=1}^{N_1} \frac{1}{1+\frac{N_2}{N_1}\exp{\left(\Delta f-\Delta U(\mathbf{R}_{1n})\right)}}\notag\\
+    &+\sum\limits_{n=1}^{N_2} \frac{1}{1+\frac{N_2}{N_1}\exp{\left(\Delta f-\Delta U(\mathbf{R}_{2n})\right)}}\notag\\
+\end{align}
+where $\Delta f=\beta_2 f_2-\beta_1 f_1$ and $\Delta U=\beta_2 U_2-\beta_1 U_1$. We further define $M=-\ln{\frac{N_2}{N_1}}$, then
+\begin{align}    
+N_1=&\sum\limits_{n=1}^{N_1} \frac{1}{1+\exp{\left(\Delta f-\Delta U(\mathbf{R}_{1n})-M\right)}}\notag\\
+    &+\sum\limits_{n=1}^{N_2} \frac{1}{1+\exp{\left(\Delta f-\Delta U(\mathbf{R}_{2n})-M\right)}}\notag\\
+0=&\sum\limits_{n=1}^{N_1}\left[ \frac{1}{1+\exp{\left(\Delta f-\Delta U(\mathbf{R}_{1n})-M\right)}}-1\right]\notag\\
+  &+\sum\limits_{n=1}^{N_2} \frac{1}{1+\exp{\left(\Delta f-\Delta U(\mathbf{R}_{2n})-M\right)}}\notag
+\end{align}
+\begin{equation}
+\sum\limits_{n=1}^{N_1}\frac{1}{1+\exp{\left(-\Delta f+\Delta U(\mathbf{R}_{1n})+M\right)}}
+=\sum\limits_{n=1}^{N_2} \frac{1}{1+\exp{\left(\Delta f-\Delta U(\mathbf{R}_{2n})-M\right)}}\notag
+\end{equation}
+\begin{equation}
+\sum\limits_{n=1}^{N_1}f\left(-\Delta f+\Delta U(\mathbf{R}_{1n})+M\right)=\sum\limits_{n=1}^{N_2} f\left(\Delta f-\Delta U(\mathbf{R}_{2n})-M\right)\notag
+\end{equation}
+\begin{equation}
+N_1\left<f\left(-\Delta f+\Delta U(\mathbf{R}_{1n})+M\right)\right>_1=N_2\left<f\left(\Delta f-\Delta U(\mathbf{R}_{2n})-M\right)\right>_2\notag
+\end{equation}
+\begin{equation}
+\frac{\left<f\left(\Delta f-\Delta U(\mathbf{R}_{2n})-M\right)\right>_2}{\left<f\left(-\Delta f+\Delta U(\mathbf{R}_{1n})+M\right)\right>_1}=\frac{N_1}{N_2},\notag
+\end{equation}
+which is Eq.~\ref{Eq:FEM:BAR:BAR}.
+%\addtocontents{toc}{\endgroup}
+\end{appendices}

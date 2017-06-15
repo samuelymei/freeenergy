@@ -1,0 +1,103 @@
+% !TeX spellcheck = en_US
+\subsection{Bennett Acceptance Ratio\label{Sec:FEM:BAR}}
+Bennett acceptance ratio was developed by Bennett in 1976,\cite{BennettJComputPhys1976} and was re-discovered by Crooks\cite{CrooksPRE2000} and Shirts et al\cite{ShirtsPRL2003} over 20 years later. The Metropolis function is defined as
+\begin{equation}
+	M(x)=min\{1,\exp{(-x)}\},
+\end{equation}
+which has the property 
+\begin{equation}
+	M(x)/M(-x)=\exp{(-x)}.
+\end{equation}
+
+If we make a trial move that keeps the same configuration ($q_{1},\cdots,q_{N}$)
+but switches the potential function from $U_{0}$ to $U_{1}$ or vice-versa.
+The acceptance probabilities for such a pair of trial move must satisfy
+the detailed balance
+\begin{equation}
+	M(U_{1}-U_{0})\exp{(-U_{0})}=M(U_{0}-U_{1})\exp{(-U_{1})}.
+\end{equation}
+
+Integrating this identity over all of configuration space and multiplying
+by the trivial factors $Q_{0}/Q_{0}$ and $Q_{1}/Q_{1}$, one obtains:
+
+\begin{equation}
+	Q_{0}\frac{\int M(U_{1}-U_{0})\exp{(-U_{0})}d\mathbf{{q}}}{Q_{0}}=Q_{1}\frac{\int M(U_{0}-U_{1})\exp{(-U_{1})}d\mathbf{{q}}}{Q_{1}},
+\end{equation}
+or simply
+
+\begin{equation}
+	\frac{Q_{0}}{Q_{1}}=\frac{<M(U_{0}-U_{1})>_{1}}{<M(U_{1}-U_{0})>_{0}}.\label{eq:MetropolisRatio}
+\end{equation}
+
+The physical meaning of this formula is that a Monte Carlo calculation
+that included potential-switching trial moves would distribute configurations
+between $U_{1}$ and $U_{0}$in the ratio of their configurational
+integrals. 
+
+A more general formula than Eq.~\ref{eq:MetropolisRatio} can be written
+as
+
+\begin{equation}
+	\frac{Q_{0}}{Q_{1}}=\frac{Q_{0}}{Q_{1}}\frac{\int W\exp{(-U_{0}-U_{1})}d\mathbf{{q}}}{\int W\exp{(-U_{1}-U_{0})}d\mathbf{{q}}}=\frac{\langle W\exp{(-U_{0})}\rangle_{1}}{\langle W\exp{(-U_{1})}\rangle_{0}},\label{eq:weightedratio}
+\end{equation}
+
+where $W$ is an arbitrary weighting function.
+
+Optimization of the free energy estimate is most easily carried out in the limit of large sample sizes. Let the available data consist
+of $n_{0}$ statistically independent configurations from the $U_{0}$ ensemble and $n_{1}$ from the $U_{1}$ ensemble, and let the data
+be used in Eq. \ref{eq:weightedratio} to obtain a finite-sample estimate of the reduced free energy difference $\Delta A=A_{1}-A_{0}=ln(Q_{0}/Q_{1})$.
+Using the error propagation equation,
+
+\begin{equation}
+	\delta^2\left[y(x_{1},x_{2})\right]=\left(\frac{\partial y}{\partial x_{1}}\right)^{2}\delta^2(x_{1})+\left(\frac{\partial y}{\partial x_{2}}\right)^{2}\delta^2(x_{2}).
+\end{equation}
+
+Thus we have the variance of $\Delta A$
+\begin{eqnarray}
+	\delta^2(\Delta A) & = & \left(\frac{\partial\Delta A}{\partial Q_{0}}\right)^{2}\delta^2Q_0+\left(\frac{\partial\Delta A}{\partial Q_{1}}\right)^{2}\delta^2Q_1\\
+	& = & (\frac{1}{Q_{0}})^{2}\delta^2Q_0+(-\frac{1}{Q_{1}})^{2}\delta^2Q_1\\
+	& = & (\frac{1}{Q_{0}})^{2}\delta^2Q_0+(\frac{1}{Q_{1}})^{2}\delta^2Q_1.
+\end{eqnarray}
+
+With the definition of variance $\delta^2X=\left\langle X^{2}\right\rangle -\left\langle X\right\rangle ^{2}$,
+we have 
+\begin{eqnarray}
+	\delta^2Q_0 & = & \delta^2\left\langle W\exp{(-U_{0})}\right\rangle_{1}\\
+	& = & \delta^2\left(\frac{1}{n_1}\sum_{i=1}^{n_1}W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
+	& = & \sum_{i=1}^{n_{1}}\left(\frac{1}{n_{1}}\right)^{2}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
+	& = & \frac{1}{n_{1}}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
+	& = & \frac{1}{n_{1}}\left\{ \left\langle \left(W\exp{(-U_{0})}\right)^{2}\right\rangle _{1}-\left(\left\langle W\exp{(-U_{0})}\right\rangle _{1}\right)^{2}\right\} \\
+	& = & \frac{1}{n_{1}}\left\{ \left\langle W^{2}\exp{(-2U_{0})}\right\rangle _{1}-\left[\left\langle W\exp{(-U_{0})}\right\rangle _{1}\right]^{2}\right\} 
+\end{eqnarray}
+
+With sufficiently large sample sizes, the error of this estimate will
+be nearly Gaussian, and its expected square is exactly the variance
+of $\Delta A$ 
+
+\begin{align}
+	\delta^2 & (\Delta A_{est}-\Delta A)\nonumber \\
+	\approx & \frac{\langle W^{2}\exp{(-2U_{1})}\rangle_{0}}{n_{0}[\langle W\exp{(-U_{1})}\rangle_{0}]^{2}}+\frac{\langle W^{2}\exp{(-2U_{0})}\rangle_{1}}{n_{1}[\langle W\exp{(-U_{0})}\rangle_{1}]^{2}}-\frac{1}{n_{0}}-\frac{1}{n_{1}}\nonumber \\
+	= & \frac{\int\left[(Q_{0}/n_{0})\exp{(-U_{1})}+(Q_{1}/n_{1})\exp{(-U_{0})}\right]W^{2}\exp{(-U_{0}-U_{1})}d\mathbf{{q}}}{[\int W\exp{(-U_{0}-U_{1})}d\mathbf{{q}}]^{2}}\notag\\
+	  &-\frac{1}{n_{0}}-\frac{1}{n_{1}}.\label{eq:expectation}
+\end{align}
+
+To minimize it with respect to $W$, we have
+
+\begin{equation}
+	W=const\times\left(\frac{Q_{0}}{n_{0}}\exp{(-U_{1})}+\frac{Q_{1}}{n_{1}}\exp{(-U_{0})}\right)^{-1}.
+\end{equation}
+
+Substituting this into Eq.~\ref{eq:weightedratio} yields
+
+\begin{equation}
+	\frac{Q_{0}}{Q_{1}}=\frac{\langle f(U_{0}-U_{1}+C)\rangle_{1}}{\langle f(U_{1}-U_{0}-C)\rangle_{0}}\exp{(+C)},
+	\label{Eq:FEM:BAR:BAR}
+\end{equation}
+where
+\begin{equation}
+	C=ln\frac{Q_{0}n_{1}}{Q_{1}n_{0}},
+\end{equation}
+and $f$ denotes the Fermi function
+\begin{equation}
+	f(x)=\frac{1}{1+\exp{(+x)}}
+\end{equation}

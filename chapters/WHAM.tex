@@ -1,0 +1,179 @@
+% !TeX spellcheck = en_US
+\subsection{Weighted Histogram Analysis Method\label{Sec:FEM:WHAM}}
+\subsubsection{Weighted Histogram Analysis Method for Parallel Tempering\label{Sec:FEM:WHAM_REMD}}
+The following derivation quite follows Ref.~\cite{ChoderaJCTC2007}.
+The central quantity in statistical mechanics is partition function $Z$, which in textbook is often written as
+\begin{equation}
+Z=\int \exp{-\beta U(\mathbf{R})}d\mathbf{R}.
+\end{equation}
+This is an integral in coordinate space. It also can be written as an integral in energy space
+\begin{equation}
+Z=\int \Omega(U)\exp{(-\beta U)}dU,
+\end{equation}
+where $\Omega(U)$ is density of states and $\Omega(U)\Delta U$ is the number of states in the region $U-\Delta U/2<U<U+\Delta U/2$. Accordingly, the statistical expectation of an operator $\mathbf{A}$ can be calculated by
+\begin{equation}
+\langle \mathbf{A}\rangle=\frac {\int \mathbf{A}(U)\Omega(U)\exp{(-\beta U)}dU}{\int \Omega(U)\exp{(-\beta U)}dU},
+\end{equation}
+where
+\begin{equation}
+\mathbf{A}(U^\prime)=\frac{\int \delta (U(\mathbf{R})-U^\prime)A(\mathbf{R})d\mathbf{R}}{\int \delta (U(\mathbf{R})-U^\prime)d\mathbf{R}}.
+\end{equation}
+Therefore, the core objective is to calculate $\Omega(U)$.
+
+Suppose we have one trajectory with $K$ snapshots denoted as $\{\mathbf{x}_n\}$. We then discretize the energy space into $M$ bins with width $\Delta U$, and count the number of snapshots fallen into each bin. For convenience, we define $\psi_m(U)$ as
+\begin{equation}
+	\psi_m(U)= 
+	\left\{ 
+	\begin{array}{rl} 
+	1 & if\,U\in \left[ U_m-\Delta U/2, U_m+\Delta U/2\right)\\ 
+	0 & otherwise\\  
+	\end{array} 
+	\right. 
+\end{equation}
+Then the histogram for the m$\mathit{th}$ energy bin is
+\begin{equation}
+	H_{m}=\sum\limits_{n=1}^{N}\psi_{m}(U(\mathbf{R}_n)),
+\end{equation}
+with variances (see Appendix~\ref{chapter:Appendix:Uncertainty})
+\begin{equation}
+	\delta^2 H_m=g_m\left<H_m\right>\left(1-\frac{\left<H_m\right>}{N}\right).
+\end{equation}
+The ratio of the histogram $H_m$ to the total number of snapshots $N$ divided by the bin width $\Delta U$ can be approximately taken as the probability of states in this bin, i.e.,
+\begin{equation}
+	\frac{\Omega_m\exp{(-\beta U_m)}}{Z}\approx\frac{H_m}{N\Delta U}.
+\end{equation}
+Therefore,
+\begin{align}
+	\Omega_m=&\frac{1}{U_m}\cdot\frac{H_m}{N}\cdot\frac{Z(\beta)}{\exp{(-\beta U_m)}}\notag\\
+	        =&\frac{H_m}{N\Delta U\exp{\left[f_k-\beta_kU_m\right]}},
+	\label{Eq:FEM:WHAM:DoSsingle}
+\end{align}
+and variances
+\begin{equation}
+	\delta^2\Omega_m=\frac{\delta^2 H_m}{\left(N\Delta U\exp{\left[f_k-\beta_kU_m\right]}\right)^2},
+\end{equation}
+in which we have defined a dimensionless free energy $f=-\ln{Z(\beta)}$.
+
+Practically, we may run multiple ($K$) trajectories using, for example, replica exchange molecular dynamics simulations. For each trajectory (index $k$), we have unique estimators for the histogram $H_{mk}$, the density of states $\Omega_{mk}$ and their variances $\delta^2 H_{mk}$ and $\delta^2\Omega_{mk}$ being
+\begin{equation}
+	H_{mk}=\sum\limits_{n=1}^{N_k}\psi_{m}(U(\mathbf{R}_{kn})),
+\end{equation}
+\begin{equation}
+	\delta^2 H_{mk}=g_{mk}\left<H_{mk}\right>\left(1-\frac{\left<H_{mk}\right>}{N_k}\right),
+\end{equation}
+\begin{align}
+	\Omega_{mk}=\frac{H_{mk}}{N_k\Delta U\exp{\left[f_k-\beta_kU_{mk}\right]}},
+	\label{Eq:FEM:WHAM:Omega_mk}
+\end{align}
+and
+\begin{equation}
+	\delta^2\Omega_{mk}=\frac{\delta^2 H_{mk}}{\left(N_k\Delta U\exp{\left[f_k-\beta_kU_{mk}\right]}\right)^2},
+\end{equation}
+The optimum estimator of the density of states from all the simulations is
+\begin{equation}
+	\Omega_m=\frac{\sum\limits_{k=1}^K\left[\delta^2\Omega_{mk}\right]^{-1}\Omega_{mk}}{\sum\limits_{k=1}^K\left[\delta^2\Omega_{mk}\right]^{-1}},
+	\label{Eq:FEM:WHAM:optimumOmega}
+\end{equation}
+which is the weighted average of density of states of all the trajectories with the weight reversely proportional to the uncertainties (see Appendix~\ref{chapter:Appendix:Mean}).
+
+To make the expression simpler, here we take some approximations. First, normally the energy space is split into a large number of bins. The histogram in each bin is much smaller than the total number of snapshots, i.e. $H_{mk}\ll N_k$. The average of $H_{mk}$ can be related to the optimum estimator of the density of states, i.e.
+\begin{equation}
+	\left<H_{mk}\right>=N_k\Delta U\Omega_m\exp{(f_k-\beta_kU_m)}.
+\end{equation}
+Then we have
+\begin{equation}
+    \delta^2H_{mk}=g_{mk}N_k\Delta U\Omega_m\exp{(f_k-\beta_kU_m)}
+\end{equation}
+and
+\begin{equation}
+\delta^2\Omega_{mk}=\frac{\Omega_m}{{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}}.
+\label{Eq:FEM:WHAM:delta2Omega_mk}
+\end{equation}
+
+Taking Eq.~\ref{Eq:FEM:WHAM:Omega_mk} and Eq.~\ref{Eq:FEM:WHAM:delta2Omega_mk} into Eq.~\ref{Eq:FEM:WHAM:optimumOmega}, we find
+\begin{equation}
+\Omega_m=\frac{\sum\limits_{k=1}^{K}{g_{mk}}^{-1}H_{mk}}{\sum\limits_{k=1}^{K}{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}},
+\label{Eq:FEM:WHAM:Omega_iteration}
+\end{equation}
+in which
+\begin{equation}
+f_k=-ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
+\label{Eq:FEM:WHAM:f_k_iteration}
+\end{equation}
+Obviously, Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and Eq.~\ref{Eq:FEM:WHAM:f_k_iteration} must be solved iteratively.
+The uncertainty of $\Omega_m$ is given by
+\begin{equation}
+\delta^2 \Omega_m=\frac{\Omega_m}{\sum\limits_{k=1}^K{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}}
+\end{equation}
+and the relative uncertainty is given by
+\begin{equation}
+\frac{\delta^2\Omega_m}{\Omega_m^2}=\left[\sum\limits_{k=1}^K{g_{mk}}^{-1}H_{mk}\right]^{-1}.
+\end{equation}
+Using the density of states and its variance, we can estimate the expectation of any configuration function $A(\mathbf{R})$ at any inverse temperature $\beta$
+\begin{equation}
+\left<A\right>_\beta\approx\frac{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}A_m}{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}},
+\label{Eq:FEM:WHAM:A}
+\end{equation}
+where
+\begin{equation}
+A_m=\frac{\int d\mathbf{R}A(\mathbf{R})\psi_m(U(\mathbf{R}))}{\int d\mathbf{R}\psi_m(U(\mathbf{R}))}.
+\end{equation}
+Using histograms of bin $m$ from all the simulations and defining $H_m=\sum\limits_{k=1}^KH_{mk}$, an estimator of $A_m$ denoted as $\hat{A}_m$ can be calculated as
+\begin{equation}
+   \hat{A}_m={H_{m}}^{-1}\sum\limits_{k=1}^K\sum\limits_{n=1}^{N_k}\psi_m(U(\mathbf{R}_{kn}))A(\mathbf{R}_{kn}).
+   \label{Eq:FEM:WHAM:A_m}
+\end{equation}
+Taking Eq.~\ref{Eq:FEM:WHAM:A_m} into Eq.~\ref{Eq:FEM:WHAM:A}, we obtain an estimator of $\hat{A}(\beta)$
+\begin{align}
+\hat{A}(\beta)=&\frac{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}{H_{m}}^{-1}\sum\limits_{k=1}^K\sum\limits_{n=1}^{N_k}\psi_m(U(\mathbf{R}_{kn}))A(\mathbf{R}_{kn})}{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}}\\
+              =&\frac{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}{H_{m}}^{-1}\sum\limits_{k=1}^K\sum\limits_{n=1}^{N_k}\psi_m(U(\mathbf{R}_{kn}))A(\mathbf{R}_{kn})}{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}{H_{m}}^{-1}\sum\limits_{k=1}^K\sum\limits_{n=1}^{N_k}\psi_m(U(\mathbf{R}_{kn}))}\\
+              =&\frac{\sum\limits_{k=1}^K\sum\limits_{n=1}^{N_k}w_{kn}(\beta)A_{kn}}{\sum\limits_{k=1}^K\sum\limits_{n=1}^{N_k}w_{kn}(\beta)},
+\end{align}
+where the per-configuration weights $w_{kn}(\beta)$ is given by
+\begin{equation}
+w_{kn}(\beta)=\sum\limits_{m=1}^M{H_{m}}^{-1}\psi_m(U(\mathbf{R}_{kn}))\Omega_m\exp{(-\beta U_m)}
+\end{equation}
+
+\subsubsection{Weighted Histogram Analysis Method From Maximum Likelihood}
+The following derivation quite follows Ref.~\cite{GallicchioJPCB2005}, in which maximum likelihood principle is utilized. 
+Suppose we have performed $K$ simulations, each at a different inverse temperature $\beta_k$ and possibly with different biasing potential $w_k(\mathbf{R})$.
+We then discretize the 2D plane spanned by the coordinate and unbiased potential energy into bins, each characterized by ${\mathbf{R}_j}$ and ${E_h}$. To make the following derivation cleaner, we map the 2D bins to one dimensional series with index $l, l=1,\dots,L$. Next, we construct histograms for bins using all the samples from the simulations. The probability of finding the system in bin $l$ during the $k$th simulation can be written as
+\begin{equation}
+p_{k,l}=f_kc_{k,l}p_l^0,
+\end{equation}
+in which $p_l^0$ is the (simulation-independent) unbiased probability,
+\begin{align}
+c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l})\right]+\beta_0E_l\right\}}\notag\\
+       =&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
+\end{align}
+is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1}$ is the normalization factor.
+It is worth emphasizing that the biasing potential can be multiple dimensional as, for instance, in a two-dimensional umbrella sampling.
+If the biasing is only in temperature-space as in replica exchange molecular dynamics
+\begin{equation}
+c_{k,l}=\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]},
+\end{equation} 
+while if the biasing is only in potential as in umbrella sampling
+\begin{equation}
+c_{k,l}=\exp{\left(-\beta_0w_{k,l}\right)}.
+\end{equation}
+
+If we assume that each count in each histogram is independent, then the likelihood of observing the $k$th histogram is given by the multinomial distribution
+\begin{align}
+P(n_{k,1},n_{k,2},\dots,n_{k,L}|p_{k,1},p_{k,2},\dots,p_{k,L})=\notag\\
+\frac{\left(\sum\limits_l n_{k,l}\right)!}{\prod\limits_l n_{k,l}!}\prod\limits_{l=1}^L\left(p_{k,l}\right)^{n_{k,l}}\propto\prod\limits_{l=1}^{L}\left(f_kc_{k,l}p_l^0\right)^{n_{k,l}}.
+\end{align}
+For all $K$ simulations, the likelihood is the product of multinomial
+\begin{align}
+P(n_{1,1},\dots,n_{1,L};\dots;n_{K,1},\dots,n_{K,L}|p_1^0,\dots,p_L^0)\propto\notag\\
+\prod\limits_{k=1}^K\prod\limits_{l=1}^{L}\left(f_kc_{k,l}p_l^0\right)^{n_{k,l}},
+\label{Eq:FEM:WHAM:totalProb}
+\end{align}
+where the likelihood is conditional only on the unbiased probabilities $p_l^0$, since the bias factors $c_{k,l}$ are known parameters, and the normalization constants $f_k$ are known conditional on $p_l^0$. The maximum likelihood estimate of the unbiased probabilities can be found by maximizing $P$ in Eq.~\ref{Eq:FEM:WHAM:totalProb} with respect to $p_1^0,\dots,p_L^0$ and are given by solutions of the simultaneous nonlinear equations
+\begin{equation}
+p_l^0=\frac{\sum\limits_{k=1}^K n_{k,l}}{\sum\limits_{k=1}^K N_kf_kc_{k,l}}\, (\mathrm{for\; each}\;l)
+\end{equation}
+and
+\begin{equation}
+f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1},
+\end{equation}
+where $N_k$ is the total number of counts in the $k$th histogram.
