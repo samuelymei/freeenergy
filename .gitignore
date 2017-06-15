@@ -5,7 +5,5 @@
 *.log
 *.lot
 *.out
-.pdf
 *.synctex.gz
-.tex
 *.toc
