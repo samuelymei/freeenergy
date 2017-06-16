@@ -38,7 +38,7 @@ or, equivalently,
 \Delta A = -\frac{1}{\beta} ln \left \langle \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \right \rangle  _{0},
 \label{Eq:deltaA4}
 \end{equation}
-Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:deltaA4} is the basic equation of \textbf{TP}. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
+Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:deltaA4} is the fundamental equation of \textbf{TP}. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
 
 Note that integration over the kinetic term in the partition function, Eq.~\ref{Eq:PF}, can be carried out analytically. Thus, it cancels out in Eq.~\ref{Eq:deltaA}, and Eq.~\ref{Eq:deltaA4} becomes
 \begin{equation}
@@ -54,7 +54,7 @@ If we reverse the reference and the target systems, and repeat the same derivati
 \end{equation}
 Although expressions Eq.~\ref{Eq:deltaA5} and Eq.~\ref{Eq:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should be start the perturbation from the system having the larger important phase space region. This means that the reference system should be that with the higher entropy, and the transformation should be proceed in the direction in which the entropy change $\Delta S$ is negative. 
 
-The formulas for free energy difference, Eq.~\ref{Eq:deltaA5} and Eq.~\ref{Eq:deltaA6}, are formally exact for any perturbation. However, this does not means that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\textbf{x},\textbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:deltaA3} can be expressed ad a one dimensional integral over energy difference
+The formulas for free energy difference, Eq.~\ref{Eq:deltaA5} and Eq.~\ref{Eq:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\textbf{x},\textbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:deltaA3} can be expressed ad a one dimensional integral over energy difference
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) d\Delta U,
 \label{Eq:deltaA7}
@@ -81,7 +81,7 @@ Here, $C$ is independent of $\Delta U$
 C = \exp [-\beta (\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2)]
 \label{Eq:C}
 \end{equation}
-If $P_{0}(\Delta U)$ is Gaussian, there is, of course, no reason to carry out a numerical integration, since the integral in Eq.~\ref{Eq:expdeltaA} can be evaluated analytically. This yields
+If $P_{0}(\Delta U)$ is Gaussian, the integral in Eq.~\ref{Eq:expdeltaA} can be evaluated analytically
 \begin{equation}
 \Delta A = \left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2
 \label{Eq:deltaA8}

@@ -44,7 +44,7 @@ Thus, the fundamental \textbf{TI} formula:
 \Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} d\lambda
 \label{Eq:TI}
 \end{equation} 
-where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained, e.g., by MD simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from an initial $A$, with Hamiltonian $H_{A}$, to a final state $B$, with Hamiltonian $H_{B}$. The simplest coupling is linear scaling:
+where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecule dynamic or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from an initial $A$, with Hamiltonian $H_{A}$, to a final state $B$, with Hamiltonian $H_{B}$. The simplest coupling is linear scaling:
 \begin{equation}
 H(\lambda) = (1-\lambda) H_{A} + \lambda H_{B}
 \end{equation}
@@ -54,7 +54,7 @@ Therefore, the integral in Eq.~\ref{Eq:TI} needs to be approximated, e.g., by a 
 \Delta A = \sum_{i}^{}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} \Delta\lambda_{i}
 \label{Eq:dTI}
 \end{equation} 
-A finite number of $\lambda_{i}$ values between 0 and 1 is chosen and for each of them a complete MD simulation is carried out resulting in an ensemble of configurations generated with $H(\lambda_{i})$.
+A finite number of $\lambda_{i}$ values between 0 and 1 is chosen and for each of them a complete molecule dynamic simulation is carried out resulting in an ensemble of configurations generated with $H(\lambda_{i})$.
 The ensemble average of the derivative of the Hamiltonian with respect to $\lambda$ is then calculated for each $\lambda = \lambda_{i}$.
 	
 The accuracy of TI integral formula depends the exact method of numerical integration. In addition to summation method, the simplest numerical integration is to evaluate the integrand at the midpoint:
@@ -62,49 +62,49 @@ The accuracy of TI integral formula depends the exact method of numerical integr
 \Delta A \simeq \left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda=\frac{1}{2}}
 \label{Eq:TI1}
 \end{equation} 
-This might be a good first thing to do to get some picture of what is going on, but is only depends to be accurate for very smooth or small changes. Gaussian quadrature formulas of higher order are generally more useful:
-\begin{equation}
-\Delta A = \sum_{i}^{} w_{i}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}}
-\label{Eq:Gauss}
-\end{equation} 
-Some weights and quadrature points are given in the table~\ref{tab:Gauss}; other formulas are possible, \cite{HummerJCP1996} but the Gaussian one listed here are probably the most useful. The formulas are always symmetrical about $\lambda = 0.5$, so that $\lambda$ and $(1-\lambda)$ both have the same weight.
+This might be a good first thing to do to get some picture of what is going on, but is only depends to be accurate for very smooth or small changes. %Gaussian quadrature formulas of higher order are generally more useful:
+%\begin{equation}
+%\Delta A = \sum_{i}^{} w_{i}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}}
+%\label{Eq:Gauss}
+%\end{equation} 
+%Some weights and quadrature points are given in the table~\ref{tab:Gauss}; other formulas are possible, \cite{HummerJCP1996} but the Gaussian one listed here are probably the most useful. The formulas are always symmetrical about $\lambda = 0.5$, so that $\lambda$ and $(1-\lambda)$ both have the same weight.
 	
-\clearpage
-\begin{table*}
-	\caption{\label{tab:Gauss}Abscissas and weights for Gaussian integration.}
-	\newcommand{\rb}[1]{\raisebox{1.5ex}[0t]{#1}}
-	\begin{tabular}{lcccccccccccccccccc}
-		\hline
-	   n&$\lambda_{i}$&$1-\lambda_{i}$&$w_{i}$ \\
-		\hline
-	   1&     0.5&        & 1.0 \\
-		\hline
-	   2& 0.21132& 0.78867& 0.5 \\
-		\hline
-	   3&  0.1127& 0.88729& 0.27777 \\
-		&     0.5&        & 0.44444 \\
-		\hline
-	   5& 0.04691& 0.95308& 0.11846 \\
-		& 0.23076& 0.76923& 0.23931 \\
-		&     0.5&        & 0.28444 \\
-		\hline
-	   7& 0.02544& 0.97455& 0.06474 \\
-		& 0.12923& 0.87076& 0.13985 \\
-		& 0.29707& 0.70292& 0.19091 \\
-		&     0.5&        & 0.20897 \\
-		\hline
-	   9& 0.01592& 0.98408& 0.04064 \\
-		& 0.08198& 0.91802& 0.09032 \\
-		& 0.19331& 0.80669& 0.13031 \\
-		& 0.33787& 0.66213& 0.15617 \\
-		&     0.5&        & 0.16512 \\
-		\hline
-	  12& 0.00922& 0.99078& 0.02359 \\ 
-		& 0.04794& 0.95206& 0.05347 \\
-		& 0.11505& 0.88495& 0.08004 \\
-		& 0.20634& 0.79366& 0.10158 \\
-		& 0.31608& 0.68392& 0.11675 \\
-		& 0.43738& 0.56262& 0.12457 \\
-		\hline
-	\end{tabular} 
-\end{table*}
+%\clearpage
+%\begin{table*}
+%	\caption{\label{tab:Gauss}Abscissas and weights for Gaussian integration.}
+%	\newcommand{\rb}[1]{\raisebox{1.5ex}[0t]{#1}}
+%	\begin{tabular}{lcccccccccccccccccc}
+%		\hline
+%	   n&$\lambda_{i}$&$1-\lambda_{i}$&$w_{i}$ \\
+%		\hline
+%	   1&     0.5&        & 1.0 \\
+%		\hline
+%	   2& 0.21132& 0.78867& 0.5 \\
+%		\hline
+%	   3&  0.1127& 0.88729& 0.27777 \\
+%		&     0.5&        & 0.44444 \\
+%		\hline
+%	   5& 0.04691& 0.95308& 0.11846 \\
+%		& 0.23076& 0.76923& 0.23931 \\
+%		&     0.5&        & 0.28444 \\
+%		\hline
+%	   7& 0.02544& 0.97455& 0.06474 \\
+%		& 0.12923& 0.87076& 0.13985 \\
+%		& 0.29707& 0.70292& 0.19091 \\
+%		&     0.5&        & 0.20897 \\
+%		\hline
+%	   9& 0.01592& 0.98408& 0.04064 \\
+%		& 0.08198& 0.91802& 0.09032 \\
+%		& 0.19331& 0.80669& 0.13031 \\
+%		& 0.33787& 0.66213& 0.15617 \\
+%		&     0.5&        & 0.16512 \\
+%		\hline
+%	  12& 0.00922& 0.99078& 0.02359 \\ 
+%		& 0.04794& 0.95206& 0.05347 \\
+%		& 0.11505& 0.88495& 0.08004 \\
+%		& 0.20634& 0.79366& 0.10158 \\
+%		& 0.31608& 0.68392& 0.11675 \\
+%		& 0.43738& 0.56262& 0.12457 \\
+%		\hline
+%	\end{tabular} 
+%\end{table*}
