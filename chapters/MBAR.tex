@@ -39,20 +39,13 @@ In Boltzmann statistics, $q_k(\mathbf{R})=\exp{\left[-\beta_kU_k(\mathbf{R})\rig
 If $q_k$ and $q_i$ follow Boltzmann statistics, and we define free energy $f_i=-{\beta_i}^{-1}\ln{c_i}$, Eq.~\ref{Eq:FEM:MBAR:c_i} becomes
 \begin{equation}
 f_i=-{\beta_i}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_i U_i(\mathbf{R}_n)\right)}}{\sum_{k=1}^{K}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right)}}},
+\label{Eq:FEM:MBAR:f_i_final}
 \end{equation}
-which must be solved self-consistently and can be determined up to a constant. We can fix $f_1$ (to 0 normally). 
+which must be solved self-consistently and can be determined up to a constant. We can fix $f_1$ (to 0 usually). 
 
 Again, from Eq.~\ref{Eq:FEM:MBAR:Oexpect}, we can define
 \begin{equation}
 W_{in}={c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)},
 \end{equation}
 which is the weight of snapshot $n$ in ensemble $i$.
-
-
-
-
-
-
-
-
 
