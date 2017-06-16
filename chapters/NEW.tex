@@ -8,7 +8,7 @@ In 1997, Jarzynski had showed the Jarzynski's identity:
 \end{equation} 
 where a prescribed path $\lambda(t)$ connects the initial and final states, with $\lambda(0)=0$ and $\lambda(\tau)=1$, and $\Delta A = A(1) - A(0)$ the free energy difference between the two states. The average $\left \langle \cdots \right \rangle$ in Eq.~\ref{Eq:Jar} requires some explanation. It is a combination of an ensemble average over initial conditions, and a path average over trajectory realizations. Initial conditions are chosen according to the equilibrium Boltzmann probability in the $\lambda(0)$ state. The path average samples all realizations of dynamic paths, weighted by their respective path action, under the time evolution of the system with an explicitly time-varying Hamiltonian. This equality relation also be deduced by Crooks from the view of markovian and microscopically reversible dynamics.\cite{CrooksJSP1998} Here is no a detailed derivation of Eq.~\ref{Eq:Jar}.
 
-Now, we consider creating an equilibrium configuration in the state $\lambda=0$ and then slowly changing $\lambda$ from 0 to 1. As the coupling parameter is advanced, the system continues to sample phase space (e.g. by molecule dynamics or Monte Carlo simulations), but under an explicitly time-dependent Hamiltonian (because the evolving coupling parameter). In the limit of a very slow transformation, with some caveats of Hamiltonian dynamics, the system will remain close to equilibrium. The free energy difference can then be evaluated by changing $\lambda$ continuously
+Now, we consider creating an equilibrium configuration in the state $\lambda=0$ and then slowly changing $\lambda$ from 0 to 1. As the coupling parameter is advanced, the system continues to sample phase space by molecule dynamics or Monte Carlo simulations, but under an explicitly time-dependent Hamiltonian. In the limit of a very slow transformation, with some caveats of Hamiltonian dynamics, the system will remain close to equilibrium. The free energy difference can then be evaluated by changing $\lambda$ continuously
 \begin{equation}
 \Delta A =\lim_{\tau\to\infty} \int_{0}^{\tau} \frac{\partial{H[\textbf{x}(t);\lambda]}}{\partial{\lambda}}\mid_ {\lambda=\lambda(t)} \dot{\lambda}(t) dt
 \label{Eq:limitA}
@@ -44,7 +44,7 @@ Substituting the Eq.~\ref{Eq:limitW} into the Eq.~\ref{Eq:Jar}, the formula of T
 \label{Eq:deltaA4NEW}
 \end{equation}
 
-In ref.~\cite{CrooksJSP1998}, Crooks showed that the distribution of work values form forward and backward paths satisfies a relation that is central to histogram methods in free energy calculations
+In the reference paper\cite{CrooksJSP1998}, Crooks showed that the distribution of work values form forward and backward paths satisfies a relation that is central to histogram methods in free energy calculations
 \begin{equation}
 \frac{p_{f}[w=W(\tau)]}{p_{b}[w=-\underline{W}(\tau)]}=\exp[\beta(w-\Delta A)],
 \label{Eq:crooks}
