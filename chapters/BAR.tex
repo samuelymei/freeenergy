@@ -73,7 +73,6 @@ we have
 With sufficiently large sample sizes, the error of this estimate will
 be nearly Gaussian, and its expected square is exactly the variance
 of $\Delta A$ 
-
 \begin{align}
 	\delta^2 & (\Delta A_{est}-\Delta A)\nonumber \\
 	\approx & \frac{\langle W^{2}\exp{(-2U_{1})}\rangle_{0}}{n_{0}[\langle W\exp{(-U_{1})}\rangle_{0}]^{2}}+\frac{\langle W^{2}\exp{(-2U_{0})}\rangle_{1}}{n_{1}[\langle W\exp{(-U_{0})}\rangle_{1}]^{2}}-\frac{1}{n_{0}}-\frac{1}{n_{1}}\nonumber \\
@@ -82,13 +81,11 @@ of $\Delta A$
 \end{align}
 
 To minimize it with respect to $W$, we have
-
 \begin{equation}
 	W=const\times\left(\frac{Q_{0}}{n_{0}}\exp{(-U_{1})}+\frac{Q_{1}}{n_{1}}\exp{(-U_{0})}\right)^{-1}.
 \end{equation}
 
 Substituting this into Eq.~\ref{eq:weightedratio} yields
-
 \begin{equation}
 	\frac{Q_{0}}{Q_{1}}=\frac{\langle f(U_{0}-U_{1}+C)\rangle_{1}}{\langle f(U_{1}-U_{0}-C)\rangle_{0}}\exp{(+C)},
 	\label{Eq:FEM:BAR:BAR}
