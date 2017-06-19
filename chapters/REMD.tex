@@ -1,9 +1,244 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{Replica Exchange Molecular Dynamics\label{Sec:ES:REMD}}
-Temperature replica exchange molecular dynamics (T-REMD) is one class of parallel tempering methods developed by Sugita and Okamoto in 1999.\cite{SugitaCPL1999} It is an extension of the well-known simulation annealing method. 
+\subsection{Temperature-Replica Exchange Molecular Dynamics}
+Temperature replica exchange molecular dynamics (T-REMD) is one class of parallel tempering methods developed by Sugita and Okamoto in 1999\cite{SugitaCPL1999} based on many ideas on the so-called \textit{generalized-ensemble algorithm}. It is an extension of the well-known simulation annealing method. The basic idea of REMD is schematically summarized in Fig.~\ref{Fig:ES:REMD}. In REMD, the system is replicated into $\mathbf{M}$ \textit{non-interacting} copies (replicas). Each replica is coupled to a bath at temperature $T_m$, $(m=1,\dots,M)$. At a certain time, the system is at state X, which can be denoted as $X=\left(x_1^{[i(1)]},\dots,x_M^{[i(M)]}\right)=\left(x_{m(1)}^{[1]},\dots,x_{m(M)}^{[M]}\right)$. Here, we used $i$ and $m$ to label the replica and the temperature respectively. Because the replicas are non-interacting, the weight-factor for a state $X$ in this generalized ensemble is a direct product of the Boltzmann factors for each replica, i.e.
+\begin{equation}
+	W_{REM}(X)=\prod\limits_{m=1}^M\exp{\left(-\beta_m H\left(q^{[i(m)]},p^{[i(m)]}\right)\right)}=\prod\limits_{i=1}^M \exp{\left(-\beta_{m(i)}H\left(q^{[i]},p^{[i]}\right)\right)}\textsl{}
+\end{equation}
 
+\begin{figure}[htbp]
+	\includegraphics[width=0.9\textwidth]{figures/REMD.pdf}\\
+	\caption{}\label{Fig:ES:REMD}
+\end{figure}
 
-Another type of REMD simulation is called Hamiltonian replica exchange molecular dynamics (H-REMD), in which the replicas have different Hamiltonians but the same temperature. 
+Now, we exchange the temperatures of a pair replicas
+\begin{equation}
+	\left\{ 
+	\begin{array}{rl} 
+		x_m^{[i]}\equiv \left(q^{[i]},p^{[i]}\right)_m \Rightarrow x_n^{[i]^\prime}\equiv \left(q^{[i]},p^{[i]^\prime}\right)_n&\\ 
+		&,\\
+		x_n^{[j]}\equiv \left(q^{[j]},p^{[j]}\right)_n \Rightarrow x_m^{[j]^\prime}\equiv \left(q^{[j]},p^{[j]^\prime}\right)_m&\\  
+	\end{array} 
+	\right. 
+\end{equation}
+where
+\begin{equation}
+	\left\{ 
+	\begin{array}{rl} 
+		p^{[i]^\prime}\equiv \sqrt{\frac{T_n}{T_m}} p^{[i]^\prime}&\\ 
+		&.\\
+		p^{[j]^\prime}\equiv \sqrt{\frac{T_m}{T_n}} p^{[j]^\prime}&\\  
+	\end{array} 
+	\right. 
+\end{equation}
+In order for this exchange process to converge towards an equilibrium distribution, it is sufficient to impose the detailed balance condition on the transition probability $w(X\rightarrow X^\prime)$:
+\begin{equation}
+	W_{REM}(X)w(X\rightarrow X^\prime) = W_{REM}(X^\prime)w(X^\prime\rightarrow X).
+\end{equation}
+Then we have
+\begin{align}
+	&\frac{w\left(X\rightarrow X^\prime\right)}{w\left(X^\prime\rightarrow X\right)}\notag\\
+	=&\frac{W_{REM}(X^\prime)}{W_{REM}(X)}\notag\\
+	   =&\frac{\exp{\left(-\beta_m H\left(q^{[j]},p^{[j]^\prime}\right)\right)}\exp{\left(-\beta_n H\left(q^{[i]},p^{[i]^\prime}\right)\right)}}{\exp{\left(-\beta_m H\left(q^{[i]},p^{[i]^{ }}\right)\right)}\exp{\left(-\beta_n H\left(q^{[j]},p^{[j]^{ }}\right)\right)}}\notag\\
+	   =&\frac{\exp{\left\{-\beta_m\left[K\left(p^{[j]^\prime}\right)+U\left(q^{[j]}\right)\right]-\beta_n\left[K\left(p^{[i]^\prime}\right)+U\left(q^{[i]}\right)\right]\notag\right\}}}
+	   {\exp{\left\{-\beta_m\left[K\left(p^{[i]}\right)+U\left(q^{[i]}\right)\right]-\beta_n\left[K\left(p^{[j]}\right)+U\left(q^{[j]}\right)\right]\notag\right\}}}\notag\\
+	   =&\frac{\exp{\left\{-\beta_m\left[\frac{T_m}{T_n}K\left(p^{[j]}\right)+U\left(q^{[j]}\right)\right]-\beta_n\left[\frac{T_n}{T_m}K\left(p^{[i]}\right)+U\left(q^{[i]}\right)\right]\notag\right\}}}
+	   {\exp{\left\{-\beta_m\left[K\left(p^{[i]}\right)+U\left(q^{[i]}\right)\right]-\beta_n\left[K\left(p^{[j]}\right)+U\left(q^{[j]}\right)\right]\notag\right\}}}\notag\\
+	   =&\frac{\exp{\left\{-\beta_n K\left(p^{[j]}\right)-\beta_m K\left(p^{[i]}\right)\right\}}}{\exp{\left\{-\beta_m K\left(p^{[i]}\right)-\beta_n K\left(p^{[j]}\right)\right\}}} \frac{\exp{\left\{-\beta_m U\left(q^{[j]}\right)-\beta_n U\left(q^{[i]}\right)\right\}}}{\exp{\left\{-\beta_m U\left(q^{[i]}\right)-\beta_n U\left(q^{[j]}\right)\right\}}}\notag\\
+	   =&\exp{\left\{-\Delta\right\}}.
+\end{align}
+where $\Delta = \left[\beta_n-\beta_m\right]\left[U\left(q^{[i]}\right)-U\left(q^{[j]}\right)\right]$. It can be seen that the kinetic energy terms are fully canceled out.
+This can be satisfied by the usual Metropolis criterion:
+\begin{equation}
+	w\left(X\rightarrow X^\prime\right)\equiv w\left(x_m^{[i]}\, |\, x_n^{[j]}\right)= 
+	\left\{ 
+	\begin{array}{ll} 
+		1, & if\, \Delta \leq 0\\ 
+		\exp{(-\delta)}, & if\, \Delta >0\\  
+	\end{array} 
+	\right. 
+\end{equation}
 
-The third type of REMD simulation duplicates the system by alternating the species of the system. A typical example is pH-REMD, in which each replica is coupled with different pH of the solution. Therefore, the protonation state (or probabilities of protonation and deprotonation) of each replica may differ from those of other replicas. 
+After long time simulations, all the replicas have arrived at a global equilibrium. In order to calculate the the free energy or the ensemble average of an operator $\hat A$ at $T_m$, we can extract all the snapshots that have a temperature $T_m$ from $M$ trajectories, if this temperature was among the $M$ chosen temperatures. However, the optimal way is to use Weighted Histogram Analysis Method in Section~\ref{Sec:FEM:WHAM} or the Multistate Bennett Acceptance Ratio method in Section~\ref{Sec:FEM:MBAR}.  
+
+\subsection{Hamiltonian-Replica Exchange Molecular Dynamics}
+Another type of REMD simulation is called Hamiltonian replica exchange molecular dynamics (H-REMD), in which each replicas has its own Hamiltonian is coupled to the same temperature. One example is the H-REMD simulation for a torsional angle. The $m$th replica has a torsional energy term of 
+\begin{equation}
+	H_m(\phi)=\lambda(m)\sum_n\left(V_n/2\right)\left(1+\cos{\left[n\phi-\delta\right]}\right),
+\end{equation}
+where $\lambda$ is a control parameter. $\lambda(0)=1$ corresponds to the unbiased state and at $\lambda(M)$ (usually $\lambda(M)=0$) the torsional motion of this dihedral angle has a smaller barrier.
+
+\subsection{Constant pH-Replica Exchange Molecular Dynamics}
+The third type of REMD simulation duplicates the system by alternating the species of the system. A typical example is pH-REMD, in which each replica is coupled with different pH of the solution. Therefore, the protonation state (or probability of being protonated or deprotonated) of each replica may differ from those of other replicas. In the simulations, the protonation states of titratable resides have their protonation states alternated according to the Metropolis criterion
+\begin{equation}
+	P= 
+	\left\{ 
+	\begin{array}{ll} 
+		1, & if\, \Delta G_{P_{A}\rightarrow P_{A}H^{+}}\leq 0\\ 
+		\exp{(-\beta\Delta G_{P_{A}\rightarrow P_{A}H^{+}})}, & if \,\Delta G_{P_{A}\rightarrow P_{A}H^{+}} >0\\  
+	\end{array} 
+	\right. 
+\end{equation}
+using Monte Carlo. The derivation of $\Delta G_{P_{A}\rightarrow P_{A}H^{+}}$ is shown below. 
+
+Free energy of molecule A in solution with a concentration $\left[A\right]$
+can be written as 
+
+\[
+\Delta G_{A}=\Delta G_{A}^{0}+\beta^{-1}\ln\frac{\left[A\right]}{C_{0}},
+\]
+
+in which $\Delta G_{0}$ is the free energy of molecule A at the standard
+state $C_{0}$, i.e. 1 mol/L. The free energy change for a reaction
+
+\[
+A+B\rightleftharpoons C
+\]
+
+can be written as
+
+\[
+\Delta G=\Delta G_{C}-\Delta G_{A}-\Delta G_{B}=\Delta G_{0}+\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]}.
+\]
+
+At equilibrium, the free energy change is zero, we have
+
+\begin{equation}
+	\Delta G_{0}=-\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]},\label{eq:FEM:REMD:standardfreeenergy}
+\end{equation}
+
+in which $\left[A\right]\left[B\right]/\left[C\right]C_{0}$ is called
+the dissociation constant $K_{a}$. So,
+
+\begin{equation}
+\Delta G_{0}=\beta^{-1}\ln K_{a}.
+\label{eq:FEM:REMD:standardfreeenergyvsKa}
+\end{equation}
+
+Titration of a residue in a real protein can be written as
+
+\[
+P_{A}+H^{+}\rightleftharpoons P_{A}H^{+},
+\]
+
+with 
+\[
+K_{a}=\frac{\left[P_{A}\right]\left[H^{+}\right]}{\left[P_{AH^{+}}\right]C_{0}}
+\]
+
+The fraction of the deprotonated species is calculated as
+
+\begin{eqnarray}
+	f_{\left[P_{A}\right]} & = & \frac{\left[P_{A}\right]}{\left[P_{A}\right]+\left[P_{A}H^{+}\right]}\nonumber \\
+	& = & \frac{1}{1+\frac{\left[P_{A}H^{+}\right]}{\left[P_{A}\right]}}\nonumber \\
+	& = & \frac{1}{1+\frac{\left[P_{A}\right]\left[H^{+}\right]}{C_{0}K_{a}\left[P_{A}\right]}}\nonumber \\
+	& = & \frac{1}{1+\frac{1}{C_{0}K_{a}}\left[H^{+}\right]}\nonumber \\
+	& = & \frac{1}{1+\frac{1}{K_{a}}10^{-pH}}\label{eq:FEM:REMD:titrationcurve}
+\end{eqnarray}
+We can check the asymptotic behavior of this equation. At strong
+acidic condition ($pH=-\infty$), $f_{\{P_{A}\}}=0$, indicating that
+the residue is 100 percent protonated. While at an extremely basic
+condition ($pH=\infty$), $f_{\{P_{A}\}}=1$. This residue is 100
+percent deprotonated. The $pKa$ can be determined by the $pH$ of
+the state when $\left[P_{A}\right]/\left[P_{A}H^{+}\right]=1$ (the
+isoelectric point)
+
+\begin{align}
+	pK_{a}  = & -\log{K_{a}}\notag\\
+	 = & -\log{\frac{\left[P_{A}\right]}{\left[P_{A}H^{+}\right]}}-\log{\frac{\left[H^{+}\right]}{C_{0}}}\notag\\
+	 = & -\log{\frac{\left[P_{A}\right]}{\left[P_{A}H^{+}\right]}}+pH.
+	 \label{eq:FEM:REMD:pKa}
+\end{align}
+When $\left[P_{A}\right]=\left[P_{A}H^{+}\right]$, $pKa=pH$, which is the definition of $pKa$. 
+The $pK_{a}$ of each residue in a dipeptide has been determined by
+experiment. However, when this residue is located in a certain protein,
+its $pK_{a}$ is different from that in a dipeptide. The difference
+is called the $pK_{a}$ shift. Instead of measuring the $pK_{a}$
+for a residue in a protein, we are more interested in calculating/measuring
+the titration curve, which is the fraction of the deprotonated state
+as a function of pH. From Eq.~\ref{eq:FEM:REMD:titrationcurve}, $f_{\left[P_{A}\right]}$
+can be easily calculated if we know $K_{a}$ or equivalently the standard
+free energy change of protonation in Eq.~\ref{eq:FEM:REMD:standardfreeenergyvsKa}.
+The standard free energy can be calculated from the partition functions
+as
+
+\begin{eqnarray*}
+	\Delta G_{0} & = & -\beta^{-1}\ln\frac{Q_{P_{A}H^{+}}}{Q_{P_{A}}Q_{H^{+}}}\\
+	& = & -\beta^{-1}\ln\frac{\int\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\\
+\end{eqnarray*}
+Generally, the absolute value of $\Delta G_{0}$ is hardly computable.
+A relative protonation free energy $\Delta\Delta G$ is perferred
+and is more reliable. Theoretically, the reference state can be any
+state you like. But the protonation free energy of the dipeptide at
+$pK_{a}$ is often used. The reference protonation process can be
+written as
+\[
+A+H^{+}\rightleftharpoons AH^{+}.
+\]
+
+The reference free energy change is 
+
+\begin{align}
+	\Delta\Delta G_{0} = & \Delta G_{0}-\Delta G_{0}^{ref}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\frac{Q_{H^{+}}\int\exp(-\beta E_{A})dR_{o}}{\iint\exp(-\beta E_{AH^{+}})dR_{H}dR_{o}}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}\int\exp(-\beta E_{A})dR_{o}}{\int\exp(-\beta E_{P_{A}})dR_{o}\iint\exp(-\beta E_{AH^{+}})dR_{H}dR_{o}}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp{\left[-\beta \left(E_{P_{A}H^{+}}^{bond}+E_{P_{A}H^{+}}^{QM}+E_{P_{A}H^{+}}^{ele}\right)\right]}dR_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\iint\exp\left[-\beta \left(E_{AH^{+}}^{bond}+E_{AH^{+}}^{QM}+E_{AH^{+}}^{ele}\right)\right]dR_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\nonumber \\
+	 & \cdot\frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}},\label{eq:FEM:REMD:Quotientofpartitionfunctions}
+\end{align}
+where $R_{H}$ is the coordinates of the specific $H$ atom and the
+other degrees-of-freedom (DoF) are denoted as $R_{o}$. $E^{bond}$
+and $E^{ele}$ are the bonded energy and electrostatic interaction
+energy related to this $H$ atom, respectively. $E^{QM}$ is the energy
+correction that \textit{may} be required if the molecular mechanical
+Hamiltonian cannot well capture the energy of the system, such as
+the missing of charge transfer effect. The sum of the remaining energy
+term is denoted as $E^{other}$, which does not explicitly depend
+on the position of this specific $H$ atom. Eq.~\ref{eq:FEM:REMD:Quotientofpartitionfunctions}
+is not ready to be computed before some approximations are adopted. 
+
+\textit{First}, we assume that the total energy can be well described by the MM Hamiltonians
+for both the state interested in and the reference state. Therefore,
+\[
+E_{P_{A}H^{+}}^{QM}=E_{AH^{+}}^{QM}=Const,
+\]
+and they can be removed from the integral. 
+
+\textit{Second}, the bonded terms involving hydrogen atoms are usually 
+constrained in the simulations. Therefore, $E^{bond}=0$. Now, the 
+relative protonation free energy can be simplified as
+\begin{align}
+\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\iint\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\iint\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\notag\\
+&\cdot\frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}.
+\end{align}
+
+Note that $E_{A}=E_{AH^{+}}^{other}$ and $E_{P_{A}}=E_{P_{A}H^{+}}^{other}$, we have
+\begin{align}
+	\Delta\Delta G_{0} = & -kT\ln\frac{\iint\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{P_{A}}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}\\
+	& \cdot \frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\iint\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{A}\right)dR_{O}}\\
+	= & -\beta^{-1}\ln\left\langle \int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}\right\rangle _{P_{A}}\notag\\
+	  &+\beta^{-1} \ln\left\langle \int\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}\right\rangle _{A}
+\end{align}
+
+\textit{Finally}, if we assume $E^{ele}$ and $E^{other}$ are decoupled from
+each other, the double integral can be integrated out independently
+for $R_{H}$ and $R_{O}$, the contribution from other DoF cancel
+out between the protonated state and the deprotonated state. Now
+we have
+
+\begin{eqnarray*}
+	\Delta\Delta G_0 & = & -\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}}\\
+	& = & \Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}.
+\end{eqnarray*}
+
+Therefore,
+\[
+-\beta^{-1}\ln10\cdot pK_{a}=\Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}-\beta^{-1}\ln10\cdot pK_{a}^{ref}.
+\]
+
+Using Eq.~\ref{eq:FEM:REMD:pKa}, at a certain pH the free energy difference between the deprotonated
+and the protonated state can be written as
+
+\[
+\Delta G_{P_{A}\rightarrow P_{A}H^{+}}=\Delta G_{P_{A}H^{+}}^{ele}+\beta^{-1}(pH-pK_{a}^{ref})\ln10-\Delta G_{AH^{+}}^{ele}.
+\]
