@@ -69,8 +69,7 @@ Another type of REMD simulation is called Hamiltonian replica exchange molecular
 \end{equation}
 where $\lambda$ is a control parameter. $\lambda(0)=1$ corresponds to the unbiased state and at $\lambda(M)$ (usually $\lambda(M)=0$) the torsional motion of this dihedral angle has a smaller barrier.
 
-\subsection{Constant pH-Replica Exchange Molecular Dynamics}
-The third type of REMD simulation duplicates the system by alternating the species of the system. A typical example is pH-REMD, in which each replica is coupled with different pH of the solution. Therefore, the protonation state (or probability of being protonated or deprotonated) of each replica may differ from those of other replicas. In the simulations, the protonation states of titratable resides have their protonation states alternated according to the Metropolis criterion
+Another example of HREMD is pH-REMD, in which each replica is coupled with different pH of the solution. In other words, the chemical potential of hydronium in each replica is different . Therefore, the protonation states (or probability of being protonated or deprotonated) of titratable residues in each replica may differ from those in other replicas. In the simulations, the protonation states of titratable residues have their protonation states alternated according to the Metropolis criterion
 \begin{equation}
 	P= 
 	\left\{ 
@@ -140,9 +139,9 @@ We can check the asymptotic behavior of this equation. At strong
 acidic condition ($pH=-\infty$), $f_{\{P_{A}\}}=0$, indicating that
 the residue is 100 percent protonated. While at an extremely basic
 condition ($pH=\infty$), $f_{\{P_{A}\}}=1$. This residue is 100
-percent deprotonated. The $pKa$ can be determined by the $pH$ of
-the state when $\left[P_{A}\right]/\left[P_{A}H^{+}\right]=1$ (the
-isoelectric point)
+percent deprotonated. From the Henderson–Hasselbalch (HH) equation, 
+the $pKa$ can be determined by the $pH$ of the state when 
+$\left[P_{A}\right]/\left[P_{A}H^{+}\right]=1$ (the isoelectric point)
 
 \begin{align}
 	pK_{a}  = & -\log{K_{a}}\notag\\
@@ -150,7 +149,6 @@ isoelectric point)
 	 = & -\log{\frac{\left[P_{A}\right]}{\left[P_{A}H^{+}\right]}}+pH.
 	 \label{eq:FEM:REMD:pKa}
 \end{align}
-When $\left[P_{A}\right]=\left[P_{A}H^{+}\right]$, $pKa=pH$, which is the definition of $pKa$. 
 The $pK_{a}$ of each residue in a dipeptide has been determined by
 experiment. However, when this residue is located in a certain protein,
 its $pK_{a}$ is different from that in a dipeptide. The difference
@@ -243,4 +241,5 @@ and the protonated state can be written as
 \Delta G_{P_{A}\rightarrow P_{A}H^{+}}=\Delta G_{P_{A}H^{+}}^{ele}+\beta^{-1}(pH-pK_{a}^{ref})\ln10-\Delta G_{AH^{+}}^{ele}.
 \]
 
-In the above equation, $\Delta G_{AH^{+}}^{ele}$ can be obtained from a free energy calculation of the model system by alchemically annihilation of the proton. However, $\Delta G_{P_{A}H^{+}}^{ele}$ is unknown. Approximately, it can be replaced with $\Delta H_{P_{A}H^{+}}^{ele}$ averaged over a few snapshots.\cite{MengJCTC2010}
+In the above equation, $\Delta G_{AH^{+}}^{ele}$ can be obtained from a free energy calculation of the model system by alchemically annihilation of the proton. However, $\Delta G_{P_{A}H^{+}}^{ele}$ is unknown. Approximately, it can be replaced with $\Delta H_{P_{A}H^{+}}^{ele}$ averaged over a few snapshots.\cite{MengJCTC2010} In order to accelerate the convergence,
+this pH-REMD is often coupled with other enhancing method, such as T-REMD\cite{MengJCTC2010} and EDS-REMD\cite{LeeJCTC2014} (see section~\ref{Sec:ES:EDS}).
