@@ -9,47 +9,47 @@ H_{1}(\textbf{x},\textbf{p}_{x}) = H_{0}(\textbf{x},\textbf{p}_{x}) + \Delta H (
 \end{equation}
 The Helmholtz free energy difference between the target and the reference systems, $\Delta A$, can be given in terms od the ratio of the corresponding partition functions, $Q_{1}$ and $Q_{0}$:
 \begin{equation}
-\Delta A  =  -\frac{1}{\beta}ln\frac{Q_{1}}{Q_{0}},
+\Delta A  =  -\frac{1}{\beta}\ln\frac{Q_{1}}{Q_{0}},
 \label{Eq:deltaA}
 \end{equation}
 where $\beta = {(k_{B}T)}^{-1}$, and
 \begin{equation}
-Q = \frac{1}{{h}^{3N}N!} \int\int \exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
+Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x},
 \label{Eq:PF}
 \end{equation}
 So, we obtain
 \begin{align}
-\Delta A  =&  -\frac{1}{\beta}ln\frac{\int\int \exp[-\beta H_{1}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}}{\int\int \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}} \\
-=& -\frac{1}{\beta}ln\frac{\int\int \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}}{\int\int \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}},
+\Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}{\iint \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) \right] d\textbf{x}d\textbf{p}_\textbf{x}}}\\
+=& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\textbf{x},\textbf{p}_{x})\right] \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}{\iint \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}},
 \label{Eq:deltaA2}
 \end{align}
 The probability density function of finding the reference system in a state defined by positions $\textbf{x}$ and momenta $\textbf{p}_{x}$ is 
 \begin{equation}
-P_{0}(\textbf{x},\textbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] }{\int\int \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}}
+P_{0}(\textbf{x},\textbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}}
 \label{Eq:proden}
 \end{equation}
 If the probability density function is used, the Eq.~\ref{Eq:deltaA2}  becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \int\int \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] P_{0}(\textbf{x},\textbf{p}_{x}) d\textbf{x}d\textbf{p}_\textbf{x},
+\Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] P_{0}(\textbf{x},\textbf{p}_{x}) d\textbf{x}d\textbf{p}_\textbf{x},
 \label{Eq:deltaA3}
 \end{equation}
 or, equivalently,
 \begin{equation}
-\Delta A = -\frac{1}{\beta} ln \left \langle \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \right \rangle  _{0},
+\Delta A = -\frac{1}{\beta} \ln{ \left \langle \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \right \rangle_{0}},
 \label{Eq:deltaA4}
 \end{equation}
 Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:deltaA4} is the fundamental equation of \textbf{TP}. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
 
 Note that integration over the kinetic term in the partition function, Eq.~\ref{Eq:PF}, can be carried out analytically. Thus, it cancels out in Eq.~\ref{Eq:deltaA}, and Eq.~\ref{Eq:deltaA4} becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} ln \left \langle \exp(-\beta \Delta U) \right \rangle  _{0},
+\Delta A = -\frac{1}{\beta} \ln{\left \langle \exp(-\beta \Delta U) \right \rangle_{0}},
 \label{Eq:deltaA5}
 \end{equation}
 where $\Delta U$ is the difference in the potential energy between the target and the reference states. The integration implied by the statistical average is now carried out over particle coordinates only.
 
 If we reverse the reference and the target systems, and repeat the same derivation, using the same convention for  $\Delta A$ and $\Delta U$ as before, we obtain
 \begin{equation}
-\Delta A = \frac{1}{\beta} ln \left \langle \exp(\beta \Delta U) \right \rangle  _{1},
+\Delta A = \frac{1}{\beta} \ln{ \left \langle \exp(\beta \Delta U) \right \rangle_{1}},
 \label{Eq:deltaA6}
 \end{equation}
 Although expressions Eq.~\ref{Eq:deltaA5} and Eq.~\ref{Eq:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should be start the perturbation from the system having the larger important phase space region. This means that the reference system should be that with the higher entropy, and the transformation should be proceed in the direction in which the entropy change $\Delta S$ is negative. 
@@ -63,7 +63,7 @@ If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically 
 
 Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. If we substitute
 \begin{equation}
-P_{0}(\Delta U) = \frac{1}{\sqrt{2\pi}\sigma}\exp[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0})^2}{2\sigma^2}]
+P_{0}(\Delta U) = \frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0})^2}{2\sigma^2}\right]}
 \label{Eq:gaussian}
 \end{equation}
 where
@@ -73,12 +73,12 @@ where
 \end{equation}
 to Eq.~\ref{Eq:deltaA7}, we obtain
 \begin{equation}
-\exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0} - \beta \sigma ^2)^2}{2\sigma^2}] d\Delta U
+\exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0} - \beta \sigma ^2)^2}{2\sigma^2}\right]} d\Delta U
 \label{Eq:expdeltaA}
 \end{equation}
 Here, $C$ is independent of $\Delta U$
 \begin{equation}
-C = \exp [-\beta (\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2)]
+C = \exp{\left[-\beta (\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2)\right]}
 \label{Eq:C}
 \end{equation}
 If $P_{0}(\Delta U)$ is Gaussian, the integral in Eq.~\ref{Eq:expdeltaA} can be evaluated analytically
