@@ -8,7 +8,8 @@ Temperature replica exchange molecular dynamics (T-REMD) is one class of paralle
 \end{equation}
 
 \begin{figure}[htbp]
-	\includegraphics[width=0.9\textwidth]{figures/REMD.pdf}\\
+    \centering
+	\includegraphics[width=0.6\textwidth]{figures/REMD.pdf}\\
 	\caption{}\label{Fig:ES:REMD}
 \end{figure}
 
@@ -203,31 +204,22 @@ E_{P_{A}H^{+}}^{QM}=E_{AH^{+}}^{QM}=Const,
 and they can be removed from the integral. 
 
 \textit{Second}, the bonded terms involving hydrogen atoms are usually 
-constrained in the simulations. Therefore, $E^{bond}=0$. Now, the 
+constrained in the simulations. Therefore, the hydrogen atom in question has 
+only one position and $E^{bond}=0$. Now, the 
 relative protonation free energy can be simplified as
 \begin{align}
-\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\iint\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\iint\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\notag\\
+\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\notag\\
 &\cdot\frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}.
 \end{align}
 
 Note that $E_{A}=E_{AH^{+}}^{other}$ and $E_{P_{A}}=E_{P_{A}H^{+}}^{other}$, we have
 \begin{align}
-	\Delta\Delta G_{0} = & -kT\ln\frac{\iint\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{P_{A}}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}\\
-	& \cdot \frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\iint\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}\exp\left(-\beta E_{A}\right)dR_{O}}\\
-	= & -\beta^{-1}\ln\left\langle \int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}\right\rangle _{P_{A}}\notag\\
-	  &+\beta^{-1} \ln\left\langle \int\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}\right\rangle _{A}
+	\Delta\Delta G_{0} = & -kT\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}\\
+	& \cdot \frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{A}\right)dR_{O}}\\
+	= & -\beta^{-1}\ln\left\langle \exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\right\rangle _{P_{A}}\notag\\
+	  &+\beta^{-1} \ln\left\langle \exp\left(-\beta E_{AH^{+}}^{ele}\right)\right\rangle _{A}\notag\\
+	= & \Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}  
 \end{align}
-
-\textit{Finally}, if we assume $E^{ele}$ and $E^{other}$ are decoupled from
-each other, the double integral can be integrated out independently
-for $R_{H}$ and $R_{O}$, the contribution from other DoF cancel
-out between the protonated state and the deprotonated state. Now
-we have
-
-\begin{eqnarray*}
-	\Delta\Delta G_0 & = & -\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)dR_{H}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)dR_{H}}\\
-	& = & \Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}.
-\end{eqnarray*}
 
 Therefore,
 \[
