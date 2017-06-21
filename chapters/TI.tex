@@ -13,29 +13,29 @@ A(\lambda) = -k_{B}TlnQ(\lambda)
 \end{equation} 
 Thus,
 \begin{align}
-\Delta A =& -k_{B}T\int_{0}^{1} [ \frac{\partial{lnQ(\lambda)}}{\partial{\lambda}} ]d\lambda \\
+\Delta A =& -k_{B}T\int_{0}^{1} \left[ \frac{\partial{lnQ(\lambda)}}{\partial{\lambda}} \right]d\lambda \\
 =&\int_{0}^{1}\frac{-k_{B}T}{Q(\lambda)}\frac{\partial{Q(\lambda)}}{\partial{\lambda}}d\lambda
 \label{Eq:deltaA2TI}
 \end{align} 
 From the definition of Q:
 \begin{equation}
-Q_{NVT} = \frac{1}{{h}^{3N}N!} \int\int \exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
+Q_{NVT} = \frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
 \label{Eq:PFTI}
 \end{equation}
 we can write the following for $\frac{\partial{Q(\lambda)}}{\partial{\lambda}}$:
 \begin{equation}
-\frac{\partial{Q(\lambda)}}{\partial{\lambda}} = \frac{1}{{h}^{3N}N!} \int\int \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
+\frac{\partial{Q(\lambda)}}{\partial{\lambda}} = \frac{1}{{h}^{3N}N!} \iint \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
 \label{Eq:PPF}
 \end{equation}
 Applying the chain rule:
 \begin{equation}
-\frac{\partial{Q(\lambda)}}{\partial{\lambda}} = -\frac{\beta}{{h}^{3N}N!} \int\int \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
+\frac{\partial{Q(\lambda)}}{\partial{\lambda}} = -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
 \label{Eq:PPF2}
 \end{equation}
 Substituting back into the expression for $\frac{\partial{A}}{\partial{\lambda}}$ gives:
 \begin{align}
-\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \int\int \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x}, \\
-=& \int\int \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\frac{\exp[-\beta H(\textbf{x},\textbf{p}_{x})]}{Q(\lambda)} d\textbf{x}d\textbf{p}_\textbf{x}, \\
+\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x}, \\
+=& \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\frac{\exp[-\beta H(\textbf{x},\textbf{p}_{x})]}{Q(\lambda)} d\textbf{x}d\textbf{p}_\textbf{x}, \\
 =& \left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x}, \lambda)}}{\partial{\lambda}} \right \rangle_{\lambda}
 \label{Eq:PA2}
 \end{align}
@@ -49,7 +49,7 @@ where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemb
 H(\lambda) = (1-\lambda) H_{A} + \lambda H_{B}
 \end{equation}
 Eq.~\ref{Eq:TI} represents the so-called thermodynamic integration formula. The exact calculation of $\Delta A$ would require an infinite number of ensemble average for $\lambda$ ranging from 0 to 1.
-Therefore, the integral in Eq.~\ref{Eq:TI} needs to be approximated, e.g., by a summation over a discrete number of points $\lambda_{i}$, \cite{MordasiniJPCB2000} leading to 
+Therefore, the integral in Eq.~\ref{Eq:TI} needs to be approximated, e.g., by a summation over a discrete number of points $\lambda_{i}$,\cite{MordasiniJPCB2000} leading to 
 \begin{equation}
 \Delta A = \sum_{i}^{}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} \Delta\lambda_{i}
 \label{Eq:dTI}
