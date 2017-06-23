@@ -24,16 +24,17 @@ However, building the Hamiltonian of the reference state is not trivial. Without
 especially in a high dimensional space. Enveloping distribution sampling method provides a natural way to generate the Hamiltonian for the reference state with simply mixing the Hamiltonians of state $A$ and state $B$ in the following way
 \begin{equation}
 	H_R(\mathbf{r})=-\left(s\beta\right)^{-1}\ln{\left(e^{-s\beta H_A(\mathbf{r})}+e^{-s\beta H_B(\mathbf{r})}\right)},
+	\label{Eq:ES:EDS:H_R}
 \end{equation}
 where $s$ is a scale factor that modulates the mixing\cite{ChristJCTC2009} as shown in Fig.~\ref{Fig:ES:EDS}. Increasing $s$ lows the barrier height separating the two minima in the mixed potential, thereby enhances the transition. Quite straightforward, you may come to the idea that running Hamiltonian-REMD with different $s$ can remarkably increase the efficiency.
-
+If you take a close look at the Eq.~\ref{Eq:ES:EDS:H_R}, you will find that $s$ appears always with $\beta$. In other words, changing $s$ is equivalent to changing the temperature for the simulation. This is one interesting case where H-REMD and T-REMD are coincident with each other. 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/EDS.pdf}\\
 	\caption{}\label{Fig:ES:EDS}
 \end{figure}
 
-The force is also a mixing from two Hamiltonians as
+The force is also a mixing quantity from two Hamiltonians as
 \begin{align}
 	\mathbf{F}_R^i=-\frac{\partial H_R}{\partial \mathbf{r}^i}=&\frac{e^{-s\beta H_A(\mathbf{r})}}{e^{-s\beta H_A(\mathbf{r})}+e^{-s\beta H_B(\mathbf{r})}}\left(-\frac{\partial H_A(\mathbf{r})}{\partial \mathbf{r}^i}\right)\notag\\
 	&+\frac{e^{-s\beta H_A(\mathbf{r})}}{e^{-s\beta H_B(\mathbf{r})}+e^{-s\beta H_B(\mathbf{r})}}\left(-\frac{\partial H_B(\mathbf{r})}{\partial \mathbf{r}^i}\right).
