@@ -1,3 +1,9 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{$\lambda$-dynamics\label{Sec:ES:lambdadynamics}}
+$\lambda$-dynamics, in which the coupling parameter $\lambda$ is treated as a pseudo particle with fictitious mass $m_\lambda$, was developed by Kong and Charlie Brooks in 1996.\cite{KongJCP1996}
+The extended Hamiltonian for the system with a coupling parameter in one dimension can be written as
+\begin{equation}
+	H(\mathbf{R},\lambda)=H_{Rxn}(\mathbf{R},\lambda) + \frac{m_\lambda}{2}{\dot{\lambda}}^2+U^{*}(\lambda),
+\end{equation}
+where $H_{Rxn}$ is a legitimate mapping provided that $H_{Rxn}(\mathbf{R},\lambda=0)$ and $H_{Rxn}(\mathbf{R},\lambda=1)$ correspond to the Hamiltonians for the reactant and product states respectively, and $U^{*}(\lambda)$ is a restraint that limits the range of $\lambda$. Extension of this method to multiple coupling parameters $\{\lambda_i\}$ is straightforward. The pseudo particles can be coupled to high temperature baths, so it can have strengthened ability to overcome the barrier. However, this might lead to energy transfer between the pseudo degrees of freedom to the configuration degrees of freedom. Therefore, the fictitious mass $m_\lambda$ should be large enough to make this degree of freedom nearly adiabatic from the rest of the system.\cite{AbramsJCP2006} $\lambda$-dynamics can also be coupled with metadynamics.\cite{WuJPCL2011}
