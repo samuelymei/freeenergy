@@ -44,8 +44,9 @@ f_i=-{\beta_i}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_i U_i(\mathbf
 which must be solved self-consistently and can be determined up to a constant. We can fix $f_1$ (to 0 usually). 
 
 Again, from Eq.~\ref{Eq:FEM:MBAR:Oexpect}, we can define
-\begin{equation}
-W_{in}={c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)},
-\end{equation}
+\begin{align}
+W_{in}=&{c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)}\notag\\
+      =&\frac{q_i(\mathbf{R}_n)\exp{\left(\beta_i f_i\right)}}{\sum_{k=1}^{K}N_k\exp{\left(\beta_k f_k\right)}q_k(\mathbf{R}_n)}
+\end{align}
 which is the weight of snapshot $n$ in ensemble $i$.
 

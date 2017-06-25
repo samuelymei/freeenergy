@@ -21,10 +21,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Source: http://en.wikibooks.org/wiki/LaTeX/Hyperlinks %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{hyperref}
+
 \usepackage{graphicx}
 \usepackage[english]{babel}
-
+\usepackage[pdfencoding=auto]{hyperref}
 \usepackage{accsupp}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,7 +66,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Book's title and subtitle
-\title{\Huge \textbf{Enhanced Sampling\\ \& \\Free Energy Calculations}  \footnote{For internal$\cap$noncommercial use only.} \\ \huge Methods Based on Equilibrium and Non-equilibrium Simulations }
+\title{\Huge \textbf{Enhanced Sampling\\ \& \\Free Energy Calculations} \\ \huge Methods Based on Equilibrium and Non-equilibrium Simulations }
 % Author
 \author{\textsc{Ye Mei} \thanks{samuel.y.mei@gmail.com} \\
         \textsc{Pengfei Li} \thanks{lipengfei{\textunderscore}mail@126.com}}
@@ -76,13 +76,15 @@
 
 \frontmatter
 \maketitle
-
+\begin{dedication}
+For internal$\cap$noncommercial use only.
+\end{dedication}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Add a dedication paragraph to dedicate your book to someone %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{dedication}
 Dedicated to \\
-Dr. Bernard Brooks and Dr. Gerhard K\"onig.
+Dr. Bernard Brooks and Dr. Gerhard K\"onig.\\
 \end{dedication}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
