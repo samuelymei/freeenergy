@@ -23,7 +23,7 @@ There are also two books on this topic you might be interested in:
 \item Free Energy Computations: A Mathematical Perspective, Author: Tony Lelievre, Gabriel Stoltz, Mathias Rousset, ISBN-13: 978-1848162471, Imperial College Press, 2010
 \end{itemize}
 
-Before we get into the major content of this booklet, we would like to review some fundamental quantities in statistical mechanics. The first one is the partition function $Q$ for Hamiltonian $H(\mathbf{x},\mathbf{p}_{x})$, which is defined as
+Before we move into the major content of this booklet, we would like to review some fundamentals that underlie the methods introduced in the following chapters. The first one is the canonical partition function $Q$ for Hamiltonian $H(\mathbf{x},\mathbf{p}_{x})$, which is defined as
 \begin{align}
   Q(N,V,T)=&\frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\mathbf{x},\mathbf{p}_{x})] d\mathbf{x}d\mathbf{p}_\mathbf{x}\notag\\
          =&\frac{1}{\Lambda^{3N}N!}Z(N,V,T),
@@ -46,3 +46,24 @@ is the complete density of states. Correspondingly, we can also define the confi
 \begin{equation}
 	\varOmega_{con}\propto\frac{1}{N!}\int_{V^N} \delta(U(\mathbf{x})-E)d\mathbf{x}.
 \end{equation}
+
+The Helmholtz free energy is defined in terms of the canonical partition function as
+\begin{equation}
+A=-\beta^{-1}\ln{Q(N,V,T)},
+\end{equation}
+which connects thermodynamics and statistical mechanics. If we can estimate the value of $Q$, we can calculate $A$. However, evaluating $Q$ is very difficult in most cases. Fortunately, we are only interested in the free energy differences, $\Delta A$, between two systems or two states of a systems denoted by 0 and 1, respectively
+\begin{equation}
+\Delta A=-\beta^{-1}\ln{Q_1/Q_0}.
+\label{Eq:Intro:dA}
+\end{equation}
+In most situations we are dealing with, the masses of particles in systems 0 and 1 are the same, Eq.~\ref{Eq:Intro:dA} can be rewritten in terms of the configurational integrals $Z_0$ and $Z_1$
+\begin{equation}
+\Delta A=-\beta^{-1}\ln{Z_1/Z_0}.
+\end{equation}
+
+In the following chapters, the systems 0 and 1 may differ in several ways. They may have different Hamiltonians, $H_0$ and $H_1$. Or they may be characterized by different values of a macroscopic parameter, such as temperature. Finally, they may correspond to different regions in the phase space accessible to the system
+\begin{align}
+Q_0=&\frac{1}{N!h^{3N}}\int_{\Gamma_0}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}d\mathbf{x}d\mathbf{p}_x\\
+Q_1=&\frac{1}{N!h^{3N}}\int_{\Gamma_1}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}d\mathbf{x}d\mathbf{p}_x
+\end{align}
+where $\Gamma_0$ and $\Gamma_1$ may refer to different conformations of a flexible molecules, or the bound and unbound structures of a protein-ligand complex.
