@@ -65,7 +65,7 @@ where ${\sigma_x}^2$, statistical inefficiency $g$, and autocorrelation time $\t
 	&C_t=\frac{\left<x_nx_{n+t}\right>-\left<x_n\right>\left<x_n\right>}{{\sigma_x}^2}\\
 	&g\equiv 1+2\tau
 \end{align}
-The quantity $g\equiv 1+2\tau>1$ can be thought of as a statistical inefficiency, in that $N/g$ gives the effective number of \textit{uncorrelated} configurations contained in the time series.
+The quantity $g\equiv 1+2\tau>1$ can be regarded as a statistical inefficiency, in that $N/g$ gives the effective number of \textit{uncorrelated} configurations contained in the time series.
 
 \chapter{Optimal Means of Data Set\label{chapter:Appendix:Mean}}
 Suppose we have N measurements of a quantity x, which are denoted as \{$x_i$\}, with i = 1, \dots, N. Each measurement has a variance $\delta^2 x_i$. To find the optimal mean of this data set, we first write the mean of \{$x_i$\} as a weighted average of them
@@ -102,7 +102,7 @@ and
 
 
 \chapter{MBAR returns to BAR When Only Two States Are Considered}
-When there are only two states, the free energy for the 1st state in MBAR becomes
+When there are only two states, the free energy in Eq.~\ref{Eq:FEM:MBAR:f_i_final} for the 1st state in MBAR becomes
 \begin{align}
 f_1=&-{\beta_1}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_1 U_1(\mathbf{R}_n)\right)}}{\sum_{k=1}^{2}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right)}}}\notag\\
    =&-{\beta_1}^{-1}\ln{\sum\limits_{j=1}^{2}\sum\limits_{n=1}^{N_j} \frac{\exp{\left(-\beta_1 U_1(\mathbf{R}_{jn})\right)}}{\sum_{k=1}^{2}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_{jn})\right)}}},

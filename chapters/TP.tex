@@ -2,9 +2,9 @@
 \subsection{Thermodynamic Perturbation\label{Sec:FEM:TP}}
 Thermodynamic Perturbation (TP), also known as Free Energy Perturbation (FEP), exponential average, or Zwanzig equation was developed by Zwanzig.\cite{ZwanzigJCP1954}. 
 
-A reference system containing N-particles can be described by Hamiltonian $H_{0}(\textbf{x},\textbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\textbf{x}$, and their conjugated momenta, $\textbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\textbf{x},\textbf{p}_{x})$. These two systems are connected by 
+A reference system containing N-particles can be described by Hamiltonian $H_{0}(\mathbf{x},\mathbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\mathbf{x}$, and their conjugated momenta, $\mathbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\mathbf{x},\mathbf{p}_{x})$. These two systems are connected by 
 \begin{equation}
-H_{1}(\textbf{x},\textbf{p}_{x}) = H_{0}(\textbf{x},\textbf{p}_{x}) + \Delta H (\textbf{x},\textbf{p}_{x})
+H_{1}(\mathbf{x},\mathbf{p}_{x}) = H_{0}(\mathbf{x},\mathbf{p}_{x}) + \Delta H (\mathbf{x},\mathbf{p}_{x})
 \label{Eq:FEM:TP:deltaH}
 \end{equation}
 The Helmholtz free energy difference between the target and the reference systems, $\Delta A$, can be given in terms of the ratio of the corresponding partition functions, $Q_{1}$ and $Q_{0}$:
@@ -14,31 +14,31 @@ The Helmholtz free energy difference between the target and the reference system
 \end{equation}
 where $\beta = {(k_{B}T)}^{-1}$, and
 \begin{equation}
-Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}.
+Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}.
 \label{Eq:FEM:TP:PF}
 \end{equation}
 Taking Eq.~\ref{Eq:FEM:TP:PF} into Eq.~\ref{Eq:FEM:TP:deltaA}, we obtain
 \begin{align}
-\Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}{\iint \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) \right] d\textbf{x}d\textbf{p}_\textbf{x}}}\\
-=& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\textbf{x},\textbf{p}_{x})\right] \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}{\iint \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}},
+\Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) \right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}}\\
+=& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})\right] \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}},
 \label{Eq:FEM:TP:deltaA2}
 \end{align}
-The probability density function of finding the reference system in a state defined by positions $\textbf{x}$ and momenta $\textbf{p}_{x}$ is 
+The probability density function of finding the reference system in a state defined by positions $\mathbf{x}$ and momenta $\mathbf{p}_{x}$ is 
 \begin{equation}
-P_{0}(\textbf{x},\textbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}}
+P_{0}(\mathbf{x},\mathbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] d\mathbf{x}d\mathbf{p}_\mathbf{x}}
 \label{Eq:FEM:TP:proden}
 \end{equation}
 If the probability density function is used, Eq.~\ref{Eq:FEM:TP:deltaA2} becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] P_{0}(\textbf{x},\textbf{p}_{x}) d\textbf{x}d\textbf{p}_\textbf{x},
+\Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] P_{0}(\mathbf{x},\mathbf{p}_{x}) d\mathbf{x}d\mathbf{p}_\mathbf{x},
 \label{Eq:FEM:TP:deltaA3}
 \end{equation}
 or, equivalently,
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \ln{ \left \langle \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \right \rangle_{0}},
+\Delta A = -\frac{1}{\beta} \ln{ \left \langle \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] \right \rangle_{0}},
 \label{Eq:FEM:TP:deltaA4}
 \end{equation}
-Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:FEM:TP:deltaA4} is the basic equation of \textbf{TP}. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
+Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:FEM:TP:deltaA4} is the basic equation of TP. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
 
 Note that integration over the kinetic term in the partition function, Eq.~\ref{Eq:FEM:TP:PF}, can be carried out analytically. Thus, it cancels out in Eq.~\ref{Eq:FEM:TP:deltaA}, and Eq.~\ref{Eq:FEM:TP:deltaA4} becomes
 \begin{equation}
@@ -54,7 +54,7 @@ If we reverse the reference and the target systems, and repeat the same derivati
 \end{equation}
 Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should start the perturbation from the state having larger important region in phase space. This means that the reference system should be that with higher entropy, and the transformation should proceed in the direction in which the entropy change $\Delta S$ is negative. 
 
-Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\textbf{x},\textbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
+Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) d\Delta U,
 \label{Eq:FEM:TP:deltaA7}
