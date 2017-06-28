@@ -67,3 +67,16 @@ Q_0=&\frac{1}{N!h^{3N}}\int_{\Gamma_0}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_
 Q_1=&\frac{1}{N!h^{3N}}\int_{\Gamma_1}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}d\mathbf{x}d\mathbf{p}_x
 \end{align}
 where $\Gamma_0$ and $\Gamma_1$ may refer to different conformations of a flexible molecules, or the bound and unbound structures of a protein-ligand complex.
+
+Besides free energy, sometimes we are also interested in the free energy profile along one or several degrees of freedom
+\begin{equation}
+	A(\xi)=-\beta^{-1}\ln{Z(\xi)}=-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}.
+\end{equation}
+Its gradient over $\xi$ is
+\begin{align}
+\frac{\partial A(\xi)}{\partial \xi}=&-\beta^{-1}\frac{\int \frac{\partial}{\partial \xi}\left(e^{-\beta U}|J|\right)dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int \exp{\left(-\beta U\right)}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{1}{|J|}\frac{\partial |J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int \exp{\left(-\beta U\right)}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int \exp{\left(-\beta U\right)}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\left<\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}\right>_\xi.
+\end{align}
