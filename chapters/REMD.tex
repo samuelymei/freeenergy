@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 \section{Replica Exchange Molecular Dynamics\label{Sec:ES:REMD}}
 \subsection{Temperature-Replica Exchange Molecular Dynamics}
-Temperature replica exchange molecular dynamics (T-REMD) is one class of parallel tempering methods developed by Sugita and Okamoto in 1999\cite{SugitaCPL1999} based on many ideas on the so-called \textit{generalized-ensemble algorithm}. It is an extension of the well-known simulation annealing method. The basic idea of REMD is schematically summarized in Fig.~\ref{Fig:ES:REMD}. In REMD, the system is replicated into $\mathbf{M}$ \textit{non-interacting} copies (replicas). Each replica is coupled to a bath at temperature $T_m$, $(m=1,\dots,M)$. At a certain time, the system is at state X, which can be denoted as $X=\left(x_1^{[i(1)]},\dots,x_M^{[i(M)]}\right)=\left(x_{m(1)}^{[1]},\dots,x_{m(M)}^{[M]}\right)$. Here, we used $i$ and $m$ to label the replica and the temperature respectively. Because the replicas are non-interacting, the weight-factor for a state $X$ in this generalized ensemble is a direct product of the Boltzmann factors for each replica, i.e.
+Temperature replica exchange molecular dynamics (T-REMD) is one class of parallel tempering methods developed by Sugita and Okamoto in 1999\cite{SugitaCPL1999} based on many ideas in a category of methods called \textit{generalized-ensemble algorithm}. It is an extension of the well-known simulation annealing method. The basic idea of REMD is schematically summarized in Fig.~\ref{Fig:ES:REMD}. In REMD, the system is replicated into $\mathbf{M}$ \textit{non-interacting} copies (replicas). Each replica is coupled to a bath at temperature $T_m$, $(m=1,\dots,M)$. At a certain time, the system is at state X, which can be denoted as $X=\left(x_1^{[i(1)]},\dots,x_M^{[i(M)]}\right)=\left(x_{m(1)}^{[1]},\dots,x_{m(M)}^{[M]}\right)$. Here, we used $i$ and $m$ to label the replica and the temperature respectively. Because the replicas are non-interacting, the weight-factor for a state $X$ in this generalized ensemble is a direct product of the Boltzmann factors for each replica, i.e.
 \begin{equation}
 	W_{REM}(X)=\prod\limits_{m=1}^M\exp{\left(-\beta_m H\left(q^{[i(m)]},p^{[i(m)]}\right)\right)}=\prod\limits_{i=1}^M \exp{\left(-\beta_{m(i)}H\left(q^{[i]},p^{[i]}\right)\right)}\textsl{}
 \end{equation}
@@ -10,10 +10,10 @@ Temperature replica exchange molecular dynamics (T-REMD) is one class of paralle
 \begin{figure}[htbp]
     \centering
 	\includegraphics[width=0.6\textwidth]{figures/REMD.pdf}\\
-	\caption{}\label{Fig:ES:REMD}
+	\caption{A schematic representation of replica exchange molecular dynamics.}\label{Fig:ES:REMD}
 \end{figure}
 
-Now, we exchange the temperatures of a pair replicas
+Now, we exchange the temperatures of a pair of replicas
 \begin{equation}
 	\left\{ 
 	\begin{array}{rl} 
@@ -27,9 +27,9 @@ where
 \begin{equation}
 	\left\{ 
 	\begin{array}{rl} 
-		p^{[i]^\prime}\equiv \sqrt{\frac{T_n}{T_m}} p^{[i]^\prime}&\\ 
+		p^{[i]^\prime}\equiv \sqrt{\frac{T_n}{T_m}} p^{[i]}&\\ 
 		&.\\
-		p^{[j]^\prime}\equiv \sqrt{\frac{T_m}{T_n}} p^{[j]^\prime}&\\  
+		p^{[j]^\prime}\equiv \sqrt{\frac{T_m}{T_n}} p^{[j]}&\\  
 	\end{array} 
 	\right. 
 \end{equation}
@@ -56,7 +56,7 @@ This can be satisfied by the usual Metropolis criterion:
 	\left\{ 
 	\begin{array}{ll} 
 		1, & if\, \Delta \leq 0\\ 
-		\exp{(-\delta)}, & if\, \Delta >0\\  
+		\exp{(-\Delta)}, & if\, \Delta >0\\  
 	\end{array} 
 	\right. 
 \end{equation}
@@ -64,7 +64,7 @@ This can be satisfied by the usual Metropolis criterion:
 After long time simulations, all the replicas have arrived at a global equilibrium. In order to calculate the the free energy or the ensemble average of an operator $\hat A$ at $T_m$, we can extract all the snapshots that have a temperature $T_m$ from $M$ trajectories, if this temperature was among the $M$ chosen temperatures. However, the optimal way is to use Weighted Histogram Analysis Method in Section~\ref{Sec:FEM:WHAM} or the Multistate Bennett Acceptance Ratio method in Section~\ref{Sec:FEM:MBAR}.  
 
 \subsection{Hamiltonian-Replica Exchange Molecular Dynamics}
-Another type of REMD simulation is called Hamiltonian replica exchange molecular dynamics (H-REMD), in which each replicas has its own Hamiltonian is coupled to the same temperature. One example is the H-REMD simulation for a torsional angle. The $m$th replica has a torsional energy term of 
+Another type of REMD simulation is called Hamiltonian replica exchange molecular dynamics (H-REMD), in which each replicas has its own Hamiltonian, but is coupled to the same temperature. One example is the H-REMD simulation for a torsional angle. The $m$th replica has a torsional energy term of 
 \begin{equation}
 	H_m(\phi)=\lambda(m)\sum_n\left(V_n/2\right)\left(1+\cos{\left[n\phi-\delta\right]}\right),
 \end{equation}
@@ -84,30 +84,23 @@ using Monte Carlo. The derivation of $\Delta G_{P_{A}\rightarrow P_{A}H^{+}}$ is
 
 Free energy of molecule A in solution with a concentration $\left[A\right]$
 can be written as 
-
 \[
 \Delta G_{A}=\Delta G_{A}^{0}+\beta^{-1}\ln\frac{\left[A\right]}{C_{0}},
 \]
-
 in which $\Delta G_{0}$ is the free energy of molecule A at the standard
 state $C_{0}$, i.e. 1 mol/L. The free energy change for a reaction
-
 \[
 A+B\rightleftharpoons C
 \]
-
 can be written as
-
 \[
 \Delta G=\Delta G_{C}-\Delta G_{A}-\Delta G_{B}=\Delta G_{0}+\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]}.
 \]
 
 At equilibrium, the free energy change is zero, we have
-
 \begin{equation}
 	\Delta G_{0}=-\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]},\label{eq:FEM:REMD:standardfreeenergy}
 \end{equation}
-
 in which $\left[A\right]\left[B\right]/\left[C\right]C_{0}$ is called
 the dissociation constant $K_{a}$. So,
 
@@ -152,7 +145,7 @@ $\left[P_{A}\right]/\left[P_{A}H^{+}\right]=1$ (the isoelectric point)
 \end{align}
 The $pK_{a}$ of each residue in a dipeptide has been determined by
 experiment. However, when this residue is located in a certain protein,
-its $pK_{a}$ is different from that in a dipeptide. The difference
+its $pK_{a}$ is different from that in the dipeptide. The difference
 is called the $pK_{a}$ shift. Instead of measuring the $pK_{a}$
 for a residue in a protein, we are more interested in calculating/measuring
 the titration curve, which is the fraction of the deprotonated state
@@ -164,7 +157,7 @@ as
 
 \begin{eqnarray*}
 	\Delta G_{0} & = & -\beta^{-1}\ln\frac{Q_{P_{A}H^{+}}}{Q_{P_{A}}Q_{H^{+}}}\\
-	& = & -\beta^{-1}\ln\frac{\int\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\\
+	& = & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\\
 \end{eqnarray*}
 Generally, the absolute value of $\Delta G_{0}$ is hardly computable.
 A relative protonation free energy $\Delta\Delta G$ is perferred
@@ -186,7 +179,7 @@ The reference free energy change is
 	 & \cdot\frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}},\label{eq:FEM:REMD:Quotientofpartitionfunctions}
 \end{align}
 where $R_{H}$ is the coordinates of the specific $H$ atom and the
-other degrees-of-freedom (DoF) are denoted as $R_{o}$. $E^{bond}$
+other degrees-of-freedom (DoF) are denoted as $R_{O}$. $E^{bond}$
 and $E^{ele}$ are the bonded energy and electrostatic interaction
 energy related to this $H$ atom, respectively. $E^{QM}$ is the energy
 correction that \textit{may} be required if the molecular mechanical
@@ -234,4 +227,4 @@ and the protonated state can be written as
 \]
 
 In the above equation, $\Delta G_{AH^{+}}^{ele}$ can be obtained from a free energy calculation of the model system by alchemically annihilation of the proton. However, $\Delta G_{P_{A}H^{+}}^{ele}$ is unknown. Approximately, it can be replaced with $\Delta H_{P_{A}H^{+}}^{ele}$ averaged over a few snapshots.\cite{MengJCTC2010} In order to accelerate the convergence,
-this pH-REMD is often coupled with other enhancing method, such as T-REMD\cite{MengJCTC2010} and EDS-REMD\cite{LeeJCTC2014} (see section~\ref{Sec:ES:EDS}).
+this pH-REMD is often coupled with other enhancing methods, such as T-REMD\cite{MengJCTC2010} and EDS-REMD\cite{LeeJCTC2014} (see section~\ref{Sec:ES:EDS}).

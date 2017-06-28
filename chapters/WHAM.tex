@@ -21,7 +21,7 @@ where
 \end{equation}
 Therefore, the core objective is to calculate $\Omega(U)$.
 
-Suppose we have one trajectory with $K$ snapshots denoted as $\{\mathbf{x}_n\}$. We then discretize the energy space into $M$ bins with width $\Delta U$, and count the number of snapshots fallen into each bin. For convenience, we define $\psi_m(U)$ as
+Suppose we have one trajectory with $N$ snapshots denoted as $\{\mathbf{R}_n\}$. We then discretize the energy space into $M$ bins with width $\Delta U$, and count the number of snapshots fallen into each bin. For convenience, we define $\psi_m(U)$ as
 \begin{equation}
 	\psi_m(U)= 
 	\left\{ 
@@ -33,19 +33,30 @@ Suppose we have one trajectory with $K$ snapshots denoted as $\{\mathbf{x}_n\}$.
 \end{equation}
 Then the histogram for the m$\mathit{th}$ energy bin is
 \begin{equation}
-	H_{m}=\sum\limits_{n=1}^{N}\psi_{m}(U(\mathbf{R}_n)),
+	H_{m}=\sum\limits_{n=1}^{N}\psi_{m}(U(\mathbf{R}_n))=N\cdot \frac 1 N\sum\limits_{n=1}^{N}\psi_{m}(U(\mathbf{R}_n))=N\cdot\left<\psi_m\right>,
 \end{equation}
 with variances (see Appendix~\ref{chapter:Appendix:Uncertainty})
-\begin{equation}
-	\delta^2 H_m=g_m\left<H_m\right>\left(1-\frac{\left<H_m\right>}{N}\right).
-\end{equation}
+\begin{align}
+	\delta^2 H_m=&N^2\delta^2(\left<\psi_m\right>)\notag\\
+	            =&g_m N\left(\left<{\psi_m}^2\right>-\left<\psi_m\right>^2\right)\notag\\
+	            =&g_m N\left(\left<\psi_m\right>-\left<\psi_m\right>^2\right)\notag\\
+	            =&g_m\left<H_m\right>\left(1-\frac{\left<H_m\right>}{N}\right).
+\end{align}
+
+A sample histogram in 2D space is shown in Fig.~\ref{Fig:FEM:WHAM:histogram}.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/histogram.pdf}\\
+	\caption{A sample histogram in 2D space, for instance potential energy and a reaction coordinate $\xi$.}\label{Fig:FEM:WHAM:histogram}
+\end{figure}
+
 The ratio of the histogram $H_m$ to the total number of snapshots $N$ divided by the bin width $\Delta U$ can be approximately taken as the probability of states in this bin, i.e.,
 \begin{equation}
 	\frac{\Omega_m\exp{(-\beta U_m)}}{Z}\approx\frac{H_m}{N\Delta U}.
 \end{equation}
 Therefore,
 \begin{align}
-	\Omega_m=&\frac{1}{U_m}\cdot\frac{H_m}{N}\cdot\frac{Z(\beta)}{\exp{(-\beta U_m)}}\notag\\
+	\Omega_m=&\frac{1}{\Delta U}\cdot\frac{H_m}{N}\cdot\frac{Z(\beta)}{\exp{(-\beta U_m)}}\notag\\
 	        =&\frac{H_m}{N\Delta U\exp{\left[f_k-\beta_kU_m\right]}},
 	\label{Eq:FEM:WHAM:DoSsingle}
 \end{align}
@@ -144,7 +155,7 @@ p_{k,l}=f_kc_{k,l}p_l^0,
 \end{equation}
 in which $p_l^0$ is the (simulation-independent) unbiased probability,
 \begin{align}
-c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l})\right]+\beta_0E_l\right\}}\notag\\
+c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l}\right]+\beta_0E_l\right\}}\notag\\
        =&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
 \end{align}
 is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1}$ is the normalization factor.

@@ -4,68 +4,64 @@ Thermodynamic Integration (TI) method was originally put forward by Kirkwood.\ci
 If the free energy, $A$, is a continuous function of $\lambda$ then we can write:
 \begin{equation}
 \Delta A = \int_{0}^{1} \frac{\partial{A(\lambda)}}{\partial{\lambda}} d\lambda
-\label{Eq:deltaA1TI}
+\label{Eq:FEM:TI:deltaA1TI}
 \end{equation} 
 Now,
 \begin{equation}
 A(\lambda) = -k_{B}T\ln Q(\lambda)
-\label{Eq:Alambda}
+\label{Eq:FEM:TI:Alambda}
 \end{equation} 
 Thus,
 \begin{align}
-\Delta A =& -k_{B}T\int_{0}^{1} \left[ \frac{\partial{lnQ(\lambda)}}{\partial{\lambda}} \right]d\lambda \\
-=&\int_{0}^{1}\frac{-k_{B}T}{Q(\lambda)}\frac{\partial{Q(\lambda)}}{\partial{\lambda}}d\lambda
-\label{Eq:deltaA2TI}
+\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& -k_{B}T \left[ \frac{\partial{lnQ(\lambda)}}{\partial{\lambda}} \right] \\
+=&-\frac{k_{B}T}{Q(\lambda)}\frac{\partial{Q(\lambda)}}{\partial{\lambda}}
+\label{Eq:FEM:TI:deltaA2TI}
 \end{align} 
 From the definition of Q:
 \begin{equation}
-Q_{NVT} = \frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
-\label{Eq:PFTI}
+Q_{NVT}(\lambda) = \frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x},
+\label{Eq:FEM:TI:PFTI}
 \end{equation}
 we can write the following for $\frac{\partial{Q(\lambda)}}{\partial{\lambda}}$:
-\begin{equation}
-\frac{\partial{Q(\lambda)}}{\partial{\lambda}} = \frac{1}{{h}^{3N}N!} \iint \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
-\label{Eq:PPF}
-\end{equation}
-Applying the chain rule:
-\begin{equation}
-\frac{\partial{Q(\lambda)}}{\partial{\lambda}} = -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x},
-\label{Eq:PPF2}
-\end{equation}
-Substituting back into the expression for $\frac{\partial{A}}{\partial{\lambda}}$ gives:
 \begin{align}
-\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x})] d\textbf{x}d\textbf{p}_\textbf{x}, \\
-=& \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\frac{\exp[-\beta H(\textbf{x},\textbf{p}_{x})]}{Q(\lambda)} d\textbf{x}d\textbf{p}_\textbf{x}, \\
-=& \left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x}, \lambda)}}{\partial{\lambda}} \right \rangle_{\lambda}
-\label{Eq:PA2}
+\frac{\partial{Q(\lambda)}}{\partial{\lambda}} =&\frac{1}{{h}^{3N}N!} \iint \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x}\notag\\
+=& -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x},
+\label{Eq:FEM:TI:PPF2}
 \end{align}
-Thus, the fundamental \textbf{TI} formula:
+Substituting back into the expression for $\frac{\partial{A}}{\partial{\lambda}}$ gives
+\begin{align}
+\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x}, \\
+=& \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}}\cdot\frac{\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)]}{Q(\lambda)} d\textbf{x}d\textbf{p}_\textbf{x}, \\
+=& \left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x}, \lambda)}}{\partial{\lambda}} \right \rangle_{\lambda}
+\label{Eq:FEM:TI:PA2}
+\end{align}
+Thus, the basic \textbf{TI} formula is
 \begin{equation}
 \Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} d\lambda
-\label{Eq:TI}
+\label{Eq:FEM:TI:TI}
 \end{equation} 
-where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecule dynamic or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from an initial $A$, with Hamiltonian $H_{A}$, to a final state $B$, with Hamiltonian $H_{B}$. The simplest coupling is linear scaling:
+where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecule dynamic or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from the initial state $A$ with Hamiltonian $H_{A}$ to the final state $B$ with Hamiltonian $H_{B}$. The simplest coupling is linear transformation as
 \begin{equation}
 H(\lambda) = (1-\lambda) H_{A} + \lambda H_{B}
 \end{equation}
-Eq.~\ref{Eq:TI} represents the so-called thermodynamic integration formula. The exact calculation of $\Delta A$ would require an infinite number of ensemble average for $\lambda$ ranging from 0 to 1.
-Therefore, the integral in Eq.~\ref{Eq:TI} needs to be approximated, e.g., by a summation over a discrete number of points $\lambda_{i}$,\cite{MordasiniJPCB2000} leading to 
+The exact calculation of $\Delta A$ requires an infinite number of ensemble average for $\lambda$ ranging from 0 to 1.
+Therefore, the integral in Eq.~\ref{Eq:FEM:TI:TI} needs to be approximated, e.g., by a summation over a number of discrete points $\lambda_{i}$, which leads to 
 \begin{equation}
-\Delta A = \sum_{i}^{}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} \Delta\lambda_{i}
-\label{Eq:dTI}
+\Delta A = \sum_{i}^{}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} \Delta\lambda_{i}.
+\label{Eq:FEM:TI:dTI}
 \end{equation} 
-A finite number of $\lambda_{i}$ values between 0 and 1 is chosen and for each of them a complete molecule dynamic simulation is carried out resulting in an ensemble of configurations generated with $H(\lambda_{i})$.
-The ensemble average of the derivative of the Hamiltonian with respect to $\lambda$ is then calculated for each $\lambda = \lambda_{i}$.
+A finite number of $\lambda_{i}$ values between 0 and 1 are chosen and for each of them a complete molecule dynamic simulation is carried out resulting in an ensemble of configurations generated with $H(\lambda_{i})$.
+The ensemble average of the derivative of the Hamiltonian with respect to $\lambda$ is then calculated for each $\lambda_{i}$.
 	
-The accuracy of TI integral formula depends the exact method of numerical integration. In addition to summation method, the simplest numerical integration is to evaluate the integrand at the midpoint:
+The accuracy of TI integral formula depends on the exact method for the numerical integration.\cite{PaliwalJCTC2011} In addition to summation method, the simplest numerical integration is to evaluate the integrand at the midpoint:
 \begin{equation}
 \Delta A \simeq \left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda=\frac{1}{2}}
-\label{Eq:TI1}
+\label{Eq:FEM:TI:TI1}
 \end{equation} 
-This might be a good first thing to do to get some picture of what is going on, but is only depends to be accurate for very smooth or small changes. %Gaussian quadrature formulas of higher order are generally more useful:
+This might be a good first thing to do to get some pictures of what is going on, but is only accurate for very smooth or small changes. %Gaussian quadrature formulas of higher order are generally more useful:
 %\begin{equation}
 %\Delta A = \sum_{i}^{} w_{i}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}}
-%\label{Eq:Gauss}
+%\label{Eq:FEM:TI:Gauss}
 %\end{equation} 
 %Some weights and quadrature points are given in the table~\ref{tab:Gauss}; other formulas are possible, \cite{HummerJCP1996} but the Gaussian one listed here are probably the most useful. The formulas are always symmetrical about $\lambda = 0.5$, so that $\lambda$ and $(1-\lambda)$ both have the same weight.
 	

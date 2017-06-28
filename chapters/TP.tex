@@ -2,87 +2,92 @@
 \subsection{Thermodynamic Perturbation\label{Sec:FEM:TP}}
 Thermodynamic Perturbation (TP), also known as Free Energy Perturbation (FEP), exponential average, or Zwanzig equation was developed by Zwanzig.\cite{ZwanzigJCP1954}. 
 
-A reference system containing N-particles can be described by Hamiltonian $H_{0}(\textbf{x},\textbf{p}_{x})$, which is a function of 3N Cartesian coordinates, $\textbf{x}$, and their conjugated momenta, $\textbf{p}_{x}$. The target system similarly can be described by the Hamiltonian $H_{1}(\textbf{x},\textbf{p}_{x})$. Both the two systems can be connected by 
+A reference system containing N-particles can be described by Hamiltonian $H_{0}(\textbf{x},\textbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\textbf{x}$, and their conjugated momenta, $\textbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\textbf{x},\textbf{p}_{x})$. These two systems are connected by 
 \begin{equation}
 H_{1}(\textbf{x},\textbf{p}_{x}) = H_{0}(\textbf{x},\textbf{p}_{x}) + \Delta H (\textbf{x},\textbf{p}_{x})
-\label{Eq:deltaH}
+\label{Eq:FEM:TP:deltaH}
 \end{equation}
-The Helmholtz free energy difference between the target and the reference systems, $\Delta A$, can be given in terms od the ratio of the corresponding partition functions, $Q_{1}$ and $Q_{0}$:
+The Helmholtz free energy difference between the target and the reference systems, $\Delta A$, can be given in terms of the ratio of the corresponding partition functions, $Q_{1}$ and $Q_{0}$:
 \begin{equation}
 \Delta A  =  -\frac{1}{\beta}\ln\frac{Q_{1}}{Q_{0}},
-\label{Eq:deltaA}
+\label{Eq:FEM:TP:deltaA}
 \end{equation}
 where $\beta = {(k_{B}T)}^{-1}$, and
 \begin{equation}
-Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x},
-\label{Eq:PF}
+Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}.
+\label{Eq:FEM:TP:PF}
 \end{equation}
-So, we obtain
+Taking Eq.~\ref{Eq:FEM:TP:PF} into Eq.~\ref{Eq:FEM:TP:deltaA}, we obtain
 \begin{align}
 \Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}{\iint \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) \right] d\textbf{x}d\textbf{p}_\textbf{x}}}\\
 =& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\textbf{x},\textbf{p}_{x})\right] \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}{\iint \exp\left[-\beta H_{0}(\textbf{x},\textbf{p}_{x})\right] d\textbf{x}d\textbf{p}_\textbf{x}}},
-\label{Eq:deltaA2}
+\label{Eq:FEM:TP:deltaA2}
 \end{align}
 The probability density function of finding the reference system in a state defined by positions $\textbf{x}$ and momenta $\textbf{p}_{x}$ is 
 \begin{equation}
 P_{0}(\textbf{x},\textbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\textbf{x},\textbf{p}_{x}) ] d\textbf{x}d\textbf{p}_\textbf{x}}
-\label{Eq:proden}
+\label{Eq:FEM:TP:proden}
 \end{equation}
-If the probability density function is used, the Eq.~\ref{Eq:deltaA2}  becomes
+If the probability density function is used, Eq.~\ref{Eq:FEM:TP:deltaA2} becomes
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] P_{0}(\textbf{x},\textbf{p}_{x}) d\textbf{x}d\textbf{p}_\textbf{x},
-\label{Eq:deltaA3}
+\label{Eq:FEM:TP:deltaA3}
 \end{equation}
 or, equivalently,
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \ln{ \left \langle \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \right \rangle_{0}},
-\label{Eq:deltaA4}
+\label{Eq:FEM:TP:deltaA4}
 \end{equation}
-Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:deltaA4} is the fundamental equation of \textbf{TP}. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
+Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:FEM:TP:deltaA4} is the basic equation of \textbf{TP}. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
 
-Note that integration over the kinetic term in the partition function, Eq.~\ref{Eq:PF}, can be carried out analytically. Thus, it cancels out in Eq.~\ref{Eq:deltaA}, and Eq.~\ref{Eq:deltaA4} becomes
+Note that integration over the kinetic term in the partition function, Eq.~\ref{Eq:FEM:TP:PF}, can be carried out analytically. Thus, it cancels out in Eq.~\ref{Eq:FEM:TP:deltaA}, and Eq.~\ref{Eq:FEM:TP:deltaA4} becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \ln{\left \langle \exp(-\beta \Delta U) \right \rangle_{0}},
-\label{Eq:deltaA5}
+\Delta A = -\frac{1}{\beta} \ln{\left< \exp(-\beta \Delta U) \right>_{0}},
+\label{Eq:FEM:TP:deltaA5}
 \end{equation}
 where $\Delta U$ is the difference in the potential energy between the target and the reference states. The integration implied by the statistical average is now carried out over particle coordinates only.
 
 If we reverse the reference and the target systems, and repeat the same derivation, using the same convention for  $\Delta A$ and $\Delta U$ as before, we obtain
 \begin{equation}
 \Delta A = \frac{1}{\beta} \ln{ \left \langle \exp(\beta \Delta U) \right \rangle_{1}},
-\label{Eq:deltaA6}
+\label{Eq:FEM:TP:deltaA6}
 \end{equation}
-Although expressions Eq.~\ref{Eq:deltaA5} and Eq.~\ref{Eq:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should be start the perturbation from the system having the larger important phase space region. This means that the reference system should be that with the higher entropy, and the transformation should be proceed in the direction in which the entropy change $\Delta S$ is negative. 
+Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should start the perturbation from the state having larger important region in phase space. This means that the reference system should be that with higher entropy, and the transformation should proceed in the direction in which the entropy change $\Delta S$ is negative. 
 
-The formulas for free energy difference, Eq.~\ref{Eq:deltaA5} and Eq.~\ref{Eq:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\textbf{x},\textbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:deltaA3} can be expressed ad a one dimensional integral over energy difference
+Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\textbf{x},\textbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) d\Delta U,
-\label{Eq:deltaA7}
+\label{Eq:FEM:TP:deltaA7}
 \end{equation}
-If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, then $\Delta U$ would be Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:deltaA7} depends on the low-energy tail of the distribution.
+If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, then $\Delta U$ would be Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
 
 Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. If we substitute
 \begin{equation}
 P_{0}(\Delta U) = \frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0})^2}{2\sigma^2}\right]}
-\label{Eq:gaussian}
+\label{Eq:FEM:TP:gaussian}
 \end{equation}
 where
 \begin{equation}
 \sigma^2 = \left \langle \Delta U^2 \right \rangle_{0} - \left \langle \Delta U \right \rangle_{0}^2
-\label{Eq:variance}
+\label{Eq:FEM:TP:variance}
 \end{equation}
-to Eq.~\ref{Eq:deltaA7}, we obtain
+to Eq.~\ref{Eq:FEM:TP:deltaA7}, we obtain
 \begin{equation}
 \exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0} - \beta \sigma ^2)^2}{2\sigma^2}\right]} d\Delta U
-\label{Eq:expdeltaA}
+\label{Eq:FEM:TP:expdeltaA}
 \end{equation}
 Here, $C$ is independent of $\Delta U$
 \begin{equation}
 C = \exp{\left[-\beta (\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2)\right]}
-\label{Eq:C}
+\label{Eq:FEM:TP:C}
 \end{equation}
-If $P_{0}(\Delta U)$ is Gaussian, the integral in Eq.~\ref{Eq:expdeltaA} can be evaluated analytically
+If $P_{0}(\Delta U)$ is Gaussian, the integral in Eq.~\ref{Eq:FEM:TP:expdeltaA} can be evaluated analytically using cumulant expansion
 \begin{equation}
-\Delta A = \left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2
-\label{Eq:deltaA8}
+\Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2.
+\label{Eq:FEM:TP:deltaA8}
+\end{equation}
+If the distribution of $\Delta U$ deviates from Gaussian, there will be extra terms measuring the skewness of Gaussian. With the leading term, $\Delta A$ becomes
+\begin{equation}
+\Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2 + \frac{\beta^2}{6} \left(\left<\Delta U^3\right>_0-3\left<\Delta U^2\right>_0\left<\Delta U\right>_0+2\left<\Delta U\right>_0^3\right).
+\label{Eq:FEM:TP:deltaA9}
 \end{equation}
