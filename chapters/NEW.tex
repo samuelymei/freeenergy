@@ -4,55 +4,55 @@ Non-Equilibrium Work (NEW) method for equilibrium free energy calculations was f
 In 1997, Jarzynski had showed the Jarzynski's identity:
 \begin{equation}
 \left< \exp\left[-\beta W(\tau)\right] \right> = \exp{(-\beta \Delta A)}
-\label{Eq:Jar}
+\label{Eq:FEM:NEW:Jar}
 \end{equation} 
-where a prescribed path $\lambda(t)$ connects the initial and final states, with $\lambda(0)=0$ and $\lambda(\tau)=1$, and $\Delta A = A(1) - A(0)$ the free energy difference between the two states. The average $\left \langle \cdots \right \rangle$ in Eq.~\ref{Eq:Jar} requires some explanation. It is a combination of an ensemble average over initial conditions, and a path average over trajectory realizations. Initial conditions are chosen according to the equilibrium Boltzmann probability in the $\lambda(0)$ state. The path average samples all realizations of dynamic paths, weighted by their respective path action, under the time evolution of the system with an explicitly time-varying Hamiltonian. This equality relation also be deduced by Crooks from the view of markovian and microscopically reversible dynamics.\cite{CrooksJSP1998} Here is no a detailed derivation of Eq.~\ref{Eq:Jar}.
+where a prescribed path $\lambda(t)$ connects the initial and final states, with $\lambda(0)=0$ and $\lambda(\tau)=1$, and $\Delta A = A(1) - A(0)$ the free energy difference between the two states. The average $\left \langle \cdots \right \rangle$ in Eq.~\ref{Eq:FEM:NEW:Jar} requires some explanation. It is a combination of an ensemble average over initial conditions, and a path average over trajectory realizations. Initial conditions are chosen according to the equilibrium Boltzmann probability in the $\lambda(0)$ state. The path average samples all realizations of dynamic paths, weighted by their respective path action, under the time evolution of the system with an explicitly time-varying Hamiltonian. This equality relation also be deduced by Crooks from the view of markovian and microscopically reversible dynamics.\cite{CrooksJSP1998} Here is no a detailed derivation of Eq.~\ref{Eq:FEM:NEW:Jar}.
 
 Now, we consider creating an equilibrium configuration in the state $\lambda=0$ and then slowly changing $\lambda$ from 0 to 1. As the coupling parameter is advanced, the system continues to sample phase space by molecule dynamics or Monte Carlo simulations, but under an explicitly time-dependent Hamiltonian. In the limit of a very slow transformation, with some caveats of Hamiltonian dynamics, the system will remain close to equilibrium. The free energy difference can then be evaluated by changing $\lambda$ continuously
 \begin{equation}
 \Delta A =\lim_{\tau\to\infty} \int_{0}^{\tau} {\frac{\partial{H\left[\textbf{x}(t);\lambda\right]}}{\partial{\lambda}}\bigg\rvert}_{\lambda=\lambda(t)} \dot{\lambda}(t) dt
-\label{Eq:limitA}
+\label{Eq:FEM:NEW:limitA}
 \end{equation}  
-where the time derivative of the coupling parameter $\lambda$ is denoted by a dot. In the Eq.~\ref{Eq:limitA}, the limit of $\tau\to\infty$ ensures that the transformation is performed infinitely slowly, and thus reversibly. The right-hand side of Eq.~\ref{Eq:limitA} correspondingly defines the ``reversible work" done on the system during the transformation.
+where the time derivative of the coupling parameter $\lambda$ is denoted by a dot. In the Eq.~\ref{Eq:FEM:NEW:limitA}, the limit of $\tau\to\infty$ ensures that the transformation is performed infinitely slowly, and thus reversibly. The right-hand side of Eq.~\ref{Eq:FEM:NEW:limitA} correspondingly defines the ``reversible work" done on the system during the transformation.
 
-If the system is instead transformed between the initial and final states over a finite time interval $\tau$, the free energy obtained from Eq.~\ref{Eq:limitA} without the $\tau\to\infty$ limit will only be approximate. In the corresponding slow-growth method of free energy calculations, the system will not be able to sample the phase space exhaustively at each value of $\lambda$. rendering the transformation irreversible. As the transformation proceeds, the system will be gradually driven out of equilibrium, causing hysteresis effects. From the second law of thermodynamic, it is expected that the work $W(\tau)$ performed during the nonequilibrium transformation is on average larger than or equal to the free energy difference between the two states
+If the system is instead transformed between the initial and final states over a finite time interval $\tau$, the free energy obtained from Eq.~\ref{Eq:FEM:NEW:limitA} without the $\tau\to\infty$ limit will only be approximate. In the corresponding slow-growth method of free energy calculations, the system will not be able to sample the phase space exhaustively at each value of $\lambda$. rendering the transformation irreversible. As the transformation proceeds, the system will be gradually driven out of equilibrium, causing hysteresis effects. From the second law of thermodynamic, it is expected that the work $W(\tau)$ performed during the nonequilibrium transformation is on average larger than or equal to the free energy difference between the two states
 \begin{equation}
 \left \langle W(\tau) \right \rangle \ge \Delta A,
-\label{Eq:WA}
+\label{Eq:FEM:NEW:WA}
 \end{equation} 
 with the difference between the work and free energy accounting for heat-dissipation effects. The work $W(\tau)$ performed on the system is the accumulated energies cost required to change the system
 \begin{equation}
 W(\tau) = \int_{0}^{\tau} \frac{\partial{H[\textbf{x}(t);\lambda]}}{\partial{\lambda}}\bigg\rvert_{\lambda=\lambda(t)} \dot{\lambda}(t) dt
-\label{Eq:work}
+\label{Eq:FEM:NEW:work}
 \end{equation}    
-The equality in Eq.~\ref{Eq:WA} will normally be achieved only if the transformation is infinitely slow, $\tau\to\infty$.  For paths of finite length, the amount of dissipated work, $\left \langle W(\tau) \right \rangle - \Delta A \ge 0$, will depend on the chosen transformation path $\lambda(t)$.
+The equality in Eq.~\ref{Eq:FEM:NEW:WA} will normally be achieved only if the transformation is infinitely slow, $\tau\to\infty$.  For paths of finite length, the amount of dissipated work, $\left \langle W(\tau) \right \rangle - \Delta A \ge 0$, will depend on the chosen transformation path $\lambda(t)$.
 
-Jarzynski's identity, Eq.~\ref{Eq:Jar}, immediately leads to the second law in the form of Eq.~\ref{Eq:WA} because of Jensen's inequality, $\left \langle e^{-x} \right \rangle \ge e^{-x} $.
-Moreover, TI and TP can be thought as the limiting cases of the nonequilibrium process. When $\tau\to\infty$ or $\dot{\lambda}(t)\to0$, this is an infinitely slow transformation and the Eq.~\ref{Eq:limitA} is the formula of TI
+Jarzynski's identity, Eq.~\ref{Eq:FEM:NEW:Jar}, immediately leads to the second law in the form of Eq.~\ref{Eq:FEM:NEW:WA} because of Jensen's inequality, $\left \langle e^{-x} \right \rangle \ge e^{-x} $.
+Moreover, TI and TP can be thought as the limiting cases of the nonequilibrium process. When $\tau\to\infty$ or $\dot{\lambda}(t)\to0$, this is an infinitely slow transformation and the Eq.~\ref{Eq:FEM:NEW:limitA} is the formula of TI
 \begin{equation}
 \Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} d\lambda
-\label{Eq:TINEW}
+\label{Eq:FEM:NEW:TINEW}
 \end{equation}  
 When $\tau\to0$ or $\dot{\lambda}(t)\to\infty$, this is an infinitely fast transformation where the configurations will nor relax and the work is simply the change in the Hamiltonian when going from the initial to the final state,
 \begin{equation}
 \lim_{\tau\to0}W(\tau) = H(\textbf{x}(0);\lambda=1)-H(\textbf{x}(0);\lambda=0)
-\label{Eq:limitW}
+\label{Eq:FEM:NEW:limitW}
 \end{equation}
-Substituting the Eq.~\ref{Eq:limitW} into the Eq.~\ref{Eq:Jar}, the formula of TP can be recovered:
+Substituting the Eq.~\ref{Eq:FEM:NEW:limitW} into the Eq.~\ref{Eq:FEM:NEW:Jar}, the formula of TP can be recovered:
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \ln \left \langle \exp[-\beta \Delta H(\textbf{x},\textbf{p}_{x})] \right \rangle  _{0},
-\label{Eq:deltaA4NEW}
+\label{Eq:FEM:NEW:deltaA4NEW}
 \end{equation}
 
 In the reference paper\cite{CrooksJSP1998}, Crooks showed that the distribution of work values form forward and backward paths satisfies a relation that is central to histogram methods in free energy calculations
 \begin{equation}
 \frac{p_{f}[w=W(\tau)]}{p_{b}[w=-\underline{W}(\tau)]}=\exp[\beta(w-\Delta A)],
-\label{Eq:crooks}
+\label{Eq:FEM:NEW:crooks}
 \end{equation}
-where $p_{f}[w=W(\tau)]$ and $p_{b}[w=-\underline{W}(\tau)]$ are the probability densities of the work values for forward and reversed transformation paths (with a sign change in the work of the reverse work path). Both are normalized, i.e., $\int p_{f}(w) dw=\int p_{b}(w) dw=1$. It is noted that Jarzynski's identity Eq.~\ref{Eq:Jar} follows from Eq.~\ref{Eq:crooks} simply by integration over $w$ because the probability densities are normalized to 1:
+where $p_{f}[w=W(\tau)]$ and $p_{b}[w=-\underline{W}(\tau)]$ are the probability densities of the work values for forward and reversed transformation paths (with a sign change in the work of the reverse work path). Both are normalized, i.e., $\int p_{f}(w) dw=\int p_{b}(w) dw=1$. It is noted that Jarzynski's identity Eq.~\ref{Eq:FEM:NEW:Jar} follows from Eq.~\ref{Eq:FEM:NEW:crooks} simply by integration over $w$ because the probability densities are normalized to 1:
 \begin{equation}
 \int p_{f}(W)e^{-\beta W}dW=\int p_{b}(W)e^{-\beta \Delta A}dW,
-\label{Eq:crookstojar}
+\label{Eq:FEM:NEW:crookstojar}
 \end{equation}
 Because of the normalization condition, the right-hand side is equal to $\exp(-\beta \Delta A)$, and Jarzynski's identity follows.
 
@@ -60,7 +60,7 @@ Following the Crooks Fluctuation Theorem (CFT),\cite{CrooksJSP1998} Bennett’s 
 In this approach, $\Delta A$ is calculated via
 \begin{align}
 \sum_{i=1}^{n_{F}}\frac{1}{1+\exp \left[\beta(M+W_{i}-\Delta A)\right]} = \sum_{j=1}^{n_{R}}\frac{1}{1+\exp \left[-\beta(M+W_{j}-\Delta A)\right]},
-\label{Eq:NEBAR}
+\label{Eq:FEM:NEW:NEBAR}
 \end{align}
 where $n_{F}$ and $n_{R}$ are the numbers of the forward and reverse transformations respectively, $W_{i}$ and $W_{j}$ are the work of forward and reverse measurements respectively, and M=$\beta^{-1}$ln($n_{F}$/$n_{R}$).
 The corresponding statistical variance of $ \Delta A $, $ \sigma^2 $ is calculated using Eq. 10 in the reference paper.~\cite{ShirtsPRL2003}.

@@ -26,38 +26,6 @@
 %		\let\protect\l@section\protect\l@subsection
 %	}
 %	\makeatother
-\chapter{Optimal Means of Data Set\label{chapter:Appendix:Mean}}
-Suppose we have N measurements of a quantity x, which are denoted as \{$x_i$\}, with i = 1, \dots, N. Each measurement has a variance $\delta^2 x_i$. To find the optimal mean of this data set, we first write the mean of \{$x_i$\} as a weighted average of them
-\begin{equation}
-\bar{x}=\sum\limits_{i=1}^N a_i x_i,
-\label{Eq:Appendix:Mean:mean}
-\end{equation}
-in which $a_i$ are the normalized weights, i.e.
-\begin{equation}
-\sum\limits_{i=1}^Na_i=1.
-\label{Eq:Appendix:Mean:normalization}
-\end{equation} 
-According to the error propagation rule, if the measurements are independent, the variance of the mean $\bar{x}$ can be written as
-\begin{equation}
-\delta^2\bar{x}=\sum\limits_{i=1}^N{a_i}^2\delta^2x_i.
-\label{Eq:Appendix:Mean:variaceofmean}
-\end{equation}
-Minimizing $\delta^2\bar{x}$ with respect to $a_i$ under the constraint of Eq.~\ref{Eq:Appendix:Mean:normalization} using the Lagrange multiplier $\lambda$, we find
-\begin{align}
-\frac{\partial L}{\partial a_j}=&\frac{\partial}{\partial x_j}\left[\sum\limits_{i=1}^{N}{a_i}^2\delta^2x_i+\lambda\left(1-\sum\limits_{i=1}^Na_i\right)\right]\notag\\
-=&2a_j\delta^2x_j-\lambda\notag\\
-=&0
-\end{align}
-for all {$x_j$}. It can be easily identified that $a_j$ is inversed proportional to $\delta^2x_i$, i.e.
-\begin{equation}
-a_j=\frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}},
-\label{Eq:Appendix:Mean:aj}
-\end{equation}
-and
-\begin{equation}
-\bar{x}=\sum\limits_{i=1}^N \frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}} x_i,
-\label{Eq:Appendix:Mean:meanexpanded}
-\end{equation}
 
 \chapter{Statistical Uncertainty in the Estimator for Correlated Time Series Data\label{chapter:Appendix:Uncertainty}}
 \begin{chapquote}{Nassim Nicholas Taleb%, \textit{\url{https://en.wikiquote.org/wiki/Albert_Einstein}}
@@ -98,6 +66,40 @@ where ${\sigma_x}^2$, statistical inefficiency $g$, and autocorrelation time $\t
 	&g\equiv 1+2\tau
 \end{align}
 The quantity $g\equiv 1+2\tau>1$ can be thought of as a statistical inefficiency, in that $N/g$ gives the effective number of \textit{uncorrelated} configurations contained in the time series.
+
+\chapter{Optimal Means of Data Set\label{chapter:Appendix:Mean}}
+Suppose we have N measurements of a quantity x, which are denoted as \{$x_i$\}, with i = 1, \dots, N. Each measurement has a variance $\delta^2 x_i$. To find the optimal mean of this data set, we first write the mean of \{$x_i$\} as a weighted average of them
+\begin{equation}
+\bar{x}=\sum\limits_{i=1}^N a_i x_i,
+\label{Eq:Appendix:Mean:mean}
+\end{equation}
+in which $a_i$ are the normalized weights, i.e.
+\begin{equation}
+\sum\limits_{i=1}^Na_i=1.
+\label{Eq:Appendix:Mean:normalization}
+\end{equation} 
+According to the error propagation rule, if the measurements are independent, the variance of the mean $\bar{x}$ can be written as
+\begin{equation}
+\delta^2\bar{x}=\sum\limits_{i=1}^N{a_i}^2\delta^2x_i.
+\label{Eq:Appendix:Mean:variaceofmean}
+\end{equation}
+Minimizing $\delta^2\bar{x}$ with respect to $a_i$ under the constraint of Eq.~\ref{Eq:Appendix:Mean:normalization} using the Lagrange multiplier $\lambda$, we find
+\begin{align}
+\frac{\partial L}{\partial a_j}=&\frac{\partial}{\partial x_j}\left[\sum\limits_{i=1}^{N}{a_i}^2\delta^2x_i+\lambda\left(1-\sum\limits_{i=1}^Na_i\right)\right]\notag\\
+=&2a_j\delta^2x_j-\lambda\notag\\
+=&0
+\end{align}
+for all {$x_j$}. It can be easily identified that $a_j$ is inversed proportional to $\delta^2x_i$, i.e.
+\begin{equation}
+a_j=\frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}},
+\label{Eq:Appendix:Mean:aj}
+\end{equation}
+and
+\begin{equation}
+\bar{x}=\sum\limits_{i=1}^N \frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}} x_i,
+\label{Eq:Appendix:Mean:meanexpanded}
+\end{equation}
+
 
 \chapter{MBAR returns to BAR When Only Two States Are Considered}
 When there are only two states, the free energy for the 1st state in MBAR becomes

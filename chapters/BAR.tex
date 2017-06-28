@@ -10,8 +10,8 @@ which has the property
 \end{equation}
 
 If we make a trial move that keeps the same configuration ($q_{1},\cdots,q_{N}$)
-but switches the potential function from $U_{0}$ to $U_{1}$ or vice-versa.
-The acceptance probabilities for such a pair of trial move must satisfy
+but switches the potential function from $U_{0}$ to $U_{1}$ or vice-versa, 
+the acceptance probabilities for such a pair of trial moves must satisfy
 the detailed balance
 \begin{equation}
 	M(U_{1}-U_{0})\exp{(-U_{0})}=M(U_{0}-U_{1})\exp{(-U_{1})}.
@@ -30,13 +30,12 @@ or simply
 \end{equation}
 
 The physical meaning of this formula is that a Monte Carlo calculation
-that included potential-switching trial moves would distribute configurations
-between $U_{1}$ and $U_{0}$in the ratio of their configurational
+that includes potential-switching trial moves would distribute configurations
+between $U_{1}$ and $U_{0}$ in the ratio of their configurational
 integrals. 
 
 A more general formula than Eq.~\ref{eq:FEM:BAR:MetropolisRatio} can be written
 as
-
 \begin{equation}
 	\frac{Q_{0}}{Q_{1}}=\frac{Q_{0}}{Q_{1}}\frac{\int W\exp{(-U_{0}-U_{1})}d\mathbf{{q}}}{\int W\exp{(-U_{1}-U_{0})}d\mathbf{{q}}}=\frac{\langle W\exp{(-U_{0})}\rangle_{1}}{\langle W\exp{(-U_{1})}\rangle_{0}},\label{eq:FEM:BAR:weightedratio}
 \end{equation}
@@ -45,8 +44,7 @@ where $W$ is an arbitrary weighting function.
 Optimization of the free energy estimate is most easily carried out in the limit of large sample sizes. Let the available data consist
 of $n_{0}$ statistically independent configurations from the $U_{0}$ ensemble and $n_{1}$ from the $U_{1}$ ensemble, and let the data
 be used in Eq.~\ref{eq:FEM:BAR:weightedratio} to obtain a finite-sample estimate of the reduced free energy difference $\Delta A=A_{1}-A_{0}=ln(Q_{0}/Q_{1})$.
-Using the error propagation equation,
-
+Using the error propagation law of uncorrelated variables ($covar(x_1,x_2)=0$),\cite{BerendsenBook2011}
 \begin{equation}
 	\delta^2\left[y(x_{1},x_{2})\right]=\left(\frac{\partial y}{\partial x_{1}}\right)^{2}\delta^2(x_{1})+\left(\frac{\partial y}{\partial x_{2}}\right)^{2}\delta^2(x_{2}).
 \end{equation}
@@ -66,8 +64,9 @@ we have
 	& = & \sum_{i=1}^{n_{1}}\left(\frac{1}{n_{1}}\right)^{2}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
 	& = & \frac{1}{n_{1}}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
 	& = & \frac{1}{n_{1}}\left\{ \left\langle \left(W\exp{(-U_{0})}\right)^{2}\right\rangle _{1}-\left(\left\langle W\exp{(-U_{0})}\right\rangle _{1}\right)^{2}\right\} \\
-	& = & \frac{1}{n_{1}}\left\{ \left\langle W^{2}\exp{(-2U_{0})}\right\rangle _{1}-\left[\left\langle W\exp{(-U_{0})}\right\rangle _{1}\right]^{2}\right\} 
+	& = & \frac{1}{n_{1}}\left\{ \left< W^{2}\exp{(-2U_{0})}\right>_{1}-\left[\left< W\exp{(-U_{0})}\right>_{1}\right]^{2}\right\},
 \end{eqnarray}
+which shows that the variance of the mean of the samples equals to the variance of the samples divided by the number of samples.
 
 With sufficiently large sample sizes, the error of this estimate will
 be nearly Gaussian, and its expected square is exactly the variance
