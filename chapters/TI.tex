@@ -19,25 +19,25 @@ Thus,
 \end{align} 
 From the definition of Q:
 \begin{equation}
-Q_{NVT}(\lambda) = \frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x},
+Q_{NVT}(\lambda) = \frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] d\mathbf{x}d\mathbf{p}_\mathbf{x},
 \label{Eq:FEM:TI:PFTI}
 \end{equation}
 we can write the following for $\frac{\partial{Q(\lambda)}}{\partial{\lambda}}$:
 \begin{align}
-\frac{\partial{Q(\lambda)}}{\partial{\lambda}} =&\frac{1}{{h}^{3N}N!} \iint \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x}\notag\\
-=& -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x},
+\frac{\partial{Q(\lambda)}}{\partial{\lambda}} =&\frac{1}{{h}^{3N}N!} \iint \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] d\mathbf{x}d\mathbf{p}_\mathbf{x}\notag\\
+=& -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x})}}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] d\mathbf{x}d\mathbf{p}_\mathbf{x},
 \label{Eq:FEM:TI:PPF2}
 \end{align}
 Substituting back into the expression for $\frac{\partial{A}}{\partial{\lambda}}$ gives
 \begin{align}
-\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}}\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)] d\textbf{x}d\textbf{p}_\textbf{x}, \\
-=& \iint \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}}\cdot\frac{\exp[-\beta H(\textbf{x},\textbf{p}_{x},\lambda)]}{Q(\lambda)} d\textbf{x}d\textbf{p}_\textbf{x}, \\
-=& \left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x}, \lambda)}}{\partial{\lambda}} \right \rangle_{\lambda}
+\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] d\mathbf{x}d\mathbf{p}_\mathbf{x}, \\
+=& \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\cdot\frac{\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)]}{Q(\lambda)} d\mathbf{x}d\mathbf{p}_\mathbf{x}, \\
+=& \left \langle \frac{\partial{H(\mathbf{x},\mathbf{p}_{x}, \lambda)}}{\partial{\lambda}} \right \rangle_{\lambda}
 \label{Eq:FEM:TI:PA2}
 \end{align}
-Thus, the basic \textbf{TI} formula is
+Thus, the basic TI formula is
 \begin{equation}
-\Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\textbf{x},\textbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} d\lambda
+\Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} d\lambda
 \label{Eq:FEM:TI:TI}
 \end{equation} 
 where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecule dynamic or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from the initial state $A$ with Hamiltonian $H_{A}$ to the final state $B$ with Hamiltonian $H_{B}$. The simplest coupling is linear transformation as

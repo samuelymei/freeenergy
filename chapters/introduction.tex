@@ -22,3 +22,27 @@ There are also two books on this topic you might be interested in:
 \item Free Energy Calculations: Theory and Applications in Chemistry and Biology, Editors: Christophe Chipot, Andrew Pohorille, ISBN 978-3-540-38448-9, Springer-Verlag Berlin Heidelberg, 2007
 \item Free Energy Computations: A Mathematical Perspective, Author: Tony Lelievre, Gabriel Stoltz, Mathias Rousset, ISBN-13: 978-1848162471, Imperial College Press, 2010
 \end{itemize}
+
+Before we get into the major content of this booklet, we would like to review some fundamental quantities in statistical mechanics. The first one is the partition function $Q$ for Hamiltonian $H(\mathbf{x},\mathbf{p}_{x})$, which is defined as
+\begin{align}
+  Q(N,V,T)=&\frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\mathbf{x},\mathbf{p}_{x})] d\mathbf{x}d\mathbf{p}_\mathbf{x}\notag\\
+         =&\frac{1}{\Lambda^{3N}N!}Z(N,V,T),
+\end{align}
+where $\mathbf{x}$ and $\mathbf{p}_{x}$ are the coordinates and the conjugate momenta, respectively,
+\begin{equation}
+	Z(N,V,T)=\int \exp{\left(-\beta U(\mathbf{x})\right)}d\mathbf{x}
+\end{equation}
+is the configurational integral, $\Lambda$ is the temperature-dependent de Broglie wavelength, and $U(\mathbf{x})$ is the potential energy.
+
+The partition function $Q$ can also be defined in energy space as
+\begin{equation}
+	Q(N,V,T)=\int \exp{\left(-\beta E\right)}\varOmega_{tot}(N,V,E)dE,
+\end{equation}
+where
+\begin{equation}
+	\varOmega_{tot}(N,V,E)=\frac{1}{{h}^{3N}N!}\iint_{V^N} \delta(H(\mathbf{x},\mathbf{p}_{x})-E)d\mathbf{x}d\mathbf{p}_\mathbf{x}
+\end{equation}
+is the complete density of states. Correspondingly, we can also define the configurational density of state as
+\begin{equation}
+	\varOmega_{con}\propto\frac{1}{N!}\int_{V^N} \delta(U(\mathbf{x})-E)d\mathbf{x}.
+\end{equation}

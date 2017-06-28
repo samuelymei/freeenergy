@@ -1,11 +1,11 @@
 \subsection{Multistate Bennett Acceptance Ratio\label{Sec:FEM:MBAR}}
 The following derivation quite follows Ref.~\cite{ShirtsarXiv2017}
 Imaging you have carried out a series of simulations such umbrella sampling or parallel simulations such as replica exchange molecular dynamics simulations.
-Now you have $K$ trajectories and each trajectory is characterized by Hamiltonian $H_k$ and inverse temperature $\beta_k$. The trajectories unnecessarily have the same number of conformations. Instead, the number of conformations in trajectory $k$ is $N_k$. Now, you mix all the samples and randomly pick one sample out of them. The probably for this sample to have coordinates $\mathbf{R}$ is 
+Now you have $K$ trajectories in total and each trajectory is characterized by Hamiltonian $H_k$ and inverse temperature $\beta_k$. The trajectories unnecessarily have the same number of conformations. Instead, the number of conformations in trajectory $k$ is $N_k$. Now, you mix all the samples and randomly pick one sample out of them. The probably for this sample to have coordinates $\mathbf{R}$ is 
 \begin{equation}
 p_m(\mathbf{R})=\frac 1N\sum_{k=1}^{K}N_kp_k(\mathbf{R}),
 \end{equation}
-in which the subscript $m$ means mixed ensemble and $N=\sum\limits_{k=1}^{K}N_k$. $p_k(\mathbf{R}_n)$ is the probability of finding this snapshot in trajectory $k$, which satisfies
+in which $N=\sum\limits_{k=1}^{K}N_k$ and the subscript $m$ means mixed ensemble. $p_k(\mathbf{R}_n)$ is the probability of finding this snapshot in trajectory $k$, which satisfies
 \begin{equation}
 p_k(\mathbf{R})={c_k}^{-1}q_k(\mathbf{R}).
 \end{equation}
@@ -13,7 +13,7 @@ $c_k$ is the normalization constant. You can see that this mixed ensemble does n
 
 The expectation of any operator $\hat{O}$ averaged over this mixed ensemble can be calculated by
 \begin{equation}
-\langle O\rangle_m\approx\frac 1N \sum\limits_{n=1}^NO(\mathbf{R}_n).
+\langle O\rangle_m=\int O(\mathbf{R})p_m(\mathbf{R})d\mathbf{R}\approx\frac 1N \sum\limits_{n=1}^NO(\mathbf{R}_n).
 \end{equation}
 Using energy reweighting\cite{TorrieJComputP1977}, we can calculate the expectation of this operator under any other Hamiltonian $H_i$ and probability $p_i$, which can be expressed as
 \begin{align}
@@ -45,7 +45,7 @@ which must be solved self-consistently and can be determined up to a constant. W
 
 Again, from Eq.~\ref{Eq:FEM:MBAR:Oexpect}, we can define
 \begin{equation}
-W_{in}={c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)}
+W_{in}={c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)},
 \end{equation}
 which is the weight of snapshot $n$ in ensemble $i$ determined by Hamiltonian $H_i$ and temperature $\beta_i$. Specifically, for the Boltzmann statistics,
 \begin{align}
