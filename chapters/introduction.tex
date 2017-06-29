@@ -8,9 +8,9 @@
 ``Everything should be made as simple as possible but not simpler.''
 \end{chapquote}
 
-Computer simulations of biological system have made much progress in the past decades. 
+Computer simulations of biological system have made much progress in the past decades. A battery of methods at different levels of sophistication and complexity have been proposed.
 
-We are still facing many difficulties in three aspects, i.e. Hamiltonians, sampling efficiency and postprocessing methods.\cite{NielsJCTC2014}
+However, we are still facing many difficulties in three aspects, i.e. Hamiltonians, sampling efficiency and postprocessing methods.\cite{NielsJCTC2014}
 
 In this booklet, we will not cover the whole spectrum of methods for enhanced samplings and free energy calculations, but only summarize some basic ideas. 
 More complicated implementations of these methods, for instance 2-dimensional replica exchange molecular dynamics simulations, will not be discussed.
@@ -85,3 +85,28 @@ where $J$ is the Jacobian matrix upon changing from Cartesian to generalized coo
                                     =&\left<\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}\right>_\xi.
 \end{align}
 Here, $-\frac{\partial U}{\partial \xi}+\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}$ is the generalized force on $\xi$ averaged over the degrees of freedom other than $\xi$ itself. Therefore, $A(\xi)$ is called the potential of mean force. \textit{Note: Some define the potential of mean force as $\left<\frac{\partial U}{\partial \xi}\right>_\xi$ only. But we do not strictly differentiate potential of mean force and free energy profile here.}
+
+In order to illustrate how the simulations and free energy methods to be discussed below are used in real problems, let us take protein-ligand binding
+\begin{equation}
+P\,+\,L\rightleftharpoons \operatorname{P-L}
+\end{equation}
+as an example. The equilibrium constant, $k_b$, is defined as
+\begin{equation}
+K_b=\frac{[\operatorname{P-L}]}{[P][L]},
+\end{equation} 
+where $[PL]$, $[P]$ and $[L]$ are the equilibrium concentrations of the complex, protein and ligand, respectively. $K_b$ can be expressed in terms of a ration of configurational integrals as
+\begin{equation}
+K_b=\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}},
+\end{equation}
+where $U$ is the total potential energy of the system, (\textbf{1}),(\textbf{2}),$\cdots$,(\textbf{N}) and \textbf{N} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and we notice that $\int_{bulk}d(\mathbf{1})=V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
+\begin{align}
+   K_b=&\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}\notag\\
+      =&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}.
+\end{align}
+
+A direct calculation of this ratio is not easy. Practically, we can define a series of intermediate states. Thereupon, the calculation of this ratio can be facilitated by
+\begin{align}
+K_b=\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac{Z_1}{Z_2}\times\cdots\times\frac{Z_{n-1}}{Z_n}\times\notag\\ &\frac{Z_n}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}
+\end{align}
+
+There are two categories of methods for computing $K_b$, i.e. the alchemical strategy\cite{DengJCTC2006} and the PMF-based strategy\cite{WooPNAS2005}. A comparison of these two strategies can be found in Ref.~\cite{GumbartJCTC2013}.
