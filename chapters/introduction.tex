@@ -17,6 +17,8 @@ More complicated implementations of these methods, for instance 2-dimensional re
 
 Recently, there is one special issue focusing on the methodologies of free energy calculations on Journal of Chemical Theory and Computation (Free Energy Calculations: Three Decades of Adventure in Chemistry and Biophysics, Journal of Chemical Theory and Computation, Volume 10, Issue 7, 2014, \url{http://pubs.acs.org/toc/jctcce/10/7}). 
 
+There is also one good paper for reference: Andrew Pohorille, Christopher Jarzynski and Christophe Chipot, Good Practices in Free-Energy Calculations, Journal of Physical Chemistry B, 2010, 114 (32), 10235–10253
+
 There are also two books on this topic you might be interested in:
 \begin{itemize}
 \item Free Energy Calculations: Theory and Applications in Chemistry and Biology, Editors: Christophe Chipot, Andrew Pohorille, ISBN 978-3-540-38448-9, Springer-Verlag Berlin Heidelberg, 2007
@@ -69,14 +71,17 @@ Q_1=&\frac{1}{N!h^{3N}}\int_{\Gamma_1}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_
 where $\Gamma_0$ and $\Gamma_1$ may refer to different conformations of a flexible molecules, or the bound and unbound structures of a protein-ligand complex.
 
 Besides free energy, sometimes we are also interested in the free energy profile along one or several degrees of freedom
-\begin{equation}
-	A(\xi)=-\beta^{-1}\ln{Z(\xi)}=-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}.
-\end{equation}
-Its gradient over $\xi$ is
+\begin{align}
+	A(\xi)=&-\beta^{-1}\ln{Z(\xi)}\notag\\
+	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}\notag\\
+	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}|J|dq_1\cdots dq_{N-1},
+\end{align}
+where $J$ is the Jacobian matrix upon changing from Cartesian to generalized coordinates with its element defined as $\left[J(\xi)\right]_{ij}=\partial x_i/\partial \xi_j$. $|J|$ is its determinant. Its gradient over $\xi$ is
 \begin{align}
 \frac{\partial A(\xi)}{\partial \xi}=&-\beta^{-1}\frac{\int \frac{\partial}{\partial \xi}\left(e^{-\beta U}|J|\right)dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
-                                    =&\frac{\int \exp{\left(-\beta U\right)}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{1}{|J|}\frac{\partial |J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
-                                    =&\frac{\int \exp{\left(-\beta U\right)}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
-                                    =&\frac{\int \exp{\left(-\beta U\right)}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{1}{|J|}\frac{\partial |J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
                                     =&\left<\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}\right>_\xi.
 \end{align}
+Here, $-\frac{\partial U}{\partial \xi}+\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}$ is the generalized force on $\xi$ averaged over the degrees of freedom other than $\xi$ itself. Therefore, $A(\xi)$ is called the potential of mean force. \textit{Note: Some define the potential of mean force as $\left<\frac{\partial U}{\partial \xi}\right>_\xi$ only. But we do not strictly differentiate potential of mean force and free energy profile here.}
