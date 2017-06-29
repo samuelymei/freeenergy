@@ -98,7 +98,7 @@ where $[PL]$, $[P]$ and $[L]$ are the equilibrium concentrations of the complex,
 \begin{equation}
 K_b=\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}},
 \end{equation}
-where $U$ is the total potential energy of the system, (\textbf{1}),(\textbf{2}),$\cdots$,(\textbf{N}) and \textbf{N} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and we notice that $\int_{bulk}d(\mathbf{1})=V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
+where $U$ is the total potential energy of the system, (\textbf{1}), (\textbf{2}), $\cdots$, (\textbf{N}) and \textbf{N} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and we notice that $\int_{bulk}d(\mathbf{1})=V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
 \begin{align}
    K_b=&\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}\notag\\
       =&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}.
@@ -107,6 +107,7 @@ where $U$ is the total potential energy of the system, (\textbf{1}),(\textbf{2})
 A direct calculation of this ratio is not easy. Practically, we can define a series of intermediate states. Thereupon, the calculation of this ratio can be facilitated by
 \begin{align}
 K_b=\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac{Z_1}{Z_2}\times\cdots\times\frac{Z_{n-1}}{Z_n}\times\notag\\ &\frac{Z_n}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}
+\label{Eq:Intro:K_b_path}
 \end{align}
 
-There are two categories of methods for computing $K_b$, i.e. the alchemical strategy\cite{DengJCTC2006} and the PMF-based strategy\cite{WooPNAS2005}. A comparison of these two strategies can be found in Ref.~\cite{GumbartJCTC2013}.
+There are two categories of methods for computing $K_b$, i.e. the alchemical strategy\cite{DengJCTC2006} and the PMF-based strategy\cite{WooPNAS2005}. A comparison of these two strategies can be found in Ref.~\cite{GumbartJCTC2013}. For each ratio in Eq.~\ref{Eq:Intro:K_b_path}, we shall design a proper simulation and employ a suitable free energy method to calculate the free energy associated with it. Enhanced sampling might be necessary for convergence.
