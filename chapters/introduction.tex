@@ -111,3 +111,25 @@ K_b=\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac
 \end{align}
 
 There are two categories of methods for computing $K_b$, i.e. the alchemical strategy\cite{DengJCTC2006} and the PMF-based strategy\cite{WooPNAS2005}. A comparison of these two strategies can be found in Ref.~\cite{GumbartJCTC2013}. For each ratio in Eq.~\ref{Eq:Intro:K_b_path}, we shall design a proper simulation and employ a suitable free energy method to calculate the free energy associated with it. Enhanced sampling might be necessary for convergence.
+
+In alchemical strategy, the ligand is decoupled from its environment in the binding pocket and then appears in water. However, a series of steps with restraints on the conformation, translation and rotation are introduced. Equation~\ref{Eq:Intro:K_b_path} is now realized as
+\begin{align}
+  K_b=&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U_1}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
+      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}\times\notag\\
+      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}\times\notag\\
+      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}\times\notag\\
+      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}{\int_{bulk}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}\times\notag\\
+      &\frac{\int_{bulk}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_0+U_c]}}\times\notag\\
+      &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_0+U_c]}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
+      &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U_1}}.
+\end{align}
+
+In PMF-based strategy, the ligand is gradually pulled out of the binding pocket into water. Similarly, restraints on the conformation, translation and rotation should also be applied when pulling the ligand molecule. Equation~\ref{Eq:Intro:K_b_path} is now realized as
+\begin{align}
+K_b=&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
+    &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
+    &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}\times\notag\\
+    &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
+    &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
+    &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c]}}{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}.
+\end{align}
