@@ -61,7 +61,13 @@ Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally e
 \end{equation}
 If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, then $\Delta U$ would be Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
 
-Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. If we substitute
+Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/TP.pdf}\\
+\caption{$P_{0}(\Delta U)$, the Boltzmann factor $\exp(-\beta \Delta U)$ and their product, which is the integrand in \ref{Eq:FEM:TP:deltaA7}. The low-$\Delta U$ tail of the integrand is poorly sampled with $P_{0}(\Delta U)$ and, therefore, is known with low statistical accuracy. However, it provides an important contribution to the integral.}\label{Fig:TP:Pdistribution}
+\end{figure}
+If we substitute
 \begin{equation}
 P_{0}(\Delta U) = \frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0})^2}{2\sigma^2}\right]}
 \label{Eq:FEM:TP:gaussian}
@@ -90,4 +96,16 @@ If the distribution of $\Delta U$ deviates from Gaussian, there will be extra te
 \begin{equation}
 \Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2 + \frac{\beta^2}{6} \left(\left<\Delta U^3\right>_0-3\left<\Delta U^2\right>_0\left<\Delta U\right>_0+2\left<\Delta U\right>_0^3\right).
 \label{Eq:FEM:TP:deltaA9}
+\end{equation}
+The overlap matrix ~\cite{KlimovichJCAMD2015} is a helpful tool in finding the magnitude of the phase space overlap. It is recommended to be used as a consistency check, as in the case of the TP-based methods.
+ 
+If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $ith$ lambda state as:
+\begin{equation}
+W_{n,i}(x_{n}) = \frac{e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}
+\label{Eq:FEM:TP:weights}
+\end{equation}
+Then, the overlap matrix is a $K \times K$ matrix with entries:
+\begin{equation}
+O_{i,j} = \sum_{n=1}^{N}\frac{N_{i} e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}\frac{e^{\beta G_{j} - \beta U_{j}(x_{n})}}{\sum_{l=1}^{L} N_{l}e^{\beta G_{l}-\beta U_{l}(x_{n})}}
+\label{Eq:FEM:TP:om}
 \end{equation}
