@@ -20,7 +20,7 @@ Recently, there is one special issue focusing on the methodologies of free energ
 There are also some good papers for reference
 \begin{itemize}
 	\item Andrew Pohorille, Christopher Jarzynski and Christophe Chipot, Good Practices in Free-Energy Calculations, Journal of Physical Chemistry B, 2010, 114 (32), 10235–10253
-	\item Daniel M. Zuckerman, Equilibrium Sampling in Biomolecular Simulations, Annual Review of Biophysics, 2011. 40:41–62
+	\item Daniel M. Zuckerman, Equilibrium Sampling in Biomolecular Simulations, Annual Review of Biophysics, 2011, 40:41–62
 \end{itemize}
 
 
@@ -74,6 +74,15 @@ Q_0=&\frac{1}{N!h^{3N}}\int_{\Gamma_0}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_
 Q_1=&\frac{1}{N!h^{3N}}\int_{\Gamma_1}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}d\mathbf{x}d\mathbf{p}_x
 \end{align}
 where $\Gamma_0$ and $\Gamma_1$ may refer to different conformations of a flexible molecules, or the bound and unbound structures of a protein-ligand complex.
+
+In canonical ensemble (with $NVT$ fixed), the probability of a microstate is
+\begin{equation}
+\rho(x)=\frac{1}{Z}\exp{(-\beta E(x))},
+\end{equation}
+where $E(x)$ is the potential energy of that microstate. With this probability we can calculate the expectation of any operator $\hat{O}$ via
+\begin{equation}
+\left<O\right>=\frac{\int O(\mathbf{x})\exp{(-\beta E(\mathbf{x}))}d\mathbf{x}}{Z}.
+\end{equation}
 
 Besides free energy, sometimes we are also interested in the free energy profile along one or several degrees of freedom
 \begin{align}
