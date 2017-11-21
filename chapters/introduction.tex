@@ -108,7 +108,7 @@ as an example. The equilibrium constant, $k_b$, is defined as
 \begin{equation}
 K_b=\frac{[\operatorname{P-L}]}{[P][L]},
 \end{equation} 
-where $[\operatorname{P-L}]$, $[P]$ and $[L]$ are the equilibrium concentrations of the complex, protein and ligand, respectively. $K_b$ can be expressed in terms of a ratio of configurational integrals as
+where $[\operatorname{P-L}]$, $[P]$ and $[L]$ are the equilibrium concentrations of the complex, protein and ligand, respectively. A standard binding free energy can be calculated via $G_{bind}\equiv -\beta^{-1}\ln{\left[ K_bC^0\right]}$, where $C^0$ is the standard state concentration of 1 mol/liter ($\equiv 1/1661 {\AA}^3$). $K_b$ can be expressed in terms of a ratio of configurational integrals as
 \begin{equation}
 K_b=\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}},
 \end{equation}
@@ -124,7 +124,7 @@ K_b=\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac
 \label{Eq:Intro:K_b_path}
 \end{align}
 
-There are two categories of methods for computing $K_b$, i.e. the alchemical strategy\cite{DengJCTC2006} and the PMF-based strategy\cite{WooPNAS2005}. A comparison of these two strategies can be found in Ref.~\cite{GumbartJCTC2013}. For each ratio in Eq.~\ref{Eq:Intro:K_b_path}, we shall design a proper simulation and employ a suitable free energy method to calculate the free energy associated with it. Enhanced sampling might be necessary for convergence.
+There are two categories of methods for computing $K_b$, i.e. the alchemical strategy\cite{DengJCTC2006} and the PMF-based strategy\cite{WooPNAS2005}. A comparison of these two strategies can be found in Ref.~\cite{DengJPCB2009,GumbartJCTC2013}. For each ratio in Eq.~\ref{Eq:Intro:K_b_path}, we shall design a proper simulation and employ a suitable free energy method to calculate the free energy associated with it. Enhanced sampling might be necessary for convergence.
 
 In alchemical strategy, the ligand is decoupled from its environment in the binding pocket and then appears in water. However, a series of steps with restraints on the conformation, translation and rotation are introduced. Equation~\ref{Eq:Intro:K_b_path} is now realized as
 \begin{align}
