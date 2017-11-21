@@ -1,6 +1,14 @@
 \subsection{Multistate Bennett Acceptance Ratio\label{Sec:FEM:MBAR}}
-The following derivation quite follows Ref.~\cite{ShirtsarXiv2017}
-Imaging you have carried out a series of simulations such umbrella sampling or parallel simulations such as replica exchange molecular dynamics simulations.
+\begin{chapquote}{Ernest Rutherford%, \textit{\url{https://en.wikiquote.org/wiki/Ernest_Rutherford}}
+	}
+	``An alleged scientific discovery has no merit unless it can be explained to a barmaid.''
+\end{chapquote}
+\begin{chapquote}{Yihan Shao
+	}
+	``So, you can never be a good scientist unless you go to bar regularly.''
+\end{chapquote}
+The Multistate Bennett Acceptance Ratio (MBAR) method was developed by Shirts and Chodera in 2008.\cite{ShirtsJCP2008} The following derivation quite follows Ref.~\cite{ShirtsarXiv2017}
+Imaging you have carried out a series of simulations such as umbrella sampling, or replica exchange molecular dynamics simulations.
 Now you have $K$ trajectories in total and each trajectory is characterized by Hamiltonian $H_k$ and inverse temperature $\beta_k$. The trajectories unnecessarily have the same number of conformations. Instead, the number of conformations in trajectory $k$ is $N_k$. Now, you mix all the samples and randomly pick one sample out of them. The probably for this sample to have coordinates $\mathbf{R}$ is 
 \begin{equation}
 p_m(\mathbf{R})=\frac 1N\sum_{k=1}^{K}N_kp_k(\mathbf{R}),

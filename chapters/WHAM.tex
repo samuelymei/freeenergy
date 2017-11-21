@@ -57,12 +57,12 @@ The ratio of the histogram $H_m$ to the total number of snapshots $N$ divided by
 Therefore,
 \begin{align}
 	\Omega_m=&\frac{1}{\Delta U}\cdot\frac{H_m}{N}\cdot\frac{Z(\beta)}{\exp{(-\beta U_m)}}\notag\\
-	        =&\frac{H_m}{N\Delta U\exp{\left[f_k-\beta_kU_m\right]}},
+	        =&\frac{H_m}{N\Delta U\exp{\left[f-\beta U_m\right]}},
 	\label{Eq:FEM:WHAM:DoSsingle}
 \end{align}
 and variances
 \begin{equation}
-	\delta^2\Omega_m=\frac{\delta^2 H_m}{\left(N\Delta U\exp{\left[f_k-\beta_kU_m\right]}\right)^2},
+	\delta^2\Omega_m=\frac{\delta^2 H_m}{\left(N\Delta U\exp{\left[f-\beta U_m\right]}\right)^2},
 \end{equation}
 in which we have defined a dimensionless free energy $f=-\ln{Z(\beta)}$.
 
@@ -95,6 +95,7 @@ To make the expression simpler, here we take some approximations. First, normall
 Then we have
 \begin{equation}
     \delta^2H_{mk}=g_{mk}N_k\Delta U\Omega_m\exp{(f_k-\beta_kU_m)}
+    \label{EQ:FEM:WHAM:delta2H_mk}
 \end{equation}
 and
 \begin{equation}
@@ -113,9 +114,9 @@ f_k=-ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
 \label{Eq:FEM:WHAM:f_k_iteration}
 \end{equation}
 Obviously, Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and Eq.~\ref{Eq:FEM:WHAM:f_k_iteration} must be solved iteratively.
-The uncertainty of $\Omega_m$ is given by
+Applying the error propagation rule to Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and using Eq.~\ref{EQ:FEM:WHAM:delta2H_mk}, the uncertainty of $\Omega_m$ is given by
 \begin{equation}
-\delta^2 \Omega_m=\frac{\Omega_m}{\sum\limits_{k=1}^K{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}}
+\delta^2 \Omega_m=\frac{\Omega_m}{\sum\limits_{k=1}^K{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}},
 \end{equation}
 and the relative uncertainty is given by
 \begin{equation}
@@ -145,50 +146,6 @@ where the per-configuration weights $w_{kn}(\beta)$ is given by
 \begin{equation}
 w_{kn}(\beta)=\sum\limits_{m=1}^M{H_{m}}^{-1}\psi_m(U(\mathbf{R}_{kn}))\Omega_m\exp{(-\beta U_m)}
 \end{equation}
-
-\subsubsection{Weighted Histogram Analysis Method From Maximum Likelihood}
-The following derivation quite follows Ref.~\cite{GallicchioJPCB2005}, in which maximum likelihood principle is utilized. 
-Suppose we have performed $K$ simulations, each at a different inverse temperature $\beta_k$ and possibly with different biasing potential $w_k(\mathbf{R})$.
-We then discretize the 2D plane spanned by the coordinate and unbiased potential energy into bins, each characterized by ${\mathbf{R}_j}$ and ${E_h}$. To make the following derivation cleaner, we map the 2D bins to one dimensional series with index $l, l=1,\dots,L$. Next, we construct histograms for bins using all the samples from the simulations. The probability of finding the system in bin $l$ during the $k$th simulation can be written as
-\begin{equation}
-p_{k,l}=f_kc_{k,l}p_l^0,
-\end{equation}
-in which $p_l^0$ is the (simulation-independent) unbiased probability,
-\begin{align}
-c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l}\right]+\beta_0E_l\right\}}\notag\\
-       =&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
-\end{align}
-is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1}$ is the normalization factor.
-It is worth emphasizing that the biasing potential can be multiple dimensional as, for instance, in a two-dimensional umbrella sampling.
-If the biasing is only in temperature-space as in replica exchange molecular dynamics
-\begin{equation}
-c_{k,l}=\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]},
-\end{equation} 
-while if the biasing is only in potential as in umbrella sampling
-\begin{equation}
-c_{k,l}=\exp{\left(-\beta_0w_{k,l}\right)}.
-\end{equation}
-
-If we assume that each count in each histogram is independent, then the likelihood of observing the $k$th histogram is given by the multinomial distribution
-\begin{align}
-P(n_{k,1},n_{k,2},\dots,n_{k,L}|p_{k,1},p_{k,2},\dots,p_{k,L})=\notag\\
-\frac{\left(\sum\limits_l n_{k,l}\right)!}{\prod\limits_l n_{k,l}!}\prod\limits_{l=1}^L\left(p_{k,l}\right)^{n_{k,l}}\propto\prod\limits_{l=1}^{L}\left(f_kc_{k,l}p_l^0\right)^{n_{k,l}}.
-\end{align}
-For all $K$ simulations, the likelihood is the product of multinomial
-\begin{align}
-P(n_{1,1},\dots,n_{1,L};\dots;n_{K,1},\dots,n_{K,L}|p_1^0,\dots,p_L^0)\propto\notag\\
-\prod\limits_{k=1}^K\prod\limits_{l=1}^{L}\left(f_kc_{k,l}p_l^0\right)^{n_{k,l}},
-\label{Eq:FEM:WHAM:totalProb}
-\end{align}
-where the likelihood is conditional only on the unbiased probabilities $p_l^0$, since the bias factors $c_{k,l}$ are known parameters, and the normalization constants $f_k$ are known conditional on $p_l^0$. The maximum likelihood estimate of the unbiased probabilities can be found by maximizing $P$ in Eq.~\ref{Eq:FEM:WHAM:totalProb} with respect to $p_1^0,\dots,p_L^0$ and are given by solutions of the simultaneous nonlinear equations
-\begin{equation}
-p_l^0=\frac{\sum\limits_{k=1}^K n_{k,l}}{\sum\limits_{k=1}^K N_kf_kc_{k,l}}\, (\mathrm{for\; each}\;l)
-\end{equation}
-and
-\begin{equation}
-f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1},
-\end{equation}
-where $N_k$ is the total number of counts in the $k$th histogram.
 
 \subsubsection{Weighted Histogram Analysis Method From Minimizing Statistical Error}
 In this section, the ``traditional'' derivation method of WHAM are briefly reviewed.\cite{SouailleCPC2001} In the WHAM, the goal is to get an optimal unbiased probability distribution $\rho_{0}(\eta)$, where $\eta$ is a series of discretized histogram bins indexed by $j=1,2,3,...,M$ along a certain reaction coordinate. WHAM can be used to analyze the Umbrella Sampling (US) simulations, where a set of simulations indexed by $i$ or $k=1,2,3,...,S$ are performed with a series of biasing potentials added on the reaction coordinate $\eta$. To consider a reference molecular system with the potential energy $U_{0}(\textbf{x})$, where $\textbf{x}$ is the set of atomic coordinates. The reaction coordinate $\eta$ is a function of the atomic coordinates, i.e. $\eta(\textbf{x})$. To suppose that the $i$th molecular simulation has been performed using potential energy function
@@ -250,3 +207,47 @@ f_{0}(\eta)=-\beta^{-1}\ln \rho_{0}(\eta)
 \label{Eq:f0}
 \end{equation} 
 To get rid of the constant $C$ in the Eq.~\ref{Eq:unbias02}, one may subtract the offset constant $f_{0}(\eta_{1})$ from all the $f_{0}(\eta_{j})$.  
+
+\subsubsection{Weighted Histogram Analysis Method From Maximum Likelihood}
+The following derivation quite follows Ref.~\cite{GallicchioJPCB2005}, in which maximum likelihood principle is utilized. 
+Suppose we have performed $K$ simulations, each at a different inverse temperature $\beta_k$ and possibly with different biasing potential $w_k(\mathbf{R})$.
+We then discretize the 2D plane spanned by the coordinate and unbiased potential energy into bins, each characterized by ${\mathbf{R}_j}$ and ${E_h}$. To make the following derivation cleaner, we map the 2D bins to one dimensional series with index $l, l=1,\dots,L$. Next, we construct histograms for bins using all the samples from the simulations. The probability of finding the system in bin $l$ during the $k$th simulation can be written as
+\begin{equation}
+p_{k,l}=f_kc_{k,l}p_l^0,
+\end{equation}
+in which $p_l^0$ is the (simulation-independent) unbiased probability,
+\begin{align}
+c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l}\right]+\beta_0E_l\right\}}\notag\\
+=&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
+\end{align}
+is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1}$ is the normalization factor.
+It is worth emphasizing that the biasing potential can be multiple dimensional as, for instance, in a two-dimensional umbrella sampling.
+If the biasing is only in temperature-space as in replica exchange molecular dynamics
+\begin{equation}
+c_{k,l}=\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]},
+\end{equation} 
+while if the biasing is only in potential as in umbrella sampling
+\begin{equation}
+c_{k,l}=\exp{\left(-\beta_0w_{k,l}\right)}.
+\end{equation}
+
+If we assume that each count in each histogram is independent, then the likelihood of observing the $k$th histogram distribution is given by the multinomial distribution
+\begin{align}
+P(n_{k,1},n_{k,2},\dots,n_{k,L}|p_{k,1},p_{k,2},\dots,p_{k,L})=\notag\\
+\frac{\left(\sum\limits_l n_{k,l}\right)!}{\prod\limits_l n_{k,l}!}\prod\limits_{l=1}^L\left(p_{k,l}\right)^{n_{k,l}}\propto\prod\limits_{l=1}^{L}\left(f_kc_{k,l}p_l^0\right)^{n_{k,l}}.
+\end{align}
+For all $K$ simulations, the likelihood is the product of multinomial
+\begin{align}
+P(n_{1,1},\dots,n_{1,L};\dots;n_{K,1},\dots,n_{K,L}|p_1^0,\dots,p_L^0)\propto\notag\\
+\prod\limits_{k=1}^K\prod\limits_{l=1}^{L}\left(f_kc_{k,l}p_l^0\right)^{n_{k,l}},
+\label{Eq:FEM:WHAM:totalProb}
+\end{align}
+where the likelihood is conditional only on the unbiased probabilities $p_l^0$, since the bias factors $c_{k,l}$ are known parameters, and the normalization constants $f_k$ are known conditional on $p_l^0$. The maximum likelihood estimate of the unbiased probabilities can be found by maximizing $P$ in Eq.~\ref{Eq:FEM:WHAM:totalProb} with respect to $p_1^0,\dots,p_L^0$ and are given by solutions of the simultaneous nonlinear equations
+\begin{equation}
+p_l^0=\frac{\sum\limits_{k=1}^K n_{k,l}}{\sum\limits_{k=1}^K N_kf_kc_{k,l}}\, (\mathrm{for\; each}\;l)
+\end{equation}
+and
+\begin{equation}
+f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1},
+\end{equation}
+where $N_k$ is the total number of counts in the $k$th histogram.

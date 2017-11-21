@@ -85,13 +85,13 @@ According to the error propagation rule, if the measurements are independent, th
 \end{equation}
 Minimizing $\delta^2\bar{x}$ with respect to $a_i$ under the constraint of Eq.~\ref{Eq:Appendix:Mean:normalization} using the Lagrange multiplier $\lambda$, we find
 \begin{align}
-\frac{\partial L}{\partial a_j}=&\frac{\partial}{\partial x_j}\left[\sum\limits_{i=1}^{N}{a_i}^2\delta^2x_i+\lambda\left(1-\sum\limits_{i=1}^Na_i\right)\right]\notag\\
+\frac{\partial L}{\partial a_j}=&\frac{\partial}{\partial a_j}\left[\sum\limits_{i=1}^{N}{a_i}^2\delta^2x_i+\lambda\left(1-\sum\limits_{i=1}^Na_i\right)\right]\notag\\
 =&2a_j\delta^2x_j-\lambda\notag\\
 =&0
 \end{align}
-for all {$x_j$}. It can be easily identified that $a_j$ is inversed proportional to $\delta^2x_i$, i.e.
+for all {$x_j$}. It can be easily identified that $a_j$ is inversed proportional to $\delta^2x_j$, i.e.
 \begin{equation}
-a_j=\frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}},
+a_j=\frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_i}^{-1}},
 \label{Eq:Appendix:Mean:aj}
 \end{equation}
 and
