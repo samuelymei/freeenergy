@@ -1,0 +1,4 @@
+name: freeenergy
+dependencies:
+  - numpy
+  - matplotlib
