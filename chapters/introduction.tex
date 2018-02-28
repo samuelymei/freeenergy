@@ -101,14 +101,17 @@ where $J$ is the Jacobian matrix upon changing from Cartesian to generalized coo
 Here, $-\frac{\partial U}{\partial \xi}+\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}$ is the generalized force on $\xi$ averaged over the degrees of freedom other than $\xi$ itself. Therefore, $A(\xi)$ is called the potential of mean force. \textit{Note: Some define the potential of mean force as $\left<\frac{\partial U}{\partial \xi}\right>_\xi$ only. But we do not strictly differentiate potential of mean force and free energy profile here.}
 
 In order to illustrate how the simulations and free energy methods to be discussed below are used in real problems, let us take protein-ligand binding
-\begin{equation}
-P\,+\,L\rightleftharpoons \operatorname{P-L}
-\end{equation}
+\begin{center}
+	\schemestart \chemfig{P} + \chemfig{L}\arrow{<=>} \chemfig{P}-\chemfig{L}\schemestop
+\end{center}
+%\begin{equation}
+%P\,+\,L\rightleftharpoons \operatorname{P-L}
+%\end{equation}
 as an example. The equilibrium constant, $k_b$, is defined as
 \begin{equation}
-K_b=\frac{[\operatorname{P-L}]}{[P][L]},
+K_b=\frac{[\operatorname{P-L}]}{[\mathrm{P}][\mathrm{L}]},
 \end{equation} 
-where $[\operatorname{P-L}]$, $[P]$ and $[L]$ are the equilibrium concentrations of the complex, protein and ligand, respectively. A standard binding free energy can be calculated via $G_{bind}\equiv -\beta^{-1}\ln{\left[ K_bC^0\right]}$, where $C^0$ is the standard state concentration of 1 mol/liter ($\equiv 1/1661 {\AA}^3$). $K_b$ can be expressed in terms of a ratio of configurational integrals as
+where [P-L], [P] and [L] are the equilibrium concentrations of the complex, protein and ligand, respectively. A standard binding free energy can be calculated via $G_{bind}\equiv -\beta^{-1}\ln{\left[ K_bC^0\right]}$, where $C^0$ is the standard state concentration of 1 mol/liter ($\equiv 1/1661 {\AA}^3$). $K_b$ can be expressed in terms of a ratio of configurational integrals as
 \begin{equation}
 K_b=\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}},
 \end{equation}
