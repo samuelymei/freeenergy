@@ -47,9 +47,39 @@ Substituting the Eq.~\ref{Eq:FEM:NEW:limitW} into the Eq.~\ref{Eq:FEM:NEW:Jar}, 
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.4\textwidth]{figures/NEW.pdf}\\
+	\begin{tikzpicture}
+	\def\lims{xmin=-3,xmax=14,ymin=-0.001,ymax=9}
+	\begin{axis}[\lims,hide x axis, hide y axis,width=0.7\textwidth,height=0.5\textwidth]
+	\addplot[thick,violet,mark=none,samples=1000,domain=-3:3,y domain=-0.001:9] {0+(x-0)*(x-0)};
+	\addplot[thick,green,mark=none,samples=1000,domain=-1:5,y domain=-0.001:9] {1+(x-2)*(x-2)};
+	\addplot[thick,blue,mark=none,samples=1000,domain=1:7,y domain=-0.001:9] {2+(x-4)*(x-4)};
+	\fill[red] (axis cs:5.5,2.75) circle[radius=1pt];
+	\fill[red] (axis cs:7,3.5) circle[radius=1pt];
+	\fill[red] (axis cs:8.5,4.25) circle[radius=1pt];
+	\addplot[thick,yellow,mark=none,samples=1000,domain=8:12,y domain=-0.001:9] {5+(x-10)*(x-10)};
+	\draw[very thick,->,>=stealth] (axis cs:0,0) to (axis cs:0,5);
+	\draw[very thick,->,>=stealth] (axis cs:2,1) to (axis cs:2,6);
+	\draw[very thick,->,>=stealth] (axis cs:4,2) to (axis cs:4,7);
+	\draw[very thick,->,>=stealth] (axis cs:8,4) to (axis cs:8,9);
+	\draw (axis cs:0-0.7,4) node{$W$};
+	\draw (axis cs:2-0.7,5) node{$W$};
+	\draw (axis cs:4-0.7,6) node{$W$};
+	\draw (axis cs:8-0.7,8) node{$W$};
+	\draw[very thick,->,>=stealth] (axis cs:0,5) to [out=285,in=130] (axis cs:2,1) node[right]{$Q$};
+	\draw[very thick,->,>=stealth] (axis cs:2,6) to [out=285,in=130] (axis cs:4,2) node[right]{$Q$};
+	\draw[very thick,->,>=stealth] (axis cs:8,9) to [out=285,in=130] (axis cs:10,5) node[right]{$Q$};
+	
+	\end{axis}
+	
+	\end{tikzpicture}
 	\caption{The accumulation of work and heat along a nonequilibrium trajectory. The work is defined as the energy change when the coupling parameter switches from $\lambda_i$ to $\lambda_{i+1}$ with the coordinates fixed, while the dissipated heat is defined as the energy relaxation when the coordinate change with the coupling parameter fixed.}\label{Fig:FEM:NEW}
 \end{figure}
+
+%\begin{figure}[htbp]
+%	\centering
+%	\includegraphics[width=0.4\textwidth]{figures/NEW.pdf}\\
+%	\caption{The accumulation of work and heat along a nonequilibrium trajectory. The work is defined as the energy change when the coupling parameter switches from $\lambda_i$ to $\lambda_{i+1}$ with the coordinates fixed, while the dissipated heat is defined as the energy relaxation when the coordinate change with the coupling parameter fixed.}\label{Fig:FEM:NEW}
+%\end{figure}
 
 In Ref.~\cite{CrooksJSP1998}, Crooks showed that the distributions of work values from the forward and the backward paths satisfy a relation that is central to the histogram methods in free energy calculations
 \begin{equation}

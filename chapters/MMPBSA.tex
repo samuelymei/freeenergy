@@ -3,9 +3,9 @@
 The following derivation follows Ref.~\cite{SwansonBJ2004}.
 The Molecular Mechanics/Poisson-Boltzmann Surface Area (MM/PBSA) method is often used in the calculations of binding free energy of a substrate to a receptor.
 The standard binding free energy for a reaction between a receptor (A) and a substrate (B)
-\begin{equation}
-	A\,+\,B\rightleftharpoons AB
-\end{equation}
+\begin{center}
+	\schemestart \chemfig{A}+\chemfig{B} \arrow{<=>} \chemfig{AB} \schemestop
+\end{center}
 is expressed as a ratio of configuration integrals
 \begin{align}
 	\Delta G_{AB}^0 =& -RT\ln{\left(\frac{C^0}{8\pi^2}\cdot\frac{Z_{N,AB}Z_{N,0}}{Z_{N,A}Z_{N,B}}\right)}+P^0\left<\Delta V_{AB}\right>\notag\\

@@ -46,9 +46,34 @@ with variances (see Appendix~\ref{chapter:Appendix:Uncertainty})
 A sample histogram in 2D space is shown in Fig.~\ref{Fig:FEM:WHAM:histogram}.
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/histogram.pdf}\\
-	\caption{A sample histogram in 2D space, for instance potential energy and a reaction coordinate $\xi$.}\label{Fig:FEM:WHAM:histogram}
+    \begin{tikzpicture}
+        \begin{axis}[xtick=\empty, ytick=\empty, ztick=\empty, minor tick num=0,view/h=40]
+        
+          \addplot3[surf,
+          mesh/color input=colormap,
+          colormap/hot,
+          domain=-180:180, y domain=-180:180,
+          point meta={sin(x)*sin(y)},
+          point meta rel=per plot,
+          point meta min=-1.0, point meta max=1.0,
+          shader=faceted,
+          update limits=false,
+          on layer=axis background,
+          samples=30
+          ] {-1.2};
+          \addplot3[surf, shader=faceted, domain=-180:180, y domain=-180:180, samples=30] 
+          {sin(x)*sin(y)};
+%         \addplot3[surf, shader=faceted, domain=-180:180, y domain=-180:180, samples=20, color=black, point meta rel=per plot, point meta={sin(x)*sin(y)} ] {-1.0};
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{A sample histogram in 2D space, for instance potential energy and a reaction coordinate $\xi$.}\label{Fig:FEM:WHAM:histogram}
 \end{figure}
+%\begin{figure}[htbp]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/histogram.pdf}\\
+%	\caption{A sample histogram in 2D space, for instance potential energy and a reaction coordinate $\xi$.}\label{Fig:FEM:WHAM:histogram}
+%\end{figure}
 
 The ratio of the histogram $H_m$ to the total number of snapshots $N$ divided by the bin width $\Delta U$ can be approximately taken as the probability of states in this bin, i.e.,
 \begin{equation}

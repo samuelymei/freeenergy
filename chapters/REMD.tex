@@ -8,10 +8,54 @@ Temperature replica exchange molecular dynamics (T-REMD) is one class of paralle
 \end{equation}
 
 \begin{figure}[htbp]
-    \centering
-	\includegraphics[width=0.6\textwidth]{figures/REMD.pdf}\\
+	\centering
+	%	\resizebox{2cm}{!}{
+	\begin{tikzpicture}
+	    \draw[ultra thick,->,>=stealth] (1.3,0) -- (7.5,0) node[midway,below]{$X(t)$};
+	    \draw[ultra thick,->,>=stealth] (0,0.2) -- (0,4.5) node[midway,left]{$T$};
+	    
+        \draw[very thick,green] (1,1) -- (2,1);
+        \draw[very thick,red] (1,2) -- (2,2);
+        \draw[very thick,blue] (1,3) -- (2,3);
+        \draw[very thick,yellow] (1,4) -- (2,4);
+        
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (2,1) -- (3,2);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (2,2) -- (3,1);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (2,3) -- (3,3);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (2,4) -- (3,4);
+        
+        \draw[very thick,red] (3,1) -- (4,1);
+        \draw[very thick,green] (3,2) -- (4,2);
+        \draw[very thick,blue] (3,3) -- (4,3);
+        \draw[very thick,yellow] (3,4) -- (4,4);
+        
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (4,2) -- (5,3);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (4,3) -- (5,2);
+        
+        \draw[very thick,red] (5,1) -- (6,1);
+        \draw[very thick,blue] (5,2) -- (6,2);
+        \draw[very thick,green] (5,3) -- (6,3);
+        \draw[very thick,yellow] (5,4) -- (6,4);
+        
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (6,1) -- (7,2);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (6,2) -- (7,1);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (6,3) -- (7,4);
+        \draw[very thick,->,shorten >=2pt,shorten <=2pt,>=stealth] (6,4) -- (7,3);
+        
+        \draw[very thick,blue] (7,1) -- (8,1);
+        \draw[very thick,red] (7,2) -- (8,2);
+        \draw[very thick,yellow] (7,3) -- (8,3);
+        \draw[very thick,green] (7,4) -- (8,4);        
+	\end{tikzpicture}
+	%	}
 	\caption{A schematic representation of replica exchange molecular dynamics.}\label{Fig:ES:REMD}
 \end{figure}
+
+%\begin{figure}[htbp]
+%    \centering
+%	\includegraphics[width=0.6\textwidth]{figures/REMD.pdf}\\
+%	\caption{A schematic representation of replica exchange molecular dynamics.}\label{Fig:ES:REMD}
+%\end{figure}
 
 Now, we exchange the temperatures of a pair of replicas
 \begin{equation}
@@ -89,9 +133,12 @@ can be written as
 \]
 in which $\Delta G_{0}$ is the free energy of molecule A at the standard
 state $C_{0}$, i.e. 1 mol/L. The free energy change for a reaction
-\[
-A+B\rightleftharpoons C
-\]
+\begin{center}
+	\schemestart \chemfig{A} + \chemfig{B} \arrow{<=>} \chemfig{C} \schemestop
+\end{center}
+%\[
+%A+B\rightleftharpoons C
+%\]
 can be written as
 \[
 \Delta G=\Delta G_{C}-\Delta G_{A}-\Delta G_{B}=\Delta G_{0}+\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]}.
@@ -110,10 +157,12 @@ the dissociation constant $K_{a}$. So,
 \end{equation}
 
 Titration of a residue in a real protein can be written as
-
-\[
-P_{A}+H^{+}\rightleftharpoons P_{A}H^{+},
-\]
+\begin{center}
+	\schemestart \chemfig{P_{A}} + \chemfig{H^{+}} \arrow{<=>} \chemfig{P_{A}H^{+}} \schemestop
+\end{center}
+%\[
+%P_{A}+H^{+}\rightleftharpoons P_{A}H^{+},
+%\]
 
 with 
 \[
@@ -165,9 +214,12 @@ and is more reliable. Theoretically, the reference state can be any
 state you like. But the protonation free energy of the dipeptide at
 $pK_{a}$ is often used. The reference protonation process can be
 written as
-\[
-A+H^{+}\rightleftharpoons AH^{+}.
-\]
+\begin{center}
+	\schemestart \chemfig{A} + \chemfig{H^{+}} \arrow{<=>} \chemfig{AH^{+}} \schemestop
+\end{center}
+%\[
+%A+H^{+}\rightleftharpoons AH^{+}.
+%\]
 
 The reference free energy change is 
 

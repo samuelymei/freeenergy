@@ -62,11 +62,36 @@ Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally e
 If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, then $\Delta U$ would be Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
 
 Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. 
-\begin{figure}[htbp]
+\begin{figure}
 	\centering
-	\includegraphics[width=0.6\textwidth]{figures/TP.pdf}\\
-\caption{$P_{0}(\Delta U)$, the Boltzmann factor $\exp(-\beta \Delta U)$ and their product, which is the integrand in \ref{Eq:FEM:TP:deltaA7}. The low-$\Delta U$ tail of the integrand is poorly sampled with $P_{0}(\Delta U)$ and, therefore, is known with low statistical accuracy. However, it provides an important contribution to the integral.}\label{Fig:TP:Pdistribution}
+	\begin{tikzpicture}
+	\def\lims{xmin=-6.5,xmax=3,ymin=0.0,ymax=40}
+	\begin{axis}[\lims,
+	xtick=\empty, ytick=\empty, minor tick num=0, 
+	xlabel=$\Delta U$,
+	ylabel={$P$},
+	%ytick={0,10,...,40},
+	]
+	% use TeX as calculator:
+	\addplot[thick,color=red,domain=-4:2,samples=500] {5*exp(-(x+1)*(x+1)/2)};
+	\addplot[thick,color=blue,samples=500,domain=-4:2] {exp(-1.2*x)};
+	\addplot[thick,color=black,samples=500,domain=-6:3] {exp(-1.2*x)*5*exp(-(x+1)*(x+1)/2)};
+	\draw[thick,red,->,>=stealth] (axis cs:0.5,2.2) to (axis cs:1.5,5.0);
+	\draw[thick,blue,->,>=stealth] (axis cs:-3,33) to (axis cs:-4,36);
+	\draw[thick,black,->,>=stealth] (axis cs:-1,20) to (axis cs:0.1,25);
+	\draw[red] (axis cs:1.5,6.5) node{\scriptsize$P_0(\Delta U)$};
+	\draw[blue] (axis cs:-4.6,37.3) node{\scriptsize$\exp{(-\beta \Delta U)}$};
+	\draw[black] (axis cs:0.8,26.5) node{\scriptsize$P_0(\Delta U)\ast \exp{(-\beta \Delta U)}$};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{$P_{0}(\Delta U)$, the Boltzmann factor $\exp(-\beta \Delta U)$ and their product, which is the integrand in \ref{Eq:FEM:TP:deltaA7}. The low-$\Delta U$ tail of the integrand is poorly sampled with $P_{0}(\Delta U)$ and, therefore, is known with low statistical accuracy. However, it provides an important contribution to the integral.}\label{Fig:TP:Pdistribution}
 \end{figure}
+
+%\begin{figure}[htbp]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{figures/TP.pdf}\\
+%\caption{$P_{0}(\Delta U)$, the Boltzmann factor $\exp(-\beta \Delta U)$ and their product, which is the integrand in \ref{Eq:FEM:TP:deltaA7}. The low-$\Delta U$ tail of the integrand is poorly sampled with $P_{0}(\Delta U)$ and, therefore, is known with low statistical accuracy. However, it provides an important contribution to the integral.}\label{Fig:TP:Pdistribution}
+%\end{figure}
 If we substitute
 \begin{equation}
 P_{0}(\Delta U) = \frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0})^2}{2\sigma^2}\right]}
