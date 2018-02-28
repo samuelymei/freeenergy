@@ -1,0 +1,62 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+\subsection{Transition-Based Reweighting Analysis Method\label{Sec:FEM:TRAM}}
+Transition-Based Reweighting Analysis Method (TRAM), which relies on the maximum likelihood analysis of the thermodynamic and kinetic information, was developed by Frank No\'{e} and coworkers in 2014.\cite{WuJCP2014}. It incorporates WHAM with Markov state model, and avoids the weakness in both methods. In WHAM, a global equilibrium among all the thermodynamic states must be reached. For the Markov state model (MSM), the kinetic information can be extracted from only one thermodynamic state. In contrast, TRAM is a class of estimators that (1) takes the statistical weights of samples at different thermodynamic states into account, and (2) exploits transitions observed in the sampled trajectories, without assuming that these trajectories are sampled from equilibrium.
+
+Let us assume that there are $K$ molecular dynamics (MD) or Markov chain Monte Carlo (MCMC) simulations have been performed, each in a specific thermodynamic state (Hamiltonian, temperature, etc) indexed by $k\in \{1,\dots,K\}$. For simulations with varying thermodynamic state in a single trajectory, with replica-exchange simulation being a typical example, each contiguous sequence is treated as a separated trajectory at one of the $K$ thermodynamic states. We further assume the configuration space (that has been visited by the simulations) is discretized into cells indexed by $i,j\in \{1,\dots,n\}$. 
+
+Similar to the WHAM analysis, the unbiased probability, $\pi_i$, and the biased probability under thermodynamic state $k$, $\pi_i^{(k)}$ are related by a known and constant bias factor $\gamma_i^{(k)}$
+\begin{align}
+    \pi_i^{(k)}=f^{(k)}\pi_i\gamma_i^{(k)},\label{Eq:FEM:TRAM:reweight}\\
+    f^{(k)}=\frac{1}{\sum_l \pi_l\gamma_l^{(k)}}\label{Eq:FEM:TRAM:f},
+\end{align}
+where $f^{(k)}$ is a normalization constant. Thus, the bias is multiplicative in probability or additive in the potential. As we have shown in section~\ref{Sec:FEM:WHAM}, the WHAM estimator can be derived by maximizing the likelihood
+\begin{equation}
+    L_{WHAM}=\prod\limits_k\prod\limits_i (\pi_i^{(k)})^{N_i^{(k)}}
+\end{equation}
+with an implied assumption that every count $N_i^{(k)}$ is independently drawn from the biased distribution $\pi_i^{(k)}$.
+
+The maximum likelihood Markov model is the transition matrix $\mathbf{P}=(p_{ij})$ between $n$ discrete configuration states, that maximizes the likelihood of the observed transitions between these states. The likelihood of a Markov model is a product of all transition probabilities corresponding to the observed trajectory. To obtain a reversible Markov state model, this likelihood is maximized under the constraints of detailed balance with respect to the equilibrium distribution $\boldsymbol{\pi}$
+\begin{align}
+    L_{MSM}=\prod_i\prod_j p_{ij}^{c_{ij}},\\
+    s.t.\quad \pi_i p_{ij}=\pi_j p_{ji} \quad \text{for all} i,j,
+\end{align}
+where $c_{ij}$ is the number of times the trajectories were observed in state $i$ at time $t$ and in state $j$ at a later time $t+\tau$, where $\tau$ is the lag time at which the Markov model is estimated.
+
+In TRAM, WHAM and MSM are combined as follows: every trajectory at thermodynamic state $k$ is treated as a Markov chain with the configuration-state transition counts $c_{ij}^{(k)}$, without assuming that every count is sampled from global equilibrium. In contrast to Markov models, we exploit the fact that equilibrium probabilities can be reweighted between different thermodynamic states via Eqs.~\ref{Eq:FEM:TRAM:reweight} and~\ref{Eq:FEM:TRAM:f}. The resulting likelihood of all $\mathbf{P}^{(k)}$ and $\boldsymbol{\pi}$, based on simulations at all thermodynamic states can be formulated as
+\begin{align}
+	L_{TRAM}=\prod_k\prod_i\prod_j (p_{ij}^{(k)})^{c_{ij}^{(k)}},\label{Eq:FEM:TRAM:TRAMlikelihood}\\
+	s.t.\quad \pi_i^{(k)}p_{ij}^{(k)}=\pi_j^{(k)}p_{ji}^{(k)}\quad \text{for all }i,j,k. \label{Eq:FEM:TRAM:TRAMdetailedbalance}
+\end{align}
+Here, $\mathbf{P}^{(k)}=(p_{ij}^{(k)})$ is the Markov transition matrix at thermodynamic state $k$, and $c_{ij}^{(k)}$ are the number of transitions observed at that simulation condition. $\boldsymbol{\pi}^{(k)}$ is the vector of equilibrium probabilities of discrete states at each thermodynamic state. \emph{Because each Markov model $\mathbf{P}^{(k)}$ must have the distribution $\boldsymbol{\pi}^{(k)}$ as a stationary distribution, all Markov models are coupled too, which makes the maximization of the TRAM likelihood Eqs.~\ref{Eq:FEM:TRAM:TRAMlikelihood} and~\ref{Eq:FEM:TRAM:TRAMdetailedbalance} difficult, and it can neither be achieved by WHAM, nor by existing MSM estimators.}
+
+Taking natural logarithm on the TRAM likelihood, we find
+\begin{equation}
+    \ln{L_{TRAM}}=\sum_{k=1}^{K}\sum_{i=1}^n\sum_{j=1}^{n}c_{ij}^{(k)}\ln{p_{ij}^{(k)}},
+\end{equation}
+with constraints
+\begin{equation}
+    \pi_i\gamma_i^{(k)}p_{ij}^{(k)}=\pi_j\gamma_j^{(k)}p_{ji}^{(k)}\quad \text{for all }i,j,k,
+\end{equation}
+which is from Eqs.~\ref{Eq:FEM:TRAM:reweight} and~\ref{Eq:FEM:TRAM:TRAMdetailedbalance} with $f^{(k)}$ canceled. In addition, $\mathbf{P}^{(k)}$ and $\boldsymbol{\pi}$ should satisfy the normalization conditions
+\begin{align}
+	\sum_{j}p_{ij}^{(k)}=1 \quad \forall i,k,\\
+	\sum_j \pi_j=1.
+\end{align}
+The normalization of $\boldsymbol{\pi}^{(k)}$ is naturally satisfied due to Eqs.~\ref{Eq:FEM:TRAM:reweight} and~\ref{Eq:FEM:TRAM:f}. Due to the existence of constraints, the numbers of free variables are $n-1$ for $\boldsymbol{\pi}$ and $n(n-1)/2$ for $\mathbf{P}^{(k)}$.
+
+Using the Lagrange duality theory, it can be shown that the optimal solution of the discrete TRAM problem above fulfills the following two conditions
+\begin{align}
+	\sum_k\sum_j\frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_i^{(k)}\pi_i\nu_j^{(k)}}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}=\sum_k\sum_jc_{ji}^{(k)},\\
+	\sum_j\frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_j^{(k)}\pi_j}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}=1
+\end{align}
+where $\nu_i^{(k)}$ are unknown Lagrange multipliers. To numerically solve the discrete TRAM problem, an initial guess for $\boldsymbol{\pi}$ and $\mathbf{v}^{(k)}$ can be made as
+\begin{align}
+	\pi_i^{init}:=1/n,
+	v_i^{(k),init}:=\sum_j c_{ij}^{(k)},
+\end{align}
+and the following equations must be solved iteratively until $\boldsymbol{\pi}$ is converged:
+\begin{align}
+	v_i^{(k),new}:=v_i^{(k)}\sum_j \frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_i^{(k)}\pi_j}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}},\\
+	\pi_i^{new}:=\frac{\sum_{k,j}c_{ji}^{(k)}}{\sum_{k,j}\frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_i^{(k)}\nu_j^{(k)}}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}}.
+\end{align}
