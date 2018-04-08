@@ -92,7 +92,7 @@ Besides state free energy, sometimes we are also interested in the free energy p
 \end{align}
 where $J$ is the Jacobian matrix upon changing from Cartesian to generalized coordinates with its element defined as $\left[J(\xi)\right]_{ij}=\partial x_i/\partial \xi_j$. $|J|$ is its determinant. Its gradient over $\xi$ is
 \begin{align}
-\frac{\partial A(\xi)}{\partial \xi}=&-\beta^{-1}\frac{\int \frac{\partial}{\partial \xi}\left(e^{-\beta U}|J|\right)\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+\frac{\partial A(\xi)}{\partial \xi}=&-\beta^{-1}\frac{\int \frac{\partial}{\partial \xi}\left(e^{-\beta U}|J|\right)\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff\mathbf{x}}\notag\\
                                     =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{1}{|J|}\frac{\partial |J|}{\partial \xi}\right]|J|\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff \mathbf{x}}\notag\\
                                     =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]|J|\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff \mathbf{x}}\notag\\
                                     =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]\delta(\xi-\xi(\mathbf{x}))\diff\mathbf{x}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff \mathbf{x}}\notag\\
