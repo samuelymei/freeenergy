@@ -2,7 +2,7 @@
 \subsection{Thermodynamic Perturbation\label{Sec:FEM:TP}}
 Thermodynamic Perturbation (TP), also known as Free Energy Perturbation (FEP), exponential average, or Zwanzig equation was developed by Zwanzig,\cite{ZwanzigJCP1954} and Landau and Lifshitz, independently, and probably by Peierls\cite{JorgensenJCTC2008}. 
 
-A reference system containing N-particles can be described by Hamiltonian $H_{0}(\mathbf{x},\mathbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\mathbf{x}$, and their conjugated momenta, $\mathbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\mathbf{x},\mathbf{p}_{x})$. These two systems are connected by 
+A reference system containing $N$-particles can be described by Hamiltonian $H_{0}(\mathbf{x},\mathbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\mathbf{x}$, and their conjugated momenta, $\mathbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\mathbf{x},\mathbf{p}_{x})$. These two systems are connected by 
 \begin{equation}
 H_{1}(\mathbf{x},\mathbf{p}_{x}) = H_{0}(\mathbf{x},\mathbf{p}_{x}) + \Delta H (\mathbf{x},\mathbf{p}_{x})
 \label{Eq:FEM:TP:deltaH}
@@ -35,7 +35,7 @@ If the probability density function is used, Eq.~\ref{Eq:FEM:TP:deltaA2} becomes
 \end{equation}
 or, equivalently,
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \ln{ \left \langle \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] \right \rangle_{0}},
+\Delta A = -\frac{1}{\beta} \ln{\langle \exp{\left[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})\right]} \rangle_{0}},
 \label{Eq:FEM:TP:deltaA4}
 \end{equation}
 Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average over configurations sampled from the reference state. Equation~\ref{Eq:FEM:TP:deltaA4} is the basic equation of TP. It states that $\Delta A$ can be estimated by sampling only equilibrium configurations of the reference state.
@@ -52,14 +52,14 @@ If we reverse the reference and the target systems, and repeat the same derivati
 \Delta A = \frac{1}{\beta} \ln{ \left \langle \exp(\beta \Delta U) \right \rangle_{1}},
 \label{Eq:FEM:TP:deltaA6}
 \end{equation}
-Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should start the perturbation from the state having larger important region in phase space. This means that the reference system should be that with higher entropy, and the transformation should proceed in the direction in which the entropy change $\Delta S$ is negative. 
+Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should start the perturbation from the state having larger important region in phase space. This means that the reference system should be that with higher entropy, and the transformation should proceed in the direction in which the entropy decreases. 
 
-Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be taken over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
+Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be computed over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) d\Delta U,
 \label{Eq:FEM:TP:deltaA7}
 \end{equation}
-If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, then $\Delta U$ would be Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
+If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
 
 Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. 
 \begin{figure}
@@ -122,9 +122,7 @@ If the distribution of $\Delta U$ deviates from Gaussian, there will be extra te
 \Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2 + \frac{\beta^2}{6} \left(\left<\Delta U^3\right>_0-3\left<\Delta U^2\right>_0\left<\Delta U\right>_0+2\left<\Delta U\right>_0^3\right).
 \label{Eq:FEM:TP:deltaA9}
 \end{equation}
-The overlap matrix ~\cite{KlimovichJCAMD2015} is a helpful tool in finding the magnitude of the phase space overlap. It is recommended to be used as a consistency check, as in the case of the TP-based methods.
- 
-If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $ith$ lambda state as:
+The overlap matrix~\cite{KlimovichJCAMD2015} is a useful metric in characterizing the magnitude of overlap in the phase space. It is recommended to be used as a consistency check, as in the case of the TP-based methods. If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $i$th state as:
 \begin{equation}
 W_{n,i}(x_{n}) = \frac{e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}
 \label{Eq:FEM:TP:weights}
