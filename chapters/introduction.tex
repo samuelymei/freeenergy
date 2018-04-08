@@ -32,26 +32,26 @@ There are also two books on this topic you might be interested in:
 
 Before we move into the major content of this booklet, we would like to review some fundamentals that underlie the methods introduced in the following chapters. The first one is the canonical partition function $Q$ for Hamiltonian $H(\mathbf{x},\mathbf{p}_{x})$, which is defined as
 \begin{align}
-  Q(N,V,T)=&\frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\mathbf{x},\mathbf{p}_{x})] d\mathbf{x}d\mathbf{p}_\mathbf{x}\notag\\
+  Q(N,V,T)=&\frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\mathbf{x},\mathbf{p}_{x})] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}\notag\\
          =&\frac{1}{\Lambda^{3N}N!}Z(N,V,T),
 \end{align}
 where $\mathbf{x}$ and $\mathbf{p}_{x}$ are the coordinates and the conjugate momenta, respectively,
 \begin{equation}
-	Z(N,V,T)=\int \exp{\left(-\beta U(\mathbf{x})\right)}d\mathbf{x}
+	Z(N,V,T)=\int \exp{\left(-\beta U(\mathbf{x})\right)}\diff\mathbf{x}
 \end{equation}
 is the configurational integral, $\Lambda$ is the temperature-dependent de Broglie wavelength, and $U(\mathbf{x})$ is the potential energy.
 
 The partition function $Q$ can also be defined in energy space as
 \begin{equation}
-	Q(N,V,T)=\int \exp{\left(-\beta E\right)}\varOmega_{tot}(N,V,E)dE,
+	Q(N,V,T)=\int \exp{\left(-\beta E\right)}\varOmega_{tot}(N,V,E)\diff E,
 \end{equation}
 where
 \begin{equation}
-	\varOmega_{tot}(N,V,E)=\frac{1}{{h}^{3N}N!}\iint_{V^N} \delta(H(\mathbf{x},\mathbf{p}_{x})-E)d\mathbf{x}d\mathbf{p}_\mathbf{x}
+	\varOmega_{tot}(N,V,E)=\frac{1}{{h}^{3N}N!}\iint_{V^N} \delta(H(\mathbf{x},\mathbf{p}_{x})-E)\diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}
 \end{equation}
 is the complete density of states. Correspondingly, we can also define the configurational density of state as
 \begin{equation}
-	\varOmega_{con}\propto\frac{1}{N!}\int_{V^N} \delta(U(\mathbf{x})-E)d\mathbf{x}.
+	\varOmega_{con}\propto\frac{1}{N!}\int_{V^N} \delta(U(\mathbf{x})-E)\diff\mathbf{x}.
 \end{equation}
 
 The Helmholtz free energy is defined in terms of the canonical partition function as
@@ -70,8 +70,8 @@ In most situations we are dealing with, the masses of particles in systems 0 and
 
 In the following chapters, the systems 0 and 1 may differ in several ways. They may have different Hamiltonians, $H_0$ and $H_1$. Or they may be characterized by different values of a macroscopic parameter, such as temperature. Finally, they may correspond to different regions in the phase space accessible to the system
 \begin{align}
-Q_0=&\frac{1}{N!h^{3N}}\int_{\Gamma_0}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}d\mathbf{x}d\mathbf{p}_x\\
-Q_1=&\frac{1}{N!h^{3N}}\int_{\Gamma_1}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}d\mathbf{x}d\mathbf{p}_x
+Q_0=&\frac{1}{N!h^{3N}}\int_{\Gamma_0}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}\diff \mathbf{x}\diff \mathbf{p}_x\\
+Q_1=&\frac{1}{N!h^{3N}}\int_{\Gamma_1}\exp{\left[-\beta H(\mathbf{x},\mathbf{p}_x)\right]}\diff \mathbf{x}\diff\mathbf{p}_x
 \end{align}
 where $\Gamma_0$ and $\Gamma_1$ may refer to different conformations of a flexible molecules, or the bound and unbound structures of a protein-ligand complex.
 
@@ -81,28 +81,28 @@ In canonical ensemble (with $NVT$ fixed), the probability of a microstate is
 \end{equation}
 where $E(x)$ is the potential energy of that microstate. With this probability we can calculate the expectation of any operator $\hat{O}$ via
 \begin{equation}
-\left<O\right>=\frac{\int O(\mathbf{x})\exp{(-\beta E(\mathbf{x}))}d\mathbf{x}}{Z}.
+\left<O\right>=\frac{\int O(\mathbf{x})\exp{(-\beta E(\mathbf{x}))}\diff\mathbf{x}}{Z}.
 \end{equation}
 
-Besides free energy, sometimes we are also interested in the free energy profile along one or several degrees of freedom
+Besides state free energy, sometimes we are also interested in the free energy profile along one or several degrees of freedom
 \begin{align}
 	A(\xi)=&-\beta^{-1}\ln{Z(\xi)}\notag\\
-	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}\notag\\
-	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U(\xi(\mathbf{x})=\xi)\right)}|J|dq_1\cdots dq_{N-1},
+	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))\diff\mathbf{x}\notag\\
+	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U(\xi(\mathbf{x})=\xi)\right)}|J|\diff q_1\cdots \diff q_{N-1},
 \end{align}
 where $J$ is the Jacobian matrix upon changing from Cartesian to generalized coordinates with its element defined as $\left[J(\xi)\right]_{ij}=\partial x_i/\partial \xi_j$. $|J|$ is its determinant. Its gradient over $\xi$ is
 \begin{align}
-\frac{\partial A(\xi)}{\partial \xi}=&-\beta^{-1}\frac{\int \frac{\partial}{\partial \xi}\left(e^{-\beta U}|J|\right)dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
-                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{1}{|J|}\frac{\partial |J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
-                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]|J|dq_1\cdots dq_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
-                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+\frac{\partial A(\xi)}{\partial \xi}=&-\beta^{-1}\frac{\int \frac{\partial}{\partial \xi}\left(e^{-\beta U}|J|\right)\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}}\notag\\
+                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{1}{|J|}\frac{\partial |J|}{\partial \xi}\right]|J|\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff \mathbf{x}}\notag\\
+                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]|J|\diff q_1\cdots \diff q_{N-1}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff \mathbf{x}}\notag\\
+                                    =&\frac{\int e^{-\beta U}\left[\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln|J|}{\partial \xi}\right]\delta(\xi-\xi(\mathbf{x}))\diff\mathbf{x}}{\int e^{-\beta U}\delta(\xi-\xi(\mathbf{x}))\diff \mathbf{x}}\notag\\
                                     =&\left<\frac{\partial U}{\partial \xi}-\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}\right>_\xi.
 \end{align}
 Here, $-\frac{\partial U}{\partial \xi}+\beta^{-1}\frac{\partial \ln |J|}{\partial \xi}$ is the generalized force on $\xi$ averaged over the degrees of freedom other than $\xi$ itself. Therefore, $A(\xi)$ is called the potential of mean force. \textit{Note: Some define the potential of mean force as $\left<\frac{\partial U}{\partial \xi}\right>_\xi$ only. But we do not strictly differentiate potential of mean force and free energy profile here.}
 
 In order to illustrate how the simulations and free energy methods to be discussed below are used in real problems, let us take protein-ligand binding
 \begin{center}
-	\schemestart \chemfig{P} + \chemfig{L}\arrow{<=>} \chemfig{P}-\chemfig{L}\schemestop
+	\schemestart \chemfig{P} + \chemfig{L}\arrow{<=>}[,0.75] \chemfig{P}-\chemfig{L}\schemestop
 \end{center}
 %\begin{equation}
 %P\,+\,L\rightleftharpoons \operatorname{P-L}
@@ -113,17 +113,17 @@ K_b=\frac{[\operatorname{P-L}]}{[\mathrm{P}][\mathrm{L}]},
 \end{equation} 
 where [P-L], [P] and [L] are the equilibrium concentrations of the complex, protein and ligand, respectively. A standard binding free energy can be calculated via $G_{bind}\equiv -\beta^{-1}\ln{\left[ K_bC^0\right]}$, where $C^0$ is the standard state concentration of 1 mol/liter ($\equiv 1/1661 {\AA}^3$). $K_b$ can be expressed in terms of a ratio of configurational integrals as
 \begin{equation}
-K_b=\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\int_{bulk}d(\mathbf{2})\cdots\int_{bulk}d(\mathbf{N})\int d\mathbf{X}e^{-\beta U}},
+K_b=\frac{1}{[L]}\frac{N\int_{site}\diff(\mathbf{1})\int_{bulk}\diff(\mathbf{2})\cdots\int_{bulk}\diff(\mathbf{N})\int \diff\mathbf{X}e^{-\beta U}}{\int_{bulk}\diff(\mathbf{1})\int_{bulk}\diff(\mathbf{2})\cdots\int_{bulk}\diff(\mathbf{N})\int \diff\mathbf{X}e^{-\beta U}},
 \end{equation}
-where $U$ is the total potential energy of the system, (\textbf{1}), (\textbf{2}), $\cdots$, (\textbf{N}) and \textbf{N} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and we notice that $\int_{bulk}d(\mathbf{1})=V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
+where $U$ is the total potential energy of the system, (\textbf{1}), (\textbf{2}), $\cdots$, (\textbf{N}) and \textbf{N} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and we notice that $\int_{bulk}\diff(\mathbf{1})=V_{bulk}\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
 \begin{align}
-   K_b=&\frac{1}{[L]}\frac{N\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{V_{bulk}\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}\notag\\
-      =&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}.
+   K_b=&\frac{1}{[L]}\frac{N\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{V_{bulk}\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}\notag\\
+      =&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}.
 \end{align}
 
 A direct calculation of this ratio is not easy. Practically, we can define a series of intermediate states. Thereupon, the calculation of this ratio can be facilitated by
 \begin{align}
-K_b=\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac{Z_1}{Z_2}\times\cdots\times\frac{Z_{n-1}}{Z_n}\times\notag\\ &\frac{Z_n}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}
+K_b=\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac{Z_1}{Z_2}\times\cdots\times\frac{Z_{n-1}}{Z_n}\times\notag\\ &\frac{Z_n}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}
 \label{Eq:Intro:K_b_path}
 \end{align}
 
@@ -131,22 +131,22 @@ There are two categories of methods for computing $K_b$, i.e. the alchemical str
 
 In alchemical strategy, the ligand is decoupled from its environment in the binding pocket and then appears in water. However, a series of steps with restraints on the conformation, translation and rotation are introduced. Equation~\ref{Eq:Intro:K_b_path} is now realized as
 \begin{align}
-  K_b=&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U_1}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
-      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}\times\notag\\
-      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}\times\notag\\
-      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}\times\notag\\
-      &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}{\int_{bulk}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}\times\notag\\
-      &\frac{\int_{bulk}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_0+U_c]}}\times\notag\\
-      &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_0+U_c]}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
-      &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{bulk}d(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U_1}}.
+  K_b=&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U_1}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}{\int_{bulk}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}\times\notag\\
+      &\frac{\int_{bulk}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_0+U_c]}}\times\notag\\
+      &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_0+U_c]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
+      &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U_1}}.
 \end{align}
 
 In PMF-based strategy, the ligand is gradually pulled out of the binding pocket into water. Similarly, restraints on the conformation, translation and rotation should also be applied when pulling the ligand molecule. Equation~\ref{Eq:Intro:K_b_path} is now realized as
 \begin{align}
-K_b=&\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta U}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
-    &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
-    &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}\times\notag\\
-    &\frac{\int_{site}d(\mathbf{1})\int d\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
-    &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
-    &\frac{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta [U+U_c]}}{\int_{bulk}d(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int d\mathbf{X}e^{-\beta U}}.
+K_b=&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
+    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
+    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}\times\notag\\
+    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
+    &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
+    &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathrm{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}.
 \end{align}

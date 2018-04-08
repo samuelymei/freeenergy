@@ -14,23 +14,23 @@ The Helmholtz free energy difference between the target and the reference system
 \end{equation}
 where $\beta = {(k_{B}T)}^{-1}$, and
 \begin{equation}
-Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}.
+Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff \mathbf{p}_\mathbf{x}.
 \label{Eq:FEM:TP:PF}
 \end{equation}
 Taking Eq.~\ref{Eq:FEM:TP:PF} into Eq.~\ref{Eq:FEM:TP:deltaA}, we obtain
 \begin{align}
-\Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) \right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}}\\
-=& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})\right] \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] d\mathbf{x}d\mathbf{p}_\mathbf{x}}},
+\Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) \right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}}\\
+=& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})\right] \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}},
 \label{Eq:FEM:TP:deltaA2}
 \end{align}
 The probability density function of finding the reference system in a state defined by positions $\mathbf{x}$ and momenta $\mathbf{p}_{x}$ is 
 \begin{equation}
-P_{0}(\mathbf{x},\mathbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] d\mathbf{x}d\mathbf{p}_\mathbf{x}}
+P_{0}(\mathbf{x},\mathbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}
 \label{Eq:FEM:TP:proden}
 \end{equation}
 If the probability density function is used, Eq.~\ref{Eq:FEM:TP:deltaA2} becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] P_{0}(\mathbf{x},\mathbf{p}_{x}) d\mathbf{x}d\mathbf{p}_\mathbf{x},
+\Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] P_{0}(\mathbf{x},\mathbf{p}_{x}) \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},
 \label{Eq:FEM:TP:deltaA3}
 \end{equation}
 or, equivalently,
@@ -56,7 +56,7 @@ Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}
 
 Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be computed over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) d\Delta U,
+\Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) \diff\Delta U,
 \label{Eq:FEM:TP:deltaA7}
 \end{equation}
 If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
@@ -104,7 +104,7 @@ where
 \end{equation}
 to Eq.~\ref{Eq:FEM:TP:deltaA7}, we obtain
 \begin{equation}
-\exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0} - \beta \sigma ^2)^2}{2\sigma^2}\right]} d\Delta U
+\exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0} - \beta \sigma ^2)^2}{2\sigma^2}\right]} \diff\Delta U
 \label{Eq:FEM:TP:expdeltaA}
 \end{equation}
 Here, $C$ is independent of $\Delta U$
@@ -122,7 +122,7 @@ If the distribution of $\Delta U$ deviates from Gaussian, there will be extra te
 \Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2 + \frac{\beta^2}{6} \left(\left<\Delta U^3\right>_0-3\left<\Delta U^2\right>_0\left<\Delta U\right>_0+2\left<\Delta U\right>_0^3\right).
 \label{Eq:FEM:TP:deltaA9}
 \end{equation}
-The overlap matrix~\cite{KlimovichJCAMD2015} is a useful metric in characterizing the magnitude of overlap in the phase space. It is recommended to be used as a consistency check, as in the case of the TP-based methods. If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $i$th state as:
+The overlap matrix\cite{KlimovichJCAMD2015} is a useful metric in characterizing the magnitude of overlap in the phase space. It is recommended to be used as a consistency check, as in the case of the TP-based methods. If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $i$th state as:
 \begin{equation}
 W_{n,i}(x_{n}) = \frac{e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}
 \label{Eq:FEM:TP:weights}

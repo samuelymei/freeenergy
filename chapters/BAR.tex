@@ -21,7 +21,7 @@ Integrating this identity over all of configuration space and multiplying
 by the trivial factors $Q_{0}/Q_{0}$ and $Q_{1}/Q_{1}$, one obtains:
 
 \begin{equation}
-	Q_{0}\frac{\int M(U_{1}-U_{0})\exp{(-U_{0})}d\mathbf{{q}}}{Q_{0}}=Q_{1}\frac{\int M(U_{0}-U_{1})\exp{(-U_{1})}d\mathbf{{q}}}{Q_{1}},
+	Q_{0}\frac{\int M(U_{1}-U_{0})\exp{(-U_{0})}\diff\mathbf{{q}}}{Q_{0}}=Q_{1}\frac{\int M(U_{0}-U_{1})\exp{(-U_{1})}\diff\mathbf{{q}}}{Q_{1}},
 \end{equation}
 or simply
 
@@ -37,7 +37,7 @@ integrals.
 A formula more general than Eq.~\ref{eq:FEM:BAR:MetropolisRatio} can be written
 as
 \begin{equation}
-	\frac{Q_{0}}{Q_{1}}=\frac{Q_{0}}{Q_{1}}\frac{\int W\exp{(-U_{0}-U_{1})}d\mathbf{{q}}}{\int W\exp{(-U_{1}-U_{0})}d\mathbf{{q}}}=\frac{\langle W\exp{(-U_{0})}\rangle_{1}}{\langle W\exp{(-U_{1})}\rangle_{0}},\label{eq:FEM:BAR:weightedratio}
+	\frac{Q_{0}}{Q_{1}}=\frac{Q_{0}}{Q_{1}}\frac{\int W\exp{(-U_{0}-U_{1})}\diff\mathbf{{q}}}{\int W\exp{(-U_{1}-U_{0})}\diff\mathbf{{q}}}=\frac{\langle W\exp{(-U_{0})}\rangle_{1}}{\langle W\exp{(-U_{1})}\rangle_{0}},\label{eq:FEM:BAR:weightedratio}
 \end{equation}
 where $W$ is an arbitrary weighting function.
 
@@ -74,7 +74,7 @@ of $\Delta A$
 \begin{align}
 	\delta^2 & (\Delta A_{est}-\Delta A)\nonumber \\
 	\approx & \frac{\langle W^{2}\exp{(-2U_{1})}\rangle_{0}}{n_{0}[\langle W\exp{(-U_{1})}\rangle_{0}]^{2}}+\frac{\langle W^{2}\exp{(-2U_{0})}\rangle_{1}}{n_{1}[\langle W\exp{(-U_{0})}\rangle_{1}]^{2}}-\frac{1}{n_{0}}-\frac{1}{n_{1}}\nonumber \\
-	= & \frac{\int\left[(Q_{0}/n_{0})\exp{(-U_{1})}+(Q_{1}/n_{1})\exp{(-U_{0})}\right]W^{2}\exp{(-U_{0}-U_{1})}d\mathbf{{q}}}{[\int W\exp{(-U_{0}-U_{1})}d\mathbf{{q}}]^{2}}\notag\\
+	= & \frac{\int\left[(Q_{0}/n_{0})\exp{(-U_{1})}+(Q_{1}/n_{1})\exp{(-U_{0})}\right]W^{2}\exp{(-U_{0}-U_{1})}\diff\mathbf{q}}{[\int W\exp{(-U_{0}-U_{1})}\diff\mathbf{q}]^{2}}\notag\\
 	  &-\frac{1}{n_{0}}-\frac{1}{n_{1}}.\label{eq:FEM:BAR:expectation}
 \end{align}
 
