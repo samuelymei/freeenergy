@@ -8,7 +8,7 @@
 ``Everything should be made as simple as possible but not simpler.''
 \end{chapquote}
 
-Computer simulations of biological system have made much progress in the past decades. A battery of methods at different levels of sophistication and complexity have been proposed.
+Computer simulations of biological systems have made much progress in the past decades. A battery of methods at different levels of sophistication and complexity have been proposed.
 
 However, we are still facing many difficulties in three aspects, i.e. Hamiltonians, sampling efficiency and postprocessing methods.\cite{NielsJCTC2014}
 
@@ -88,7 +88,7 @@ Besides free energy, sometimes we are also interested in the free energy profile
 \begin{align}
 	A(\xi)=&-\beta^{-1}\ln{Z(\xi)}\notag\\
 	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))d\mathbf{x}\notag\\
-	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}|J|dq_1\cdots dq_{N-1},
+	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U(\xi(\mathbf{x})=\xi)\right)}|J|dq_1\cdots dq_{N-1},
 \end{align}
 where $J$ is the Jacobian matrix upon changing from Cartesian to generalized coordinates with its element defined as $\left[J(\xi)\right]_{ij}=\partial x_i/\partial \xi_j$. $|J|$ is its determinant. Its gradient over $\xi$ is
 \begin{align}
