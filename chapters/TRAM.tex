@@ -12,27 +12,27 @@ Similar to the WHAM analysis, the unbiased probability, $\pi_i$, and the biased 
 \end{align}
 where $f^{(k)}$ is a normalization constant. Thus, the bias is multiplicative in probability or additive in the potential. As we have shown in section~\ref{Sec:FEM:WHAM}, the WHAM estimator can be derived by maximizing the likelihood
 \begin{equation}
-    L_{WHAM}=\prod\limits_k\prod\limits_i (\pi_i^{(k)})^{N_i^{(k)}}
+    L_{\mathrm{WHAM}}=\prod\limits_k\prod\limits_i (\pi_i^{(k)})^{N_i^{(k)}}
 \end{equation}
 with an implied assumption that every count $N_i^{(k)}$ is independently drawn from the biased distribution $\pi_i^{(k)}$.
 
 The maximum likelihood Markov model is the transition matrix $\mathbf{P}=(p_{ij})$ between $n$ discrete configuration states, that maximizes the likelihood of the observed transitions between these states. The likelihood of a Markov model is a product of all transition probabilities corresponding to the observed trajectory. To obtain a reversible Markov state model, this likelihood is maximized under the constraints of detailed balance with respect to the equilibrium distribution $\boldsymbol{\pi}$
 \begin{align}
-    L_{MSM}=\prod_i\prod_j p_{ij}^{c_{ij}},\\
-    s.t.\quad \pi_i p_{ij}=\pi_j p_{ji} \quad \text{for all} i,j,
+    L_{\mathrm{MSM}}=\prod_i\prod_j p_{ij}^{c_{ij}},\\
+    s.t.\quad \pi_i p_{ij}=\pi_j p_{ji} \quad \text{for all } i,j,
 \end{align}
 where $c_{ij}$ is the number of times the trajectories were observed in state $i$ at time $t$ and in state $j$ at a later time $t+\tau$, where $\tau$ is the lag time at which the Markov model is estimated.
 
 In TRAM, WHAM and MSM are combined as follows: every trajectory at thermodynamic state $k$ is treated as a Markov chain with the configuration-state transition counts $c_{ij}^{(k)}$, without assuming that every count is sampled from global equilibrium. In contrast to Markov models, we exploit the fact that equilibrium probabilities can be reweighted between different thermodynamic states via Eqs.~\ref{Eq:FEM:TRAM:reweight} and~\ref{Eq:FEM:TRAM:f}. The resulting likelihood of all $\mathbf{P}^{(k)}$ and $\boldsymbol{\pi}$, based on simulations at all thermodynamic states can be formulated as
 \begin{align}
-	L_{TRAM}=\prod_k\prod_i\prod_j (p_{ij}^{(k)})^{c_{ij}^{(k)}},\label{Eq:FEM:TRAM:TRAMlikelihood}\\
+	L_{\mathrm{TRAM}}=\prod_k\prod_i\prod_j (p_{ij}^{(k)})^{c_{ij}^{(k)}},\label{Eq:FEM:TRAM:TRAMlikelihood}\\
 	s.t.\quad \pi_i^{(k)}p_{ij}^{(k)}=\pi_j^{(k)}p_{ji}^{(k)}\quad \text{for all }i,j,k. \label{Eq:FEM:TRAM:TRAMdetailedbalance}
 \end{align}
 Here, $\mathbf{P}^{(k)}=(p_{ij}^{(k)})$ is the Markov transition matrix at thermodynamic state $k$, and $c_{ij}^{(k)}$ are the number of transitions observed at that simulation condition. $\boldsymbol{\pi}^{(k)}$ is the vector of equilibrium probabilities of discrete states at each thermodynamic state. \emph{Because each Markov model $\mathbf{P}^{(k)}$ must have the distribution $\boldsymbol{\pi}^{(k)}$ as a stationary distribution, all Markov models are coupled too, which makes the maximization of the TRAM likelihood Eqs.~\ref{Eq:FEM:TRAM:TRAMlikelihood} and~\ref{Eq:FEM:TRAM:TRAMdetailedbalance} difficult, and it can neither be achieved by WHAM, nor by existing MSM estimators.}
 
 Taking natural logarithm on the TRAM likelihood, we find
 \begin{equation}
-    \ln{L_{TRAM}}=\sum_{k=1}^{K}\sum_{i=1}^n\sum_{j=1}^{n}c_{ij}^{(k)}\ln{p_{ij}^{(k)}},
+    \ln{L_{\mathrm{TRAM}}}=\sum_{k=1}^{K}\sum_{i=1}^n\sum_{j=1}^{n}c_{ij}^{(k)}\ln{p_{ij}^{(k)}},
 \end{equation}
 with constraints
 \begin{equation}

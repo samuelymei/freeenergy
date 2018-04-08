@@ -135,7 +135,7 @@ Taking Eq.~\ref{Eq:FEM:WHAM:Omega_mk} and Eq.~\ref{Eq:FEM:WHAM:delta2Omega_mk} i
 \end{equation}
 in which
 \begin{equation}
-f_k=-ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
+f_k=-\ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
 \label{Eq:FEM:WHAM:f_k_iteration}
 \end{equation}
 Obviously, Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and Eq.~\ref{Eq:FEM:WHAM:f_k_iteration} must be solved iteratively.
@@ -154,7 +154,7 @@ Using the density of states and its variance, we can estimate the expectation of
 \end{equation}
 where
 \begin{equation}
-A_m=\frac{\int d\mathbf{R}A(\mathbf{R})\psi_m(U(\mathbf{R}))}{\int d\mathbf{R}\psi_m(U(\mathbf{R}))}.
+A_m=\frac{\int \diff\mathbf{R}A(\mathbf{R})\psi_m(U(\mathbf{R}))}{\int \diff\mathbf{R}\psi_m(U(\mathbf{R}))}.
 \end{equation}
 Using histograms of bin $m$ from all the simulations and defining $H_m=\sum\limits_{k=1}^KH_{mk}$, an estimator of $A_m$ denoted as $\hat{A}_m$ can be calculated as
 \begin{equation}
@@ -183,7 +183,7 @@ where $W_{i}(\eta(\textbf{x}))$ is the biasing potential added on the reaction c
 \rho_{i}^{(b)}(\eta) = \frac{e^{-\beta U_{i}^{(b)}(\eta)}}{Q_{i}^{(b)}},
 \label{Eq:bias}
 \end{equation}
-where $Q_{i}^{(b)}=\int e^{-\beta U_{i}^{(b)}(\eta)} d\eta = e^{-\beta f_{i}^{(b)}}$ and $f_{i}^{(b)}$ is the biased free energy.
+where $Q_{i}^{(b)}=\int e^{-\beta U_{i}^{(b)}(\eta)} \diff\eta = e^{-\beta f_{i}^{(b)}}$ and $f_{i}^{(b)}$ is the biased free energy.
 The corresponding unnormalized unbiased probability distribution $\rho_{i}^{(u)}(\eta)$ from the $i$th simulation is defined as, 
 \begin{align}
 \rho_{i}^{(u)}(\eta) = e^{\beta[W_{i}(\eta)-f_{i}^{(b)}]}\rho_{i}^{(b)}(\eta)
@@ -221,9 +221,9 @@ where $\eta_{i,l}$ is the reaction coordinates of the $l$th configuration in the
 
 Until now, the treatment assumes that the free energy parameters ${f_{i}^{(b)}}$ are known. In fact, these parameters can be obtained self-consistently. Indeed, the definition of the free energy $f_{i}^{(b)}$ is,
 \begin{align}
-e^{-\beta f_{i}^{(b)}}=&\int e^{-\beta U_{i}^{(b)}(\eta) } d\eta \notag\\
-=&\int \rho_{0}(\eta) e^{-\beta W_{i}(\eta)} d\eta \notag\\
-=&C \int \frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}e^{-\beta W_{i}(\eta)}  d\eta
+e^{-\beta f_{i}^{(b)}}=&\int e^{-\beta U_{i}^{(b)}(\eta) } \diff\eta \notag\\
+=&\int \rho_{0}(\eta) e^{-\beta W_{i}(\eta)} \diff\eta \notag\\
+=&C \int \frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}e^{-\beta W_{i}(\eta)}  \diff\eta
 \label{Eq:fi01}
 \end{align} 
 The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:fi01}, which must be solved iteratively. A initial guess of the values ${f_{i}^{(b)0}}$ is used on the right side of Eq.~\ref{Eq:fi01} to compute a new set of values ${f_{i}^{(b)1}}$, which is in turn used as the new guess to compute ${f_{i}^{(b)1}}$ and so on until convergence is reached. Then, the unbiased free energy corresponding to the histogram can be calculated by,
@@ -242,7 +242,7 @@ p_{k,l}=f_kc_{k,l}p_l^0,
 \end{equation}
 in which $p_l^0$ is the (simulation-independent) unbiased probability,
 \begin{align}
-c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l}\right]+\beta_0E_l\right\}}\notag\\
+c_{k,l}=&\exp{\left[-\beta_k\left(E_l+w_{k,l}\right)+\beta_0E_l\right]}\notag\\
 =&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
 \end{align}
 is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\left\{\sum\limits_lc_{k,l}p_l^0\right\}}^{-1}$ is the normalization factor.
