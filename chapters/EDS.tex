@@ -52,14 +52,14 @@ If you take a close look at Eq.~\ref{Eq:ES:EDS:H_R}, you will find that $s$ appe
 	\addplot[mark=none,smooth,domain=-13:10] {(x+5)*(x+5)};
 	\addplot[mark=none,smooth,domain=-13:10] {10+2*(x-5)*(x-5)};
 	\addplot[color=red,mark=none,samples=500,domain=-13:10] { -2*ln(exp(-0.5*(x+5)*(x+5))+exp(-0.5*(10+2*(x-5)*(x-5))))};
-	\addplot[color=green,mark=none,samples=500,domain=-13:10] {-10*ln(exp(-0.1*(x+5)*(x+5))+exp(-0.1*(10+2*(x-5)*(x-5))))};
+	\addplot[color=olive,mark=none,samples=500,domain=-13:10] {-10*ln(exp(-0.1*(x+5)*(x+5))+exp(-0.1*(10+2*(x-5)*(x-5))))};
 	\addplot[color=blue,mark=none,samples=500,domain=-13:10] {-20*ln(exp(-0.05*(x+5)*(x+5))+exp(-0.05*(10+2*(x-5)*(x-5))))};
 	\addplot[color=violet,mark=none,samples=500,domain=-13:10] {-40*ln(exp(-0.025*(x+5)*(x+5))+exp(-0.025*(10+2*(x-5)*(x-5))))};
 	\addplot[color=orange,mark=none,samples=500,domain=-13:10] {-80*ln(exp(-0.0125*(x+5)*(x+5))+exp(-0.0125*(10+2*(x-5)*(x-5))))};
     \node[] at (axis cs: 2.5,45) {\footnotesize$A$};
     \node[] at (axis cs: 0.0,45) {\footnotesize$B$};
     \node[color=red] at (axis cs: 3.3,36) {\footnotesize$s=s_0=1$};
-    \node[color=green] at (axis cs: 1.2,25.5) {\footnotesize$s=s_1$};
+    \node[color=olive] at (axis cs: 1.2,25.5) {\footnotesize$s=s_1$};
     \node[color=blue] at (axis cs: 1.0,21) {\footnotesize$s=s_2$};
     \node[color=violet] at (axis cs: 0.5,9) {\footnotesize$s=s_3$};
     \node[color=orange] at (axis cs: 2.5,-19.2) {\footnotesize$s=s_4$};
