@@ -13,7 +13,7 @@ Suppose we are studying a transition process between states such as conversion b
 		\end{axis}
 		\end{tikzpicture}
 %	}
-	\caption{A typical free energy surface. Two free energy barriers are separated by a barrier higher than $kT$.}\label{Fig:ES:dual_harmonic}
+	\caption{A typical free energy surface. Two free energy wells are separated by a barrier higher than $kT$.}\label{Fig:ES:dual_harmonic}
 \end{figure}
 
 %\begin{figure}[htbp]
@@ -22,7 +22,7 @@ Suppose we are studying a transition process between states such as conversion b
 %	\caption{A typical free energy surface. Two free energy barriers are separated by a barrier higher than $kT$.}\label{Fig:ES:dual_harmonic}
 %\end{figure}
 
-Sometimes, we are interested in not only these two dominate states but also the states in between. Usually, we define a reaction coordinate $\xi$ and calculate the potential of mean force along this reaction coordinate from the ``reactant'' to the ``product''. The reaction coordinate can be either real coordinates such as the difference of bond lengths in, for example, an $S_N2$ reaction, or it can be a thermodynamics coupling parameter ($\lambda$) that defines an unphysical path. However, if we run a simulation with the reaction coordinate initially set to the transition state or the hillside, the system will quickly roll back to the ``reactant'' or the ``product'' state in order to reduce the free energy. The consequence is that phase space outside the ``reactant'' and ``product'' regions cannot be sampled sufficiently to yield accurate free energy profile in a brutal force simulation. In order to enhance the exploration in these regions, 
+Sometimes, we are interested in not only these two dominate states but also the states in between. Usually, we define a reaction coordinate $\xi$ and calculate the potential of mean force along this reaction coordinate from the ``reactant'' to the ``product''. The reaction coordinate can be either real coordinates such as the difference of bond lengths in, for example, an $S_N2$ reaction, or it can be a thermodynamics coupling parameter ($\lambda$) that defines an unphysical path. However, if we run a simulation with the reaction coordinate initially set to the transition state or the slope, the system will quickly roll back to the ``reactant'' or the ``product'' state in order to reduce the free energy. The consequence is that phase space outside the ``reactant'' and ``product'' regions cannot be sampled sufficiently to yield accurate free energy profile in a brutal force simulation. In order to enhance the exploration in these regions, 
 a series of artificial biasing potentials as (usually harmonic) functions of $\xi$ can be added to the potential energy. And the simulations are performed on these potential energy surfaces 
 \begin{equation}
 	U_i(\mathbf{R})=U_0(\mathbf{R})+\Delta U_i(\xi).
