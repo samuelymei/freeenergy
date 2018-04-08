@@ -1,5 +1,5 @@
 \subsection{Thermodynamic Integration\label{Sec:FEM:TI}}
-Thermodynamic Integration (TI) method was originally put forward by Kirkwood.\cite{KirkwoodJCP1935}. 
+Thermodynamic Integration (TI) method was originally proposed by Kirkwood.\cite{KirkwoodJCP1935}. 
 	
 If the free energy, $A$, is a continuous function of $\lambda$ then we can write:
 \begin{equation}
@@ -8,12 +8,12 @@ If the free energy, $A$, is a continuous function of $\lambda$ then we can write
 \end{equation} 
 Now,
 \begin{equation}
-A(\lambda) = -\beta^{-1}T\ln Q(\lambda)
+A(\lambda) = -\beta^{-1}\ln Q(\lambda)
 \label{Eq:FEM:TI:Alambda}
 \end{equation} 
 Thus,
 \begin{align}
-\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& -\beta^{-1} \left[ \frac{\partial{lnQ(\lambda)}}{\partial{\lambda}} \right] \\
+\frac{\partial{A(\lambda)}}{\partial{\lambda}} =& -\beta^{-1} \left[ \frac{\partial{\ln{Q(\lambda)}}}{\partial{\lambda}} \right] \notag\\
 =&-\frac{\beta^{-1}}{Q(\lambda)}\frac{\partial{Q(\lambda)}}{\partial{\lambda}}
 \label{Eq:FEM:TI:deltaA2TI}
 \end{align} 
