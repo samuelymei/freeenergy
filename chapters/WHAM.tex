@@ -5,19 +5,19 @@ The weighted histogram analysis method is a generalization of the histogram meth
 The following derivation quite follows Ref.~\cite{ChoderaJCTC2007}.
 The central quantity in statistical mechanics is partition function $Z$, which in textbook is often written as
 \begin{equation}
-Z=\int \exp{-\beta U(\mathbf{R})}d\mathbf{R}.
+Z=\int \exp{-\beta U(\mathbf{R})}\diff\mathbf{R}.
 \end{equation}
 This is an integral in coordinate space. It also can be written as an integral in energy space
 \begin{equation}
-Z=\int \Omega(U)\exp{(-\beta U)}dU,
+Z=\int \Omega(U)\exp{(-\beta U)}\diff U,
 \end{equation}
 where $\Omega(U)$ is density of states and $\Omega(U)\Delta U$ is the number of states in the region $U-\Delta U/2<U<U+\Delta U/2$. Accordingly, the statistical expectation of an operator $\mathbf{A}$ can be calculated by
 \begin{equation}
-\langle \mathbf{A}\rangle=\frac {\int \mathbf{A}(U)\Omega(U)\exp{(-\beta U)}dU}{\int \Omega(U)\exp{(-\beta U)}dU},
+\langle \mathbf{A}\rangle=\frac {\int \mathbf{A}(U)\Omega(U)\exp{(-\beta U)}\diff U}{\int \Omega(U)\exp{(-\beta U)}\diff U},
 \end{equation}
 where
 \begin{equation}
-\mathbf{A}(U^\prime)=\frac{\int \delta (U(\mathbf{R})-U^\prime)A(\mathbf{R})d\mathbf{R}}{\int \delta (U(\mathbf{R})-U^\prime)d\mathbf{R}}.
+\mathbf{A}(U^\prime)=\frac{\int \delta (U(\mathbf{R})-U^\prime)A(\mathbf{R})\diff \mathbf{R}}{\int \delta (U(\mathbf{R})-U^\prime)\diff\mathbf{R}}.
 \end{equation}
 Therefore, the core objective is to calculate $\Omega(U)$.
 
@@ -26,12 +26,12 @@ Suppose we have one trajectory with $N$ snapshots denoted as $\{\mathbf{R}_n\}$.
 	\psi_m(U)= 
 	\left\{ 
 	\begin{array}{rl} 
-	1 & if\,U\in \left[ U_m-\Delta U/2, U_m+\Delta U/2\right)\\ 
-	0 & otherwise\\  
+	1 & \text{if }U\in \left[ U_m-\Delta U/2, U_m+\Delta U/2\right)\\ 
+	0 & \text{otherwise}\\  
 	\end{array} 
 	\right. 
 \end{equation}
-Then the histogram for the m$\mathit{th}$ energy bin is
+Then the histogram for the $m$th energy bin is
 \begin{equation}
 	H_{m}=\sum\limits_{n=1}^{N}\psi_{m}(U(\mathbf{R}_n))=N\cdot \frac 1 N\sum\limits_{n=1}^{N}\psi_{m}(U(\mathbf{R}_n))=N\cdot\left<\psi_m\right>,
 \end{equation}
@@ -245,7 +245,7 @@ in which $p_l^0$ is the (simulation-independent) unbiased probability,
 c_{k,l}=&\exp{\left\{-\beta_k\left[E_l+w_{k,l}\right]+\beta_0E_l\right\}}\notag\\
 =&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
 \end{align}
-is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1}$ is the normalization factor.
+is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\left\{\sum\limits_lc_{k,l}p_l^0\right\}}^{-1}$ is the normalization factor.
 It is worth emphasizing that the biasing potential can be multiple dimensional as, for instance, in a two-dimensional umbrella sampling.
 If the biasing is only in temperature-space as in replica exchange molecular dynamics
 \begin{equation}
@@ -269,10 +269,10 @@ P(n_{1,1},\dots,n_{1,L};\dots;n_{K,1},\dots,n_{K,L}|p_1^0,\dots,p_L^0)\propto\no
 \end{align}
 where the likelihood is conditional only on the unbiased probabilities $p_l^0$, since the bias factors $c_{k,l}$ are known parameters, and the normalization constants $f_k$ are known conditional on $p_l^0$. The maximum likelihood estimate of the unbiased probabilities can be found by maximizing $P$ in Eq.~\ref{Eq:FEM:WHAM:totalProb} with respect to $p_1^0,\dots,p_L^0$ and are given by solutions of the simultaneous nonlinear equations
 \begin{equation}
-p_l^0=\frac{\sum\limits_{k=1}^K n_{k,l}}{\sum\limits_{k=1}^K N_kf_kc_{k,l}}\, (\mathrm{for\; each}\;l)
+p_l^0=\frac{\sum\limits_{k=1}^K n_{k,l}}{\sum\limits_{k=1}^K N_kf_kc_{k,l}}\, (\text{for each }l)
 \end{equation}
 and
 \begin{equation}
-f_k={\{\sum\limits_lc_{k,l}p_l^0\}}^{-1},
+f_k={\left\{\sum\limits_lc_{k,l}p_l^0\right\}}^{-1},
 \end{equation}
 where $N_k$ is the total number of counts in the $k$th histogram.

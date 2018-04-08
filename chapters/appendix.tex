@@ -139,16 +139,16 @@ which is Eq.~\ref{Eq:FEM:BAR:BAR}.
 
 \chapter{MBAR is a binless form of WHAM\label{chapter:Appendix:MBARandWHAM}}
 Maybe you have already noticed that MBAR and WHAM have very similar forms for the free energy. 
-So you may want to ask if there is any relationship between MBAR and WHAM. The answer is YES. 
+So you may want to ask if there is any connection between MBAR and WHAM. The answer is YES. 
 MBAR is a binless form of WHAM.\cite{TanJCP2012} Let us follow Zhang et al\cite{ZhangMS2016} 
 and rewrite Eq.~\ref{Eq:FEM:WHAM:f_k_iteration} into an integral form
 \begin{equation}
-f_i=-ln\int\Omega\exp{(-\beta_iU)}dU.
+f_i=-\ln\int\Omega\exp{(-\beta_iU)}\diff U.
 \label{Eq:Appendix:MBARandWHAM:f_integral}
 \end{equation}
 Taking Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} into Eq.~\ref{Eq:Appendix:MBARandWHAM:f_integral}, we find
 \begin{equation}
-f_i=-ln\int\frac{\sum\limits_{k=1}^{K}H_k(U)\exp{(-\beta_iU)}}{\sum\limits_{k=1}^{K}N_k\exp{(f_k-\beta_kU)}}dU,
+f_i=-\ln\int\frac{\sum\limits_{k=1}^{K}H_k(U)\exp{(-\beta_iU)}}{\sum\limits_{k=1}^{K}N_k\exp{(f_k-\beta_kU)}}\diff U,
 \label{Eq:Appendix:MBARandWHAM:f_integral_whole}
 \end{equation}
 where ${g_{mk}}^{-1}$ has been omitted and $H_{mk}$ has been changed to continuous form $H_k(U)$. From the definition,
@@ -158,8 +158,8 @@ H_k(U)=\sum\limits_{\mathbf{R}}^{(k)}\delta (U(\mathbf{R})-U).
 \end{equation}
 Taking Eq.~\ref{Eq:Appendix:MBARandWHAM:H_k} into Eq.~\ref{Eq:Appendix:MBARandWHAM:f_integral_whole}, we have
 \begin{align}
-f_i=&-ln\sum\limits_{k=1}^{K}\sum\limits_{\mathbf{R}}^{(k)}\frac{\exp{(-\beta_iU(\mathbf{R}))}}{\sum\limits_{k=1}^{K}N_k\exp{(f_k-\beta_kU(\mathbf{R}))}}\notag\\
-   =&-ln\sum\limits_{n=1}^{N}\frac{\exp{(-\beta_iU_i(\mathbf{R_n}))}}{\sum\limits_{k=1}^{K}N_k\exp{(f_k-\beta_kU_k(\mathbf{R_n}))}},
+f_i=&-\ln\sum\limits_{k=1}^{K}\sum\limits_{\mathbf{R}}^{(k)}\frac{\exp{(-\beta_iU(\mathbf{R}))}}{\sum\limits_{k=1}^{K}N_k\exp{(f_k-\beta_kU(\mathbf{R}))}}\notag\\
+   =&-\ln\sum\limits_{n=1}^{N}\frac{\exp{(-\beta_iU_i(\mathbf{R_n}))}}{\sum\limits_{k=1}^{K}N_k\exp{(f_k-\beta_kU_k(\mathbf{R_n}))}},
 \end{align}
 which is Eq.~\ref{Eq:FEM:MBAR:f_i_final}.
 

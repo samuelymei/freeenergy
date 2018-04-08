@@ -3,8 +3,7 @@
 	}
 	``An alleged scientific discovery has no merit unless it can be explained to a barmaid.''
 \end{chapquote}
-\begin{chapquote}{Yihan Shao
-	}
+\begin{chapquote}{Yihan Shao}
 	``So, you can never be a good scientist unless you go to bar regularly.''
 \end{chapquote}
 The Multistate Bennett Acceptance Ratio (MBAR) method was developed by Shirts and Chodera in 2008.\cite{ShirtsJCP2008} The following derivation quite follows Ref.~\cite{ShirtsarXiv2017}
@@ -21,12 +20,12 @@ $c_k$ is the normalization constant. You can see that this mixed ensemble does n
 
 The expectation of any operator $\hat{O}$ averaged over this mixed ensemble can be calculated by
 \begin{equation}
-\langle O\rangle_m=\int O(\mathbf{R})p_m(\mathbf{R})d\mathbf{R}\approx\frac 1N \sum\limits_{n=1}^NO(\mathbf{R}_n).
+\langle O\rangle_m=\int O(\mathbf{R})p_m(\mathbf{R})\diff\mathbf{R}\approx\frac 1N \sum\limits_{n=1}^NO(\mathbf{R}_n).
 \end{equation}
 Using energy reweighting\cite{TorrieJComputP1977}, we can calculate the expectation of this operator under any other Hamiltonian $H_i$ and probability $p_i$, which can be expressed as
 \begin{align}
-\langle O\rangle_i=&\int O(\mathbf{R})p_i(\mathbf{R})d\mathbf{R}\notag\\
-                  =&\int O(\mathbf{R})\frac{p_i(\mathbf{R})}{p_m(\mathbf{R})}p_m(\mathbf{R})d\mathbf{R}\notag\\
+\langle O\rangle_i=&\int O(\mathbf{R})p_i(\mathbf{R})\diff\mathbf{R}\notag\\
+                  =&\int O(\mathbf{R})\frac{p_i(\mathbf{R})}{p_m(\mathbf{R})}p_m(\mathbf{R})\diff\mathbf{R}\notag\\
                   \approx&\frac 1N\sum\limits_{n=1}^N O(\mathbf{R}_n)\frac{p_i(\mathbf{R}_n)}{p_m(\mathbf{R}_n)}\notag\\
                   =&\frac 1N\sum\limits_{n=1}^N O(\mathbf{R}_n){c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{p_m(\mathbf{R}_n)}\notag\\
                   =&\sum\limits_{n=1}^N O(\mathbf{R}_n){c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}

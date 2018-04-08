@@ -4,7 +4,7 @@ The following derivation follows Ref.~\cite{SwansonBJ2004}.
 The Molecular Mechanics/Poisson-Boltzmann Surface Area (MM/PBSA) method is often used in the calculations of binding free energy of a substrate to a receptor.
 The standard binding free energy for a reaction between a receptor (A) and a substrate (B)
 \begin{center}
-	\schemestart \chemfig{A}+\chemfig{B} \arrow{<=>} \chemfig{AB} \schemestop
+	\schemestart \chemfig{A}+\chemfig{B} \arrow{<=>}[,0.75] \chemfig{AB} \schemestop
 \end{center}
 is expressed as a ratio of configuration integrals
 \begin{align}
@@ -14,26 +14,26 @@ is expressed as a ratio of configuration integrals
 \end{align}
 where R is the gas constant, T is the temperature, $C^0$ is the standard state concentration (1 $M$), $N$ is the number of solvent molecules, and $P^0\left<\Delta V_{AB}\right>$ is the pressure-volume work associated with changing the system size after the association of two species into one complex. For water solution at 1 atm, the last term is negligibly small. There are no mass-dependent terms in Eq.~\ref{Eq:FEM:MMPBSA:deltaG}, which is a direct result of equal kinetic contribution to the partition function of the bound and the free species. The configuration integral of the receptor, A, in solution is
 \begin{equation}
-	Z_{N,A}=\int e^{-\beta U(r_A,r_S)}dr_Adr_S,
+	Z_{N,A}=\int e^{-\beta U(r_A,r_S)}\diff r_A\diff r_S,
 \end{equation}
 where $U(r_A,r_S)$ is the potential energy as a function of all solute coordinates, $r_A$, and solvent coordinates, $r_S$, and $\beta$ is the reciprocal of the product of the Boltzmann constant and temperature. The total potential energy can be decomposed into $U(r_A)+U(r_S)+\Delta U(r_A,r_S)$. Similar for $B$, the substrate. For pure solvent, the configuration integral is
 \begin{equation}
-	Z_{N,0}=\int e^{-\beta U(r_S)}dr_S.
+	Z_{N,0}=\int e^{-\beta U(r_S)}\diff r_S.
 \end{equation}
 The ratio of configuration integrals in Eq.~\ref{Eq:FEM:MMPBSA:deltaG} can be simplified with an implicit solvent approximation, as
 \begin{align}
-	\frac{Z_{N,A}}{Z_{N,0}}=Z_A=&\frac{\int e^{-\beta U(r_A)}\left\{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}dr_S\right\}dr_A}{\int e^{-\beta U(r_S)}dr_S}\notag\\
-	                           =&\int e^{-\beta \left[U(r_A)+W(r_A)\right]}dr_A,
+	\frac{Z_{N,A}}{Z_{N,0}}=Z_A=&\frac{\int e^{-\beta U(r_A)}\left\{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S\right\}\diff r_A}{\int e^{-\beta U(r_S)}\diff r_S}\notag\\
+	                           =&\int e^{-\beta \left[U(r_A)+W(r_A)\right]}\diff r_A,
 \end{align}
 where
 \begin{equation}
-	W(r_A)=-RT\ln{\left(\frac{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}dr_S}{\int e^{-\beta U(r_S)}dr_S}\right)}
+	W(r_A)=-RT\ln{\left(\frac{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S}{\int e^{-\beta U(r_S)}\diff r_S}\right)}
 \end{equation}
 is the solvation free energy of the receptor $A$ at fixed coordinate $r_A$. Analogous equations hold for the complex and substrate.
 
 For the complex, we define the position (translational degrees of freedom) and orientation (rotational degrees of freedom) of the substrate with respective to the receptor as $\delta_B\equiv\left(x_1,x_2,x_3,\xi_1,\xi_2,\xi_3\right)$. Generally, these degree-of-freedom is very limited. The complex configuration integral is 
 \begin{equation}
-	Z_{AB}=\int e^{-\beta\left[U\left(r_A,r_{B^\prime},\delta_B\right)+W\left(r_A,r_{B^\prime},\delta_B\right)\right]}dr_Adr_{B^\prime}d\delta_B,
+	Z_{AB}=\int e^{-\beta\left[U\left(r_A,r_{B^\prime},\delta_B\right)+W\left(r_A,r_{B^\prime},\delta_B\right)\right]}\diff r_A\diff r_{B^\prime}\diff\delta_B,
 \end{equation}
 where $r_{B^\prime}$ represents the remaining internal degrees of freedom of the bound substrate and $\delta_B$ spans conformations where $A$ and $B$ form a complex. 
 Then we assume that the translational and rotational motions of the substrate in the bound state are not strongly coupled with the other degrees of freedom, and we decompose the potential and solvation energies as (\textit{so weird!})
@@ -56,15 +56,15 @@ Now, Eq.~\ref{Eq:FEM:MMPBSA:deltaG} can bre written as
 \end{equation}
 where
 \begin{equation}
-   Z_{B^\prime}^{trans}=\int e^{-\beta\left[U(x_1,x_2,x_3)+W(x_1,x_2,x_3)\right]}dx_1dx_2dx_3
+   Z_{B^\prime}^{trans}=\int e^{-\beta\left[U(x_1,x_2,x_3)+W(x_1,x_2,x_3)\right]}\diff x_1\diff x_2\diff x_3
 \end{equation}
 and
 \begin{equation}
-	Z_{B^\prime}^{rot}=\int e^{-\beta\left[U(\xi_1,\xi_2,\xi_3)+W(\xi_1,\xi_2,\xi_3)\right]}d\xi_1d\xi_2d\xi_3.
+	Z_{B^\prime}^{rot}=\int e^{-\beta\left[U(\xi_1,\xi_2,\xi_3)+W(\xi_1,\xi_2,\xi_3)\right]}\diff\xi_1\diff\xi_2\diff\xi_3.
 \end{equation}
 As a first-order approximation, we assume that the energetic landscape of each species has an energy and a volume (entropy),
 \begin{equation}
-	Z_A=\int e^{-\beta \left[U(r_A)+W(r_A)\right]}dr_A\approx Z_A^{int}e^{-\beta \left<E_A\right>},
+	Z_A=\int e^{-\beta \left[U(r_A)+W(r_A)\right]}\diff r_A\approx Z_A^{int}e^{-\beta \left<E_A\right>},
 \end{equation}
 where $\left<E_A\right>=\left<U(r_A)+W(r_A)\right>$. We further assume (\textit{how many approximations we have taken!}) that $Z_A^{int}Z_B^{int}\approx Z_{AB}^{int}$,
 then
@@ -74,7 +74,7 @@ then
  
 The bound substrate's translational configuration integral, $Z_{B^\prime}^{trans}$, can be conceptually linked to the volume of space that its center of mass occupies through the simulation. The effective volume was measured based on the assumption that the translational motion is restrained by three harmonic potential. By solving eigenstates of the center-of-mass covariance matrix, the eigenvalues describe the variance $\Delta x_i^2$ along each principal axis. Thus, the translational configuration integral can be calculated as
 \begin{align}
-Z_{B^\prime}^{trans}=&\int e^{\left(-k_1\Delta x_1^2/2k_BT\right)}dx_1\int e^{\left(-k_2\Delta x_2^2/2k_BT\right)}dx_2\int e^{\left(-k_3\Delta x_3^2/2k_BT\right)}dx_3\notag\\
+Z_{B^\prime}^{trans}=&\int e^{\left(-k_1\Delta x_1^2/2k_BT\right)}\diff x_1\int e^{\left(-k_2\Delta x_2^2/2k_BT\right)}\diff x_2\int e^{\left(-k_3\Delta x_3^2/2k_BT\right)}\diff x_3\notag\\
                     =&(2\pi)^{3/2}\left(\left<\Delta x_1^2\right>\left<\Delta x_2^2\right>\left<\Delta x_3^2\right>\right)^{1/2}
 \end{align}
 where

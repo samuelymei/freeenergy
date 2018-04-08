@@ -134,7 +134,7 @@ can be written as
 in which $\Delta G_{0}$ is the free energy of molecule A at the standard
 state $C_{0}$, i.e. 1 mol/L. The free energy change for a reaction
 \begin{center}
-	\schemestart \chemfig{A} + \chemfig{B} \arrow{<=>} \chemfig{C} \schemestop
+	\schemestart \chemfig{A} + \chemfig{B} \arrow{<=>}[,0.75] \chemfig{C} \schemestop
 \end{center}
 %\[
 %A+B\rightleftharpoons C
@@ -158,7 +158,7 @@ the dissociation constant $K_{a}$. So,
 
 Titration of a residue in a real protein can be written as
 \begin{center}
-	\schemestart \chemfig{P_{A}} + \chemfig{H^{+}} \arrow{<=>} \chemfig{P_{A}H^{+}} \schemestop
+	\schemestart \chemfig{P_{A}} + \chemfig{H^{+}} \arrow{<=>}[,0.75] \chemfig{P_{A}H^{+}} \schemestop
 \end{center}
 %\[
 %P_{A}+H^{+}\rightleftharpoons P_{A}H^{+},
@@ -206,7 +206,7 @@ as
 
 \begin{eqnarray*}
 	\Delta G_{0} & = & -\beta^{-1}\ln\frac{Q_{P_{A}H^{+}}}{Q_{P_{A}}Q_{H^{+}}}\\
-	& = & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\\
+	& = & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})\diff R_{H}\diff R_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})\diff R_{o}}\\
 \end{eqnarray*}
 Generally, the absolute value of $\Delta G_{0}$ is hardly computable.
 A relative protonation free energy $\Delta\Delta G$ is perferred
@@ -215,7 +215,7 @@ state you like. But the protonation free energy of the dipeptide at
 $pK_{a}$ is often used. The reference protonation process can be
 written as
 \begin{center}
-	\schemestart \chemfig{A} + \chemfig{H^{+}} \arrow{<=>} \chemfig{AH^{+}} \schemestop
+	\schemestart \chemfig{A} + \chemfig{H^{+}} \arrow{<=>}[,0.75] \chemfig{AH^{+}} \schemestop
 \end{center}
 %\[
 %A+H^{+}\rightleftharpoons AH^{+}.
@@ -226,10 +226,10 @@ The reference free energy change is
 \begin{align}
 	&\Delta\Delta G_{0}\nonumber\\
 	= & \Delta G_{0}-\Delta G_{0}^{ref}\nonumber \\
-	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\frac{Q_{H^{+}}\int\exp(-\beta E_{A})dR_{o}}{\iint\exp(-\beta E_{AH^{+}})dR_{H}dR_{o}}\nonumber \\
-	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}\int\exp(-\beta E_{A})dR_{o}}{\int\exp(-\beta E_{P_{A}})dR_{o}\iint\exp(-\beta E_{AH^{+}})dR_{H}dR_{o}}\nonumber \\
-	= & -\beta^{-1}\ln\frac{\iint\exp{\left[-\beta \left(E_{P_{A}H^{+}}^{bond}+E_{P_{A}H^{+}}^{QM}+E_{P_{A}H^{+}}^{ele}\right)\right]}dR_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\iint\exp\left[-\beta \left(E_{AH^{+}}^{bond}+E_{AH^{+}}^{QM}+E_{AH^{+}}^{ele}\right)\right]dR_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\nonumber \\
-	 & \cdot\frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}},\label{eq:FEM:REMD:Quotientofpartitionfunctions}
+	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})\diff R_{H}\diff R_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})\diff R_{o}}\frac{Q_{H^{+}}\int\exp(-\beta E_{A})\diff R_{o}}{\iint\exp(-\beta E_{AH^{+}})\diff R_{H}\diff R_{o}}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})\diff R_{H}\diff R_{o}\int\exp(-\beta E_{A})\diff R_{o}}{\int\exp(-\beta E_{P_{A}})\diff R_{o}\iint\exp(-\beta E_{AH^{+}})\diff R_{H}\diff R_{o}}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp{\left[-\beta \left(E_{P_{A}H^{+}}^{bond}+E_{P_{A}H^{+}}^{QM}+E_{P_{A}H^{+}}^{ele}\right)\right]}\diff R_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)\diff R_{O}}{\iint\exp\left[-\beta \left(E_{AH^{+}}^{bond}+E_{AH^{+}}^{QM}+E_{AH^{+}}^{ele}\right)\right]\diff R_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)\diff R_{O}}\nonumber \\
+	 & \cdot\frac{\int\exp\left(-\beta E_{A}\right)\diff R_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}},\label{eq:FEM:REMD:Quotientofpartitionfunctions}
 \end{align}
 where $R_{H}$ is the coordinates of the specific $H$ atom and the
 other degrees-of-freedom (DoF) are denoted as $R_{O}$. $E^{bond}$
@@ -254,14 +254,14 @@ constrained in the simulations. Therefore, the hydrogen atom in question has
 only one position and $E^{bond}=0$. Now, the 
 relative protonation free energy can be simplified as
 \begin{align}
-\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\notag\\
-&\cdot\frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}.
+\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)\diff R_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{AH^{+}}^{other}\right)\diff R_{O}}\notag\\
+&\cdot\frac{\int\exp\left(-\beta E_{A}\right)\diff R_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}}.
 \end{align}
 
 Note that $E_{A}=E_{AH^{+}}^{other}$ and $E_{P_{A}}=E_{P_{A}H^{+}}^{other}$, we have
 \begin{align}
-	\Delta\Delta G_{0} = & -kT\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}}\right)dR_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)dR_{O}}\\
-	& \cdot \frac{\int\exp\left(-\beta E_{A}\right)dR_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{A}\right)dR_{O}}\\
+	\Delta\Delta G_{0} = & -kT\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}}\\
+	& \cdot \frac{\int\exp\left(-\beta E_{A}\right)\diff R_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{A}\right)\diff R_{O}}\\
 	= & -\beta^{-1}\ln\left\langle \exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\right\rangle _{P_{A}}\notag\\
 	  &+\beta^{-1} \ln\left\langle \exp\left(-\beta E_{AH^{+}}^{ele}\right)\right\rangle _{A}\notag\\
 	= & \Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}  

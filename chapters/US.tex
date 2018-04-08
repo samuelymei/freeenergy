@@ -29,8 +29,8 @@ a series of artificial biasing potentials as (usually harmonic) functions of $\x
 \end{equation}
 Each biased simulation is called a \textit{window}. The strengths of the biases should be strong enough to maintain the system in the vicinity of where you are interested in, and also should be weak enough that the system can have significant overlap in two adjacent windows. After all the simulations, the whole region is well sampled. Ensemble average under $U_0$ can be calculated from the ensembles generated under the biased Hamiltonians $U$ via
 \begin{align}
-	\left<X(\mathbf{R})\right>_0=&\frac{\int X(\mathbf{R})\exp{\left[-\beta U_0(\mathbf{R})\right]}d\mathbf{R}}{\int \exp{\left[-\beta U_0(\mathbf{R})\right]}d\mathbf{R}}\notag\\
-	                            =&\frac{\int X(\mathbf{R})\exp{\left[\beta \Delta U_i(\mathbf{R})\right]}\exp{\left[-\beta U_i(\mathbf{R})\right]}d\mathbf{R}}{\int \exp{\left[\beta \Delta U_i(\mathbf{R})\right]}\exp{\left[-\beta U_i(\mathbf{R})\right]}d\mathbf{R}}\notag\\
+	\left<X(\mathbf{R})\right>_0=&\frac{\int X(\mathbf{R})\exp{\left[-\beta U_0(\mathbf{R})\right]}\diff\mathbf{R}}{\int \exp{\left[-\beta U_0(\mathbf{R})\right]}\diff\mathbf{R}}\notag\\
+	                            =&\frac{\int X(\mathbf{R})\exp{\left[\beta \Delta U_i(\mathbf{R})\right]}\exp{\left[-\beta U_i(\mathbf{R})\right]}\diff\mathbf{R}}{\int \exp{\left[\beta \Delta U_i(\mathbf{R})\right]}\exp{\left[-\beta U_i(\mathbf{R})\right]}\diff\mathbf{R}}\notag\\
 	                =&\frac{\left<X\exp{\left(\beta\Delta U_i\right)}\right>_i}{\left<\exp{\left(\beta\Delta U_i\right)}\right>_i}.
 \end{align}
 Better postprocessing methods are the Weighted Histogram Analysis Method and the Multistate Bennett Acceptance Ratio method (to be discussed in Section~\ref{Sec:FEM:WHAM} and~\ref{Sec:FEM:MBAR}).
