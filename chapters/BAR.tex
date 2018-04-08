@@ -43,7 +43,7 @@ where $W$ is an arbitrary weighting function.
 
 Optimization of the free energy estimate is most easily carried out in the limit of large sample sizes. Let the available data consist
 of $n_{0}$ statistically independent configurations from the $U_{0}$ ensemble and $n_{1}$ from the $U_{1}$ ensemble, and let the data
-be used in Eq.~\ref{eq:FEM:BAR:weightedratio} to obtain a finite-sample estimate of the reduced free energy difference $\Delta A=A_{1}-A_{0}=ln(Q_{0}/Q_{1})$.
+be used in Eq.~\ref{eq:FEM:BAR:weightedratio} to obtain a finite-sample estimate of the reduced free energy difference $\Delta A=A_{1}-A_{0}=\ln{(Q_{0}/Q_{1})}$.
 Using the error propagation law of uncorrelated variables ($covar(x_1,x_2)=0$),\cite{BerendsenBook2011}
 \begin{equation}
 	\delta^2\left[y(x_{1},x_{2})\right]=\left(\frac{\partial y}{\partial x_{1}}\right)^{2}\delta^2(x_{1})+\left(\frac{\partial y}{\partial x_{2}}\right)^{2}\delta^2(x_{2}).
@@ -51,19 +51,19 @@ Using the error propagation law of uncorrelated variables ($covar(x_1,x_2)=0$),\
 
 Thus we have the variance of $\Delta A$
 \begin{eqnarray}
-	\delta^2(\Delta A) & = & \left(\frac{\partial\Delta A}{\partial Q_{0}}\right)^{2}\delta^2Q_0+\left(\frac{\partial\Delta A}{\partial Q_{1}}\right)^{2}\delta^2Q_1\\
-	& = & (\frac{1}{Q_{0}})^{2}\delta^2Q_0+(-\frac{1}{Q_{1}})^{2}\delta^2Q_1\\
-	& = & (\frac{1}{Q_{0}})^{2}\delta^2Q_0+(\frac{1}{Q_{1}})^{2}\delta^2Q_1.
+	\delta^2(\Delta A) & = & \left(\frac{\partial\Delta A}{\partial Q_{0}}\right)^{2}\delta^2Q_0+\left(\frac{\partial\Delta A}{\partial Q_{1}}\right)^{2}\delta^2Q_1\notag\\
+	& = & \left(\frac{1}{Q_{0}}\right)^{2}\delta^2Q_0+\left(-\frac{1}{Q_{1}}\right)^{2}\delta^2Q_1\notag\\
+	& = & \left(\frac{1}{Q_{0}}\right)^{2}\delta^2Q_0+\left(\frac{1}{Q_{1}}\right)^{2}\delta^2Q_1.
 \end{eqnarray}
 
 With the definition of variance $\delta^2X=\left\langle X^{2}\right\rangle -\left\langle X\right\rangle ^{2}$,
 we have 
 \begin{eqnarray}
-	\delta^2Q_0 & = & \delta^2\left\langle W\exp{(-U_{0})}\right\rangle_{1}\\
-	& = & \delta^2\left(\frac{1}{n_1}\sum_{i=1}^{n_1}W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
-	& = & \sum_{i=1}^{n_{1}}\left(\frac{1}{n_{1}}\right)^{2}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
-	& = & \frac{1}{n_{1}}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\\
-	& = & \frac{1}{n_{1}}\left\{ \left\langle \left(W\exp{(-U_{0})}\right)^{2}\right\rangle _{1}-\left(\left\langle W\exp{(-U_{0})}\right\rangle _{1}\right)^{2}\right\} \\
+	\delta^2Q_0 & = & \delta^2\left\langle W\exp{(-U_{0})}\right\rangle_{1}\notag\\
+	& = & \delta^2\left(\frac{1}{n_1}\sum_{i=1}^{n_1}W_{i}\exp{\left(-U_{0}(i)\right)}\right)\notag\\
+	& = & \sum_{i=1}^{n_{1}}\left(\frac{1}{n_{1}}\right)^{2}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\notag\\
+	& = & \frac{1}{n_{1}}\delta^2\left(W_{i}\exp{\left(-U_{0}(i)\right)}\right)\notag\\
+	& = & \frac{1}{n_{1}}\left\{ \left< \left[W\exp{(-U_{0})}\right]^{2}\right>_{1}-\left[\left< W\exp{(-U_{0})}\right>_{1}\right]^{2}\right\}\notag\\
 	& = & \frac{1}{n_{1}}\left\{ \left< W^{2}\exp{(-2U_{0})}\right>_{1}-\left[\left< W\exp{(-U_{0})}\right>_{1}\right]^{2}\right\},
 \end{eqnarray}
 which shows that the variance of the mean of the samples equals to the variance of the samples divided by the number of samples.
