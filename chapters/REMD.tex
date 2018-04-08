@@ -77,7 +77,7 @@ where
 	\end{array} 
 	\right. 
 \end{equation}
-In order for this exchange process to converge towards an equilibrium distribution, it is sufficient to impose the detailed balance condition on the transition probability $w(X\rightarrow X^\prime)$:
+The exchange rule is not trivial. In order for this exchange process to converge towards an equilibrium distribution, it is sufficient to impose the detailed balance condition on the transition probability $w(X\rightarrow X^\prime)$:
 \begin{equation}
 	W_{REM}(X)w(X\rightarrow X^\prime) = W_{REM}(X^\prime)w(X^\prime\rightarrow X).
 \end{equation}
@@ -90,7 +90,7 @@ Then we have
 	   {\exp{\left\{-\beta_m\left[K\left(p^{[i]}\right)+U\left(q^{[i]}\right)\right]-\beta_n\left[K\left(p^{[j]}\right)+U\left(q^{[j]}\right)\right]\notag\right\}}}\notag\\
 	   =&\frac{\exp{\left\{-\beta_m\left[\frac{T_m}{T_n}K\left(p^{[j]}\right)+U\left(q^{[j]}\right)\right]-\beta_n\left[\frac{T_n}{T_m}K\left(p^{[i]}\right)+U\left(q^{[i]}\right)\right]\notag\right\}}}
 	   {\exp{\left\{-\beta_m\left[K\left(p^{[i]}\right)+U\left(q^{[i]}\right)\right]-\beta_n\left[K\left(p^{[j]}\right)+U\left(q^{[j]}\right)\right]\notag\right\}}}\notag\\
-	   =&\frac{\exp{\left\{-\beta_n K\left(p^{[j]}\right)-\beta_m K\left(p^{[i]}\right)\right\}}}{\exp{\left\{-\beta_m K\left(p^{[i]}\right)-\beta_n K\left(p^{[j]}\right)\right\}}} \frac{\exp{\left\{-\beta_m U\left(q^{[j]}\right)-\beta_n U\left(q^{[i]}\right)\right\}}}{\exp{\left\{-\beta_m U\left(q^{[i]}\right)-\beta_n U\left(q^{[j]}\right)\right\}}}\notag\\
+	   =&\dfrac{\exp{\left\{-\beta_n K\left(p^{[j]}\right)-\beta_m K\left(p^{[i]}\right)\right\}}}{\exp{\left\{-\beta_m K\left(p^{[i]}\right)-\beta_n K\left(p^{[j]}\right)\right\}}} \dfrac{\exp{\left\{-\beta_m U\left(q^{[j]}\right)-\beta_n U\left(q^{[i]}\right)\right\}}}{\exp{\left\{-\beta_m U\left(q^{[i]}\right)-\beta_n U\left(q^{[j]}\right)\right\}}}\notag\\
 	   =&\exp{\left\{-\Delta\right\}}.
 \end{align}
 where $\Delta = \left[\beta_n-\beta_m\right]\left[U\left(q^{[i]}\right)-U\left(q^{[j]}\right)\right]$. It can be seen that the kinetic energy terms are fully canceled out.
@@ -224,7 +224,8 @@ written as
 The reference free energy change is 
 
 \begin{align}
-	\Delta\Delta G_{0} = & \Delta G_{0}-\Delta G_{0}^{ref}\nonumber \\
+	&\Delta\Delta G_{0}\nonumber\\
+	= & \Delta G_{0}-\Delta G_{0}^{ref}\nonumber \\
 	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})dR_{o}}\frac{Q_{H^{+}}\int\exp(-\beta E_{A})dR_{o}}{\iint\exp(-\beta E_{AH^{+}})dR_{H}dR_{o}}\nonumber \\
 	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})dR_{H}dR_{o}\int\exp(-\beta E_{A})dR_{o}}{\int\exp(-\beta E_{P_{A}})dR_{o}\iint\exp(-\beta E_{AH^{+}})dR_{H}dR_{o}}\nonumber \\
 	= & -\beta^{-1}\ln\frac{\iint\exp{\left[-\beta \left(E_{P_{A}H^{+}}^{bond}+E_{P_{A}H^{+}}^{QM}+E_{P_{A}H^{+}}^{ele}\right)\right]}dR_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)dR_{O}}{\iint\exp\left[-\beta \left(E_{AH^{+}}^{bond}+E_{AH^{+}}^{QM}+E_{AH^{+}}^{ele}\right)\right]dR_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)dR_{O}}\nonumber \\
@@ -279,4 +280,4 @@ and the protonated state can be written as
 \]
 
 In the above equation, $\Delta G_{AH^{+}}^{ele}$ can be obtained from a free energy calculation of the model system by alchemically annihilation of the proton. However, $\Delta G_{P_{A}H^{+}}^{ele}$ is unknown. Approximately, it can be replaced with $\Delta H_{P_{A}H^{+}}^{ele}$ averaged over a few snapshots.\cite{MengJCTC2010} In order to accelerate the convergence,
-this pH-REMD is often coupled with other enhancing methods, such as T-REMD\cite{MengJCTC2010} and EDS-REMD\cite{LeeJCTC2014} (see section~\ref{Sec:ES:EDS}).
+this pH-REMD is often coupled with other enhanced simulation methods, such as T-REMD\cite{MengJCTC2010} and EDS-REMD\cite{LeeJCTC2014} (see section~\ref{Sec:ES:EDS}).
