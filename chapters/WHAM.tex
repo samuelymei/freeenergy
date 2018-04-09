@@ -40,7 +40,7 @@ with variances (see Appendix~\ref{chapter:Appendix:Uncertainty})
 	\delta^2 H_m=&N^2\delta^2(\left<\psi_m\right>)\notag\\
 	            =&g_m N\left(\left<{\psi_m}^2\right>-\left<\psi_m\right>^2\right)\notag\\
 	            =&g_m N\left(\left<\psi_m\right>-\left<\psi_m\right>^2\right)\notag\\
-	            =&g_m\left<H_m\right>\left(1-\frac{\left<H_m\right>}{N}\right).
+	            =&g_m H_m\left(1-\frac{H_m}{N}\right).
 \end{align}
 
 A sample histogram in 2D space is shown in Fig.~\ref{Fig:FEM:WHAM:histogram}.
@@ -96,15 +96,15 @@ Practically, we may run multiple ($K$) trajectories using, for example, replica 
 	H_{mk}=\sum\limits_{n=1}^{N_k}\psi_{m}(U(\mathbf{R}_{kn})),
 \end{equation}
 \begin{equation}
-	\delta^2 H_{mk}=g_{mk}\left<H_{mk}\right>\left(1-\frac{\left<H_{mk}\right>}{N_k}\right),
+	\delta^2 H_{mk}=g_{mk}H_{mk}\left(1-\frac{H_{mk}}{N_k}\right),
 \end{equation}
 \begin{align}
-	\Omega_{mk}=\frac{H_{mk}}{N_k\Delta U\exp{\left[f_k-\beta_kU_{mk}\right]}},
+	\Omega_{mk}=\frac{H_{mk}}{N_k\Delta U\exp{\left[f_k-\beta_kU_{m}\right]}},
 	\label{Eq:FEM:WHAM:Omega_mk}
 \end{align}
 and
 \begin{equation}
-	\delta^2\Omega_{mk}=\frac{\delta^2 H_{mk}}{\left(N_k\Delta U\exp{\left[f_k-\beta_kU_{mk}\right]}\right)^2},
+	\delta^2\Omega_{mk}=\frac{\delta^2 H_{mk}}{\left(N_k\Delta U\exp{\left[f_k-\beta_kU_{m}\right]}\right)^2},
 \end{equation}
 The optimum estimator of the density of states from all the simulations is
 \begin{equation}
@@ -113,9 +113,9 @@ The optimum estimator of the density of states from all the simulations is
 \end{equation}
 which is the weighted average of density of states of all the trajectories with the weight reversely proportional to the uncertainties (see Appendix~\ref{chapter:Appendix:Mean}).
 
-To make the expression simpler, here we take some approximations. First, normally the energy space is split into a large number of bins. The histogram in each bin is much smaller than the total number of snapshots, i.e. $H_{mk}\ll N_k$. The average of $H_{mk}$ can be related to the optimum estimator of the density of states, i.e.
+To make the expression simpler, here we take some approximations. First, normally the energy space is split into a large number of bins. The histogram in each bin is much smaller than the total number of snapshots, i.e. $H_{mk}\ll N_k$. The expectation of $H_{mk}$ can be related to the optimum estimator of the density of states, i.e.
 \begin{equation}
-	\left<H_{mk}\right>=N_k\Delta U\Omega_m\exp{(f_k-\beta_kU_m)}.
+	\overline{H_{mk}}=N_k\Delta U\Omega_m\exp{(f_k-\beta_kU_m)}.
 \end{equation}
 Then we have
 \begin{equation}
