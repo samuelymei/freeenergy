@@ -17,9 +17,9 @@ where $\Omega(U)$ is density of states and $\Omega(U)\Delta U$ is the number of 
 \end{equation}
 where
 \begin{equation}
-\mathbf{A}(U^\prime)=\frac{\int \delta (U(\mathbf{R})-U^\prime)A(\mathbf{R})\diff \mathbf{R}}{\int \delta (U(\mathbf{R})-U^\prime)\diff\mathbf{R}}.
+\mathbf{A}(U^\prime)=\frac{\int \delta (U(\mathbf{R})-U^\prime)\mathbf{A}(\mathbf{R})\diff \mathbf{R}}{\int \delta (U(\mathbf{R})-U^\prime)\diff\mathbf{R}},
 \end{equation}
-Therefore, the core objective is to calculate $\Omega(U)$.
+is the average of $\mathbf{A}$ over all the samples with an energy $U^\prime$. Therefore, the core objective is to calculate $\Omega(U)$.
 
 Suppose we have one trajectory with $N$ snapshots denoted as $\{\mathbf{R}_n\}$. We then discretize the energy space into $M$ bins with width $\Delta U$, and count the number of snapshots fallen into each bin. For convenience, we define $\psi_m(U)$ as
 \begin{equation}
