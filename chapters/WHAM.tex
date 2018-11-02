@@ -276,3 +276,128 @@ and
 f_k={\left\{\sum\limits_lc_{k,l}p_l^0\right\}}^{-1},
 \end{equation}
 where $N_k$ is the total number of counts in the $k$th histogram.
+
+\subsubsection{Binless Weighted Histogram Analysis Method\label{Sec:FEM:WHAM_BINLESS}}
+The following derivation quite follows Ref.~\cite{TanJCP2012}.
+Let us start with the definition of a generalized energy function $u$ and its corresponding coefficient $\theta$. For instance, for canonical ensemble, $u=U(x)$ is the potential energy function, and $\theta=\beta$ is the inverse temperature. For isothermal grand-canonical ensemble, $u=(U(x),N)$, and $\theta=(\beta,\beta\mu)$, in which $N$ is the number of particles and $\mu$ is the chemical potential. For temperature replica exchange molecular dynamics, $u=U(x)$ and $\theta_k=\beta_k$ for the $k$th replica. For umbrella sampling, $u=(U_0(x),\omega_1(x),\omega_2(x),\dots,\omega_d(x)$, where $U_0(x)$ is the unbiased Hamiltonian and $\omega_k(x)$ is the biasing potential in window $k$. Correspondingly, $\theta_k=(\beta,0,\dots,0,\beta,0,\dots,0)$, in which all the elements are zero except for the first and the $(k+1)$th element.
+
+Assume that simulations are conducted at $m$ coefficient vectors $\theta_r\, (r=1,\dots,m)$ and with the same energy vector $u(x)$. (Note that in this notation the dimensionality, $d$, of the $\theta$ and $u$ vectors and the number of simulations, $m$, are, in general, distinct. For instance, for temperature replica exchange molecular dynamics as shown above, $d=1$, while $m$ is the number of replicas.) Denoted by $\{x_{ji}: i=1,\dots,n_j\}$ the set of configurations of size $n_j$ from the the $j$th simulation, and denoted by $u_{ji}=u(x_{ji})$ the corresponding generalized energy vectors. The total sample size is $n=\sum_{j=1}^m n_j$. Now, consider a generalized ensemble whose Boltzmann probability density function is
+\begin{equation}
+\frac{1}{Z_\theta}e^{-\theta^\mathrm{T}u(x)},
+\end{equation}
+where
+\begin{equation}
+Z_\theta=\int e^{-\theta^\mathrm{T}u(x)}\diff{x}
+\end{equation}
+is the generalized configurational integral in physics or the normalization constant in statistics, and the superscript $\mathrm{T}$ is the transpose operator. The induced probability density function of $u(x)$ at $\theta$ is
+\begin{equation}
+    \frac{1}{Z_\theta}\Omega(u)e^{-\theta^\mathrm{T}u},
+\end{equation}
+where $\Omega(u)$, formally defined as
+\begin{equation}
+    \Omega(u)=\int \delta(u(x)-u)\diff x,
+\end{equation}
+is a generalized density of states, which does not depend on $\theta$. The generalized configurational integral can also be determined from $\Omega(u)$ as
+\begin{equation}
+    Z_\theta=\int \Omega(u)e^{-\theta^\mathrm{T}u}\diff u.
+\end{equation}
+As we have shown that the WHAM method involves constructing a histogram, $H_r(u)$, from each sample $\{u_{ri}:\, i=1,\dots,n_r\}$, which $H_r(u)$ indicates the number of observations falling into a bin about $u$, for example, an interval or a rectangle if $u(x)$ is one or two-dimensional. Then $\Omega(u)$ is estimated by
+\begin{equation}
+    \hat{\Omega}(u)\Delta u=\frac{\sum_{r=1}^m H_r(u)}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{-\theta_r^\mathrm{T}u}},
+    \label{Eq:FEM:WHAM:ConfIntinEner}
+\end{equation}
+where the configurational integrals ($Z_{\theta_1},\dots,Z_{\theta_m}$) are defined by self-consistency according to Eq.~\ref{Eq:FEM:WHAM:ConfIntinEner}
+\begin{equation}
+    \hat{Z}_{\theta_k}=\sum_{u}\frac{\sum_{r=1}^m H_r(u)}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta_k-\theta_r)^\mathrm{T}u}}\quad (k=1,\dots,m),
+    \label{Eq:FEM:WHAM:binnedZ}
+\end{equation}
+where the summation $\sum_u$ is taken over all possible bins centered at $u$ of size $\Delta u$. Also, the configurational integral $Z_\theta$ at any other parameter value is estimated by
+\begin{equation}
+    \hat{Z}_\theta=\sum_{u}\frac{\sum_{r=1}^m H_r(u)}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta-\theta_r)^\mathrm{T}u}}.
+    \label{Eq:FEM:WHEM:binweight1}
+\end{equation}
+We can take
+\begin{equation}
+    \frac{1}{\hat{Z}_\theta}\frac{\sum_{r=1}^m H_r(u)}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta-\theta_r)^\mathrm{T}u}}
+    \label{Eq:FEM:WHEM:binweight2}
+\end{equation}
+as the weight of bin $u$.
+
+Now, let $h(u)$ be a function of $u$, and denoted by $\langle h\rangle_\theta$ the expectation of $h(u)$. The WHAM estimate $\hat{h}_\theta$ for $\langle h\rangle_\theta$ is
+\begin{equation}
+    \hat{h}_\theta=\frac{1}{\hat{Z}_\theta}\sum_u h(u) \frac{\sum_{r=1}^m H_r(u)}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta-\theta_r)^\mathrm{T}u}}.
+    \label{Eq:FEM:WHAM:WHAMhu}
+\end{equation}
+It is interesting to note that the summation over bins in Eq.~\ref{Eq:FEM:WHAM:WHAMhu} can be equivalently expressed in terms of a weighted average over observations
+\begin{equation}
+    \hat{h}_{\theta}=\sum_{ji}h(u_{ji}^b)F_{ji}(\theta),
+    \label{Eq:FEM:WHAM:WHAMhu2}
+\end{equation}
+where $u_{ji}^b$ is a representative generalized energy of the bin containing $u_{ji}$, $F_{ji}$ is the ``WHAM weight'' of $u_{ji}$ that, by comparing Eqs.~\ref{Eq:FEM:WHAM:WHAMhu} and \ref{Eq:FEM:WHAM:WHAMhu2}, is defined as
+\begin{equation}
+    F_{ji}(\theta)=\frac{\hat{Z}_\theta^{-1}}{\sum_{r=1}^mn_r\hat{Z}_{\theta_r}^{-1}e^{(\theta-\theta_r)^\mathrm{T}u_{ji}^b}}=\frac{1}{\hat{Z}_\theta}e^{-\theta^Tu_{ji}^b}G_{ji}
+    \label{Eq:FEM:WHAM:sampleW}
+\end{equation}
+and 
+\begin{equation}
+    G_{ji}=\frac{1}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{-\theta_r^\mathrm{T}u_{ji}^b}}
+\end{equation}
+is the $\theta$-dependent component of the WHAM weight $F_{ji}(\theta)$ for each observation.
+
+Equation~\ref{Eq:FEM:WHAM:WHAMhu2} states that the expectation value of any observable can be obtained by attaching a statistical weight $F_{ji}(\theta)$ to each observation $u_{ji}$ which depends on the bin to which it is assigned. An obvious simplification is to express the WHAM estimate of $\langle h\rangle_\theta$ and the WHAM weights (Eq.~\ref{Eq:FEM:WHAM:sampleW}) in terms of the actual observation $u_{ji}$ rather than their closest bin representative $u_{ji}^b$.
+
+To understand binless WHAM, it is useful to introduce the concept of the measure $G$ defined by
+\begin{equation}
+    \diff G=\Omega(u)\diff u,
+\end{equation}
+that is, $G(A)=\int_A\Omega(u)\diff u$ for every measurable set $A$ of $u$. Informally, this equation says that for an infinitesimal bin about $u$ of size $\diff u$, the weight assigned under $G$ is $\Omega(u)\diff u$. Thereafter $G$ is called the measure of states. The probability distribution of $u(x)$, $F_\theta$, is related to $G$ as
+\begin{equation}
+    \diff F_\theta=\frac{1}{Z_\theta}e^{-\theta^\mathrm{T}u}\Omega(u)\diff u=\frac{1}{Z_\theta}e^{-\theta^\mathrm{T}u}\diff G,
+\end{equation}
+that is
+\begin{equation}
+    F_\theta(A)=\frac{1}{Z_\theta}\int_A e^{-\theta^\mathrm{T}u}\diff G
+\end{equation}
+for every measurable set $A$ of $u$. The configurational integral can then be expressed as
+\begin{equation}
+    Z_\theta=\int e^{-\theta^\mathrm{T}u}\diff G.
+\end{equation}
+
+The pooled data $\{u_{ji}: i=1,\dots,n_j, j=1,\dots,m\}$ can be regarded as an approximate sample from the mixture distribution, $F_\ast$, whose components are $(F_{\theta_1},\dots,F_{\theta_m})$ with proportions $(n_1/n,\dots,n_m/n)$. $F_\ast$ is related to $G$ as 
+\begin{equation}
+    \diff F_\ast=\left\{\sum_{r=1}^m\frac{n_r}{n}Z_{\theta_r}^{-1} e^{-\theta_r^{\mathrm{T}}u} \right\}\Omega(u)\diff u=\left\{\sum_{r=1}^m\frac{n_r}{n}Z_{\theta_r}^{-1} e^{-\theta_r^{\mathrm{T}}u} \right\}\diff G
+    \label{Eq:FEM:WHAM:mixedensemble}
+\end{equation}
+For an infinitesimal bin about $u$ of size $\diff u$, the probability assigned under $F_\ast$ is the expression in the curly brackets times the weight assigned under $G$. Dividing both sides of Eq.~\ref{Eq:FEM:WHAM:mixedensemble} by the quantity in the curly brackets  gives
+\begin{equation}
+    \diff G=\left\{\sum_{r=1}^m\frac{n_r}{n}Z_{\theta_r}^{-1} e^{-\theta_r^{\mathrm{T}}u} \right\}^{-1}\diff F_\ast.
+    \label{Eq:FEM:WHAM:GofF}
+\end{equation}
+For an infinitesimal bin about $u$ of size $\diff u$, the weight assigned under $G$ is the inverse of the quantity in the curly brackets times the probability assigned under $F_\ast$.
+
+Relationship (\ref{Eq:FEM:WHAM:GofF}) can be used for estimating $G$ from the pooled data by importance weighting. Recall that the pooled data form an approximate sample from $F_\ast$. Then $F_\ast$ can be estimated by the empirical distribution $\hat{F}_\ast$ for which each observation $u_{ji}$ is assigned the probability $n^{-1}$. By Eq.~\ref{Eq:FEM:WHAM:GofF}, the resulting estimator $\hat{G}$ is a discrete measure for which each observation $u_{ji}$ is assigned the weight
+\begin{equation}
+    \hat{G}(u_{ji})=\frac{1}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{-\theta_r^\mathrm{T}u_{ji}}},
+    \label{Eq:FEM:WHAM:binlesscore1}
+\end{equation}
+where
+\begin{align}
+   \hat{Z}_{\theta_k}=&\sum_{j=1}^m \sum_{i=1}^{n_j}e^{-\theta_k^{\mathrm{T}}u_{ji}}\hat{G}(u_{ji})\notag\\
+                     =&\sum_{j=1}^m \sum_{i=1}^{n_j}\frac{1}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta_k-\theta_r)^{\mathrm{T}}u_{ji}}}\quad (k=1,\dots,m).
+   \label{Eq:FEM:WHAM:binlesscore2}
+\end{align}
+Formulas~\ref{Eq:FEM:WHAM:binlesscore1} and~\ref{Eq:FEM:WHAM:binlesscore2} provide a binless extension of Eq.~\ref{Eq:FEM:WHAM:ConfIntinEner} and~\ref{Eq:FEM:WHAM:binnedZ} in WHAM.
+
+Again, the configurational integral $Z_\theta$ at any other parameter value is estimated by
+\begin{align}
+    \hat{Z}_{\theta}=&\sum_{j=1}^m \sum_{i=1}^{n_j}e^{-\theta^{\mathrm{T}}u_{ji}}\hat{G}(u_{ji})\notag\\
+    =&\sum_{j=1}^m \sum_{i=1}^{n_j}\frac{1}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta-\theta_r)^{\mathrm{T}}u_{ji}}}.
+    \label{Eq:FEM:WHAM:binlesscore3}
+\end{align}
+The expectation $\langle h\rangle_\theta$ is by definition $Z_\theta^{-1}\int h(u)e^{-\theta^\mathrm{T}u}\diff G$ and hence estimated by
+\begin{align}
+    &\frac{1}{\hat{Z}_\theta}\sum_{j=1}^m\sum_{i=1}^{n_j}h(u_{ji})e^{-\theta^\mathrm{T}u_{ji}}\hat{G}(u_{ji})\notag\\
+    =&\frac{1}{\hat{Z}_\theta}\sum_{j=1}^m \sum_{i=1}^{n_j}\frac{h(u_{ji})}{\sum_{r=1}^m n_r\hat{Z}_{\theta_r}^{-1}e^{(\theta-\theta_r)^{\mathrm{T}}u_{ji}}}.
+    \label{Eq:FEM:WHAM:binlesscore4}
+\end{align}
+Formulas~\ref{Eq:FEM:WHAM:binlesscore3} and~\ref{Eq:FEM:WHAM:binlesscore4} provide a binless extension of Eqs.~\ref{Eq:FEM:WHEM:binweight1} and~\ref{Eq:FEM:WHAM:WHAMhu} in WHAM.
