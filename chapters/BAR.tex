@@ -81,6 +81,7 @@ of $\Delta A$
 To minimize it with respect to $W$, we have
 \begin{equation}
 	W=const\times\left(\frac{Q_{0}}{n_{0}}\exp{(-U_{1})}+\frac{Q_{1}}{n_{1}}\exp{(-U_{0})}\right)^{-1}.
+	\label{eq:FEM:BAR:W}
 \end{equation}
 
 Substituting this into Eq.~\ref{eq:FEM:BAR:weightedratio} yields
@@ -94,5 +95,9 @@ where
 \end{equation}
 and $f$ denotes the Fermi function
 \begin{equation}
-	f(x)=\frac{1}{1+\exp{(+x)}}
+	f(x)=\frac{1}{1+\exp{(+x)}}.
+\end{equation}
+The variance of $\Delta A$ can be obtained by substituting Eq.~\ref{eq:FEM:BAR:W} into Eq.~\ref{eq:FEM:BAR:expectation}, and is 
+\begin{equation}
+	\delta^2 \Delta A =\frac{\left<f^2(U_{1}-U_{0}-C)\right>_0}{n_0\left<f(U_{1}-U_{0}-C)\right>_0^2}+\frac{\left<f^2(U_{0}-U_{1}+C)\right>_1}{n_1\left<f(U_{0}-U_{1}+C)\right>_1^2}-\frac{1}{n_0}-\frac{1}{n_1}.
 \end{equation}
