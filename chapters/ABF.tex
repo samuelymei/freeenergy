@@ -1,4 +1,121 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
-%\subsection{Adaptive Biasing Force Method\label{Sec:ES:ABF}}
-%Adaptive biasing force method was proposed by Darve and Pohorille in 2001.\cite{DarveJCP2001}.
+\section{Adaptive Biasing Force Method\label{Sec:ES:ABF}}
+If the conditional gradient of the free energy with respect to a reaction coordinate (mean force) over the equilibrium distribution of the system \underline{\textit{restricted}} to the hypersurface where the reaction coordinate is constant can be computed, the free energy profile along this specific reaction coordinate can be readily obtained by thermodynamic integration. In the following, we shall follow the derivation by Ciccotti et al.\cite{CiccottiCPC2005}
+For a system under molecular constraints, $\sigma_j(x)=0,\, j=1,\dots,M$, the probability density reads
+\begin{equation}
+	\rho(x)=Z_\sigma^{-1}e^{-\beta V(x)}\prod_{j=1}^M\delta(\sigma_j(x)),
+\end{equation}
+in which
+\begin{equation}
+	Z_\sigma=\int e^{-\beta V(x)}\prod_{j=1}^M\delta(\sigma_j(x))\diff x
+\end{equation}
+is the configuration integral. By definition, the free energy associated with the vectorial reaction coordinate $q(x)=(q_1(x),\dots,q_N(x))$ is given by
+\begin{equation}
+	F(z)\coloneqq -\beta^{-1}\ln{Z_\sigma^{-1}\int e^{-\beta V(x)}\prod_{k=1}^{M}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\diff x},
+\end{equation}
+where $z=(z_1,\dots,z_N)$. By differentiating both sides with respect to $z_j$, we find
+\begin{equation}
+    \frac{\partial F(z)}{\partial z_j}=-\beta^{-1}e^{\beta F(z)}\cdot Z_\sigma^{-1} \int e^{-\beta V(x)}\frac{\partial}{\partial z_j}\prod_{k=1}^{N}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\diff x
+\end{equation}
+Notice that
+\begin{align}
+    &\frac{\partial}{\partial z_j}\prod_{k=1}^{N}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\notag\\
+    &=-\delta^{\prime}(q_j(x)-z_j)\prod_{k\neq j}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\notag\\
+    &=-\left(b_j(x)\cdot\nabla \delta(q_j(x)-z_j)\right)\prod_{k\neq j}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\notag\\
+    &=-b_j(x)\cdot \nabla\left(\prod_{k=1}^{N}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\right)
+\end{align}
+where $b_j(x), j=1,\dots,N$ are vector fields satisfying
+\begin{equation}
+	b_j(x)\cdot \nabla \sigma_k(x)=0,\quad \forall j=1,\dots,N,\, k=1,\dots,M
+\end{equation}
+and
+\begin{equation}
+	b_j(x)\cdot \nabla q_k(x)=\begin{cases}
+		1\quad &\text{if } j=k\\
+		0\quad &otherwise
+	\end{cases}.
+\end{equation}
+Thereby,
+\begin{align}
+    &\frac{\partial F(z)}{\partial z_j}\notag\\
+    &=-\beta^{-1}e^{\beta F(z)}\cdot Z_\sigma^{-1} \int e^{-\beta V(x)}b_j(x)\nabla\left(\prod_{k=1}^{N}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\right)\diff x\notag\\
+    &=e^{\beta F(z)}\cdot Z_\sigma^{-1} \int e^{-\beta V(x)} \left(b_j(x)\cdot \nabla V(x)-\beta^{-1}\nabla\cdot b_j(x)\right)\notag\\
+    &\times \prod_{k=1}^{N}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\diff x
+\end{align}
+after integration by parts. After rearrangement, the gradient of $F(z)$ (i.e. the mean force) can be expressed as
+\begin{equation}
+	\frac{\partial F}{\partial z_j}=\left< b_j(x)\cdot \nabla V-\beta^{-1}\nabla\cdot b_j(x)\right>_{q(x)=z,\sigma(x)=0},
+	\label{eq:FEM:ABF:meanforce}
+\end{equation}
+where $\left<\cdot\right>_{q(x)=z,\sigma(x)=0}$ denotes the conditional average under the constraints $q(x)=z$, $\sigma(x)=0$. For any function $f(x)$
+\begin{equation}
+	\left<f\right>_{q(x)=z,\sigma(x)=0}=\frac{\int f(x)e^{-\beta V(x)}\prod_{k=1}^{M}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\diff x}{\int e^{-\beta V(x)}\prod_{k=1}^{M}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\diff x}.
+	\label{eq:FEM:ABF:expectation}
+\end{equation}
+
+Being ``restricted'' here is different from being ``constrained''. In the latter, there is an additional condition that the velocity of this reaction coordinate must be set to zero. In the standard Blue Moon sampling method developed by Carter et al.\cite{CarterCPL1989}, constrained molecular dynamics is utilized to compute the conditional expectation in Eq.~\ref{eq:FEM:ABF:expectation}. However, it introduces additional constraints on the momenta, which has to be removed. Therefore, computing the mean force from a constrained ensemble, a correction factor (denoted as $|Z|^{-1/2}$ in Ref.~\cite{CarterCPL1989}) must be introduced, which arises from performing the momentum integration in the ensemble average. In addition, constrained simulation may cause quasinonergodic effect, in particular when multiple reaction pathways are present. Therefore, constrained simulation is not recommended.
+
+Alternatively, adaptive biasing force (ABF) method, which was proposed by Darve and Pohorille in 2001\cite{DarveJCP2001} and reformulated in 2008\cite{DarveJCP2008}, can be used for the calculations of free energy profiles. It applies to unconstrained simulations, as well as constrained simulations. In ABF, an external force, $-\left<\left. F_\xi\right|_{\xi^\ast}\right>\nabla \xi$, that counteracts the mean force is applied. The net result of this procedure is that, after a brief equilibrium, the average force acting on $\xi$ is close to zero and the system undergoes barrierless diffusionlike motion along the order parameter. This means that the sampling of $\xi$ becomes uniform.
+
+We denote by $\boldsymbol{\xi}$ the vector of all order parameters $\xi_i,\,i=1,\dots,N_\xi$. The free energy $A(\boldsymbol{\xi})$ is defined as
+\begin{equation}
+    A(\boldsymbol{\xi})=-\ln\int e^{-H(\mathbf{x})}\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}.
+\end{equation}
+$\beta$ has been absorbed. Now define a thin matrix $\mathbf{W}$ with $N_\xi$ columns, which satisfies
+\begin{equation}
+    \mathbf{J}_{\boldsymbol{\xi}} \mathbf{W}=\mathbf{I},
+\end{equation} 
+where $\mathbf{J}_{\boldsymbol{\xi}}$ is a fat matrix with its element defined by
+\begin{equation}
+    [\mathbf{J}_{\boldsymbol{\xi}}]_{ij}=\frac{\partial \xi_i}{\partial x_j},
+\end{equation}
+and $\mathbf{I}$ is a unit matrix. Using the definition of ensemble average and integration by parts, we find
+\begin{align}
+    \left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>=&\frac{\int\left(\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right)e^{-U}\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
+    =&\frac{-\int (\nabla\cdot(e^{-U}\mathbf{W}))^t\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff\mathbf{x}}{\int e^{-U(\mathbf{x})}\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
+    =&\frac{\int e^{-U}\mathbf{W}^t\nabla\left(\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}.
+\end{align}
+
+Let us choose an index $i$ ($1\leq i\leq N_\xi$) and focus on $\partial A/\partial \xi_i$. Only row $i$ of $\mathbf{W}^t$, $w_i$, needs to be considered. The gradient can be computed as
+\begin{equation}
+    \nabla\left(\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)=\sum_{k=1}^{N_\xi}\delta^\prime(\xi_k(\mathbf{x})-\xi_k)\prod_{j\neq k}\delta(\xi_j-\xi_j(\mathbf{x}))\nabla \xi_k.
+\end{equation}
+Since we have $\nabla \xi_k w_i=\delta_{ik}$,
+\begin{equation}
+    w_i\cdot \nabla\left(\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)=\delta^\prime(\xi_i(\mathbf{x})-\xi_i)\prod_{j\neq i}\delta(\xi_j-\xi_j(\mathbf{x})).
+\end{equation}
+Therefore, the $i$th component of $\left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot\mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>$ is
+\begin{equation}
+    \frac{\int e^{-U}\delta^\prime(\xi_i(\mathbf{x})-\xi_i)\prod_{j\neq i}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}=\frac{\partial A}{\partial \xi_i},
+\end{equation}
+where a property of $\delta$ function
+\begin{equation}
+   \int f(x)\delta^\prime(x)\diff x=-\int f^\prime(x)\delta(x)\diff x
+\end{equation}
+has been used. This proves
+\begin{equation}
+    \nabla_{\boldsymbol{\xi}}A=\left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot\mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>.
+    \label{eq:FEM:ABF:ABFold}
+\end{equation}
+This can be used in conjunction with the calculations of first and second spatial derivatives. 
+
+For multiple reaction coordinates, the calculation of $\nabla_\xi A$ can requires only first derivatives by observing that, with $\mathbf{J}(\mathbf{w})_{ij}=\frac{\partial w_i}{\partial x_j}$,
+\begin{align}
+    \left<\left.\frac{\diff }{\diff t}(w_i\cdot \mathbf{p})\right|_{\boldsymbol{\xi}}\right>=&\left<\left.\mathbf{p}^t\mathbf{M}^{-1}\mathbf{J}(w_i)^t\mathbf{p}-w_i\cdot \nabla U\right|_{\boldsymbol{\xi}}\right>\notag\\
+    =&\left<\left.-w_i\cdot \nabla U+\Tr(\mathbf{J}(w_i))\right|_{\boldsymbol{\xi}}\right>\notag\\
+    =&-\left<\left.w_i\cdot\nabla U-\nabla\cdot w_i\right|_{\boldsymbol{\xi}}\right>\notag\\
+    =&-\frac{\partial A}{\partial \xi_i}.
+\end{align}
+During the deviation, the equality
+\begin{equation}
+    \int \mathbf{u}^t\mathbf{B}\mathbf{u}e^{-\mathbf{u}^t\mathbf{A}\mathbf{u}}\diff \mathbf{u}=\frac{1}{2}\Tr{(A^{-1}B)}\int e^{-\mathbf{u}^{t}\mathbf{A}\mathbf{u}}\diff \mathbf{u}
+\end{equation}
+has been used with $\mathbf{u}=\mathbf{p}$, $\mathbf{B}=\mathbf{M}^{-1}\mathbf{J}(\mathbf{W})^t$, and $\mathbf{A}=\mathbf{M}^{-1}$.
+
+For the choice $\mathbf{W}^t=\mathbf{M}_{\xi}\mathbf{J}_{\xi}\mathbf{M}^{-1}$, $\mathbf{M}_{\xi}^{-1}=\mathbf{J}_{\xi}\mathbf{M}^{-1}\mathbf{J}_{\xi}^t$, we get
+\begin{equation}
+    \nabla_{\boldsymbol{\xi}}A=-\left<\left.\frac{\diff}{\diff t}\left(\mathbf{M}_{\boldsymbol{\xi}}\frac{\diff \boldsymbol{\xi}}{\diff t}\right)\right|_{\boldsymbol{\xi}}\right>.
+    \label{eq:FEM:ABF:ABFnew}
+\end{equation}
+This equation is much easier to implement numerically than Eq.~\ref{eq:FEM:ABF:ABFold}. No second derivatives are involved. This is especially convenient since computing terms like $\partial \mathbf{M}_{\boldsymbol{\xi}}/\partial x_t$ can be quite tedious to implement.
