@@ -1,0 +1,26 @@
+\chapter{Evaluation of Reliability\label{chapter:Eva}}
+\subsection{Overlap Matrix\label{Sec:Eva:OM}}
+Overlap matrix proposed by Mobley et. al.,\cite{KlimovichJCAMD2015} can be used to essentially measures the magnitude of the phase space overlap. For example, after MBAR method is used to analyze the US simulations or a series of alchemical window simulations, the overlap matrix can be used to examine the reliabilities of the MBAR calculations. The formula about the overlap matrix is shown as follows:
+
+For the US simulations, with the weight of the $l$th configuration in the $i$th biased simulation appearing in the $t$th simulation defined as
+\begin{align}
+	w_{t}(\textbf{x}_{i,l})
+	=&\frac{e^{-\beta \left[W_{t}(\textbf{x}_{i,l})-f_{t}^{(b)}\right]}}{\sum\limits_{k=1}^{S}N_{k}e^{-\beta\left[W_{k}(\textbf{x}_{i,l})-f_{k}^{(b)}\right]}},
+	\label{Eq:weight3} 
+\end{align}
+the elements of the $S \times S$ overlap matrix are\cite{KlimovichJCAMD2015}
+\begin{align}
+	O_{tt^{\prime}} =&\sum\limits_{i=1}^{S}\sum\limits_{l=1}^{N_{i}}N_tw_{t}(\textbf{x}_{i,l})w_{t^\prime}(\textbf{x}_{i,l})\notag\\
+	=&
+	\sum\limits_{i=1}^{S}\sum\limits_{l=1}^{N_{i}}
+	\frac{N_{t}e^{-\beta\left[W_{t}(\textbf{x}_{i,l})-f_{t}^{(b)}\right]}e^{-\beta \left[W_{t^{\prime}}(\textbf{x}_{i,l})-f_{t^{\prime}}^{(b)}\right]}}{\left\{\sum\limits_{k=1}^{S}N_{k}e^{-\beta\left[W_{k}(\textbf{x}_{i,l})-f_{k}^{(b)}\right]}\right\}^2}.
+	\label{Eq:OM}
+\end{align}
+Consecutive windows should have substantial overlap with the diagonal and the first off-diagonal elements no smaller than 0.03 as recommended\cite{KlimovichJCAMD2015}. 
+
+For a series of alchemical window simulations, it is a $K \times K$ matrix with entries
+\begin{equation}
+O_{ij}=\sum\limits_{n=1}^{N}\frac{N_{i}p_{i}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})}\frac{p_{j}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})},
+\end{equation}
+where $p_{i}(x_{n})=e^{\beta G_{i}-\beta U_{i}(x_{n})}$ is the probability of sample $x_{n}$ occurring when simulation state $i$ and $N$ samples are collected with $N_{1}$ samples from $p_{1}(x)$ distribution, $N_{2}$ samples from $p_{2}(x)$ distribution, and so on. $K$ is the total number of the states. $O_{ij}$ can be interpreted as the average probability of a sample generated in state $j$ being observed in the $i$th state. The average is computed over samples collected from all the $K$ states, not just the samples from state $j$. Therefore $O_{ij}$ is a meansure of the overlap in the phase space of state $i$ and $j$. The larger the better. The largest eigenvalue is 1.
+Similarly, consecutive windows should have substantial overlap with the diagonal and the first off-diagonal elements no smaller than 0.03 as recommended\cite{KlimovichJCAMD2015}. 
