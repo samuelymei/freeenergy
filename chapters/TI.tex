@@ -1,37 +1,35 @@
 \subsection{Thermodynamic Integration\label{Sec:FEM:TI}}
-Thermodynamic Integration (TI) method was originally proposed by Kirkwood.\cite{KirkwoodJCP1935}. 
-	
-If the free energy, $A$, is a continuous function of $\lambda$ then we can write:
+Thermodynamic Integration (TI) method was proposed by Kirkwood.\cite{KirkwoodJCP1935}. If the free energy, $A$, is a continuous function of $\lambda$, the free energy difference between two states corresponding to $\lambda=0$ and $\lambda=1$ can be computed via
 \begin{equation}
-\Delta A = \int_{0}^{1} \frac{\partial{A(\lambda)}}{\partial{\lambda}} \diff\lambda
+\Delta A = \int_{0}^{1} \frac{\partial{A(\lambda)}}{\partial{\lambda}} \diff\lambda.
 \label{Eq:FEM:TI:deltaA1TI}
 \end{equation} 
-Now,
+With
 \begin{equation}
-A(\lambda) = -\beta^{-1}\ln Q(\lambda)
+A(\lambda) = -\beta^{-1}\ln Q(\lambda),
 \label{Eq:FEM:TI:Alambda}
 \end{equation} 
-Thus,
+the partial derivative can be expressed as
 \begin{align}
 \frac{\partial{A(\lambda)}}{\partial{\lambda}} =& -\beta^{-1} \left[ \frac{\partial{\ln{Q(\lambda)}}}{\partial{\lambda}} \right] \notag\\
-=&-\frac{\beta^{-1}}{Q(\lambda)}\frac{\partial{Q(\lambda)}}{\partial{\lambda}}
+=&-\frac{\beta^{-1}}{Q(\lambda)}\frac{\partial{Q(\lambda)}}{\partial{\lambda}}.
 \label{Eq:FEM:TI:deltaA2TI}
 \end{align} 
-From the definition of $Q$:
+From the definition of $Q$
 \begin{equation}
 Q_{NVT}(\lambda) = \frac{1}{{h}^{3N}N!} \iint \exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},
 \label{Eq:FEM:TI:PFTI}
 \end{equation}
-we can write the following for $\partial{Q(\lambda)}/\partial{\lambda}$:
+we have
 \begin{align}
 \frac{\partial{Q(\lambda)}}{\partial{\lambda}} =&\frac{1}{{h}^{3N}N!} \iint \frac{\partial}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}\notag\\
-=& -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},
+=& -\frac{\beta}{{h}^{3N}N!} \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}.
 \label{Eq:FEM:TI:PPF2}
 \end{align}
-Substituting back into the expression for $\partial{A}/\partial{\lambda}$ gives
+Substituting back into the expression for $\partial{A}/\partial{\lambda}$ yields
 \begin{align}
 \frac{\partial{A(\lambda)}}{\partial{\lambda}} =& \frac{1}{{h}^{3N}N!}\frac{1}{Q(\lambda)} \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}, \notag\\
-=& \iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\cdot\frac{\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)]}{Q(\lambda)} \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},\notag \\
+=& \frac{1}{{h}^{3N}N!}\iint \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}}\cdot\frac{\exp[-\beta H(\mathbf{x},\mathbf{p}_{x},\lambda)]}{Q(\lambda)} \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},\notag \\
 =& \left \langle \frac{\partial{H(\mathbf{x},\mathbf{p}_{x}, \lambda)}}{\partial{\lambda}} \right \rangle_{\lambda}
 \label{Eq:FEM:TI:PA2}
 \end{align}
@@ -40,25 +38,25 @@ Thus, the basic TI formula is
 \Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} \diff\lambda
 \label{Eq:FEM:TI:TI}
 \end{equation} 
-where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecule dynamic or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from the initial state $A$ with Hamiltonian $H_{A}$ to the final state $B$ with Hamiltonian $H_{B}$. The simplest coupling is linear transformation as
+where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecular dynamics or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from the initial state $A$ with Hamiltonian $H_{A}$ to the final state $B$ with Hamiltonian $H_{B}$. The simplest coupling is linear transformation as
 \begin{equation}
 H(\lambda) = (1-\lambda) H_{A} + \lambda H_{B}
 \end{equation}
-The exact calculation of $\Delta A$ requires an infinite number of ensemble average for $\lambda$ ranging from 0 to 1.
-Therefore, the integral in Eq.~\ref{Eq:FEM:TI:TI} needs to be approximated, e.g., by a summation over a number of discrete points $\lambda_{i}$, which leads to 
+The accuracy of TI integral formula depends on the exactness of the numerical integration method.\cite{PaliwalJCTC2011} Practically, the integrand in Eq.~\ref{Eq:FEM:TI:TI} needs to be evaluated over a number of discrete points $\lambda_{i}$, and then be summed up to give the free energy difference between $\lambda=0$ and $1$, for instance via the trapezoidal rule
 \begin{equation}
-\Delta A = \sum_{i}^{}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} \Delta\lambda_{i}.
+\Delta A = \sum_{i=0}^{N-1}\frac{1}{2}\left(\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} + \left \langle\frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i+1}}\right)
+(\lambda_{i+1}-\lambda_i).
 \label{Eq:FEM:TI:dTI}
 \end{equation} 
-A finite number of $\lambda_{i}$ values between 0 and 1 are chosen and for each of them a complete molecule dynamic simulation is carried out resulting in an ensemble of configurations generated with $H(\lambda_{i})$.
+A finite number of $\lambda_{i}$ values between 0 and 1 are chosen and for each of them a complete molecular dynamics simulation is carried out resulting in an ensemble of configurations generated with $H(\lambda_{i})$.
 The ensemble average of the derivative of the Hamiltonian with respect to $\lambda$ is then calculated for each $\lambda_{i}$.
 	
-The accuracy of TI integral formula depends on the exact method for the numerical integration.\cite{PaliwalJCTC2011} In addition to summation method, the simplest numerical integration is to evaluate the integrand at the midpoint:
+In addition to summation method, the simplest numerical integration is to evaluate the integrand at the midpoint:
 \begin{equation}
 \Delta A \simeq \left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda=\frac{1}{2}}
 \label{Eq:FEM:TI:TI1}
 \end{equation} 
-This might be a good first thing to do to get some pictures of what is going on, but is only accurate for very smooth or small changes. %Gaussian quadrature formulas of higher order are generally more useful:
+This might be a good first thing to do to get some impression of what is going on, but is only accurate for very smooth or small changes. %Gaussian quadrature formulas of higher order are generally more useful:
 %\begin{equation}
 %\Delta A = \sum_{i}^{} w_{i}\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}}
 %\label{Eq:FEM:TI:Gauss}
