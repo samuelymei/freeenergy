@@ -2,7 +2,7 @@
 \subsection{Thermodynamic Perturbation\label{Sec:FEM:TP}}
 Thermodynamic Perturbation (TP), also known as Free Energy Perturbation (FEP), exponential average, or Zwanzig equation was developed by Zwanzig,\cite{ZwanzigJCP1954} and Landau and Lifshitz, independently, and probably by Peierls\cite{JorgensenJCTC2008}. 
 
-A reference system containing $N$-particles can be described by Hamiltonian $H_{0}(\mathbf{x},\mathbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\mathbf{x}$, and their conjugated momenta, $\mathbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\mathbf{x},\mathbf{p}_{x})$. These two systems are connected by 
+A reference system containing $N$-particles can be described by Hamiltonian $H_{0}(\mathbf{x},\mathbf{p}_{x})$, which is a function of $3N$ Cartesian coordinates, $\mathbf{x}$, and their conjugated momenta, $\mathbf{p}_{x}$. Similarly, the target system can be described by Hamiltonian $H_{1}(\mathbf{x},\mathbf{p}_{x})$. These two systems are related by 
 \begin{equation}
 H_{1}(\mathbf{x},\mathbf{p}_{x}) = H_{0}(\mathbf{x},\mathbf{p}_{x}) + \Delta H (\mathbf{x},\mathbf{p}_{x})
 \label{Eq:FEM:TP:deltaH}
@@ -59,7 +59,7 @@ Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally e
 \Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) \diff\Delta U,
 \label{Eq:FEM:TP:deltaA7}
 \end{equation}
-If $U_{0}$ and $U_{1}$ were the functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from the ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
+If $U_{0}$ and $U_{1}$ were functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from an ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
 
 Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. 
 \begin{figure}
@@ -109,7 +109,7 @@ to Eq.~\ref{Eq:FEM:TP:deltaA7}, we obtain
 \end{equation}
 Here, $C$ is independent of $\Delta U$
 \begin{equation}
-C = \exp{\left[-\beta (\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2)\right]}
+C = \exp{\left[-\beta \left(\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2\right)\right]}
 \label{Eq:FEM:TP:C}
 \end{equation}
 If $P_{0}(\Delta U)$ is Gaussian, the integral in Eq.~\ref{Eq:FEM:TP:expdeltaA} can be evaluated analytically using cumulant expansion
@@ -122,13 +122,13 @@ If the distribution of $\Delta U$ deviates from Gaussian, there will be extra te
 \Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2 + \frac{\beta^2}{6} \left(\left<\Delta U^3\right>_0-3\left<\Delta U^2\right>_0\left<\Delta U\right>_0+2\left<\Delta U\right>_0^3\right).
 \label{Eq:FEM:TP:deltaA9}
 \end{equation}
-The overlap matrix\cite{KlimovichJCAMD2015} is a useful metric in characterizing the magnitude of overlap in the phase space. It is recommended to be used as a consistency check, as in the case of the TP-based methods. If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $i$th state as:
-\begin{equation}
-W_{n,i}(x_{n}) = \frac{e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}
-\label{Eq:FEM:TP:weights}
-\end{equation}
-Then, the overlap matrix is a $K \times K$ matrix with entries:
-\begin{equation}
-O_{i,j} = \sum_{n=1}^{N}\frac{N_{i} e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}\frac{e^{\beta G_{j} - \beta U_{j}(x_{n})}}{\sum_{l=1}^{L} N_{l}e^{\beta G_{l}-\beta U_{l}(x_{n})}}
-\label{Eq:FEM:TP:om}
-\end{equation}
+%The overlap matrix\cite{KlimovichJCAMD2015} is a useful metric in characterizing the magnitude of overlap in the phase space. It is recommended to be used as a consistency check, as in the case of the TP-based methods. If the weight of each of the $N$ samples $x_{n}$ (collected from all $K$ states) in the $i$th state as:
+%\begin{equation}
+%W_{n,i}(x_{n}) = \frac{e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}
+%\label{Eq:FEM:TP:weights}
+%\end{equation}
+%Then, the overlap matrix is a $K \times K$ matrix with entries:
+%\begin{equation}
+%O_{i,j} = \sum_{n=1}^{N}\frac{N_{i} e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}\frac{e^{\beta G_{j} - \beta U_{j}(x_{n})}}{\sum_{l=1}^{L} N_{l}e^{\beta G_{l}-\beta U_{l}(x_{n})}}
+%\label{Eq:FEM:TP:om}
+%\end{equation}
