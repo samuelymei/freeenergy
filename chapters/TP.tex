@@ -30,7 +30,7 @@ P_{0}(\mathbf{x},\mathbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\mathbf{x},\mathbf{p
 \end{equation}
 If the probability density function is used, Eq.~\ref{Eq:FEM:TP:deltaA2} becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \iint \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] P_{0}(\mathbf{x},\mathbf{p}_{x}) \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},
+\Delta A = -\frac{1}{\beta} \ln \iint \exp[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})] P_{0}(\mathbf{x},\mathbf{p}_{x}) \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x},
 \label{Eq:FEM:TP:deltaA3}
 \end{equation}
 or, equivalently,
@@ -56,7 +56,7 @@ Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}
 
 Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be computed over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \int \exp(-\beta \Delta U) P_{0}(\Delta U) \diff\Delta U,
+\Delta A = -\frac{1}{\beta} \ln \int \exp(-\beta \Delta U) P_{0}(\Delta U) \diff\Delta U,
 \label{Eq:FEM:TP:deltaA7}
 \end{equation}
 If $U_{0}$ and $U_{1}$ were functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from an ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
