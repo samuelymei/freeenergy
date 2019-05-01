@@ -21,7 +21,7 @@ where
 \end{equation}
 is the average of $\mathbf{A}$ over all the samples with an energy $U^\prime$. Therefore, the core objective is to calculate $\Omega(U)$.
 
-Suppose we have one trajectory with $N$ snapshots denoted as $\{\mathbf{R}_n\}$. We then discretize the energy space into $M$ bins with width $\Delta U$, and count the number of snapshots fallen into each bin. For convenience, we define $\psi_m(U)$ as
+Suppose we have one trajectory with $N$ snapshots denoted as $\{\mathbf{R}_n\}$. We then discretize the energy space into $M$ bins with width $\Delta U$, and count the number of snapshots into each bin. For convenience, we define $\psi_m(U)$ as
 \begin{equation}
 	\psi_m(U)= 
 	\left\{ 
@@ -251,7 +251,7 @@ If the biasing is only in temperature-space as in replica exchange molecular dyn
 \begin{equation}
 c_{k,l}=\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]},
 \end{equation} 
-while if the biasing is only in potential as in umbrella sampling
+while if the biasing is only in potential energy as in umbrella sampling
 \begin{equation}
 c_{k,l}=\exp{\left(-\beta_0w_{k,l}\right)}.
 \end{equation}
