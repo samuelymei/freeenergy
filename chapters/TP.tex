@@ -14,7 +14,7 @@ The Helmholtz free energy difference between the target and the reference system
 \end{equation}
 where $\beta = {(k_{B}T)}^{-1}$, and
 \begin{equation}
-Q = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff \mathbf{p}_\mathbf{x}.
+Q_i = \frac{1}{{h}^{3N}N!} \iint \exp\left[-\beta H_i(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff \mathbf{p}_\mathbf{x}.
 \label{Eq:FEM:TP:PF}
 \end{equation}
 Taking Eq.~\ref{Eq:FEM:TP:PF} into Eq.~\ref{Eq:FEM:TP:deltaA}, we obtain
@@ -81,7 +81,7 @@ Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructiv
 	\draw[thick,black,->,>=stealth] (axis cs:-1,20) to (axis cs:0.1,25);
 	\draw[red] (axis cs:1.5,6.5) node{\scriptsize$P_0(\Delta U)$};
 	\draw[blue] (axis cs:-4.6,37.3) node{\scriptsize$\exp{(-\beta \Delta U)}$};
-	\draw[black] (axis cs:0.8,26.5) node{\scriptsize$P_0(\Delta U)\ast \exp{(-\beta \Delta U)}$};
+	\draw[black] (axis cs:0.8,26.5) node{\scriptsize$P_0(\Delta U)\cdot \exp{(-\beta \Delta U)}$};
 	\end{axis}
 	\end{tikzpicture}
 	\caption{$P_{0}(\Delta U)$, the Boltzmann factor $\exp(-\beta \Delta U)$ and their product, which is the integrand in Eq.~\ref{Eq:FEM:TP:deltaA7}. The low-$\Delta U$ tail of the integrand is poorly sampled with $P_{0}(\Delta U)$ and, therefore, is known with low statistical accuracy. However, it provides an important contribution to the integral.}\label{Fig:TP:Pdistribution}
