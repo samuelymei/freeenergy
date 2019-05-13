@@ -37,7 +37,7 @@ Suppose we have a time series of correlated sequential observations of the rando
   \hat X=\frac 1 N \sum\limits_{n=1}^{N} x_n.
   \label{Eq:Appendix:expectationX}
 \end{equation}
-Because of the existence of correlation among the samples, the statistical uncertainty for the expectation, which is defined as
+Because of the existence of correlation among the samples, the variance for the expectation, which is defined as
 \begin{equation}
 	\delta^2 \hat X \equiv \left<\left(\hat X-\left<\hat X\right>\right)^2\right> = \left<\hat X^2 \right> -\left<\hat X\right>^2,
 	\label{Eq:Appendix:uncertainty}
@@ -67,7 +67,7 @@ where ${\sigma_x}^2$, statistical inefficiency $g$, and autocorrelation time $\t
 \end{align}
 The quantity $g\equiv 1+2\tau>1$ can be regarded as a statistical inefficiency, in that $N/g$ gives the effective number of \textit{uncorrelated} configurations contained in the time series.
 
-\chapter{The Optimal Mean of Data Set\label{chapter:Appendix:Mean}}
+\chapter{The Optimal Mean of Independent Measurements with Uncertainties\label{chapter:Appendix:Mean}}
 Suppose we have N measurements of a quantity x, which are denoted as \{$x_i$\}, with i = 1, \dots, N. Each measurement has a variance $\delta^2 x_i$. To find the optimal mean of this data set, we first write the mean of \{$x_i$\} as a weighted average of them
 \begin{equation}
 \bar{x}=\sum\limits_{i=1}^N a_i x_i,
@@ -89,17 +89,21 @@ Minimizing $\delta^2\bar{x}$ with respect to $a_i$ under the constraint of Eq.~\
 =&2a_j\delta^2x_j-\lambda\notag\\
 =&0
 \end{align}
-for all {$x_j$}. It can be easily identified that $a_j$ is inversed proportional to $\delta^2x_j$, i.e.
+for all {$x_j$}. It can be easily identified that $a_j$ is inversely proportional to $\delta^2x_j$, i.e.
 \begin{equation}
-a_j=\frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_i}^{-1}},
+a_j=\frac{{\left(\delta^2x_j\right)}^{-1}}{\sum\limits_{i=1}^N {\left(\delta^2x_i\right)}^{-1}},
 \label{Eq:Appendix:Mean:aj}
 \end{equation}
 and
 \begin{equation}
-\bar{x}=\sum\limits_{i=1}^N \frac{{\delta^2x_j}^{-1}}{\sum\limits_{i=1}^N {\delta^2x_j}^{-1}} x_i,
+\bar{x}=\sum\limits_{j=1}^N \frac{{\left(\delta^2x_j\right)}^{-1}}{\sum\limits_{i=1}^N {\left(\delta^2x_i\right)}^{-1}} x_j,
 \label{Eq:Appendix:Mean:meanexpanded}
 \end{equation}
-
+with
+\begin{equation}
+\delta^2\bar{x}=\sum\limits_{j=1}^N \frac{{\left(\delta^2x_j\right)}^{-1}}{\left(\sum\limits_{i=1}^N {\left(\delta^2x_i\right)}^{-1}\right)^2}=\frac{1}{\sum\limits_{i=1}^N {\left(\delta^2x_i\right)}^{-1}}.
+\label{Eq:Appendix:Mean:varofmeanexpanded}
+\end{equation}
 
 \chapter{MBAR returns to BAR When Only Two States Are Considered}
 When there are only two states, the free energy in Eq.~\ref{Eq:FEM:MBAR:f_i_final} for the 1st state in MBAR becomes

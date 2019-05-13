@@ -111,7 +111,7 @@ The optimum estimator of the density of states from all the simulations is
 	\Omega_m=\frac{\sum\limits_{k=1}^K\left[\delta^2\Omega_{mk}\right]^{-1}\Omega_{mk}}{\sum\limits_{k=1}^K\left[\delta^2\Omega_{mk}\right]^{-1}},
 	\label{Eq:FEM:WHAM:optimumOmega}
 \end{equation}
-which is the weighted average of density of states of all the trajectories with the weight reversely proportional to the uncertainties (see Appendix~\ref{chapter:Appendix:Mean}).
+which is the weighted average of density of states of all the trajectories with the weight reversely proportional to the variances (see Appendix~\ref{chapter:Appendix:Mean}).
 
 To make the expression simpler, here we take some approximations. First, normally the energy space is split into a large number of bins. The histogram in each bin is much smaller than the total number of snapshots, i.e. $H_{mk}\ll N_k$. The expectation of $H_{mk}$ can be related to the optimum estimator of the density of states, i.e.
 \begin{equation}
@@ -139,11 +139,11 @@ f_k=-\ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
 \label{Eq:FEM:WHAM:f_k_iteration}
 \end{equation}
 Obviously, Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and Eq.~\ref{Eq:FEM:WHAM:f_k_iteration} must be solved iteratively.
-Applying the error propagation rule to Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and using Eq.~\ref{EQ:FEM:WHAM:delta2H_mk}, the uncertainty of $\Omega_m$ is given by
+Applying the error propagation rule to Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and using Eq.~\ref{EQ:FEM:WHAM:delta2H_mk}, the variance of $\Omega_m$ is given by
 \begin{equation}
 \delta^2 \Omega_m=\frac{\Omega_m}{\sum\limits_{k=1}^K{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}},
 \end{equation}
-and the relative uncertainty is given by
+and the relative variance is given by
 \begin{equation}
 \frac{\delta^2\Omega_m}{\Omega_m^2}=\left[\sum\limits_{k=1}^K{g_{mk}}^{-1}H_{mk}\right]^{-1}.
 \end{equation}
