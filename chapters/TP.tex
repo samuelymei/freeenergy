@@ -42,17 +42,31 @@ Here, $\left \langle \cdots \right \rangle _{0}$ denotes an ensemble average ove
 
 Note that integration over the kinetic term in the partition function, Eq.~\ref{Eq:FEM:TP:PF}, can be carried out analytically. Thus, it cancels out in Eq.~\ref{Eq:FEM:TP:deltaA}, and Eq.~\ref{Eq:FEM:TP:deltaA4} becomes
 \begin{equation}
-\Delta A = -\frac{1}{\beta} \ln{\left< \exp(-\beta \Delta U) \right>_{0}},
+\Delta A_f = -\frac{1}{\beta} \ln{\left< \exp(-\beta \Delta U) \right>_{0}},
 \label{Eq:FEM:TP:deltaA5}
 \end{equation}
-where $\Delta U$ is the difference in the potential energy between the target and the reference states. The integration implied by the statistical average is now carried out over particle coordinates only.
-
-If we reverse the reference and the target systems, and repeat the same derivation, using the same convention for  $\Delta A$ and $\Delta U$ as before, we obtain
+where $\Delta U$ is the difference in the potential energy between the target and the reference states. The subscript $f$ is an indication of a forward ($0\rightarrow 1$) TP calculation. The integration implied by the statistical average is now carried out over particle coordinates only. The variance of $\Delta A$ is
 \begin{equation}
-\Delta A = \frac{1}{\beta} \ln{ \left \langle \exp(\beta \Delta U) \right \rangle_{1}},
+    \delta^2 \Delta A_f=\frac{1}{N_0\beta^2}\left(\frac{\left<(\exp(-\beta \Delta U))^2\right>_0}{\left(\left<\exp(-\beta \Delta U)\right>_0\right)^2}-1\right).
+\end{equation}
+
+If we exchange the reference and the target systems, and repeat the same derivation, using the same convention for $\Delta A$ and $\Delta U$ as before, we have a backward TP expression for the free energy difference
+\begin{equation}
+\Delta A_b = \frac{1}{\beta} \ln{ \left \langle \exp(\beta \Delta U) \right \rangle_{1}},
 \label{Eq:FEM:TP:deltaA6}
 \end{equation}
-Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should start the perturbation from the state having larger important region in phase space. This means that the reference system should be that with higher entropy, and the transformation should proceed in the direction in which the entropy decreases. 
+and the variance is
+\begin{equation}
+\delta^2 \Delta A_b=\frac{1}{N_1\beta^2}\left(\frac{\left<(\exp(\beta \Delta U))^2\right>_1}{\left(\left<\exp(\beta \Delta U)\right>_1\right)^2}-1\right).
+\end{equation}
+Although expressions Eq.~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6} are formally equivalent, their convergence properties may be quite different. This means that there is a preferred direction to carry out the required transformation between the two states. One should start the perturbation from the state having larger important region in phase space. In other words, the reference system should be that with higher entropy, and the transformation should proceed in the direction in which the entropy decreases. If we have the free energy differences from both the forward and backward TP calculations, we can compute the ``best estimate'' of $\Delta A$ as
+\begin{equation}
+    \Delta A = \frac{(\delta^2 \Delta A_f)^{-1}\Delta A_f+(\delta^2 \Delta A_b)^{-1}\Delta A_b}{(\delta^2 \Delta A_f)^{-1}+(\delta^2 \Delta A_b)^{-1}},
+\end{equation} 
+with variance
+\begin{equation}
+    \delta^2 \Delta A=\frac{1}{(\delta^2 \Delta A_f)^{-1}+(\delta^2 \Delta A_b)^{-1}}.
+\end{equation} 
 
 Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be computed over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
