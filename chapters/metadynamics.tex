@@ -87,6 +87,10 @@ which cab be rewritten as
 \begin{equation}
     P_V{(\mathbf{R},t)}=P{(\mathbf{R})}e^{-\beta\left[V(\mathbf{s}(R),t)-c(t)\right]},
 \end{equation}
-where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution.
+where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution. The average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
+\begin{equation}
+    \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R},t)-c(t))\right]}\right>_V.	
+\end{equation}
+This reweighting can be used to obtain the FES for some set of CVs $\mathbf{s}^\prime$ either biased or unbiased by setting $O(\mathbf{R})=\delta[\mathbf{s}^\prime-\mathbf{s}^\prime(\mathbf{R})]$. It is also useful if one chooses $\mathbf{s}^\prime$ as the biased degree of freedom $\mathbf{s}$ and obtain the FES. Disagreement between the FESs obtained directly from the bias potential and through reweighting is a clear sign that the metadynamics simulation has not converged.
 
 Metadynamics has been implemented in PLUMED (\url{https://plumed.github.io/doc-v2.3/user-doc/html/_metadyn.html}), which can work with major molecular dynamics packages.
