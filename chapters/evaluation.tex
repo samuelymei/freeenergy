@@ -1,6 +1,6 @@
 \chapter{Evaluation of Reliability\label{chapter:Eva}}
 \section{Overlap Matrix\label{Sec:Eva:OM}}
-Overlap matrix proposed by Mobley et. al.,\cite{KlimovichJCAMD2015} can be used to essentially measures the magnitude of the phase space overlap. For example, after MBAR method is used to analyze the US simulations or a series of alchemical window simulations, the overlap matrix can be used to examine the reliabilities of the MBAR calculations. The formula about the overlap matrix is shown as follows:
+Overlap matrix proposed by Mobley et. al.,\cite{KlimovichJCAMD2015} can be used to essentially measures the magnitude of the phase space overlap. For example, after MBAR method is used to analyze the US simulations or a series of alchemical window simulations, the overlap matrix can be used to examine the reliabilities of MBAR calculations. The formula about the overlap matrix is shown as follows:
 
 For the US simulations, with the weight of the $l$th configuration in the $i$th biased simulation appearing in the $t$th simulation defined as
 \begin{align}
@@ -22,5 +22,117 @@ For a series of alchemical window simulations, it is a $K \times K$ matrix with 
 \begin{equation}
 O_{ij}=\sum\limits_{n=1}^{N}\frac{N_{i}p_{i}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})}\frac{p_{j}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})},
 \end{equation}
-where $p_{i}(x_{n})=e^{\beta G_{i}-\beta U_{i}(x_{n})}$ is the probability of sample $x_{n}$ occurring when simulation state $i$ and $N$ samples are collected with $N_{1}$ samples from $p_{1}(x)$ distribution, $N_{2}$ samples from $p_{2}(x)$ distribution, and so on. $K$ is the total number of the states. $O_{ij}$ can be interpreted as the average probability of a sample generated in state $j$ being observed in the $i$th state. The average is computed over samples collected from all the $K$ states, not just the samples from state $j$. Therefore $O_{ij}$ is a meansure of the overlap in the phase space of state $i$ and $j$. The larger the better. The largest eigenvalue is 1.
+where $p_{i}(x_{n})=e^{\beta G_{i}-\beta U_{i}(x_{n})}$ is the probability of sample $x_{n}$ occurring when simulation state $i$ and $N$ samples are collected with $N_{1}$ samples from $p_{1}(x)$ distribution, $N_{2}$ samples from $p_{2}(x)$ distribution, and so on. $K$ is the total number of the states. $O_{ij}$ can be interpreted as the average probability of a sample generated in state $j$ being observed in the $i$th state. The average is computed over samples collected from all the $K$ states, not just the samples from state $j$. Therefore $O_{ij}$ is a measure of the overlap in the phase space of state $i$ and $j$. The larger the better. The largest eigenvalue is 1.
 Similarly, consecutive windows should have substantial overlap with the diagonal and the first off-diagonal elements no smaller than 0.03 as recommended\cite{KlimovichJCAMD2015}. 
+
+\section{$\Pi$ Metric for Neglected-tail Bias Model\label{Sec:Eva:Pi}}
+The neglected-tail bias model is developed by Kofke and coworkers for the estimate of bias in free energy via thermodynamic perturbation or the Jarzynski equality\cite{LuJCP2001,WuJCP2004}. Here, we will take the latter as an example. Let $p_A(W)$ and $p_B(W)$ be the distributions/probabilities of work samples $W$ in a forward ($A\to B$) and a backward ($B\to A$) nonequilibrium conversions. The Jarzynski equality discussed in \ref{Sec:FEM:NEW} shows that the free energy difference is given by
+\begin{equation}
+    \exp{(-\beta \Delta A)}=\int_{-\infty}^{\infty}p_A(W)e^{-\beta W}\diff W,
+\end{equation}
+or
+\begin{equation}
+    \exp{(+\beta \Delta A)}=\int_{-\infty}^{\infty}p_B(W)e^{+\beta W}\diff W.
+\end{equation}
+These two distributions are related
+\begin{equation}
+    p_A(W)e^{-\beta W}=p_B(W)e^{-\beta \Delta A}.
+    \label{Eq:Eva:Pi:distributions_and_dA}
+\end{equation}
+The neglected-tail bias model asserts that \emph{all} of the bias is due the neglect of contributions below a particular value of $W$, designated as $W^\ast$, such that no sampling is contributed below this value, and \emph{perfect sampling} is achieved for $W>W^\ast$.
+
+It can be easily imagined that $W^\ast$ depends on the sample size. When more sampling is performed, more likely a more negative value of $W^\ast$ will be encountered. Given $p_A(W)$, the probability distribution for $W^\ast$ being observed once within $M$ samples is
+\begin{equation}
+    P_A^\ast(W^\ast)=Mp_A(W^\ast)[1-C_A(W^\ast)]^{M-1},
+    \label{Eq:Eva:Pi:prob_of_Wstar}
+\end{equation}
+where $C_A(W)$ is the cumulative distribution function defined as
+\begin{equation}
+    C_A(W^\ast)=\int_{-\infty}^{W^\ast} p_A(W)\diff W
+\end{equation}
+and
+\begin{equation}
+    1-C_A(W^\ast)=\int_{W^\ast}^{\infty} p_A(W)\diff W.
+\end{equation}
+The bias can be written as
+\begin{align}
+    B(M)=&\left<\Delta A(M)\right>-\Delta A\notag\\
+        =&-kT\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast}+(M-1)\times \frac{\int_{W^\ast}^{\infty}\diff We^{-\beta W}p_A(W)}{1-C_A(W^\ast)}\right)\right]}-
+        \Delta A\notag\\
+        =&-kT\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast_{dis}}+(M-1)\times \frac{1-C_B(W^\ast)}{1-C_A(W^\ast)}\right)\right]},
+        \label{Eq:Eva:Pi:bias}
+\end{align}
+where
+\begin{equation}
+    W_{dis}=W-\Delta A
+\end{equation}
+is the dissipated work. For the third equality, we have employed Eq.~\ref{Eq:Eva:Pi:distributions_and_dA}. The bias can be evaluated as the average of the inaccuracy over the distribution of $W^\ast$
+\begin{equation}
+    B(M)=-kT\int_{-\infty}^\infty\diff W^\ast P_A^\ast(W^\ast)\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast_{dis}}+(M-1)\times \frac{1-C_B(W^\ast)}{1-C_A(W^\ast)}\right)\right]}.
+\end{equation}
+Alternatively, it can be estimated for a single value of $W^\ast$, for instance the mode $\hat{W}^\ast$ of $P_A^\ast$. It follows from  
+\begin{equation}
+    \frac{\diff \ln{P_A(W^\ast)}}{\diff W^\ast}\biggr\rvert_{W=\hat{W}^\ast}=0
+\end{equation}
+and is given by the solution of
+\begin{equation}
+    \frac{\diff \ln{p_A(W)}}{\diff W}\biggr\rvert_{W=\hat{W}^\ast}=\frac{(M-1)p_A(\hat{W}^\ast)}{1-C_A(\hat{W}^\ast)}.
+    \label{Eq:Eva:Pi:Wmax}
+\end{equation}
+or, with a small approximation
+\begin{equation}
+    \frac{\diff \ln{p_A(W)}}{\diff W}\biggr\rvert_{W=\hat{W}^\ast}=(M-1)p_A(\hat{W}^\ast).
+    \label{Eq:Eva:Pi:Wmax2}
+\end{equation}
+Assuming $W^\ast$ has a Gaussian distribution centered at $\hat{W}^\ast$ as
+\begin{equation}
+    P_A^\ast(W^\ast)\approx \frac{1}{\sqrt{2\pi}\sigma^\ast}\exp{\left[-(W^\ast-\hat{W}^\ast)^2/2{\sigma^\ast}^2\right]}
+\end{equation}
+in which, using Eq.~\ref{Eq:Eva:Pi:prob_of_Wstar} and the property in Eq.~\ref{Eq:Eva:Pi:Wmax},
+\begin{equation}
+    \frac{1}{{\sigma^\ast}^2}=-\frac{\diff^2\,\ln{P_A^\ast}}{\diff\, {W^\ast}^2}=-\left.\left[\frac{\partial^2 \ln{p_A}}{\partial W^2}-\frac{M}{M-1}\left(\frac{\partial \ln p_A}{\partial W}\right)^2\right]\right\rvert_{W=\hat{W}^\ast}.
+\end{equation}
+Corresponding relations can be given for the bias of the $B\to A$ work process. Thus from the work distributions the expected performance of a simulation of given sampling length can be predicted.
+
+Next, let us look at the work distributions. We assume a Gaussian-work distribution
+\begin{equation}
+    p_A(W)=\frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-(W-\bar{W})^2/2\sigma^2\right]}.
+    \label{Eq:Eva:Pi:pAW}
+\end{equation}
+From Eq.~\ref{Eq:Eva:Pi:distributions_and_dA}, it can be found that $p_B(W)$ is also a Gaussian with the same variance but shifted by $\beta\sigma^2$
+\begin{equation}
+    p_B(W)=\frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-(W-\bar{W}+\beta\sigma^2)^2/2\sigma^2\right]}.
+\end{equation}
+The free energy difference is
+\begin{equation}
+    \Delta A=\bar{W}-\beta\sigma^2.
+    \label{Eq:Eva:Pi:dA}
+\end{equation}
+The cumulative distribution functions are
+\begin{align}
+    C_A(W)=&\frac{1}{2} \erfc \left(\frac{\bar{W}-W}{\sqrt{2}\sigma}\right),\\
+    C_B(W)=&\frac{1}{2} \erfc\left(\frac{\bar{W}-\beta\sigma^2-W}{\sqrt{2}\sigma}\right),
+\end{align}
+where $\erfc(x)$ is the complementary error function.
+
+By taking Eq.~\ref{Eq:Eva:Pi:pAW} into Eq.~\ref{Eq:Eva:Pi:Wmax2}, the mode of the least-work distribution is approximately
+\begin{equation}
+    \hat{W}^\ast=\bar{W}-\sigma\sqrt{\mathbf{W}_L\left[\frac{1}{2\pi}(M-1)^2\right]},
+\end{equation}
+where $\mathbf{W}_L(x)$ is the Lambert $W$ function, defined as the solution to $x=we^w$. With a slight approximation to Eq.~\ref{Eq:Eva:Pi:bias} as
+\begin{equation}
+    B(M)=-kT\ln{[1-C_B(W^\ast)]}
+\end{equation}
+and this estimated mode used for $W^\ast$, this Gaussian-work bias becomes
+\begin{equation}
+    B(M)=-kT\ln{\left\{\frac{1}{2}\erfc\left[-\frac{1}{\sqrt{2}}\left(\sqrt{\mathbf{W}_L\left[\frac{1}{2\pi}(M-1)^2\right]}-\beta\sigma\right)\right]\right\}},
+\end{equation}
+and depends solely on
+\begin{equation}
+    \Pi=\sqrt{\mathbf{W}_L\left[\frac{1}{2\pi}(M-1)^2\right]}-\beta\sigma.
+\end{equation}
+By using Eq.~\ref{Eq:Eva:Pi:dA}, it can be rewritten as
+\begin{equation}
+\Pi=\sqrt{\mathbf{W}_L\left[\frac{1}{2\pi}(M-1)^2\right]}-\sqrt{2\beta(\bar{W}-\Delta A)}.
+\end{equation}
+Wu and Kofke suggested that the number of work samples should be large enough to make sure $\Pi>0.5$.\cite{WuJCP2004}
