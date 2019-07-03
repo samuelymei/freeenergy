@@ -38,7 +38,7 @@ on a collective variable $\mathbf{s}$ in $d$-dimension. $\sigma$ and $\omega$ ar
    V_G(\mathbf{s},t\rightarrow \infty) = -G(\mathbf{s})+C.
 \end{equation}
 
-Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics, can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. In this method, a gradually tempered Gaussian hill
+Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics (WTMetaD), can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. In this method, a gradually tempered Gaussian hill
 \begin{equation}
     V_n(\mathbf{s})=V_{n-1}(\mathbf{s})+G(\mathbf{s},\mathbf{s}_n)\exp{\left[-\frac{1}{\gamma-1}\beta V_{n-1}(\mathbf{s}_n)\right]}
 \end{equation}
@@ -50,12 +50,14 @@ with $||\mathbf{s}-\mathbf{s}^\prime||^2$ being a distance metric such as
 \begin{equation}
     ||\mathbf{s}-\mathbf{s}^\prime||^2=\frac{1}{2}\sum_{i,j}{(\mathbf{s}_i-\mathbf{s}_i^\prime)\Sigma_{i,j}^{-1}(\mathbf{s}_j-\mathbf{s}_j^\prime)}.
 \end{equation}
-$\Sigma_{i,j}^{-1}$ is the inverse of the covariance matrix $\Sigma_{i,j}$, and the latter is normally diagonal $\Sigma_{i,j}=\delta_{i,j}\sigma_i^2$. $G(\mathbf{s},\mathbf{s}_n)$ is the biasing kernel centered on the current CV value $\mathbf{s}_n$ and is scaled by $\exp{\left[-\frac{1}{\gamma-1}\beta V_{n-1}(\mathbf{s}_n)\right]}$ when being accumulated. The scaling factor itself decreases as $1/n$, therefore the change of the biasing potential becomes smaller as the metadynamics simulation progresses.\cite{DamaPRL2014}
+$\Sigma_{i,j}^{-1}$ is the inverse of the covariance matrix $\Sigma_{i,j}$, and the latter is normally diagonal $\Sigma_{i,j}=\delta_{i,j}\sigma_i^2$. $W$ is the height of the Gaussian. $G(\mathbf{s},\mathbf{s}_n)$ is the biasing kernel centered on the current CV value $\mathbf{s}_n$ and is scaled by $\exp{\left[-\frac{1}{\gamma-1}\beta V_{n-1}(\mathbf{s}_n)\right]}$ when being accumulated. The scaling factor itself decreases as $1/n$, therefore the change of the biasing potential becomes smaller as the metadynamics simulation progresses.\cite{DamaPRL2014}
 
 Practically, the update of the biasing potential is performed every $N_G$ steps. Between any two adjacent updates, the system evolves under the action of the biasing potential $V_n(\mathbf{s}(\mathbf{R}))$. After the $n$th update, the biasing potential is
 \begin{equation}
     V(\mathbf{s},t)=\sum_{k=1}^n W\exp{\left(-||\mathbf{s}-\mathbf{s}_k||^2\right)}\exp{\left[-\frac{1}{\gamma-1}\beta V_{k-1}(\mathbf{s}_k)\right]}.
-\end{equation}  
+\end{equation}
+The factor $(\gamma-1)\beta^{-1}$ is sometimes referred to as $k_B\Delta T$.
+
 The remarkable feature of this stochastic update of the biasing potential is that the evolution of the bias can be described asymptotically by an ordinary differential equation (ODE), which after some manipulations reads
 \begin{equation}
     \frac{\diff V(\mathbf{s},t)}{\diff t}=\int \diff \mathbf{s}^\prime\, G(\mathbf{s},\mathbf{s}^\prime)\exp{\left[-\frac{1}{\gamma-1}\beta V(\mathbf{s}^\prime,t)\right]}P_V(\mathbf{s}^\prime,t),
@@ -71,6 +73,7 @@ For any $G(\mathbf{s},\mathbf{s}^\prime)$, this ODE has the asymptotic solution
 where
 \begin{equation}
     c(t)=\frac{1}{\beta}\log{\frac{\int \diff \mathbf{s}\, e^{-\beta F(\mathbf{s})}}{\int \diff \mathbf{s}\, e^{-\beta \left[F(\mathbf{s})+V(\mathbf{s},t)\right]}}}
+    \label{Eq:ES:metadynamics:c}
 \end{equation}
 is independent of $\mathbf{s}$. Metadynamics thus converges to the desired result. Two interesting consequences arise.
 
@@ -78,16 +81,20 @@ First, it can be shown that a time-dependent estimator for $F(\mathbf{s})$ is gi
 \begin{equation}
     F(\mathbf{s})=-\left(\frac{\gamma}{\gamma -1}\right)V(\mathbf{s},t)+\frac{1}{\beta}\log{\int \diff \mathbf{s}\, \exp{\left[\frac{\gamma}{\gamma-1}\beta V(\mathbf{s},t)\right]}}.
 \end{equation}
+Taking this equation into Eq.~\ref{Eq:ES:metadynamics:c}, one obtains
+\begin{equation}
+    c(t)=\frac{1}{\beta}\log{\frac{\int \diff \mathbf{s}\exp{\left[\frac{\gamma}{\gamma-1}\beta V(\mathbf{s},t)\right]}}{\int \diff \mathbf{s}\exp{\left[\frac{1}{\gamma-1}\beta V(\mathbf{s},t)\right]}}}.
+\end{equation}
 
 Second, it offers a practical way of calculating the expectation value of any $\mathbf{R}$-dependent function $O(\mathbf{R})$ as the simulation proceeds. The idea is that at time $t$ the biased probability distribution for $\mathbf{R}$ is given by
 \begin{equation}
     P_V{(\mathbf{R},t)}=\frac{e^{-\beta\left[U(\mathbf{R})+V(\mathbf{s}(\mathbf{R}),t)\right]}}{\int \diff \mathbf{R}\, e^{-\beta\left[U(\mathbf{R})+V(\mathbf{s}(\mathbf{R}),t)\right]}},
 \end{equation}
-which cab be rewritten as
+which can be rewritten as
 \begin{equation}
     P_V{(\mathbf{R},t)}=P{(\mathbf{R})}e^{-\beta\left[V(\mathbf{s}(R),t)-c(t)\right]},
 \end{equation}
-where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution. The average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
+where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution, and $e^{\beta\left[V(\mathbf{s}(R),t)-c(t)\right]}$ is the unbiasing factor. Straightforwardly, the average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
 \begin{equation}
     \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R},t)-c(t))\right]}\right>_V.	
 \end{equation}
