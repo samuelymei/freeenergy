@@ -29,7 +29,7 @@ O_{ij}=\sum\limits_{n=1}^{N}\frac{N_{i}p_{i}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p
 where $p_{i}(x_{n})=e^{\beta G_{i}-\beta U_{i}(x_{n})}$ is the probability of sample $x_{n}$ occurring when simulation state $i$ and $N$ samples are collected with $N_{1}$ samples from $p_{1}(x)$ distribution, $N_{2}$ samples from $p_{2}(x)$ distribution, and so on. $K$ is the total number of the states. $O_{ij}$ can be interpreted as the average probability of a sample generated in state $j$ being observed in the $i$th state. The average is computed over samples collected from all the $K$ states, not just the samples from state $j$. Therefore $O_{ij}$ is a measure of the overlap in the phase space of state $i$ and $j$. The larger the better. The largest eigenvalue is 1.
 Similarly, consecutive windows should have substantial overlap with the diagonal and the first off-diagonal elements no smaller than 0.03 as recommended\cite{KlimovichJCAMD2015}. 
 
-\section{$\Pi$ Metric for Neglected-tail Bias Model\label{Sec:Eva:Pi}}
+\section{\texorpdfstring{$\Pi$ Metric for Neglected-tail Bias Model}{Π Metric for Neglected-tail Bias Model}\label{Sec:Eva:Pi}}
 The neglected-tail bias model is developed by Kofke and coworkers for the estimate of bias in free energy via thermodynamic perturbation or the Jarzynski equality\cite{LuJCP2001,WuJCP2004}. Here, we will take the latter as an example. Let $p_A(W)$ and $p_B(W)$ be the distributions/probabilities of work samples $W$ in a forward ($A\to B$) and a backward ($B\to A$) nonequilibrium conversions. The Jarzynski equality discussed in \ref{Sec:FEM:NEW} shows that the free energy difference is given by
 \begin{equation}
     \exp{(-\beta \Delta A)}=\int_{-\infty}^{\infty}p_A(W)e^{-\beta W}\diff W,
@@ -140,3 +140,28 @@ By using Eq.~\ref{Eq:Eva:Pi:dA}, it can be rewritten as
 \Pi=\sqrt{\mathbf{W}_L\left[\frac{1}{2\pi}(M-1)^2\right]}-\sqrt{2\beta(\bar{W}-\Delta A)}.
 \end{equation}
 Wu and Kofke suggested that the number of work samples (non-equilibrium trajectories) should be sufficient to ensure $\Pi>0.5$.\cite{WuJCP2004}
+
+\section{Kullback–Leibler divergence\label{Sec:Eva:KLDverg}}
+The convergence rate of thermodynamic perturbation heavily depends on the similarity between the simulated Hamiltonian (A) and the target one (B). Kullback–Leibler divergence offers a quantitative way to measure the similarity by
+\begin{equation}
+	s_A=\int_\Gamma \diff \mathrm{x}\, p_A(\mathbf{x})\ln\left[\frac{p_A(\mathbf{x})}{p_B(\mathbf{x})}\right].
+\end{equation}
+$s_A$ is also known as the relative entropy in Information theory. Similarly, we can also have
+\begin{equation}
+	s_B=\int_\Gamma \diff \mathrm{x}\, p_B(\mathbf{x})\ln\left[\frac{p_B(\mathbf{x})}{p_A(\mathbf{x})}\right].
+\end{equation}
+With the Boltzmann statistics,
+\begin{equation}
+	p_A(\mathbf{x})=e^{-\beta U(\mathbf{x})}/Q_A.
+\end{equation}
+The relative entropies can be written as
+\begin{align}
+	s_A=&\int_\Gamma \diff \mathrm{x}\, \frac{e^{-\beta U_A(\mathbf{x})}}{Q_A}\ln\left[\frac{e^{-\beta U_A(\mathbf{x})}}{Q_A}\frac{Q_B}{e^{-\beta U_B(\mathbf{x})}}\right]\notag\\
+	   =&\int_\Gamma \diff \mathrm{x}\, \frac{e^{-\beta U_A(\mathbf{x})}}{Q_A} \left\{\beta \left[U_B(\mathbf{x})-U_A(\mathbf{x})\right]-\beta \Delta A\right\}\\
+	   =&\beta\left<\Delta U\right>_A-\beta \Delta A
+\end{align}
+and
+\begin{equation}
+	s_B=-\beta\left<\Delta U\right>_B+\beta \Delta A.
+\end{equation}
+
