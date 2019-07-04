@@ -44,7 +44,7 @@ Recent improvement over the ordinary metadynamics on convergence issue, which is
 \end{equation}
 is accumulated, where $V_0(\mathbf{s})=0$ and
 \begin{equation}
-    G(\mathbf{s},\mathbf{s}_n)=W\exp{\left(-||\mathbf{s}-\mathbf{s}^\prime||^2\right)}
+    G(\mathbf{s},\mathbf{s}^\prime)=W\exp{\left(-||\mathbf{s}-\mathbf{s}^\prime||^2\right)}
 \end{equation}
 with $||\mathbf{s}-\mathbf{s}^\prime||^2$ being a distance metric such as
 \begin{equation}
@@ -94,7 +94,7 @@ which can be rewritten as
 \begin{equation}
     P_V{(\mathbf{R},t)}=P{(\mathbf{R})}e^{-\beta\left[V(\mathbf{s}(R),t)-c(t)\right]},
 \end{equation}
-where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution, and $e^{\beta\left[V(\mathbf{s}(R),t)-c(t)\right]}$ is the unbiasing factor. Straightforwardly, the average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
+where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution, and $e^{\beta\left[V(\mathbf{s}(R),t)-c(t)\right]}$ is the time-dependent unbiasing factor. Straightforwardly, the average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
 \begin{equation}
     \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R},t)-c(t))\right]}\right>_V.	
 \end{equation}
