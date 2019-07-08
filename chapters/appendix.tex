@@ -125,6 +125,32 @@ Or it can be written as
 \end{equation}
 which was first shown by Shing and Gubbins for Widom insertion and deletion\cite{ShingMolPhys1982}.
 
+\chapter{Cumulant Expansion for the Free Energy Difference in Thermodynamic Perturbation Calculations\label{chapter:Appendix:CE}}
+In Thermodynamic Perturbation, the free energy difference between states are expressed as
+\begin{equation}
+	\Delta A=-\beta^{-1}\ln{\left<\exp{\left[-\beta \Delta U\right]}\right>}_0.
+	\label{Eq:Appendix:CE:Exp}
+\end{equation}
+Due to the exponential term on the right-hand-side of this equation, the convergence is usually slow. This expression can be expanded into Taylor series, and the leading terms can converge much faster than the complete sum.
+
+Using the Taylor expansion for $e^x=1+\sum\limits_{n=1}^{\infty}\frac{1}{n!}x^n$ first, we have
+\begin{equation}
+	\exp{\left[-\beta \Delta U\right]}=1+(-\beta \Delta U)+\frac{1}{2!}(-\beta \delta U)^2+\frac{1}{3!}(-\beta \Delta U)^3+\cdots.
+\end{equation}
+Then Eq.~\ref{Eq:Appendix:CE:Exp} becomes
+\begin{equation}
+	\Delta A=-\beta^{-1}\ln{\left(1-\beta\left<\Delta U\right>_0+\frac{1}{2}\beta^2\left<\Delta U^2\right>_0-\frac{1}{6}\beta^3\left<\Delta U^3\right>_0+\cdots\right)}.
+\end{equation}
+Using the Taylor expansion for $\ln{(1+x)}=x-\frac{1}{2}x^2+\frac{2}{3!}x^3-\frac{6}{4!}x^4+\cdots$, we have
+\begin{align}
+	\Delta A=&\left<\Delta U\right>_0-\frac{1}{2}\beta\left<\Delta U^2\right>_0+\frac{1}{6}\beta^2\left<\Delta U^3\right>_0+\cdots\notag\\
+	         &+\frac{1}{2}\left(\beta\left<\Delta U\right>_0^2-\beta^2\left<\Delta U\right>_0\left<\Delta U^2\right>_0+\frac{1}{4}\beta^3\left<\Delta U^2\right>_0^2+\cdots\right)\notag\\
+	         &-\frac{1}{3}\left(-\beta^2\left<\Delta U\right>_0^3+\cdots\right)\notag\\
+	         &+\cdots\notag\\
+	        =&\left<\Delta U\right>_0-\frac{\beta}{2}\left(\left<\Delta U^2\right>_0-\left<\Delta U\right>_0^2\right)\notag\\
+	         &+\frac{\beta^2}{6}\left(\left<\Delta U^3\right>_0-3\left<\Delta U^2\right>_0\left<\Delta U\right>_0+2\left<\Delta U\right>_0^3\right)+\cdots
+\end{align}
+
 
 \chapter{MBAR Returns to BAR When Only Two States Are Considered\label{chapter:Appendix:twostatMBAR2BAR}}
 When there are only two states, the free energy in Eq.~\ref{Eq:FEM:MBAR:f_i_final} for the 1st state in MBAR becomes
