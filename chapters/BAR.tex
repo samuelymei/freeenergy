@@ -1,5 +1,8 @@
 % !TeX spellcheck = en_US
 \subsection{Bennett Acceptance Ratio\label{Sec:FEM:BAR}}
+\begin{chapquote}{Professor Savas Dimopoulos, Stanford University}
+	``The thing that differentiates scientists is purely an artistic ability to discern what is a good idea, what is a beautiful idea, what is worth spending time on, and most importantly, what is a problem that is sufficiently interesting, yet sufficiently difficult, that is hasn't yet been solved, but the time for solving it has come now.''
+\end{chapquote}
 Bennett acceptance ratio was developed by Bennett in 1976,\cite{BennettJComputPhys1976} and was re-discovered by Crooks\cite{CrooksPRE2000} and Shirts et al\cite{ShirtsPRL2003} over 20 years later. The Metropolis function is defined as
 \begin{equation}
 	M(x)=min\{1,\exp{(-x)}\},
@@ -98,6 +101,8 @@ and $f$ denotes the Fermi function
 	f(x)=\frac{1}{1+\exp{(+x)}}.
 \end{equation}
 The variance of $\Delta A$ can be obtained by substituting Eq.~\ref{eq:FEM:BAR:W} into Eq.~\ref{eq:FEM:BAR:expectation}, and is 
-\begin{equation}
-	\delta^2 \Delta A =\frac{\left<f^2(U_{1}-U_{0}-C)\right>_0}{n_0\left<f(U_{1}-U_{0}-C)\right>_0^2}+\frac{\left<f^2(U_{0}-U_{1}+C)\right>_1}{n_1\left<f(U_{0}-U_{1}+C)\right>_1^2}-\frac{1}{n_0}-\frac{1}{n_1}.
-\end{equation}
+\begin{align}
+	\delta^2 \Delta A =&\frac{\left<f^2(U_{1}-U_{0}-C)\right>_0}{n_0\left<f(U_{1}-U_{0}-C)\right>_0^2}+\frac{\left<f^2(U_{0}-U_{1}+C)\right>_1}{n_1\left<f(U_{0}-U_{1}+C)\right>_1^2}-\frac{1}{n_0}-\frac{1}{n_1}\notag\\
+	=&\left(\int \frac{n_0n_1\rho_0\rho_1}{n_0\rho_0+n_1\rho_1}\diff \mathbf{q}\right)^{-1}-\frac{n_0+n_1}{n_0n_1},
+\end{align}
+in which $\rho_i=\exp{(-U_i)}/Q_i$ is the probability.
