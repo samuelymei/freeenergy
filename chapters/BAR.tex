@@ -3,7 +3,7 @@
 \begin{chapquote}{Professor Savas Dimopoulos, Stanford University}
 	``The thing that differentiates scientists is purely an artistic ability to discern what is a good idea, what is a beautiful idea, what is worth spending time on, and most importantly, what is a problem that is sufficiently interesting, yet sufficiently difficult, that is hasn't yet been solved, but the time for solving it has come now.''
 \end{chapquote}
-Bennett acceptance ratio was developed by Bennett in 1976,\cite{BennettJComputPhys1976} and was re-discovered by Crooks\cite{CrooksPRE2000} and Shirts et al\cite{ShirtsPRL2003} over 20 years later. The Metropolis function is defined as
+Bennett acceptance ratio was developed by Bennett in 1976,\cite{BennettJComputPhys1976} and was re-discovered by Crooks\cite{CrooksPRE2000} and Shirts et al\cite{ShirtsPRL2003} using maximum likelihood over 20 years later. The Metropolis function is defined as
 \begin{equation}
 	M(x)=min\{1,\exp{(-x)}\},
 \end{equation}
@@ -95,11 +95,18 @@ Substituting this into Eq.~\ref{eq:FEM:BAR:weightedratio} yields
 where
 \begin{equation}
 	C=\ln\frac{Q_{0}n_{1}}{Q_{1}n_{0}},
+	\label{Eq:FEM:BAR:C}
 \end{equation}
 and $f$ denotes the Fermi function
 \begin{equation}
 	f(x)=\frac{1}{1+\exp{(+x)}}.
 \end{equation}
+It can also be expressed as\cite{ShirtsPRL2003}
+\begin{equation}
+	n_1\langle f(U_{0}-U_{1}+C)\rangle_{1}=n_0\langle f(U_{1}-U_{0}-C)\rangle_{0}.
+\end{equation}
+It should be noted that Eq.~\ref{Eq:FEM:BAR:BAR} is true for any $C$, which is actually a shift for one of the potential function. But the particular value specified in Eq.~\ref{Eq:FEM:BAR:C} minimizes the expected square error given the finite numbers ($n_0$ and $n_1$) of samples.
+
 The variance of $\Delta A$ can be obtained by substituting Eq.~\ref{eq:FEM:BAR:W} into Eq.~\ref{eq:FEM:BAR:expectation}, and is 
 \begin{align}
 	\delta^2 \Delta A =&\frac{\left<f^2(U_{1}-U_{0}-C)\right>_0}{n_0\left<f(U_{1}-U_{0}-C)\right>_0^2}+\frac{\left<f^2(U_{0}-U_{1}+C)\right>_1}{n_1\left<f(U_{0}-U_{1}+C)\right>_1^2}-\frac{1}{n_0}-\frac{1}{n_1}\notag\\
