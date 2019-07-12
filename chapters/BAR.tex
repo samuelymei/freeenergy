@@ -3,7 +3,7 @@
 \begin{chapquote}{Professor Savas Dimopoulos, Stanford University}
 	``The thing that differentiates scientists is purely an artistic ability to discern what is a good idea, what is a beautiful idea, what is worth spending time on, and most importantly, what is a problem that is sufficiently interesting, yet sufficiently difficult, that is hasn't yet been solved, but the time for solving it has come now.''
 \end{chapquote}
-Bennett acceptance ratio was developed by Bennett in 1976,\cite{BennettJComputPhys1976} and was re-discovered by Crooks\cite{CrooksPRE2000} and Shirts et al\cite{ShirtsPRL2003} using maximum likelihood over 20 years later. The Metropolis function is defined as
+Bennett acceptance ratio was developed by Bennett in 1976,\cite{BennettJComputPhys1976} and was re-discovered by Crooks\cite{CrooksPRE2000} for Markovian and balanced dynamics and by Shirts et al\cite{ShirtsPRL2003} using maximum likelihood over 20 years later. The Metropolis function is defined as
 \begin{equation}
 	M(x)=min\{1,\exp{(-x)}\},
 \end{equation}
@@ -113,3 +113,5 @@ The variance of $\Delta A$ can be obtained by substituting Eq.~\ref{eq:FEM:BAR:W
 	=&\left(\int \frac{n_0n_1\rho_0\rho_1}{n_0\rho_0+n_1\rho_1}\diff \mathbf{q}\right)^{-1}-\frac{n_0+n_1}{n_0n_1},
 \end{align}
 in which $\rho_i=\exp{(-U_i)}/Q_i$ is the probability.
+
+It is worth emphasizing that Bennett acceptance ratio is asymptotically unbiased, and no other asymptotically unbiased estimator has lower asymptotic mean-squared error. However, it is not clear whether its behavior is always better than other estimators with finite sample sizes.
