@@ -68,15 +68,14 @@ with variance
     \delta^2 \Delta A=\frac{1}{(\delta^2 \Delta A_f)^{-1}+(\delta^2 \Delta A_b)^{-1}}.
 \end{equation} 
 
-Equation~\ref{Eq:FEM:TP:deltaA5} and Eq.~\ref{Eq:FEM:TP:deltaA6}, are formally exact for any perturbation. However, this does not mean that they can always be successfully applied. Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be computed over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
+Since $\Delta A$ is calculated as the average over a quantity that depends only on $\Delta U$, this average can be computed over probability distribution $P_0(\Delta U)$ instead of $P_{0}(\mathbf{x},\mathbf{p}_{x})$. Then, $\Delta A$ in Eq.~\ref{Eq:FEM:TP:deltaA3} can be expressed as a one-dimensional integral over energy difference
 \begin{equation}
 \Delta A = -\frac{1}{\beta} \ln \int \exp(-\beta \Delta U) P_{0}(\Delta U) \diff\Delta U,
 \label{Eq:FEM:TP:deltaA7}
 \end{equation}
-If $U_{0}$ and $U_{1}$ were functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from an ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution.
+If $U_{0}$ and $U_{1}$ were functions of a sufficient number of identically distributed random variable, $\Delta U$ would follow a Gaussian distribution, which is a consequence of the central limit theorem. In practice, the probability distribution $P_{0}(\Delta U)$ deviates somewhat from an ideal Gaussian case, but still has a ``Gaussian-like'' shape. This indicates that the value of the integral in Eq.~\ref{Eq:FEM:TP:deltaA7} depends on the low-energy tail of the distribution. Using the language of Jarzynski for the nonequilibrium work\cite{JarzynskiPRE2006}, the maximum of $P_0(\Delta U)$ is the typical energy difference, and the peak value of $P_0(\Delta U)\cdot \exp{(-\beta \Delta U)}$ is the dominant realization that contributes the most to $\Delta A$. It clearly shows in Fig.~\ref{Fig:TP:Pdistribution} that the dominant realization lies to the left of the typical one.
 
-Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. 
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
 	\begin{tikzpicture}
 	\def\lims{xmin=-6.5,xmax=3,ymin=0.0,ymax=40}
@@ -106,7 +105,7 @@ Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructiv
 %	\includegraphics[width=0.6\textwidth]{figures/TP.pdf}\\
 %\caption{$P_{0}(\Delta U)$, the Boltzmann factor $\exp(-\beta \Delta U)$ and their product, which is the integrand in \ref{Eq:FEM:TP:deltaA7}. The low-$\Delta U$ tail of the integrand is poorly sampled with $P_{0}(\Delta U)$ and, therefore, is known with low statistical accuracy. However, it provides an important contribution to the integral.}\label{Fig:TP:Pdistribution}
 %\end{figure}
-If we substitute
+Even though $P_{0}(\Delta U)$ is only rarely an exact Gaussian, it is instructive to consider this case in more detail. If we substitute
 \begin{equation}
 P_{0}(\Delta U) = \frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0})^2}{2\sigma^2}\right]}
 \label{Eq:FEM:TP:gaussian}
