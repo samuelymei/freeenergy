@@ -20,25 +20,25 @@ $c_k$ is the normalization constant. You can see that this mixed ensemble does n
 
 The expectation of any operator $\hat{O}$ averaged over this mixed ensemble can be calculated by
 \begin{equation}
-\langle O\rangle_m=\int O(\mathbf{R})p_m(\mathbf{R})\diff\mathbf{R}\approx\frac 1N \sum\limits_{n=1}^NO(\mathbf{R}_n).
+    \langle O\rangle_m=\int O(\mathbf{R})p_m(\mathbf{R})\diff\mathbf{R}\approx\frac 1N \sum\limits_{n=1}^NO(\mathbf{R}_n).
 \end{equation}
-Using energy reweighting\cite{TorrieJComputP1977}, we can calculate the expectation of this operator under any other Hamiltonian $H_i$ and probability $p_i$, which can be expressed as
+Using energy reweighting\cite{TorrieJComputP1977}, we can calculate the expectation of this operator under \emph{any} other Hamiltonian $H_i$ and probability $p_i$, which can be expressed as
 \begin{align}
-\langle O\rangle_i=&\int O(\mathbf{R})p_i(\mathbf{R})\diff\mathbf{R}\notag\\
-                  =&\int O(\mathbf{R})\frac{p_i(\mathbf{R})}{p_m(\mathbf{R})}p_m(\mathbf{R})\diff\mathbf{R}\notag\\
-                  \approx&\frac 1N\sum\limits_{n=1}^N O(\mathbf{R}_n)\frac{p_i(\mathbf{R}_n)}{p_m(\mathbf{R}_n)}\notag\\
-                  =&\frac 1N\sum\limits_{n=1}^N O(\mathbf{R}_n){c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{p_m(\mathbf{R}_n)}\notag\\
-                  =&\sum\limits_{n=1}^N O(\mathbf{R}_n){c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}
-                  \label{Eq:FEM:MBAR:Oexpect}
+    \langle O\rangle_i=&\int O(\mathbf{R})p_i(\mathbf{R})\diff\mathbf{R}\notag\\
+                      =&\int O(\mathbf{R})\frac{p_i(\mathbf{R})}{p_m(\mathbf{R})}p_m(\mathbf{R})\diff\mathbf{R}\notag\\
+                      \approx&\frac 1N\sum\limits_{n=1}^N O(\mathbf{R}_n)\frac{p_i(\mathbf{R}_n)}{p_m(\mathbf{R}_n)}\notag\\
+                      =&\frac 1N\sum\limits_{n=1}^N O(\mathbf{R}_n){c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{p_m(\mathbf{R}_n)}\notag\\
+                      =&\sum\limits_{n=1}^N O(\mathbf{R}_n){c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}
+    \label{Eq:FEM:MBAR:Oexpect}
 \end{align}
 Let $O=1$, we find
 \begin{equation}
-1=\sum\limits_{n=1}^N {c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}.
+    1=\sum\limits_{n=1}^N {c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}.
 \end{equation}
 Since $c_i$ does not depend on $n$,
 \begin{align}
-c_i=&\sum\limits_{n=1}^N \frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}\notag\\
-   =&\sum\limits_{n=1}^N \frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)}
+    c_i=&\sum\limits_{n=1}^N \frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_kp_k(\mathbf{R}_n)}\notag\\
+       =&\sum\limits_{n=1}^N \frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)}
    \label{Eq:FEM:MBAR:c_i}
 \end{align}
 In Boltzmann statistics, $q_k(\mathbf{R})=\exp{\left[-\beta_kU_k(\mathbf{R})\right]}$ and $c_k=\int q_k(\mathbf{R})d\mathbf{R}$ is the partition function or the normalization constant. \textit{Note that we have not assumed anything about the statistics of ensemble $k$ and $i$. Besides, $i$ is unnecessarily within \{$k$\}. For instance, if we run replica exchange molecular dynamics simulations at $K$ inverse temperatures $\beta_1,\dots,\beta_K$, $\beta_i$ can be either one of these inverse temperatures or any other inverse temperature between $\beta_1$ and $\beta_K$. But extrapolation to inverse temperatures outside the range of $\left[\beta_K,\beta_1\right]$ is not recommended.}
