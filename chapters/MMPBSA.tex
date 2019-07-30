@@ -8,8 +8,8 @@ The standard binding free energy for a reaction between a receptor (A) and a sub
 \end{center}
 is expressed as a ratio of configuration integrals
 \begin{align}
-	\Delta G_{AB}^0 =& -RT\ln{\left(\frac{C^0}{8\pi^2}\cdot\frac{Z_{N,AB}Z_{N,0}}{Z_{N,A}Z_{N,B}}\right)}+P^0\left<\Delta V_{AB}\right>\notag\\
-	                =& -RT\ln{\left(\frac{C^0}{8\pi^2}\cdot\frac{\frac{Z_{N,AB}}{Z_{N,0}}}{\frac{Z_{N,A}}{Z_{N,0}}\frac{Z_{N,B}}{Z_{N,0}}}\right)}+P^0\left<\Delta V_{AB}\right>,
+	\Delta G_{AB}^0 =& -\beta^{-1}\ln{\left(\frac{C^0}{8\pi^2}\cdot\frac{Z_{N,AB}Z_{N,0}}{Z_{N,A}Z_{N,B}}\right)}+P^0\left<\Delta V_{AB}\right>\notag\\
+	                =& -\beta^{-1}\ln{\left(\frac{C^0}{8\pi^2}\cdot\frac{\frac{Z_{N,AB}}{Z_{N,0}}}{\frac{Z_{N,A}}{Z_{N,0}}\frac{Z_{N,B}}{Z_{N,0}}}\right)}+P^0\left<\Delta V_{AB}\right>,
 	\label{Eq:FEM:MMPBSA:deltaG}
 \end{align}
 where R is the gas constant, T is the temperature, $C^0$ is the standard state concentration (1 $M$), $N$ is the number of solvent molecules, and $P^0\left<\Delta V_{AB}\right>$ is the pressure-volume work associated with changing the system size after the association of two species into one complex. For water solution at 1 atm, the last term is negligibly small. There are no mass-dependent terms in Eq.~\ref{Eq:FEM:MMPBSA:deltaG}, which is a direct result of equal kinetic contribution to the partition function of the bound and the free species. The configuration integral of the receptor, A, in solution is
@@ -27,7 +27,7 @@ The ratio of configuration integrals in Eq.~\ref{Eq:FEM:MMPBSA:deltaG} can be si
 \end{align}
 where
 \begin{equation}
-	W(r_A)=-RT\ln{\left(\frac{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S}{\int e^{-\beta U(r_S)}\diff r_S}\right)}
+	W(r_A)=-\beta^{-1}\ln{\left(\frac{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S}{\int e^{-\beta U(r_S)}\diff r_S}\right)}
 \end{equation}
 is the solvation free energy of the receptor $A$ at fixed coordinate $r_A$. Analogous equations hold for the complex and substrate.
 
@@ -52,7 +52,7 @@ and
 
 Now, Eq.~\ref{Eq:FEM:MMPBSA:deltaG} can bre written as
 \begin{equation}
-   \Delta G_{AB}^0=-RT\ln{\left[\frac{C^0Z_{B^\prime}^{trans}Z_{B^\prime}^{rot}Z_{AB^\prime}}{8\pi^2Z_AZ_B}\right]},
+   \Delta G_{AB}^0=-\beta^{-1}\ln{\left[\frac{C^0Z_{B^\prime}^{trans}Z_{B^\prime}^{rot}Z_{AB^\prime}}{8\pi^2Z_AZ_B}\right]},
 \end{equation}
 where
 \begin{equation}
@@ -69,7 +69,7 @@ As a first-order approximation, we assume that the energetic landscape of each s
 where $\left<E_A\right>=\left<U(r_A)+W(r_A)\right>$. We further assume (\textit{how many approximations we have taken!}) that $Z_A^{int}Z_B^{int}\approx Z_{AB}^{int}$,
 then
 \begin{equation}
-	\Delta G_{AB}^0=-RT\ln{\left(\frac{C^0Z_{B^\prime}^{trans}Z_{B^\prime}^{rot}}{8\pi^2}\right)} +\left(\left<E_{AB^\prime}\right>-\left<E_A\right>-\left<E_B\right>\right).
+	\Delta G_{AB}^0=-\beta^{-1}\ln{\left(\frac{C^0Z_{B^\prime}^{trans}Z_{B^\prime}^{rot}}{8\pi^2}\right)} +\left(\left<E_{AB^\prime}\right>-\left<E_A\right>-\left<E_B\right>\right).
 \end{equation}
  
 The bound substrate's translational configuration integral, $Z_{B^\prime}^{trans}$, can be conceptually linked to the volume of space that its center of mass occupies through the simulation. The effective volume was measured based on the assumption that the translational motion is restrained by three harmonic potential. By solving eigenstates of the center-of-mass covariance matrix, the eigenvalues describe the variance $\Delta x_i^2$ along each principal axis. Thus, the translational configuration integral can be calculated as
