@@ -113,7 +113,11 @@ The optimum estimator of the density of states from all the simulations is
 \end{equation}
 which is the weighted average of density of states of all the trajectories with the weight reversely proportional to the variances (see Appendix~\ref{chapter:Appendix:Mean}).
 
-To make the expression simpler, here we take some approximations. First, normally the energy space is split into a large number of bins. The histogram in each bin is much smaller than the total number of snapshots, i.e. $H_{mk}\ll N_k$. The expectation of $H_{mk}$ can be related to the optimum estimator of the density of states, i.e.
+To make the expression simpler, here we take some approximations. First, normally the energy space is split into a large number of bins. The histogram in each bin is much smaller than the total number of snapshots, i.e. $H_{mk}\ll N_k$. With this approximation, we have
+\begin{align}
+	\delta^2 H_{mk}\approx g_{mk}H_{mk}.
+\end{align}
+The expectation of $H_{mk}$ can be related to the optimum estimator of the density of states, i.e.
 \begin{equation}
 	\overline{H_{mk}}=N_k\Delta U\Omega_m\exp{(f_k-\beta_kU_m)}.
 \end{equation}
@@ -135,18 +139,18 @@ Taking Eq.~\ref{Eq:FEM:WHAM:Omega_mk} and Eq.~\ref{Eq:FEM:WHAM:delta2Omega_mk} i
 \end{equation}
 in which
 \begin{equation}
-f_k=-\ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
+f_k=-\ln \int \Omega(U)\exp{(-\beta_k U)}\diff U=-\ln\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta_kU_m)}.
 \label{Eq:FEM:WHAM:f_k_iteration}
 \end{equation}
 Obviously, Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and Eq.~\ref{Eq:FEM:WHAM:f_k_iteration} must be solved iteratively.
 Applying the error propagation rule to Eq.~\ref{Eq:FEM:WHAM:Omega_iteration} and using Eq.~\ref{EQ:FEM:WHAM:delta2H_mk}, the variance of $\Omega_m$ is given by
 \begin{equation}
-\delta^2 \Omega_m=\frac{\Omega_m}{\sum\limits_{k=1}^K{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}},
+\delta^2 \Omega_m=\frac{\Omega_m}{\sum\limits_{k=1}^K{g_{mk}}^{-1}N_k\Delta U\exp{(f_k-\beta_kU_m)}}.
 \end{equation}
-and the relative variance is given by
-\begin{equation}
-\frac{\delta^2\Omega_m}{\Omega_m^2}=\left[\sum\limits_{k=1}^K{g_{mk}}^{-1}H_{mk}\right]^{-1}.
-\end{equation}
+%and the relative variance is given by
+%\begin{equation}
+%\frac{\delta^2\Omega_m}{\Omega_m^2}=\left[\sum\limits_{k=1}^K{g_{mk}}^{-1}H_{mk}\right]^{-1}.
+%\end{equation}
 Using the density of states and its variance, we can estimate the expectation of any configuration function $A(\mathbf{R})$ at any inverse temperature $\beta$
 \begin{equation}
 \left<A\right>_\beta\approx\frac{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}A_m}{\sum\limits_{m=1}^M\Omega_m\Delta U\exp{(-\beta U_m)}},
@@ -178,7 +182,7 @@ In this section, the ``traditional'' derivation method of WHAM are briefly revie
 U_{i}^{(b)}(\eta) = U_{0}(\textbf{x}) + W_{i}(\eta(\textbf{x})),
 \label{Eq:biasmd}
 \end{equation}
-where $W_{i}(\eta(\textbf{x}))$ is the biasing potential added on the reaction coordinate $\eta$, e.g. $W_{i}(\eta)=\frac{1}{2}k_{i}(\eta-\eta_{i})^2$ in a Harmonic form. From these simulations a set of normalized biased probability distributions ${\rho_{i}^{(b)}(\eta)}$ can be obtained.
+where $W_{i}(\eta(\textbf{x}))$ is the biasing potential added on the reaction coordinate $\eta$, e.g. $W_{i}(\eta)=\frac{1}{2}k_{i}(\eta-\eta_{i})^2$ in a harmonic form. From these simulations a set of normalized biased probability distributions ${\rho_{i}^{(b)}(\eta)}$ can be obtained.
 \begin{equation}
 \rho_{i}^{(b)}(\eta) = \frac{e^{-\beta U_{i}^{(b)}(\eta)}}{Q_{i}^{(b)}},
 \label{Eq:bias}
@@ -226,12 +230,13 @@ e^{-\beta f_{i}^{(b)}}=&\int e^{-\beta U_{i}^{(b)}(\eta) } \diff\eta \notag\\
 =&C \int \frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}e^{-\beta W_{i}(\eta)}  \diff\eta
 \label{Eq:fi01}
 \end{align} 
-The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:fi01}, which must be solved iteratively. A initial guess of the values ${f_{i}^{(b)0}}$ is used on the right side of Eq.~\ref{Eq:fi01} to compute a new set of values ${f_{i}^{(b)1}}$, which is in turn used as the new guess to compute ${f_{i}^{(b)1}}$ and so on until convergence is reached. Then, the unbiased free energy corresponding to the histogram can be calculated by,
+The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:fi01}, which must be solved iteratively with an initial guess of ${f_{i}^{(b)}}$ until convergence is reached. The unbiased free energy corresponding to the histogram can be calculated by
 \begin{equation}
 f_{0}(\eta)=-\beta^{-1}\ln \rho_{0}(\eta) 
 \label{Eq:f0}
-\end{equation} 
-To get rid of the constant $C$ in the Eq.~\ref{Eq:unbias02}, one may subtract the offset constant $f_{0}(\eta_{1})$ from all the $f_{0}(\eta_{j})$.  
+\end{equation}
+with $W$ in Eq.~\ref{Eq:fi01} being 0.
+The constant $C$ in Eq.~\ref{Eq:unbias02} is irrelevant, which only causes a constant shift to the free energy profiles. To get rid of it, one may subtract the offset constant $f_{0}(\eta_{1})$ from all the $f_{0}(\eta_{j})$.  
 
 \subsubsection{Weighted Histogram Analysis Method From Maximum Likelihood}
 The following derivation quite follows Ref.~\cite{GallicchioJPCB2005}, in which maximum likelihood principle is utilized. 
@@ -279,7 +284,7 @@ where $N_k$ is the total number of counts in the $k$th histogram.
 
 \subsubsection{Binless Weighted Histogram Analysis Method\label{Sec:FEM:WHAM_BINLESS}}
 The following derivation quite follows Ref.~\cite{TanJCP2012}.
-Let us start with the definition of a generalized energy function $u$ and its corresponding coefficient $\theta$. For instance, for canonical ensemble, $u=U(x)$ is the potential energy function, and $\theta=\beta$ is the inverse temperature. For isothermal grand-canonical ensemble, $u=(U(x),N)$, and $\theta=(\beta,\beta\mu)$, in which $N$ is the number of particles and $\mu$ is the chemical potential. For temperature replica exchange molecular dynamics, $u=U(x)$ and $\theta_k=\beta_k$ for the $k$th replica. For umbrella sampling, $u=(U_0(x),\omega_1(x),\omega_2(x),\dots,\omega_d(x)$, where $U_0(x)$ is the unbiased Hamiltonian and $\omega_k(x)$ is the biasing potential in window $k$. Correspondingly, $\theta_k=(\beta,0,\dots,0,\beta,0,\dots,0)$, in which all the elements are zero except for the first and the $(k+1)$th element.
+Let us start with the definition of a generalized energy function $u$ and its corresponding coefficient $\theta$. For instance, for canonical ensemble, $u=U(x)$ is the potential energy function, and $\theta=\beta$ is the inverse temperature. For isothermal grand-canonical ensemble, $u=(U(x),N)$, and $\theta=(\beta,\beta\mu)$, in which $N$ is the number of particles and $\mu$ is the chemical potential. For temperature replica exchange molecular dynamics, $u=U(x)$ and $\theta_k=\beta_k$ for the $k$th replica. For umbrella sampling, $u=(U_0(x),\omega_1(x),\omega_2(x),\dots,\omega_d(x))$, where $U_0(x)$ is the unbiased Hamiltonian and $\omega_k(x)$ is the biasing potential in window $k$. Correspondingly, $\theta_k=(\beta,0,\dots,0,\beta,0,\dots,0)$, in which all the elements are zero except for the first and the $(k+1)$th element.
 
 Assume that simulations are conducted at $m$ coefficient vectors $\theta_r\, (r=1,\dots,m)$ and with the same energy vector $u(x)$. (Note that in this notation the dimensionality, $d$, of the $\theta$ and $u$ vectors and the number of simulations, $m$, are, in general, distinct. For instance, for temperature replica exchange molecular dynamics as shown above, $d=1$, while $m$ is the number of replicas.) Denoted by $\{x_{ji}: i=1,\dots,n_j\}$ the set of configurations of size $n_j$ from the the $j$th simulation, and denoted by $u_{ji}=u(x_{ji})$ the corresponding generalized energy vectors. The total sample size is $n=\sum_{j=1}^m n_j$. Now, consider a generalized ensemble whose Boltzmann probability density function is
 \begin{equation}
