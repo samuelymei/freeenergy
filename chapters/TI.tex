@@ -35,12 +35,16 @@ Substituting back into the expression for $\partial{A}/\partial{\lambda}$ yields
 \end{align}
 Thus, the basic TI formula is
 \begin{equation}
-\Delta A = \int_{\lambda=0}^{\lambda=1}\left \langle \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} \diff\lambda
+\Delta A = \int_{0}^{1}\left \langle \frac{\partial{H(\mathbf{x},\mathbf{p}_{x},\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda} \diff\lambda
 \label{Eq:FEM:TI:TI}
 \end{equation} 
 where $\left \langle \cdots \right \rangle _{\lambda}$ corresponds to the ensemble average obtained using the Hamiltonian $H(\lambda)$. In practice, the ensemble of configurations can be obtained by molecular dynamics or Monte Carlo simulations. It is common practice in free energy calculations to use the coupling parameter $\lambda$ for defining the transformation from the initial state $A$ with Hamiltonian $H_{A}$ to the final state $B$ with Hamiltonian $H_{B}$. The simplest coupling is linear transformation as
 \begin{equation}
-H(\lambda) = (1-\lambda) H_{A} + \lambda H_{B}
+H(\lambda) = (1-\lambda) H_{A} + \lambda H_{B},
+\end{equation}
+for which
+\begin{equation}
+	\frac{\partial{H(\lambda)}}{\partial{\lambda}}=H_B-H_A. 
 \end{equation}
 The accuracy of TI integral formula depends on the exactness of the numerical integration method.\cite{PaliwalJCTC2011} Practically, the integrand in Eq.~\ref{Eq:FEM:TI:TI} needs to be evaluated over a number of discrete points $\lambda_{i}$, and then be summed up to give the free energy difference between $\lambda=0$ and $1$, for instance via the trapezoidal rule
 \begin{equation}
