@@ -119,17 +119,17 @@ Another example of HREMD is pH-REMD, in which each replica is coupled with diffe
 	P= 
 	\left\{ 
 	\begin{array}{ll} 
-		1, & \text{if } \Delta G_{P_{A}\rightarrow P_{A}H^{+}}\leq 0\\ 
-		\exp{(-\beta\Delta G_{P_{A}\rightarrow P_{A}H^{+}})}, & \text{if }\Delta G_{P_{A}\rightarrow P_{A}H^{+}} >0\\  
+		1, & \text{if } \Delta G_{\ce{P_{A}}\rightarrow \ce{P_{A}H^{+}}}\leq 0\\ 
+		\exp{(-\beta\Delta G_{\ce{P_{A}}\rightarrow \ce{P_{A}H^{+}}})}, & \text{if }\Delta G_{\ce{P_{A}}\rightarrow \ce{P_{A}H^{+}}} >0\\  
 	\end{array} 
 	\right. 
 \end{equation}
-using Monte Carlo. The derivation of $\Delta G_{P_{A}\rightarrow P_{A}H^{+}}$ is shown below. 
+using Monte Carlo. The derivation of $\Delta G_{\ce{P_{A}}\rightarrow \ce{P_{A}H^{+}}}$ is shown below. 
 
-Free energy of molecule A in solution with a concentration $\left[A\right]$
+Free energy of molecule \ce{A} in solution with a concentration $\left[\ce{A}\right]$
 can be written as 
 \[
-\Delta G_{A}=\Delta G_{A}^{0}+\beta^{-1}\ln\frac{\left[A\right]}{C_{0}},
+\Delta G_{\ce{A}}=\Delta G_{\ce{A}}^{0}+\beta^{-1}\ln\frac{\left[\ce{A}\right]}{C_{0}},
 \]
 in which $\Delta G_{0}$ is the free energy of molecule A at the standard
 state $C_{0}$, i.e. 1 mol/L. The free energy change for a reaction
@@ -141,14 +141,14 @@ state $C_{0}$, i.e. 1 mol/L. The free energy change for a reaction
 %\]
 can be written as
 \[
-\Delta G=\Delta G_{C}-\Delta G_{A}-\Delta G_{B}=\Delta G_{0}+\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]}.
+\Delta G=\Delta G_{\ce{C}}-\Delta G_{\ce{A}}-\Delta G_{\ce{B}}=\Delta G_{0}+\beta^{-1}\ln\frac{\left[\ce{C}\right]C_{0}}{\left[\ce{A}\right]\left[\ce{B}\right]}.
 \]
 
 At equilibrium, the free energy change is zero, we have
 \begin{equation}
-	\Delta G_{0}=-\beta^{-1}\ln\frac{\left[C\right]C_{0}}{\left[A\right]\left[B\right]},\label{eq:FEM:REMD:standardfreeenergy}
+	\Delta G_{0}=-\beta^{-1}\ln\frac{\left[\ce{C}\right]C_{0}}{\left[\ce{A}\right]\left[\ce{B}\right]},\label{eq:FEM:REMD:standardfreeenergy}
 \end{equation}
-in which $\left[A\right]\left[B\right]/\left[C\right]C_{0}$ is called
+in which $\left[\ce{A}\right]\left[\ce{B}\right]/\left[\ce{C}\right]C_{0}$ is called
 the dissociation constant $K_{a}$. So,
 
 \begin{equation}
@@ -166,36 +166,36 @@ Titration of a residue in a real protein can be written as
 
 with 
 \[
-K_{a}=\frac{\left[P_{A}\right]\left[H^{+}\right]}{\left[P_{AH^{+}}\right]C_{0}}
+K_{a}=\frac{\left[\ce{P_{A}}\right]\left[\ce{H^{+}}\right]}{\left[\ce{P_{A}H^{+}}\right]C_{0}}
 \]
 
 The fraction of the deprotonated species is calculated as
 
 \begin{eqnarray}
-	f_{\left[P_{A}\right]} & = & \frac{\left[P_{A}\right]}{\left[P_{A}\right]+\left[P_{A}H^{+}\right]}\nonumber \\
-	& = & \frac{1}{1+\frac{\left[P_{A}H^{+}\right]}{\left[P_{A}\right]}}\nonumber \\
-	& = & \frac{1}{1+\frac{\left[P_{A}\right]\left[H^{+}\right]}{C_{0}K_{a}\left[P_{A}\right]}}\nonumber \\
-	& = & \frac{1}{1+\frac{1}{C_{0}K_{a}}\left[H^{+}\right]}\nonumber \\
-	& = & \frac{1}{1+\frac{1}{K_{a}}10^{-pH}}\label{eq:FEM:REMD:titrationcurve}
+	f_{\left[\ce{P_{A}}\right]} & = & \frac{\left[\ce{P_{A}}\right]}{\left[\ce{P_{A}}\right]+\left[\ce{P_{A}H^{+}}\right]}\nonumber \\
+	& = & \frac{1}{1+\frac{\left[\ce{P_{A}H^{+}}\right]}{\left[\ce{P_{A}}\right]}}\nonumber \\
+	& = & \frac{1}{1+\frac{\left[\ce{P_{A}}\right]\left[\ce{H^{+}}\right]}{C_{0}K_{a}\left[\ce{P_{A}}\right]}}\nonumber \\
+	& = & \frac{1}{1+\frac{1}{C_{0}K_{a}}\left[\ce{H^{+}}\right]}\nonumber \\
+	& = & \frac{1}{1+\frac{1}{K_{a}}10^{-\mathrm{pH}}}\label{eq:FEM:REMD:titrationcurve}
 \end{eqnarray}
 We can check the asymptotic behavior of this equation. At strong
-acidic condition ($pH=-\infty$), $f_{\{P_{A}\}}=0$, indicating that
+acidic condition ($\mathrm{pH}=-\infty$), $f_{\left[\ce{P_{A}}\right]}=0$, indicating that
 the residue is 100 percent protonated. While at an extremely basic
-condition ($pH=\infty$), $f_{\{P_{A}\}}=1$. This residue is 100
+condition ($\mathrm{pH}=\infty$), $f_{\left[\ce{P_{A}}\right]}=1$. This residue is 100
 percent deprotonated. From the Henderson–Hasselbalch (HH) equation, 
-the $pKa$ can be determined by the $pH$ of the state when 
-$\left[P_{A}\right]/\left[P_{A}H^{+}\right]=1$ (the isoelectric point)
+the $\mathrm{p}Ka$ can be determined by the $\mathrm{pH}$ of the state when 
+$\left[\ce{P_{A}}\right]/\left[\ce{P_{A}H^{+}}\right]=1$ (the isoelectric point)
 
 \begin{align}
-	pK_{a}  = & -\log{K_{a}}\notag\\
-	 = & -\log{\frac{\left[P_{A}\right]}{\left[P_{A}H^{+}\right]}}-\log{\frac{\left[H^{+}\right]}{C_{0}}}\notag\\
-	 = & -\log{\frac{\left[P_{A}\right]}{\left[P_{A}H^{+}\right]}}+pH.
+	\mathrm{p}K_{a}  = & -\log{K_{a}}\notag\\
+	 = & -\log{\frac{\left[\ce{P_{A}}\right]}{\left[\ce{P_{A}H^{+}}\right]}}-\log{\frac{\left[\ce{H^{+}}\right]}{C_{0}}}\notag\\
+	 = & -\log{\frac{\left[\ce{P_{A}}\right]}{\left[\ce{P_{A}H^{+}}\right]}}+\mathrm{pH}.
 	 \label{eq:FEM:REMD:pKa}
 \end{align}
-The $pK_{a}$ of each residue in a dipeptide has been determined by
+The $\mathrm{p}K_{a}$ of each residue in a dipeptide has been determined by
 experiment. However, when this residue is located in a certain protein,
-its $pK_{a}$ is different from that in the dipeptide. The difference
-is called the $pK_{a}$ shift. Instead of measuring the $pK_{a}$
+its $\mathrm{p}K_{a}$ is different from that in the dipeptide. The difference
+is called the $\mathrm{p}K_{a}$ shift. Instead of measuring the $\mathrm{p}K_{a}$
 for a residue in a protein, we are more interested in calculating/measuring
 the titration curve, which is the fraction of the deprotonated state
 as a function of pH. From Eq.~\ref{eq:FEM:REMD:titrationcurve}, $f_{\left[P_{A}\right]}$
@@ -205,14 +205,16 @@ The standard free energy can be calculated from the partition functions
 as
 
 \begin{eqnarray*}
-	\Delta G_{0} & = & -\beta^{-1}\ln\frac{Q_{P_{A}H^{+}}}{Q_{P_{A}}Q_{H^{+}}}\\
-	& = & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})\diff R_{H}\diff R_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})\diff R_{o}}\\
+	\Delta G_{0} & = & -\beta^{-1}\ln\frac{Q_{\ce{P_{A}H^{+}}}}{Q_{\ce{P_{A}}}Q_{\ce{H^{+}}}}\\
+	& = & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{\ce{P_{A}H^{+}}})\diff \mathbf{R}_{H}\diff \mathbf{R}_{o}}{Q_{\ce{H^{+}}}\int\exp(-\beta E_{\ce{P_{A}}})\diff \mathbf{R}_{o}},
 \end{eqnarray*}
+where $\mathbf{R}_{H}$ is the coordinates of the specific \ce{H} atom and the
+other degrees-of-freedom (DoF) are denoted as $\mathbf{R}_{o}$.
 Generally, the absolute value of $\Delta G_{0}$ is hardly computable.
-A relative protonation free energy $\Delta\Delta G$ is perferred
+A relative protonation free energy $\Delta\Delta G$ is preferred
 and is more reliable. Theoretically, the reference state can be any
 state you like. But the protonation free energy of the dipeptide at
-$pK_{a}$ is often used. The reference protonation process can be
+$\mathrm{p}K_{a}$ is often used. The reference protonation process can be
 written as
 \begin{center}
 	\schemestart \chemfig{A} + \chemfig{H^{+}} \arrow{<=>}[,0.75] \chemfig{AH^{+}} \schemestop
@@ -226,26 +228,25 @@ The reference free energy change is
 \begin{align}
 	&\Delta\Delta G_{0}\nonumber\\
 	= & \Delta G_{0}-\Delta G_{0}^{ref}\nonumber \\
-	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})\diff R_{H}\diff R_{o}}{Q_{H^{+}}\int\exp(-\beta E_{P_{A}})\diff R_{o}}\frac{Q_{H^{+}}\int\exp(-\beta E_{A})\diff R_{o}}{\iint\exp(-\beta E_{AH^{+}})\diff R_{H}\diff R_{o}}\nonumber \\
-	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{P_{A}H^{+}})\diff R_{H}\diff R_{o}\int\exp(-\beta E_{A})\diff R_{o}}{\int\exp(-\beta E_{P_{A}})\diff R_{o}\iint\exp(-\beta E_{AH^{+}})\diff R_{H}\diff R_{o}}\nonumber \\
-	= & -\beta^{-1}\ln\frac{\iint\exp{\left[-\beta \left(E_{P_{A}H^{+}}^{bond}+E_{P_{A}H^{+}}^{QM}+E_{P_{A}H^{+}}^{ele}\right)\right]}\diff R_{H}\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)\diff R_{O}}{\iint\exp\left[-\beta \left(E_{AH^{+}}^{bond}+E_{AH^{+}}^{QM}+E_{AH^{+}}^{ele}\right)\right]\diff R_{H}\exp\left(-\beta E_{AH^{+}}^{other}\right)\diff R_{O}}\nonumber \\
-	 & \cdot\frac{\int\exp\left(-\beta E_{A}\right)\diff R_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}},\label{eq:FEM:REMD:Quotientofpartitionfunctions}
+	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{\ce{P_{A}H^{+}}})\diff \mathbf{R}_{H}\diff \mathbf{R}_{o}}{Q_{\ce{H^{+}}}\int\exp(-\beta E_{\ce{P_{A}}})\diff \mathbf{R}_{o}}\frac{Q_{\ce{H^{+}}}\int\exp(-\beta E_{\ce{A}})\diff \mathbf{R}_{o}}{\iint\exp(-\beta E_{\ce{AH^{+}}})\diff \mathbf{R}_{H}\diff \mathbf{R}_{o}}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp(-\beta E_{\ce{P_{A}H^{+}}})\diff \mathbf{R}_{H}\diff \mathbf{R}_{o}\int\exp(-\beta E_{\ce{A}})\diff \mathbf{R}_{o}}{\int\exp(-\beta E_{\ce{P_{A}}})\diff \mathbf{R}_{o}\iint\exp(-\beta E_{\ce{AH^{+}}})\diff \mathbf{R}_{H}\diff \mathbf{R}_{o}}\nonumber \\
+	= & -\beta^{-1}\ln\frac{\iint\exp{\left[-\beta \left(E_{\ce{P_{A}H^{+}}}^{bond}+E_{\ce{P_{A}H^{+}}}^{QM}+E_{\ce{P_{A}H^{+}}}^{ele}\right)\right]}\diff \mathbf{R}_{H}\exp\left(-\beta E_{\ce{P_{A}H^{+}}}^{other}\right)\diff \mathbf{R}_{o}}{\iint\exp\left[-\beta \left(\ce{E_{AH^{+}}}^{bond}+E_{\ce{AH^{+}}}^{QM}+E_{\ce{AH^{+}}}^{ele}\right)\right]\diff \mathbf{R}_{H}\exp\left(-\beta E_{\ce{AH^{+}}}^{other}\right)\diff \mathbf{R}_{o}}\nonumber \\
+	 & \cdot\frac{\int\exp\left(-\beta E_{\ce{A}}\right)\diff \mathbf{R}_{o}}{\int\exp\left(-\beta E_{\ce{P_{A}}}\right)\diff \mathbf{R}_{o}},\label{eq:FEM:REMD:Quotientofpartitionfunctions}
 \end{align}
-where $R_{H}$ is the coordinates of the specific $H$ atom and the
-other degrees-of-freedom (DoF) are denoted as $R_{O}$. $E^{bond}$
+where $E^{bond}$
 and $E^{ele}$ are the bonded energy and electrostatic interaction
-energy related to this $H$ atom, respectively. $E^{QM}$ is the energy
+energy related to this \ce{H} atom, respectively. $E^{QM}$ is the energy
 correction that \textit{may} be required if the molecular mechanical
 Hamiltonian cannot well capture the energy of the system, such as
 the missing of charge transfer effect. The sum of the remaining energy
 term is denoted as $E^{other}$, which does not explicitly depend
-on the position of this specific $H$ atom. Eq.~\ref{eq:FEM:REMD:Quotientofpartitionfunctions}
+on the position of this specific \ce{H} atom. Eq.~\ref{eq:FEM:REMD:Quotientofpartitionfunctions}
 is not ready to be computed before some approximations are adopted. 
 
 \textit{First}, we assume that the total energy can be well described by the MM Hamiltonians
 for both the state interested in and the reference state. Therefore,
 \[
-E_{P_{A}H^{+}}^{QM}=E_{AH^{+}}^{QM}=Const,
+E_{\ce{P_{A}H^{+}}}^{QM}=E_{\ce{AH^{+}}}^{QM}=Const,
 \]
 and they can be removed from the integral. 
 
@@ -254,30 +255,30 @@ constrained in the simulations. Therefore, the hydrogen atom in question has
 only one position and $E^{bond}=0$. Now, the 
 relative protonation free energy can be simplified as
 \begin{align}
-\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}H^{+}}^{other}\right)\diff R_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{AH^{+}}^{other}\right)\diff R_{O}}\notag\\
-&\cdot\frac{\int\exp\left(-\beta E_{A}\right)\diff R_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}}.
+\Delta\Delta G_{0}=&-\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{\ce{P_{A}H^{+}}}^{ele}\right)\exp\left(-\beta E_{\ce{P_{A}H^{+}}}^{other}\right)\diff \mathbf{R}_{o}}{\int\exp\left(-\beta E_{\ce{AH^{+}}}^{ele}\right)\exp\left(-\beta E_{\ce{AH^{+}}}^{other}\right)\diff \mathbf{R}_{o}}\notag\\
+&\cdot\frac{\int\exp\left(-\beta E_{\ce{A}}\right)\diff \mathbf{R}_{o}}{\int\exp\left(-\beta E_{P_{\ce{A}}}\right)\diff \mathbf{R}_{o}}.
 \end{align}
 
-Note that $E_{A}=E_{AH^{+}}^{other}$ and $E_{P_{A}}=E_{P_{A}H^{+}}^{other}$, we have
+Note that $E_{\ce{A}}=E_{\ce{AH^{+}}}^{other}$ and $E_{\ce{P_{A}}}=E_{\ce{P_{A}H^{+}}}^{other}$, we have
 \begin{align}
-	\Delta\Delta G_{0} = & -kT\ln\frac{\int\exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}}{\int\exp\left(-\beta E_{P_{A}}\right)\diff R_{O}}\\
-	& \cdot \frac{\int\exp\left(-\beta E_{A}\right)\diff R_{O}}{\int\exp\left(-\beta E_{AH^{+}}^{ele}\right)\exp\left(-\beta E_{A}\right)\diff R_{O}}\\
-	= & -\beta^{-1}\ln\left\langle \exp\left(-\beta E_{P_{A}H^{+}}^{ele}\right)\right\rangle _{P_{A}}\notag\\
-	  &+\beta^{-1} \ln\left\langle \exp\left(-\beta E_{AH^{+}}^{ele}\right)\right\rangle _{A}\notag\\
-	= & \Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}  
+	\Delta\Delta G_{0} = & -\beta^{-1}\ln\frac{\int\exp\left(-\beta E_{\ce{P_{A}H^{+}}}^{ele}\right)\exp\left(-\beta E_{\ce{P_{A}}}\right)\diff \mathbf{R}_{o}}{\int\exp\left(-\beta E_{\ce{P_{A}}}\right)\diff \mathbf{R}_{o}}\\
+	& \cdot \frac{\int\exp\left(-\beta E_{\ce{A}}\right)\diff \mathbf{R}_{o}}{\int\exp\left(-\beta E_{\ce{AH^{+}}}^{ele}\right)\exp\left(-\beta E_{\ce{A}}\right)\diff \mathbf{R}_{o}}\\
+	= & -\beta^{-1}\ln\left\langle \exp\left(-\beta E_{\ce{P_{A}H^{+}}}^{ele}\right)\right\rangle _{\ce{P_{A}}}\notag\\
+	  &+\beta^{-1} \ln\left\langle \exp\left(-\beta E_{\ce{AH^{+}}}^{ele}\right)\right\rangle _{\ce{A}}\notag\\
+	= & \Delta G_{\ce{P_{A}H^{+}}}^{ele}-\Delta G_{\ce{AH^{+}}}^{ele}  
 \end{align}
 
 Therefore,
 \[
--\beta^{-1}\ln10\cdot pK_{a}=\Delta G_{P_{A}H^{+}}^{ele}-\Delta G_{AH^{+}}^{ele}-\beta^{-1}\ln10\cdot pK_{a}^{ref}.
+-\beta^{-1}\ln10\cdot \mathrm{p}K_{a}=\Delta G_{\ce{P_{A}H^{+}}}^{ele}-\Delta G_{\ce{AH^{+}}}^{ele}-\beta^{-1}\ln10\cdot \mathrm{p}K_{a}^{ref}.
 \]
 
 Using Eq.~\ref{eq:FEM:REMD:pKa}, at a certain pH the free energy difference between the deprotonated
 and the protonated state can be written as
 
 \[
-\Delta G_{P_{A}\rightarrow P_{A}H^{+}}=\Delta G_{P_{A}H^{+}}^{ele}+\beta^{-1}(pH-pK_{a}^{ref})\ln10-\Delta G_{AH^{+}}^{ele}.
+\Delta G_{\ce{P_{A}}\rightarrow \ce{P_{A}H^{+}}}=\Delta G_{\ce{P_{A}H^{+}}}^{ele}+\beta^{-1}(\mathrm{pH}-\mathrm{p}K_{a}^{ref})\ln10-\Delta G_{\ce{AH^{+}}}^{ele}.
 \]
 
-In the above equation, $\Delta G_{AH^{+}}^{ele}$ can be obtained from a free energy calculation of the model system by alchemically annihilation of the proton. However, $\Delta G_{P_{A}H^{+}}^{ele}$ is unknown. Approximately, it can be replaced with $\Delta H_{P_{A}H^{+}}^{ele}$ averaged over a few snapshots.\cite{MengJCTC2010} In order to accelerate the convergence,
+In the above equation, $\Delta G_{\ce{AH^{+}}}^{ele}$ can be obtained from a free energy calculation of the model system by alchemically annihilation of the proton. However, $\Delta G_{\ce{P_{A}H^{+}}}^{ele}$ is unknown. Approximately, it can be replaced with $\Delta H_{\ce{P_{A}H^{+}}}^{ele}$ averaged over a few snapshots.\cite{MengJCTC2010} In order to accelerate the convergence,
 this pH-REMD is often coupled with other enhanced simulation methods, such as T-REMD\cite{MengJCTC2010} and EDS-REMD\cite{LeeJCTC2014} (see section~\ref{Sec:ES:EDS}).
