@@ -180,46 +180,46 @@ w_{kn}(\beta)=\sum\limits_{m=1}^M{H_{m}}^{-1}\psi_m(U(\mathbf{R}_{kn}))\Omega_m\
 In this section, the ``traditional'' derivation method of WHAM are briefly reviewed.\cite{SouailleCPC2001} In the WHAM, the goal is to get an optimal unbiased probability distribution $\rho_{0}(\eta)$, where $\eta$ is a series of discretized histogram bins indexed by $j=1,2,3,...,M$ along a certain reaction coordinate. WHAM can be used to analyze the Umbrella Sampling (US) simulations, where a set of simulations indexed by $i$ or $k=1,2,3,...,S$ are performed with a series of biasing potentials added on the reaction coordinate $\eta$. To consider a reference molecular system with the potential energy $U_{0}(\textbf{x})$, where $\textbf{x}$ is the set of atomic coordinates. The reaction coordinate $\eta$ is a function of the atomic coordinates, i.e. $\eta(\textbf{x})$. To suppose that the $i$th molecular simulation has been performed using potential energy function
 \begin{equation}
 U_{i}^{(b)}(\eta) = U_{0}(\textbf{x}) + W_{i}(\eta(\textbf{x})),
-\label{Eq:biasmd}
+\label{Eq:FEM:WHAM:biasmd}
 \end{equation}
 where $W_{i}(\eta(\textbf{x}))$ is the biasing potential added on the reaction coordinate $\eta$, e.g. $W_{i}(\eta)=\frac{1}{2}k_{i}(\eta-\eta_{i})^2$ in a harmonic form. From these simulations a set of normalized biased probability distributions ${\rho_{i}^{(b)}(\eta)}$ can be obtained.
 \begin{equation}
 \rho_{i}^{(b)}(\eta) = \frac{e^{-\beta U_{i}^{(b)}(\eta)}}{Q_{i}^{(b)}},
-\label{Eq:bias}
+\label{Eq:FEM:WHAM:bias}
 \end{equation}
 where $Q_{i}^{(b)}=\int e^{-\beta U_{i}^{(b)}(\eta)} \diff\eta = e^{-\beta f_{i}^{(b)}}$ and $f_{i}^{(b)}$ is the biased free energy.
 The corresponding unnormalized unbiased probability distribution $\rho_{i}^{(u)}(\eta)$ from the $i$th simulation is defined as, 
 \begin{align}
 \rho_{i}^{(u)}(\eta) = e^{\beta[W_{i}(\eta)-f_{i}^{(b)}]}\rho_{i}^{(b)}(\eta)
-\label{Eq:unbias}
+\label{Eq:FEM:WHAM:unbias}
 \end{align}
 In the following, the free energy $f_{i}^{(b)}$ is assumed to be known. 
 It has been shown that in the WHAM method, the total normalized unbiased probability distribution $\rho_{0}(\eta)$ can be obtained by a linear $\eta$-dependent combination of the unbiased histograms $\rho_{i}^{(u)}(\eta)$ 
 \begin{equation}
 \rho_{0}(\eta)=C\sum_{i=1}^{S}p_{i}(\eta)\rho_{i}^{(u)}(\eta),
-\label{Eq:unbias0}
+\label{Eq:FEM:WHAM:unbias0}
 \end{equation}  
 where $C$ is the normalization factor. $p_i$ is the weight to be optimized, which is under a constraint that
 \begin{equation}
 \sum_{i=1}^{S}p_{i}(\eta)=1.
-\label{Eq:p1}
+\label{Eq:FEM:WHAM:p1}
 \end{equation}
 These weights are chosen so as to minimize the statistical error made on the total unbiased probability distribution $\rho_{0}(\eta)$, that is, for any given value of $\eta$,
 \begin{equation}
 \frac{\partial(\sigma^2[\rho_{0}(\eta)])}{\partial p_{i}(\eta)}=0.
-\label{Eq:partialp}
+\label{Eq:FEM:WHAM:partialp}
 \end{equation} 
 It can be easily found that $\rho_{0}(\eta)$ satisfy
 \begin{align}
 \rho_{0}(\eta) = & C\sum_{i=1}^{S}\frac{N_{i}e^{-\beta[W_{i}(\eta)-f_{i}^{(b)}]}}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}\rho_{i}^{(u)}(\eta) \notag\\
 = & C\sum_{i=1}^{S}\frac{N_{i}}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}\rho_{i}^{(b)}(\eta) \notag\\
 = & C\frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}},
-\label{Eq:unbias02}
+\label{Eq:FEM:WHAM:unbias02}
 \end{align} 
 where $\rho_{i}^{(b)}(\eta)$ can be written as a $\delta$ function,
 \begin{equation}
 \rho_{i}^{(b)}(\eta) \equiv \frac{1}{N_{i}} \sum_{l=1}^{N_{i}} \delta {(\eta-\eta_{i,l})},
-\label{Eq:delta01}
+\label{Eq:FEM:WHAM:delta01}
 \end{equation} 
 where $\eta_{i,l}$ is the reaction coordinates of the $l$th configuration in the $i$th biased simulation .
 
@@ -228,15 +228,15 @@ Until now, the treatment assumes that the free energy parameters ${f_{i}^{(b)}}$
 e^{-\beta f_{i}^{(b)}}=&\int e^{-\beta U_{i}^{(b)}(\eta) } \diff\eta \notag\\
 =&\int \rho_{0}(\eta) e^{-\beta W_{i}(\eta)} \diff\eta \notag\\
 =&C \int \frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}e^{-\beta W_{i}(\eta)}  \diff\eta
-\label{Eq:fi01}
+\label{Eq:FEM:WHAM:fi01}
 \end{align} 
-The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:fi01}, which must be solved iteratively with an initial guess of ${f_{i}^{(b)}}$ until convergence is reached. The unbiased free energy corresponding to the histogram can be calculated by
+The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:FEM:WHAM:fi01}, which must be solved iteratively with an initial guess of ${f_{i}^{(b)}}$ until convergence is reached. The unbiased free energy corresponding to the histogram can be calculated by
 \begin{equation}
 f_{0}(\eta)=-\beta^{-1}\ln \rho_{0}(\eta) 
-\label{Eq:f0}
+\label{Eq:FEM:WHAM:f0}
 \end{equation}
-with $W$ in Eq.~\ref{Eq:fi01} being 0.
-The constant $C$ in Eq.~\ref{Eq:unbias02} is irrelevant, which only causes a constant shift to the free energy profiles. To get rid of it, one may subtract the offset constant $f_{0}(\eta_{1})$ from all the $f_{0}(\eta_{j})$.  
+with $W$ in Eq.~\ref{Eq:FEM:WHAM:fi01} being 0.
+The constant $C$ in Eq.~\ref{Eq:FEM:WHAM:unbias02} is irrelevant, which only causes a constant shift to the free energy profiles. To get rid of it, one may subtract the offset constant $f_{0}(\eta_{1})$ from all the $f_{0}(\eta_{j})$.  
 
 \subsubsection{Weighted Histogram Analysis Method From Maximum Likelihood}
 The following derivation quite follows Ref.~\cite{GallicchioJPCB2005}, in which maximum likelihood principle is utilized. 
@@ -244,6 +244,7 @@ Suppose we have performed $K$ simulations, each at a different inverse temperatu
 We then discretize the 2D plane spanned by the coordinate and unbiased potential energy into bins, each characterized by ${\mathbf{R}_j}$ and ${E_h}$. To make the following derivation cleaner, we map the 2D bins to one dimensional series with index $l, l=1,\dots,L$. Next, we construct histograms for bins using all the samples from the simulations. The probability of finding the system in bin $l$ during the $k$th simulation can be written as
 \begin{equation}
 p_{k,l}=f_kc_{k,l}p_l^0,
+\label{Eq:FEM:WHAM:unbiasingProb}
 \end{equation}
 in which $p_l^0$ is the (simulation-independent) unbiased probability,
 \begin{align}

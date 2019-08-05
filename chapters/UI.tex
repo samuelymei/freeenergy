@@ -1,3 +1,47 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
-%\subsection{Umbrella Integration\label{Sec:ES:UI}}
+\subsection{Umbrella Integration\label{Sec:FEM:UI}}
+Umbrella Integration (UI) was developed by K\"astner and Thiel in 2005.\cite{KaestnerJCP2005} Usually, the Weighted Histogram Analysis Method\ref{Sec:FEM:WHAM} or Multistate Bennett Acceptance Ratio\ref{Sec:FEM:MBAR} are used for the postprocessing of the trajectories from umbrella sampling. There is an assumption in these methods that a global equilibrium has been reached among all the states. However, you can imagine that in umbrella sampling the explored configurational phase space is confined in a narrow region around the center of the restraining potential of each window. Each simulation sees only the landscape locally. Therefore the assumption of a global equilibrium is not valid. Amendments have been proposed. Among them is the umbrella integration method.
+
+It can be seen from Eq.~\ref{Eq:FEM:WHAM:unbiasingProb}, the unbiased free energy $A_i^u(\xi)$ from the $i$th biased simulation is related to the biased probability $P_i^{b}(\xi)$ via
+\begin{equation}
+    A_i^u(\xi)=-\beta^{-1}\ln{P_i^{b}(\xi)}-w_i(\xi)+F_i,
+    \label{Eq:FEM:UI:Au}
+\end{equation}
+where $w_i(\xi)=\frac{1}{2}K_i(\xi-\xi_i)^2$ is the biasing potential of this window, and $F_i$ is a constant to be solved for by WHAM. Instead of searching for the optimum $\{F_i\}$  for all the windows, in UI the free energy change is computed using the central idea of thermodynamic integration\ref{Sec:FEM:TI}, i.e. via
+\begin{equation}
+    \Delta A^u_{a\to b}=\int_{\xi_a}^{\xi_b}\frac{\partial A^u}{\partial \xi}\diff \xi.
+\end{equation}
+Taking partial derivative on both sides of Eq.~\ref{Eq:FEM:UI:Au} with respect to $\xi$, we have
+\begin{equation}
+    \frac{\partial A_i^u}{\partial \xi}=-\beta^{-1}\frac{\partial \ln{P_i^b(\xi)}}{\partial \xi}-\frac{\diff w_i}{\diff \xi}.
+    \label{Eq:FEM:UI:dAudxi}
+\end{equation}
+
+By assuming that the biased probability follows a normal distribution
+\begin{equation}
+    P_i^b(\xi)=\frac{1}{\sqrt{2\pi}\sigma_i^b}\exp{\left[-\frac{1}{2}\left(\frac{\xi-\overline{\xi_i^b}}{\sigma_i^b}\right)^2\right]},
+\end{equation}
+where $\overline{\xi_i^b}$ and $\sigma_i^b$ of each window are calculated from the trajectory, Eq.~\ref{Eq:FEM:UI:dAudxi} becomes
+\begin{equation}
+    \frac{\partial A_i^u}{\partial \xi}=\beta^{-1}\frac{\xi-\overline{\xi_i^b}}{(\sigma_i^b)^2}-K_i(\xi-xi_i),
+\end{equation}
+with a variance\cite{KaestnerJCP2006}
+\begin{equation}
+    \mathrm{var}\left(\frac{\partial A_i^u}{\partial \xi}\right)=\frac{2(\xi-\overline{\xi_i^b})^2+(\sigma_i^b)^2}{N_i\beta^2(\sigma_i^b)^4}
+\end{equation}
+
+To combine the different windows, the reaction coordinate is divided into bins that span the whole range of $\xi$ and are independent of the windows. For each bin centered at $\xi_{bin}$, the windows are combined by a weighted average as
+\begin{equation}
+    \left.\frac{\partial A(\xi)}{\partial \xi}\right\vert_{\xi_{bin}}=\sum_{i}^{windows}p_i(\xi_{bin})\left(\frac{\partial A_i^u(\xi)}{\partial \xi}\right)_{\xi_{bin}},
+\end{equation}
+with the normalized weight
+\begin{equation}
+    p_i(\xi)=N_ip_i^b{\xi}/\sum_i N_iP_i^b(\xi).
+\end{equation}
+$N_i$ is the total number of steps sampled for window $i$. This ensures a high weight at the center of the distribution. The variance is
+\begin{equation}
+    \mathrm{var}\left(\frac{\partial A^u}{\partial \xi}\right)=\sum_{i}^{windows}p_i^2\mathrm{var}\left(\frac{\partial A_i^u}{\partial \xi}\right).
+\end{equation}
+
+High-order correction to the biased distribution can be found in Ref.~\cite{KaestnerJCP2012}.
