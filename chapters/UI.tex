@@ -1,14 +1,14 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \subsection{Umbrella Integration\label{Sec:FEM:UI}}
-Umbrella Integration (UI) was developed by K\"astner and Thiel in 2005.\cite{KaestnerJCP2005} Usually, the Weighted Histogram Analysis Method\ref{Sec:FEM:WHAM} or Multistate Bennett Acceptance Ratio\ref{Sec:FEM:MBAR} are used for the postprocessing of the trajectories from umbrella sampling. There is an assumption in these methods that a global equilibrium has been reached among all the states. However, you can imagine that in umbrella sampling the explored configurational phase space is confined in a narrow region around the center of the restraining potential of each window. Each simulation sees only the landscape locally. Therefore the assumption of a global equilibrium is not valid. Amendments have been proposed. Among them is the umbrella integration method.
+Umbrella Integration (UI) was developed by K\"astner and Thiel in 2005.\cite{KaestnerJCP2005} Usually, the Weighted Histogram Analysis Method (discussed in Sec.~\ref{Sec:FEM:WHAM}) or Multistate Bennett Acceptance Ratio (discussed in Sec.~\ref{Sec:FEM:MBAR}) are used for the postprocessing of the trajectories from umbrella sampling. There is an assumption in these methods that a global equilibrium has been reached among all the states. However, you can imagine that in umbrella sampling the explored configurational phase space is confined in a narrow region around the center of the restraining potential of each window. Each simulation sees only the landscape locally. Therefore the assumption of a global equilibrium is not valid. Amendments have been proposed. Among them is the umbrella integration method.
 
 It can be seen from Eq.~\ref{Eq:FEM:WHAM:unbiasingProb}, the unbiased free energy $A_i^u(\xi)$ from the $i$th biased simulation is related to the biased probability $P_i^{b}(\xi)$ via
 \begin{equation}
     A_i^u(\xi)=-\beta^{-1}\ln{P_i^{b}(\xi)}-w_i(\xi)+F_i,
     \label{Eq:FEM:UI:Au}
 \end{equation}
-where $w_i(\xi)=\frac{1}{2}K_i(\xi-\xi_i)^2$ is the biasing potential of this window, and $F_i$ is a constant to be solved for by WHAM. Instead of searching for the optimum $\{F_i\}$  for all the windows, in UI the free energy change is computed using the central idea of thermodynamic integration\ref{Sec:FEM:TI}, i.e. via
+where $w_i(\xi)=\frac{1}{2}K_i(\xi-\xi_i)^2$ is the biasing potential of this window, and $F_i$ is a constant to be solved for by WHAM. Instead of searching for the optimum $\{F_i\}$  for all the windows, in UI the free energy change is computed using the central idea of thermodynamic integration (discussed in Sec.~\ref{Sec:FEM:TI}), i.e. via
 \begin{equation}
     \Delta A^u_{a\to b}=\int_{\xi_a}^{\xi_b}\frac{\partial A^u}{\partial \xi}\diff \xi.
 \end{equation}
