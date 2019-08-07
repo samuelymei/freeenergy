@@ -12,12 +12,14 @@ in which
 \end{equation}
 is the configuration integral. By definition, the free energy associated with the vectorial reaction coordinate $q(x)=(q_1(x),\dots,q_N(x))$ is given by
 \begin{equation}
-	F(z)\coloneqq -\beta^{-1}\ln{Z_\sigma^{-1}\int e^{-\beta V(x)}\prod_{k=1}^{M}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\diff x},
+	F(z)\coloneqq -\beta^{-1}\ln{\left[Z_\sigma^{-1}\int e^{-\beta V(x)}\prod_{k=1}^{M}\delta(q_k(x)-z_k)\prod_{j=1}^M\delta(\sigma_j(x))\diff x\right]},
 \end{equation}
 where $z=(z_1,\dots,z_N)$. By differentiating both sides with respect to $z_j$, we find
 \begin{equation}
-    \frac{\partial F(z)}{\partial z_j}=-\beta^{-1}e^{\beta F(z)}\cdot Z_\sigma^{-1} \int e^{-\beta V(x)}\frac{\partial}{\partial z_j}\prod_{k=1}^{N}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\diff x
+    \frac{\partial F(z)}{\partial z_j}=-\beta^{-1}e^{\beta F(z)}\cdot Z_\sigma^{-1} \int e^{-\beta V(x)}\frac{\partial}{\partial z_j}\prod_{k=1}^{N}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\diff x.
 \end{equation}
+Please note that $z_j$ is a number to which the reaction coordinate is to be constrained. Therefore, $V(x)$ is not a function of $z_j$.
+
 Notice that
 \begin{align}
     &\frac{\partial}{\partial z_j}\prod_{k=1}^{N}\delta(q_k(x)-z_k)\times \prod_{j=1}^M\delta(\sigma_j(x))\notag\\
