@@ -1,3 +1,64 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
-%\subsection{String Method\label{Sec:ES:string}}
+\section{String Method\label{Sec:ES:string}}
+\subsection{Zero Temperature String Method\label{Sec:ES:string:ZTS}}
+The zero temperature string method was developed by E, Ren and Vanden-Eijnden in 2002.\cite{EPRB2002} In 2007, they simplified this method by eliminating the projecting the potential force onto the hyperplane perpendicular to the string.\cite{EJCP2007} The overall algorithm is an iterative application of a simple two-step procedure: (I) evolution of the string by standard ordinary differential equation (ODE) solvers, and (II) the reparametrization of the string by interpolation. The accuracy of this method is determined by the 2nd step, while its efficiency is determined by the 1st step.
+
+The minimum energy path (MEP) is the most probable path that the system will take under the overdamped dynamics to move between two minima at $a$ and $b$ on the potential energy surface $V(x)$, crossing the barriers in-between. Let's denote the MEP by $\gamma$, which satisfies 
+\begin{equation}
+    \left(\nabla V\right)^{\perp}(\gamma)=0,
+\end{equation}
+where $\left(\nabla V\right)^{\perp}$ is the component of $\left(\nabla V\right)$ normal to $\gamma$,
+\begin{equation}
+    \left(\nabla V\right)^{\perp}(\gamma)=\nabla V(\gamma)-\left(\nabla V(\gamma),\hat{\tau}\right)\hat{\tau}.
+\end{equation}
+Here $\hat{\tau}$ denotes the unit tangent of the curve $\gamma$, and $(\cdot,\cdot)$ denotes the Euclidean inner product. 
+
+The string method locates the MEP by evolving a curve connecting $a$ and $b$, under the potential force field. The simplest dynamics for the evolution is given abstractly by
+\begin{equation}
+    \nu_n=-\left(\nabla V\right)^{\perp},
+\end{equation}
+where $\nu_n$ denotes the normal velocity of the curve. Only the normal component of the velocity matters for the evolution of a curve, while the tangential velocity only moves points along the curve, changing the parametrization of the curve without changing the curve itself. 
+
+First, we take a particular parametrization of the curve $\gamma:\gamma=\{\varphi(\alpha):\alpha\in[0,1]\}$. Then we have $\hat{\tau}(\alpha)=\varphi_\alpha/|\varphi_\alpha|$, where $\varphi_\alpha$ denotes the derivative of $\varphi$ with respect to $\alpha$. The simplest parametrization is equal arc-length parametrization, in which $\alpha$ is a constant multiple of the arc length from $a$ to the point $\varphi(\alpha)$. In this case, we also have $|\varphi_\alpha|=\mathrm{const}$ (this constant being the length of the curve $\gamma$).
+
+The string method evolves the curve via
+\begin{equation}
+    \dot{\varphi}=\nabla V(\varphi)+\bar{\lambda}\hat{\tau},
+    \label{Eq:ES:string:ZTS:evolving}
+\end{equation}
+where $\bar{\lambda}(\alpha,t)\hat{\tau}(\alpha,t)$ is a Lagrange multiplier term for the purpose of enforcing the particular parametrization of the string. The string is discretized into a number of images $\{\varphi_i(t),i=0,1,\dots,N\}$. The images along the string are evolved by iterating upon the following two-step procedure based on time splitting of the terms at the right hand side of Eq.~\ref{Eq:ES:string:ZTS:evolving}.
+
+In the first step, the discrete point on the string are evolved over some time interval $\Delta t$ according to the full potential force,
+\begin{equation}
+    \dot{\varphi}_i=-\nabla V(\varphi_i).
+\end{equation}
+This equation can be integrated in time by any suitable ODE solver. If we denote the positions of the images after $n$ iterations of the scheme by $\varphi_i^n,\,i=0,\dots,N$, the new set of images are given by
+\begin{equation}
+    \varphi_i^\ast=\varphi_i^n-\Delta t\nabla V(\varphi_i^n).
+\end{equation}
+
+In the second step, this new set of images are redistributed along the string using a simple interpolation/reparametrization procedure. Two possible schemes for reparametrization can be applied.
+
+\emph{Parametrization by equal arc length} Given the values $\{\varphi_i^\ast\}$ on a nonuniform mesh $\{\alpha_i^\ast\}$, these values are interpolated onto a uniform mesh with the same number of points via two steps:
+\begin{enumerate}
+	\item The arc length corresponding to the current images,
+	\begin{equation}
+		s_0=0,\quad s_i=s_{i-1}+|\varphi_i^\ast-\varphi_{i-1}^\ast|,\quad i=1,2,\dots,N.
+	\end{equation}
+	The mesh $\{\alpha_i^\ast\}$ is then obtained by normalizing $\{s_i\}$,
+	\begin{equation}
+		\alpha_i^\ast=s_i/s_N.
+	\end{equation}
+	\item The points $\varphi_i^{n+1}$ at the uniform grids points $\alpha_i=i/N$ are obtained by interpolation. This can be done, for example, by using cubic spline interpolation for the data $\{(\alpha_i^\ast,\varphi_i^{\ast}),i=0,\dots,N\}$
+\end{enumerate}
+
+\emph{Parametrization by energy-weighted arc length} The energy-weighted arc length parameterization gives finer resolution around the saddle points, and thus better estimate of the energy barrier and also the unstable direction at those points than the equal arc length scheme does. In this scheme, the energy-weighted arc length corresponding to the current images are computed,
+\begin{equation}
+	s_0^w=0,\quad s_i^w=s_{i-1}^w+W_{i-(1/2)}|\varphi_i^\ast-\varphi_{i-1}^\ast|,\quad i=1,2,\dots,N.
+\end{equation}
+Here $W_{i-(1/2)}=W(V_{i+1/2})$ and $V_{i+1/2}$ is the average of the potential energy at $\varphi_{i-1}^\ast$ and $\varphi_{i}^\ast$. The weight function $W(z)$ is some positive, increasing function of $z\in \mathbb{R}$. The mesh $\{\alpha_i^\ast\}$ is obtained by normalizing $\{s_i^w\}:\,\alpha_i^\ast=s_i^w/s_N^w$. The new points $\varphi_i$ on $\alpha_i=i/N$ are then calculated by cubic spline interpolation across the points $\{\varphi_i^\ast,\,i=0,\dots,N\}$.
+
+Once the new points $\{\varphi_i^{n+1},\,i=0,\dots,N\}$ are calculated, the algorithm goes back to step 1 and iterates until convergence.
+
+\subsection{Finite Temperature String Method\label{Sec:ES:string:FTS}}
