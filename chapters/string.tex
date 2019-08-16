@@ -20,45 +20,123 @@ The string method locates the MEP by evolving a curve connecting $a$ and $b$, un
 \end{equation}
 where $\nu_n$ denotes the normal velocity of the curve. Only the normal component of the velocity matters for the evolution of a curve, while the tangential velocity only moves points along the curve, changing the parametrization of the curve without changing the curve itself. 
 
-First, we take a particular parametrization of the curve $\gamma:\gamma=\{\varphi(\alpha):\alpha\in[0,1]\}$. Then we have $\hat{\tau}(\alpha)=\varphi_\alpha/|\varphi_\alpha|$, where $\varphi_\alpha$ denotes the derivative of $\varphi$ with respect to $\alpha$. The simplest parametrization is equal arc-length parametrization, in which $\alpha$ is a constant multiple of the arc length from $a$ to the point $\varphi(\alpha)$. In this case, we also have $|\varphi_\alpha|=\mathrm{const}$ (this constant being the length of the curve $\gamma$).
+First, we take a particular parametrization of the curve $\gamma:\gamma=\{\boldsymbol{\varphi}(\alpha):\alpha\in[0,1]\}$. Then we have $\hat{\tau}(\alpha)=\boldsymbol{\varphi}_\alpha/|\boldsymbol{\varphi}_\alpha|$, where $\boldsymbol{\varphi}_\alpha$ denotes the derivative of $\boldsymbol{\varphi}$ with respect to $\alpha$. The simplest parametrization is equal arc-length parametrization, in which $\alpha$ is a constant multiple of the arc length from $a$ to the point $\boldsymbol{\varphi}(\alpha)$. In this case, we also have $|\boldsymbol{\varphi}_\alpha|=\mathrm{const}$ (this constant being the length of the curve $\gamma$).
 
 The string method evolves the curve via
 \begin{equation}
-    \dot{\varphi}=\nabla V(\varphi)+\bar{\lambda}\hat{\tau},
+    \dot{\boldsymbol{\varphi}}=\nabla V(\boldsymbol{\varphi})+\bar{\lambda}\hat{\tau},
     \label{Eq:ES:string:ZTS:evolving}
 \end{equation}
-where $\bar{\lambda}(\alpha,t)\hat{\tau}(\alpha,t)$ is a Lagrange multiplier term for the purpose of enforcing the particular parametrization of the string. The string is discretized into a number of images $\{\varphi_i(t),i=0,1,\dots,N\}$. The images along the string are evolved by iterating upon the following two-step procedure based on time splitting of the terms at the right hand side of Eq.~\ref{Eq:ES:string:ZTS:evolving}.
+where $\bar{\lambda}(\alpha,t)\hat{\tau}(\alpha,t)$ is a Lagrange multiplier term for the purpose of enforcing the particular parametrization of the string. The string is discretized into a number of images $\{\boldsymbol{\varphi}_i(t),i=0,1,\dots,N\}$. The images along the string are evolved by iterating upon the following two-step procedure based on time splitting of the terms at the right hand side of Eq.~\ref{Eq:ES:string:ZTS:evolving}.
 
 In the first step, the discrete point on the string are evolved over some time interval $\Delta t$ according to the full potential force,
 \begin{equation}
-    \dot{\varphi}_i=-\nabla V(\varphi_i).
+    \dot{\boldsymbol{\varphi}}_i=-\nabla V(\boldsymbol{\varphi}_i).
 \end{equation}
-This equation can be integrated in time by any suitable ODE solver. If we denote the positions of the images after $n$ iterations of the scheme by $\varphi_i^n,\,i=0,\dots,N$, the new set of images are given by
+This equation can be integrated in time by any suitable ODE solver. If we denote the positions of the images after $n$ iterations of the scheme by $\boldsymbol{\varphi}_i^n,\,i=0,\dots,N$, the new set of images are given by
 \begin{equation}
-    \varphi_i^\ast=\varphi_i^n-\Delta t\nabla V(\varphi_i^n).
+    \boldsymbol{\varphi}_i^\ast=\boldsymbol{\varphi}_i^n-\Delta t\nabla V(\boldsymbol{\varphi}_i^n).
 \end{equation}
 
 In the second step, this new set of images are redistributed along the string using a simple interpolation/reparametrization procedure. Two possible schemes for reparametrization can be applied.
 
-\emph{Parametrization by equal arc length} Given the values $\{\varphi_i^\ast\}$ on a nonuniform mesh $\{\alpha_i^\ast\}$, these values are interpolated onto a uniform mesh with the same number of points via two steps:
+\emph{Parametrization by equal arc length} Given the values $\{\boldsymbol{\varphi}_i^\ast\}$ on a nonuniform mesh $\{\alpha_i^\ast\}$, these values are interpolated onto a uniform mesh with the same number of points via two steps:
 \begin{enumerate}
 	\item The arc length corresponding to the current images,
 	\begin{equation}
-		s_0=0,\quad s_i=s_{i-1}+|\varphi_i^\ast-\varphi_{i-1}^\ast|,\quad i=1,2,\dots,N.
+		s_0=0,\quad s_i=s_{i-1}+|\boldsymbol{\varphi}_i^\ast-\boldsymbol{\varphi}_{i-1}^\ast|,\quad i=1,2,\dots,N.
 	\end{equation}
 	The mesh $\{\alpha_i^\ast\}$ is then obtained by normalizing $\{s_i\}$,
 	\begin{equation}
 		\alpha_i^\ast=s_i/s_N.
 	\end{equation}
-	\item The points $\varphi_i^{n+1}$ at the uniform grids points $\alpha_i=i/N$ are obtained by interpolation. This can be done, for example, by using cubic spline interpolation for the data $\{(\alpha_i^\ast,\varphi_i^{\ast}),i=0,\dots,N\}$
+	\item The points $\boldsymbol{\varphi}_i^{n+1}$ at the uniform grids points $\alpha_i=i/N$ are obtained by interpolation. This can be done, for example, by using cubic spline interpolation for the data $\{(\alpha_i^\ast,\boldsymbol{\varphi}_i^{\ast}),i=0,\dots,N\}$
 \end{enumerate}
 
 \emph{Parametrization by energy-weighted arc length} The energy-weighted arc length parameterization gives finer resolution around the saddle points, and thus better estimate of the energy barrier and also the unstable direction at those points than the equal arc length scheme does. In this scheme, the energy-weighted arc length corresponding to the current images are computed,
 \begin{equation}
-	s_0^w=0,\quad s_i^w=s_{i-1}^w+W_{i-(1/2)}|\varphi_i^\ast-\varphi_{i-1}^\ast|,\quad i=1,2,\dots,N.
+	s_0^w=0,\quad s_i^w=s_{i-1}^w+W_{i-(1/2)}|\boldsymbol{\varphi}_i^\ast-\boldsymbol{\varphi}_{i-1}^\ast|,\quad i=1,2,\dots,N.
 \end{equation}
-Here $W_{i-(1/2)}=W(V_{i+1/2})$ and $V_{i+1/2}$ is the average of the potential energy at $\varphi_{i-1}^\ast$ and $\varphi_{i}^\ast$. The weight function $W(z)$ is some positive, increasing function of $z\in \mathbb{R}$. The mesh $\{\alpha_i^\ast\}$ is obtained by normalizing $\{s_i^w\}:\,\alpha_i^\ast=s_i^w/s_N^w$. The new points $\varphi_i$ on $\alpha_i=i/N$ are then calculated by cubic spline interpolation across the points $\{\varphi_i^\ast,\,i=0,\dots,N\}$.
+Here $W_{i-(1/2)}=W(V_{i+1/2})$ and $V_{i+1/2}$ is the average of the potential energy at $\boldsymbol{\varphi}_{i-1}^\ast$ and $\boldsymbol{\varphi}_{i}^\ast$. The weight function $W(z)$ is some positive, increasing function of $z\in \mathbb{R}$. The mesh $\{\alpha_i^\ast\}$ is obtained by normalizing $\{s_i^w\}:\,\alpha_i^\ast=s_i^w/s_N^w$. The new points $\boldsymbol{\varphi}_i$ on $\alpha_i=i/N$ are then calculated by cubic spline interpolation across the points $\{\boldsymbol{\varphi}_i^\ast,\,i=0,\dots,N\}$.
 
-Once the new points $\{\varphi_i^{n+1},\,i=0,\dots,N\}$ are calculated, the algorithm goes back to step 1 and iterates until convergence.
+Once the new points $\{\boldsymbol{\varphi}_i^{n+1},\,i=0,\dots,N\}$ are calculated, the algorithm goes back to step 1 and iterates until convergence.
 
 \subsection{Finite Temperature String Method\label{Sec:ES:string:FTS}}
+Finite temperature string method is an extension of the zero temperature string method.  Let $\boldsymbol{\varphi}(\alpha)$ be a curve in configuration space parametrized by $\alpha\in[0,1]$  whose end points, $\boldsymbol{\varphi}(0)$ and $\boldsymbol{\varphi}(1)$, belong to the two metastable sets. In order to have $\boldsymbol{\varphi}(\alpha)$ converges towards the center of the effective reaction tube, an ensemble of realizations $\{\boldsymbol{\varphi}^\omega(\alpha)\}$ are introduced and their mean is defined to be the string, i.e., $\left<\boldsymbol{\varphi}^\omega(\alpha)\right>\equiv \boldsymbol{\varphi}(\alpha)$.
+Each realization evolves by
+\begin{equation}
+	\boldsymbol{\varphi}^\omega_t=-\left(\nabla V(\boldsymbol{\varphi}^\omega)\right)^{\perp}+\left(\eta^\omega\right)^{\perp}+r\hat{t}.
+    \label{Eq:ES:string:FTTS:evolving}
+\end{equation}
+Here $\hat{t}=\boldsymbol{\varphi}_\alpha/|\boldsymbol{\varphi}_\alpha|$ is the unit tangent vector along $\boldsymbol{\varphi}$ and $a^\perp=a-(\hat{t}\cdot a)\hat{t}$ is the projection of the vector $a$ in the hyperplane normal to the string $\boldsymbol{\varphi}(\alpha)$ denoted here by $S(\alpha)$. $\eta^\omega$ is a white noise which covariance
+\begin{equation}
+	\left<\eta_j^{\omega}(\alpha,t)\eta_k^\omega(\alpha^\prime,0)\right> =
+	\begin{cases}
+		2k_BT\delta_{jk}\delta{t}       & \quad \text{if } \alpha=\alpha^\prime\\
+		0                               & \quad \text{otherwise}
+	\end{cases}
+\end{equation}
+The scalar field $r\equiv r(\alpha,t)$ is a Lagrange multiplier term to preserve some particular parametrization of the string $\boldsymbol{\varphi}$ chosen beforehand, for instance the equal arc length or equal energy-weighted arc length.
+
+The equilibrium density function for Eq.~\ref{Eq:ES:string:FTTS:evolving} is given by
+\begin{equation}
+	\rho(\mathbf{q},\alpha)=Z^{-1}(\alpha)e^{-\beta V(\mathbf{q})}\delta_{S(\alpha)}(\mathbf{q})
+\end{equation}
+where $\delta_{S(\alpha)}(\mathbf{q})$ is the Dirac distribution concentrated on $S(\alpha)$, and $Z(\alpha)=\int_{S(\alpha)}e^{-\beta V(\mathbf{q})}\diff \sigma$ is the normalization constant. By definition, the center of the transition tube is given by
+\begin{equation}
+	\boldsymbol{\varphi}(\alpha)=Z^{-1}(\alpha)\int_{S(\alpha)}\mathbf{q}e^{-\beta V(\mathbf{q})}\diff \sigma.
+\end{equation}
+The width of the effective transition tube itself can be characterized by a few times the variance of $\mathbf{q}$ around $\boldsymbol{\varphi}(\alpha)$; i.e., its local radius square can be defined as
+\begin{equation}
+	R^2(\alpha)=\lambda Z^{-1}(\alpha)\int_{S(\alpha)}|\mathbf{q}-\boldsymbol{\varphi}(\alpha)|^2e^{-\beta V(\mathbf{q})}\diff\sigma,
+\end{equation}
+where $\lambda$ is a number of order unity. The integral of $\rho(\mathbf{q},\alpha)$ in the ball of radius $R(\alpha)$ centered around $\rho(\alpha)$ gives the probability that a dynamical trajectory involved in the transition event crosses the plane $S(\alpha)$ within this ball.
+
+The free energy is given by
+\begin{equation}
+	F(\alpha)=-k_BT\ln{\int_{S(\alpha)}e^{-\beta V(\mathbf{q})}\diff \sigma}.
+\end{equation}
+Using thermodynamic integration, the free energy difference between $\alpha_1$ and $\alpha_2$ becomes
+\begin{equation}
+	F(\alpha_2)-F(\alpha_1)=\int_{\alpha_1}^{\alpha_2}\left<(\hat{t}\cdot\nabla V)((\hat{t}\cdot\boldsymbol{\varphi})_\alpha-\hat{t}\cdot\boldsymbol{\varphi})\right>\diff\alpha.
+\end{equation}
+
+In this implementation, constrained molecular dynamics must be carried out for the calculations of ensemble averages over $S_{\alpha}$, which is usually difficult. In 2009, Vanden-Eijnden and Venturoli updated this FTS algorithm by replacing the hyperplanes perpendicular to the string with Voronoi cells.\cite{Vanden-EijndenJCP2009} This new algorithm begins with an initial set of images, $\boldsymbol{\varphi}_\alpha^0$ with $\alpha=0,\dots,N$ with equal arc length, i.e. $|\boldsymbol{\varphi}_{\alpha+1}^0-\boldsymbol{\varphi}_{\alpha}^0|=|\boldsymbol{\varphi}_{\alpha}^0-\boldsymbol{\varphi}_{\alpha-1}^0|$ for all $\alpha=1,\dots,N-1$. Each image is associated with a replica of the original system, $\mathbf{x}_\alpha^0$, ($\boldsymbol{\varphi}(\mathbf{x}_\alpha^0)=\boldsymbol{\varphi}_{\alpha}^0$). Then the positions of these systems are updated iteratively for $n\ge0$ upon the following steps:
+\begin{enumerate}
+	\item Update $\mathbf{x}_\alpha^n$ with a reflecting boundary condition at the boundary of the Voronio cell associated with the image $\boldsymbol{\varphi}_\alpha^n$ via, for example,
+	\begin{equation}
+	    \mathbf{x}^\ast_\alpha=\mathbf{x}_\alpha^n-\Delta t\nabla V(\mathbf{x}_\alpha^n)+\sqrt{2\beta^{-1}\Delta t}\boldsymbol{\xi}_\alpha^n
+	\end{equation}
+	and set
+	\begin{equation}
+	    \mathbf{x}_\alpha^{n+1}=\begin{cases}
+	        \mathbf{x}_\alpha^\ast,&\text{if } \mathbf{x}_\alpha^\ast\in B_\alpha^n\\
+	        \mathbf{x}_\alpha^n,&\text{otherwise }
+	    \end{cases}
+	\end{equation}
+	where
+	\begin{equation}
+	    B_\alpha^n=\{\mathbf{x} \text{ such that }|\boldsymbol{\varphi}(\mathbf{x})-\boldsymbol{\varphi}_\alpha^n|<|\boldsymbol{\varphi}(\mathbf{x})-\boldsymbol{\varphi}_{\alpha^\prime}^n| \text{ for all }\alpha^\prime\neq \alpha\}
+	\end{equation}
+	$\Delta t$ denotes the time step used for numerical integration and $\boldsymbol{\xi}_\alpha^n$ are independent Gaussian variables with mean 0 and variance 1.
+	
+	\item Compute the running average of each $\mathbf{x}_\alpha^n$,
+	\begin{equation}
+	    \bar{\mathbf{x}}_\alpha^n=\frac{1}{n}\sum_{n^\prime=0}^{n}\mathbf{x}_\alpha^{n^\prime}.
+	\end{equation}
+	
+	\item Update each image along the string toward the running average $\bar{\mathbf{x}}_\alpha^n$ while keeping the string smooth. To do so use
+	\begin{equation}
+	    \boldsymbol{\varphi}_{\alpha}^\ast=\boldsymbol{\varphi}_{\alpha}^n-\Delta \tau(\boldsymbol{\varphi}_{\alpha}^n-\boldsymbol{\varphi}(\bar{\mathbf{x}}_\alpha^n))+\mathbf{r}_\alpha^\ast,
+	\end{equation}
+	where $\Delta \tau>0$, $\mathbf{r}_0^\ast=\mathbf{r}_N^\ast=0$, and for $\alpha=1,\dots,N-1$,
+	\begin{equation}
+	    \mathbf{r}_\alpha^\ast=k^n(\boldsymbol{\varphi}_{\alpha+1}^\ast+\boldsymbol{\varphi}_{\alpha-1}^\ast-2\boldsymbol{\varphi}_{\alpha}^\ast).
+	\end{equation}
+	Here $k^n>0$ is an adjustable parameter, whose value controls how aggressive the smoothing is.
+	
+	\item Enforcing the equal arc-length parametrization by interpolating a piecewise linear curve through $\{\boldsymbol{\varphi}_{\alpha}^\ast\}_{\alpha=0,\dots,N}$
+	and redistributing points at equal distance along this curve to obtain $\{\boldsymbol{\varphi}_{\alpha}^{n+1}\}_{\alpha=0,\dots,N}$.
+	
+	\item If $\mathbf{x}_\alpha^{n+1}\in B_\alpha^{n+1}$ go to step 1, otherwise set $\mathbf{x}_\alpha^{n+1}=\boldsymbol{\varphi}_{\alpha}^{n+1}$ and go to step 1. Repeat until convergence of $\{\boldsymbol{\varphi}_{\alpha}^{n+1}\}_{\alpha=0,\dots,N}$.
+\end{enumerate}
