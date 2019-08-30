@@ -58,4 +58,16 @@ which is the weight of snapshot $n$ in ensemble $i$ determined by Hamiltonian $H
 \begin{align}
 W_{in}=\frac{e^{-\beta_i \left[U_i(\mathbf{R}_n)-f_i\right]}}{\sum_{k=1}^{K}N_k e^{-\beta_k \left[U_k(\mathbf{R}_n)-f_k\right]}}.
 \end{align}
+Here, $e^{\beta_i f_i}$ in the numerator serves as a normalization factor for $W_{in}$, which is unknown beforehand. Practically, we can define an unnormalized weight function
+\begin{equation}
+	W_{in}^\prime=\frac{e^{-\beta_i U_i(\mathbf{R}_n)}}{\sum_{k=1}^{K}N_k e^{-\beta_k \left[U_k(\mathbf{R}_n)-f_k\right]}}.
+\end{equation} 
 
+As a special case, suppose we have performed a single simulation with an inverse temperature $\beta$ and potential energy function $U_0(\mathbf{R})$. The expectation of an operator $\hat{X}$ under an inverse temperature $\beta$ and potential energy function $U_1(\mathbf{R})$ is
+\begin{align}
+	\left<X\right>_1=&\frac{\sum_n X(\mathbf{R}_n)W_{1n}^\prime}{\sum_n W_{1n}^\prime}\notag\\
+	                =&\frac{\sum_n X(\mathbf{R}_n)\frac{e^{-\beta U_1(\mathbf{R}_n)}}{N e^{-\beta \left[U_0(\mathbf{R}_n)-f_0\right]}}}{\sum_n \frac{e^{-\beta U_1(\mathbf{R}_n)}}{N e^{-\beta \left[U_0(\mathbf{R}_n)-f_0\right]}}}\notag\\
+	                =&\frac{\frac1N\sum_n X(\mathbf{R}_n)e^{-\beta \Delta U}}{\frac1N\sum_n e^{-\beta \Delta U}}\notag\\
+	                =&\frac{\left<Xe^{-\beta \Delta U}\right>_0}{\left<e^{-\beta \Delta U}\right>_0},
+\end{align}
+which returns to Eq.~\ref{Eq:ES:US:reweighting}.
