@@ -1,4 +1,33 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{Variationally Enhanced Sampling Method\label{Sec:ES:VES}}
-Variationally Enhanced Sampling (VES) method was developed by Valsson and Parrinello in 2014.\cite{ValssonPRL2014} 
+Variationally Enhanced Sampling (VES) method was developed by Valsson and Parrinello in 2014 an evolution of Metadynamic.\cite{ValssonPRL2014} It begins with the following functional of a bias potential $V(\mathbf{s})$
+\begin{equation}
+    \Omega[V]=\frac{1}{\beta} \ln \frac{\int d \mathbf{s} e^{-\beta[F(\mathbf{s})+V(\mathbf{s})]}}{\int d \mathbf{s} e^{-\beta F(\mathbf{s})}}+\int d \mathbf{s} p(\mathbf{s}) V(\mathbf{s}),
+\end{equation}
+where $p(\mathbf{s})$ is an arbitrary normalized probability distribution, and $F(\mathbf{s})$ is the unbiased free energy surface. This functional is convex and invariant under the addition of an arbitrary constant to $V(\mathbf{s})$, $\Omega[V+k]=\Omega[V]$. The potential that renders $\Omega[V]$ stationary is, with an constant,
+\begin{equation}
+    V(\mathbf{s})=-F(\mathbf{s})-(1/\beta)\ln{p(\mathbf{s})}
+    \label{Eq:ES:VES:VFP}
+\end{equation}
+for $p(\mathbf{s})\neq 0$ and $V(\mathbf{s})=\infty$ otherwise. This stationary point is also the global minimum of $\Omega[V]$ since the functional is convex.
+
+To make use of the variational property of $\Omega[V]$, the bias potential $V(\mathbf{s})$ is expanded as a function of a set of variational parameters $\boldsymbol{\alpha}=(\alpha_1,\alpha_2,\dots,\alpha_K)$, and then the function $\Omega(\boldsymbol{\alpha})=\Omega[V(\boldsymbol{\alpha})]$ is minimized with respect to $\boldsymbol{\alpha}$ until convergence is reached. With the converged potential $V(\mathbf{s};\boldsymbol{\alpha})$, the free energy surface $F(\mathbf{s})$ can be estimated from Eq.~\ref{Eq:ES:VES:VFP}.
+
+The gradient $\Omega(\boldsymbol{\alpha})^\prime$
+\begin{equation}
+    \frac{\partial \Omega(\boldsymbol{\alpha})}{\partial \alpha_{i}}=-\left\langle\frac{\partial V(\mathbf{s} ; \boldsymbol{\alpha})}{\partial \alpha_{i}}\right\rangle_{V(\boldsymbol{\alpha})}+\left\langle\frac{\partial V(\mathbf{s} ; \boldsymbol{\alpha})}{\partial \alpha_{i}}\right\rangle_{p}
+\end{equation}
+and the Hessian $\Omega^{\prime\prime}(\boldsymbol{\alpha})$
+\begin{align} 
+    	\frac{\partial^{2} \Omega(\boldsymbol{\alpha})}{\partial \alpha_{j} \partial \alpha_{i}}=& \beta \operatorname{Cov}\left[\frac{\partial V(\mathbf{s} ; \boldsymbol{\alpha})}{\partial \alpha_{j}}, \frac{\partial V(\mathbf{s} ; \boldsymbol{\alpha})}{\partial \alpha_{i}}\right]_{V(\boldsymbol{\alpha})} \notag\\ &-\left\langle\frac{\partial^{2} V(\mathbf{s} ; \boldsymbol{\alpha})}{\partial \alpha_{j} \partial \alpha_{i}}\right\rangle_{V(\boldsymbol{\alpha})}+\left\langle\frac{\partial^{2} V(\mathbf{s} ; \boldsymbol{\alpha})}{\partial \alpha_{j} \partial \alpha_{i}}\right\rangle_{p} 
+\end{align}
+where $\left<\cdots\right>_{V(\boldsymbol{\alpha})}$ and $\operatorname{Cov}[\cdots]_{V(\boldsymbol{\alpha})}$ are the expectation value and the covariance, respectively, obtained in a biased simulation employing the potential $V(\boldsymbol{\mathbf{s};\alpha})$, and $\left<\cdots\right>_p$ is an expectation value in the distribution $p(\mathbf{s})$. A natural approach is to expand $V(\boldsymbol{\mathbf{s};\alpha})$ in a linear basis set and use the coefficient of this expansion as variational parameters,
+\begin{equation}
+     V(\boldsymbol{\mathbf{s};\alpha})=\sum_k\alpha_kG_k(\mathbf{s}).
+\end{equation}
+In this case the gradient and the Hessian simplify,
+\begin{align}
+    \frac{\partial \Omega(\boldsymbol{\alpha})}{\partial \alpha_{\mathrm{i}}}=&-\left\langle G_i(\mathbf{s})\right\rangle_{V(\boldsymbol{\alpha})}+\left\langle G_i(\mathbf{s})\right\rangle_{p},\\
+    \frac{\partial^{2} \Omega(\boldsymbol{\alpha})}{\partial \alpha_j \partial \alpha_i}=&\beta \operatorname{Cov}\left[G_j(\mathbf{s}), G_i(\mathbf{s})\right]_{V(\boldsymbol{\alpha})}.
+\end{align}
