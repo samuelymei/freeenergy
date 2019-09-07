@@ -45,18 +45,18 @@ In Boltzmann statistics, $q_k(\mathbf{R})=\exp{\left[-\beta_kU_k(\mathbf{R})\rig
 
 If $q_k$ and $q_i$ follow Boltzmann statistics, and we define free energy $f_i=-{\beta_i}^{-1}\ln{c_i}$, Eq.~\ref{Eq:FEM:MBAR:c_i} becomes
 \begin{equation}
-f_i=-{\beta_i}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_i U_i(\mathbf{R}_n)\right)}}{\sum_{k=1}^{K}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right)}}},
-\label{Eq:FEM:MBAR:f_i_final}
+    f_i=-{\beta_i}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_i U_i(\mathbf{R}_n)\right)}}{\sum_{k=1}^{K}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right)}}},
+    \label{Eq:FEM:MBAR:f_i_final}
 \end{equation}
 which must be solved self-consistently and can be determined up to a constant. We can fix $f_1$ (to 0 usually). 
 
 Again, from Eq.~\ref{Eq:FEM:MBAR:Oexpect}, we can define
 \begin{equation}
-W_{in}={c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)},
+    W_{in}={c_i}^{-1}\frac{q_i(\mathbf{R}_n)}{\sum_{k=1}^{K}N_k{c_k}^{-1}q_k(\mathbf{R}_n)},
 \end{equation}
 which is the weight of snapshot $n$ in ensemble $i$ determined by Hamiltonian $H_i$ and temperature $\beta_i$. Specifically, for the Boltzmann statistics,
 \begin{align}
-W_{in}=\frac{e^{-\beta_i \left[U_i(\mathbf{R}_n)-f_i\right]}}{\sum_{k=1}^{K}N_k e^{-\beta_k \left[U_k(\mathbf{R}_n)-f_k\right]}}.
+    W_{in}=\frac{e^{-\beta_i \left[U_i(\mathbf{R}_n)-f_i\right]}}{\sum_{k=1}^{K}N_k e^{-\beta_k \left[U_k(\mathbf{R}_n)-f_k\right]}}.
 \end{align}
 Here, $e^{\beta_i f_i}$ in the numerator serves as a normalization factor for $W_{in}$, which is unknown beforehand. Practically, we can define an unnormalized weight function
 \begin{equation}
@@ -70,4 +70,13 @@ As a special case, suppose we have performed a single simulation with an inverse
 	                =&\frac{\frac1N\sum_n X(\mathbf{R}_n)e^{-\beta \Delta U}}{\frac1N\sum_n e^{-\beta \Delta U}}\notag\\
 	                =&\frac{\left<Xe^{-\beta \Delta U}\right>_0}{\left<e^{-\beta \Delta U}\right>_0},
 \end{align}
-which returns to Eq.~\ref{Eq:ES:US:reweighting}.
+which returns to Eq.~\ref{Eq:ES:US:reweighting}. Similarly, Eq.~\ref{Eq:FEM:MBAR:f_i_final} becomes
+\begin{equation}
+    \exp{(-\beta f_1)}=\sum\limits_{n=1}^N \frac{\exp{\left(-\beta U_1(\mathbf{R}_n)\right)}}{N\exp{\left(\beta f_0-\beta U_0(\mathbf{R}_n)\right)}}.
+\end{equation}
+By moving the term $\exp{(-\beta f_0)}$ to left hand side of this equation, we have
+\begin{equation}
+    \Delta f=-\beta^{-1}\ln{\sum\limits_{n=1}^N\frac{1}{N}\exp{(-\beta \Delta U)}}=-\beta^{-1}\ln{\left<\exp{(-\beta \Delta U)}\right>_0},
+\end{equation}
+which is Eq.~\ref{Eq:FEM:TP:deltaA5}.
+
