@@ -1,0 +1,51 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+\section{Simulated Tempering\label{Sec:ES:ST}}
+Simulated tempering (ST) was proposed by Marinari and Parisi\cite{MarinariEPL1992} and by Lyubartsev et al\cite{LyubartsevJCP1992} in 1992. In ST, there is only one trajectory with controlled jumps in temperature space, which is different from the implementation of T-REMD\ref{Sec:ES:REMD:TREMD}, in which multiple trajectories are running in parallel. In ST, the simulation is carried out in an extended space defined by the configuration variables $\mathbf{X}$ and a new variable $m$. The latter can take $M$ values ($m=1,\dots,M$). Corresponding to each $m$, there is an inverse temperature $\beta_m$. Let
+\begin{equation}
+    \beta_0>\beta_1>\beta_2>\cdots >\beta_m.
+\end{equation}
+The probability distribution $\rho(\mathbf{X},m)$ will be chosen to be 
+\begin{equation}
+  \rho(\mathbf{X},m)\propto \exp{\left[-H(\mathbf{X},m)\right]}
+\end{equation}
+with 
+\begin{equation}
+  H(\mathbf{X},m)\equiv \beta_m H(X)-g_m.
+\end{equation}
+The total partition function for this extended ensemble is
+\begin{align}
+    Z=&\sum_{m=1}^M \int\diff \mathbf{X} \exp{\left[-H(\mathbf{X},m)\right]}\notag\\
+     =&\sum_{m=1}^M \int\diff \mathbf{X} \exp{\left[-\beta_m H(X)+g_m\right]}\notag\\
+     =&\sum_{m=1}^M \exp{(g_m)}\int\diff \mathbf{X} \exp{\left[-\beta_m H(X)\right]}
+\end{align}
+
+For each $\beta_m$, there is a canonical ensemble with the probability for a configuration $\mathbf{X}$ follows the usual Boltzmann distribution, i.e. 
+\begin{equation}
+    \rho(X|m)\propto \exp{(-\beta_m H(X))}.
+\end{equation}
+and the partition function (with $1/N!$ omitted)
+\begin{equation}
+    Z_m=\int \diff \mathbf{X} \exp{[-\beta_m H(\mathbf{X})]}=\exp{(-\beta_m f_m)}.
+\end{equation}
+where $f_m$ is the associated free energy. With this definition of $Z_m$, the total partition function can be written as
+\begin{equation}
+    Z=\sum_{m=1}^M \exp{(g_m)} Z_m,
+\end{equation}
+where $\exp{(g_m)}$ can be thought as the weight for the $m$th canonical ensemble in this extended ensemble.
+
+On the other hand, the probability of having a given value of $m$ is simply given by
+\begin{equation}
+    \rho_m=\frac{\int\diff \mathbf{X} \exp{\left[-H(\mathbf{X},m)\right]}}{Z}=\frac{Z_m\exp{[g_m]}}{Z}=\frac{1}{Z}\exp{[-\beta_m f_m+g_m]}.
+\end{equation}
+If we make the choice $g_m=\beta_m f_m$, then all the $\rho_m$ become equal. However, $f_m$ is usually unknown beforehand, or it may be never known.
+
+The system may evolve in two types of steps: (1) usual displacements of particles at fixed temperature via molecule dynamics or Monte Carlo and (2) changes of reciprocal temperature with fixed positions of particles. In the first case, detailed balance can be easily maintained. In the second case, in order to maintain detailed balance
+\begin{equation}
+    \rho(\mathbf{X},m)P(\beta_m\to \beta_{m\pm 1}|\mathbf{X})=\rho(\mathbf{X},m\pm 1)P(\beta_{m\pm 1}\to \beta_{m}|\mathbf{X}),
+\end{equation}
+transition takes place with the probability
+\begin{equation}
+    P(\beta_m\to \beta_{m\pm 1}|\mathbf{X})=\min{\left\{1,\exp{\left[-(\beta_{m\pm1}-\beta_m)H(\mathbf{X})+(g_{m\pm1}-g_m)\right]}\right\}}
+\end{equation}
+following the Metropolis criteria.
