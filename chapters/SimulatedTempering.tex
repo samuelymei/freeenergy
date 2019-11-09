@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{Simulated Tempering\label{Sec:ES:ST}}
-Simulated tempering (ST) was proposed by Marinari and Parisi\cite{MarinariEPL1992} and by Lyubartsev et al\cite{LyubartsevJCP1992} in 1992. In ST, there is only one trajectory with controlled jumps in temperature space, which is different from the implementation of T-REMD\ref{Sec:ES:REMD:TREMD}, in which multiple trajectories are running in parallel. In ST, the simulation is carried out in an extended space defined by the configuration variables $\mathbf{X}$ and a new variable $m$. The latter can take $M$ values ($m=1,\dots,M$). Corresponding to each $m$, there is an inverse temperature $\beta_m$. Let
+Simulated tempering (ST) was proposed by Marinari and Parisi\cite{MarinariEPL1992} and by Lyubartsev et al\cite{LyubartsevJCP1992} in 1992, and by Geyer and Thompson\cite{GeyerJASA1995} in 1995. In ST, there is only one trajectory with controlled jumps in temperature space, which is different from the implementation of T-REMD\ref{Sec:ES:REMD:TREMD}, in which multiple trajectories are running in parallel. In ST, the simulation is carried out in an extended space defined by the configuration variables $\mathbf{X}$ and a new variable $m$. The latter can take $M$ values ($m=1,\dots,M$). Corresponding to each $m$, there is an inverse temperature $\beta_m$. Let
 \begin{equation}
     \beta_0>\beta_1>\beta_2>\cdots >\beta_m.
 \end{equation}
@@ -36,7 +36,7 @@ where $\exp{(g_m)}$ can be thought as the weight for the $m$th canonical ensembl
 
 On the other hand, the probability of having a given value of $m$ is simply given by
 \begin{equation}
-    \rho_m=\frac{\int\diff \mathbf{X} \exp{\left[-H(\mathbf{X},m)\right]}}{Z}=\frac{Z_m\exp{[g_m]}}{Z}=\frac{1}{Z}\exp{[-\beta_m f_m+g_m]}.
+    \rho_m=\frac{\int\diff \mathbf{X} \exp{\left[-H(\mathbf{X},m)\right]}}{Z}=\frac{Z_m\exp{(g_m)}}{Z}=\frac{1}{Z}\exp{(-\beta_m f_m+g_m)}.
 \end{equation}
 If we make the choice $g_m=\beta_m f_m$, then all the $\rho_m$ become equal. However, $f_m$ is usually unknown beforehand, or it may be never known.
 
