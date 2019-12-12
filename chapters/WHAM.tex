@@ -249,9 +249,16 @@ p_{k,l}=f_kc_{k,l}p_l^0,
 in which $p_l^0$ is the (simulation-independent) unbiased probability,
 \begin{align}
 c_{k,l}=&\exp{\left[-\beta_k\left(E_l+w_{k,l}\right)+\beta_0E_l\right]}\notag\\
-=&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{i,l}\right)}
+=&\exp{\left[-\left(\beta_k-\beta_0\right)E_l\right]}\exp{\left(-\beta_kw_{k,l}\right)}
 \end{align}
-is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\left\{\sum\limits_lc_{k,l}p_l^0\right\}}^{-1}$ is the normalization factor.
+is the bias factor, $E_l$ is the unbiased energy of bin $l$, $f_k={\left\{\sum\limits_lc_{k,l}p_l^0\right\}}^{-1}$ is the normalization factor. If we expand the expressions for $c_{k,l}$ and $p_l^0$, we find
+\begin{align}
+	f_k\approx&\left(\sum\limits_l \exp{\left[-\beta_k\left(E_l+w_{k,l}\right)+\beta_0E_l\right]} \frac{\exp{(-\beta_0 E_l)}}{\sum\limits_j\exp{(-\beta_0 E_j)}}\right)^{-1}\notag\\
+	   =&\left(\frac{\sum\limits_l\exp{\left[-\beta_k(E_l+w_{k,l})\right]}}{\sum\limits_j\exp{(-\beta_0 E_j)}}\right)^{-1}\notag\\
+	   \approx&\frac{Z_0}{Z_k},
+\end{align}
+which is approximately the ratio of two configurational integrals.
+
 It is worth emphasizing that the biasing potential can be multiple dimensional as, for instance, in a two-dimensional umbrella sampling.
 If the biasing is only in temperature-space as in replica exchange molecular dynamics
 \begin{equation}
