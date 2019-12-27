@@ -414,3 +414,118 @@ The expectation $\langle h\rangle_\theta$ is by definition $Z_\theta^{-1}\int h(
     \label{Eq:FEM:WHAM:binlesscore4}
 \end{align}
 Formulas~\ref{Eq:FEM:WHAM:binlesscore3} and~\ref{Eq:FEM:WHAM:binlesscore4} provide a binless extension of Eqs.~\ref{Eq:FEM:WHEM:binweight1} and~\ref{Eq:FEM:WHAM:WHAMhu} in WHAM.
+
+\subsubsection{Bayesian Reconstruction of the Density of States\label{Sec:FEM:WHAM_Bayes}}
+Habeck reformulated the WHAM equation for the density of states from Bayesian view in 2007.\cite{HabeckPRL2007}
+
+To make this section self-explained, we begin with the definition of the density of states
+\begin{equation}
+    g(E)=\int\diff x\,\delta[E-E(x)],
+\end{equation}
+from which the configurational integral can be calculated
+\begin{equation}
+    Z(\beta)=\int\diff E\,g(E)e^{-\beta E}
+\end{equation}
+for a continuous system or
+\begin{equation}
+    Z(\beta)=\sum_i g(E_i)e^{-\beta E_i}
+\end{equation}
+for a discrete representation. 
+
+Collected in $M$ simulations at inverse temperatures $\beta_1,\dots,\beta_M$ with sample sizes $N_1,\dots,N_M$, respectively, the complete data set can be written as $D=\left\{\left(\beta_i,E_{i1},\dots,E_{iN}\right),i=1,\dots,M\right\}$. The $j$the sample in the $i$th simulation has a probability
+\begin{equation}
+    p(E(x_{ij})|\beta_i)=g(E(x_{ij}))e^{-\beta_{i}E(x_{ij})}/Z(\beta_i).
+\end{equation}
+If all the samples are statistically independent, the probability of the data set is
+\begin{align}
+    L(g)=&\prod_{i=1}^{M}\prod_{j=1}^{N_i}\left\{g(E(x_{ij}))e^{-\beta_{i}E(x_{ij})}/Z(\beta_i)\right\}\notag\\
+        =&\prod_{i=1}^{M}\prod_{j=1}^{N_i}\left\{g(E(x_{ij}))e^{-\beta_{i}E(x_{ij})}\right\}/\left\{\prod_{i=1}^{M}\prod_{j=1}^{N_i}Z(\beta_i)\right\}\notag\\
+        =&\prod_{i=1}^{M}\prod_{j=1}^{N_i}g(E(x_{ij}))e^{-\beta_{i}E(x_{ij})}/\prod_{i=1}^{M}[Z(\beta_i)]^{N_i}.
+\end{align}
+
+By introducing $H_i(E)=\sum_{j}\delta(E-E(x_{ij}))$ and $H(E)=\sum_iH_i(E)$, the likelihood function can be rewritten as
+\begin{align}
+    L(g)=&\exp{\left\{\log\frac{\prod\limits_{i=1}^{M}\prod\limits_{j=1}^{N_i}g(E(x_{ij}))e^{-\beta_{i}E(x_{ij})}}{\prod\limits_{i=1}^{M}[Z(\beta_i)]^{N_i}}\right\}}\notag\\
+        =&\exp{\left\{\sum\limits_{i=1}^{M}\sum\limits_{j=1}^{N_i}\log \left[g(E(x_{ij}))e^{-\beta_{i}E(x_{ij})}\right]-\sum\limits_{i=1}^{M}N_i\log Z(\beta_i)\right\}}\notag\\
+        =&\exp{\left\{\int\diff E \sum\limits_{i=1}^{M}\sum\limits_{j=1}^{N_i}\delta(E-E(x_{ij}))\log \left[g(E)e^{-\beta_{i}E}\right]-\sum\limits_{i=1}^{M}N_i\log Z(\beta_i)\right\}}\notag\\
+        =&\exp{\left\{\int\diff E H(E)\log \left[g(E)\right]-\sum\limits_{i=1}^{M}N_i\log Z(\beta_i)-\sum\limits_{i=1}^M\beta_i\int \diff E H_i(E)E\right\}}\notag\\
+        \propto& \exp{\left\{\int\diff E H(E)\log \left[g(E)\right]-\sum\limits_{i=1}^{M}N_i\log Z(\beta_i)\right\}}
+\end{align} 
+Please note that the constant term $e^{-\beta_iE}$ has been omitted, which does not affect the \textit{a posteriori} estimate of $g(E)$.
+
+Maximizing the log likelihood with respect to $g(E)$ leads to
+\begin{equation}
+    g(E)=\frac{H(E)}{\sum_i N_ie^{-\beta_iE}/Z(\beta_i)},
+\end{equation}
+or in the discrete form
+\begin{equation}
+    g(E_k)=\frac{H(E_k)}{\sum_i N_ie^{-\beta_iE_k}/Z(\beta_i)}.
+\end{equation}
+This estimate suffers from overfitting because it only places nonzero probabilities at exactly the observed energies. Even for discrete systems, overfitting can arise if the data are of poor quality or sparse. To control the complexity of $g$ using the idea in Bayesian statistics, we assign a prior probability $\pi(g)$ to $g(E)$, and the posterior probability of the density of states becomes
+\begin{equation}
+    p(g)\propto L(g)\pi(g).
+\end{equation}
+For instance, with the Dirichlet prior $\pi(g)=\prod_kg_k^{n_k-1}$, it becomes (the Boltzmann factors are also omitted)
+\begin{align}
+    p(g)\propto \prod_{k=1}g_k^{H_k+n_k-1}/\prod_{i=1}^{M}[Z(\beta_i)]^{N_i}
+    \label{Eq:FEM:WHAM:ProbDoSDirichlet}
+\end{align}
+in a discrete form and maximizing $\log p(g)$ leads to
+\begin{equation}
+    g(E_k)=\frac{H(E_k)+n_k-1}{\sum_i N_ie^{-\beta_iE_k}/Z(\beta_i)}.
+\end{equation}
+Intuitively, $n_k$ can be thought as the ``pseudo count''.
+
+In the nonparametric setting, one does not assume a specific functional form but tries to determine $g$ entirely from the data. Alternatively, one could model $g$ parametrically using a family of functions involving parameters $\theta$. Then the posterior distribution is a probability density over the $\theta$ parameter space. For instance, the density of state can be expanded by a finite mixture of Gaussian functions 
+\begin{equation}
+    g(E)=\sum\limits_{c=1}^C \pi_c G(E;\epsilon_c,\sigma_c),
+\end{equation}
+where $\theta=\left\{\pi_c,\epsilon_c,\sigma_c\right\}$ are parameters to be estimated under the constraint
+\begin{equation}
+    \sum_c\pi_c=1,\quad \pi_c\in [0,1].
+\end{equation}
+
+Habeck extended this idea and proposed a Gibbs sampling method to determine the free energies and density of states as well as their uncertainties in 2012.\cite{HabeckPRL2012}
+
+Using a homogeneous Dirichlet prior, Eq.~\ref{Eq:FEM:WHAM:ProbDoSDirichlet} becomes
+\begin{equation}
+    p(g|D,\alpha)\propto \prod_{k=1}^Kg_k^{H_k+\alpha/K-1}/\prod_{i=1}^{M}\left[\sum_k g_kq_{ki}\right]^{N_i},
+\end{equation}
+where $K$ is the total number of the discrete energy levels, and for simplicity we have defined $q_{ki}=e^{-\beta_i E_k}$ . Using the integral $x^{-n}=\frac{1}{(n-1)!}\int_0^\infty t^{n-1}e^{-tx}\diff t$, the posterior probability $p(g|D,\alpha)$ can be interpreted as the marginal distribution of the augmented posterior probability
+\begin{equation}
+    p(g,t|D,\alpha)\propto \left(\prod_{k=1}^Kg_k^{H_k+\alpha/K-1}\right)\left(\prod_i t_i^{N_i-1}\right)\prod_{k,i}e^{-g_kt_iq_{ki}}
+\end{equation}
+by noting that
+\begin{align}
+     &\int_0^\infty\cdots\int_0^\infty \diff t_1\cdots\diff t_M\prod_it_i^{N_i-1}\prod_{k,i}e^{-g_kt_iq_{ki}}\notag\\
+    =&\int_0^\infty\cdots\int_0^\infty \diff t_1\cdots\diff t_M \prod_it_i^{N_i-1}\prod_i e^{-t_i\sum\limits_k g_kq_{ki}}\notag\\
+    =&\prod_i \int_0^\infty t_i^{N_i-1}e^{-t_i\sum\limits_k g_kq_{ki}}\notag\\
+    =&\prod_i (N_i-1)!\left(\sum_k g_kq_{ki}\right)^{N_i}.
+\end{align}
+The conditional posterior probabilities for $g$ and $t$ can be drawn from Gibbs sampling iteratively via
+\begin{subequations}
+\begin{eqnarray}
+	p(t_i|g,D,\alpha)&=&G(N_i,\sum_k g_kq_{ki})\\
+	p(g_k|t,D,\alpha)&=&G(H_k+\alpha/K,\sum_it_iq_{ki})
+\end{eqnarray}
+\end{subequations}
+where $G(a,b)$ denotes the Gamma distribution with shape parameter $a$ and scale parameter $b$. After each iteration, the density of states is normalized. The conditional expectations are
+\begin{equation}
+    \left<t_i|g\right>=\frac{N_i}{\sum_k g_kq_{ki}}=\frac{N_i}{Z_i}\quad \text{and} \quad \left<g_k|t\right>=\frac{H_k+\alpha/K}{\sum_it_iq_{ki}}.
+\end{equation}
+
+The auxiliary function $t_i$ is inversely proportional to the partition function of the corresponding ensemble. Therefore, $f_i=\log t_i$ is an analog of the free energy. Replacing $t_i$ with $f_i$ results in the augmented distribution of the density of states and free energies $p(g,f|D,\alpha)$, which follows
+\begin{equation}
+    p(g,f|D,\alpha)\propto \left(\prod_{k=1}^Kg_k^{H_k+\alpha/K-1}\right)\left(\prod_i e^{N_if_i-f_i}\right)\prod_{k,i}e^{-g_kq_{ki}e^{f_i}}.
+\end{equation}
+By integrating over the density of states, the posterior probability of the free energies satisfies
+\begin{align}
+    p(f|D,\alpha)\propto \prod_i e^{N_if_i}/\prod_k\left(\sum_j q_{kj}e^{f_j}\right)^{H_k+\alpha/K}.
+\end{align}
+
+
+
+
+
+
+
