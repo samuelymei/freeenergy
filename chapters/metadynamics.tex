@@ -77,7 +77,7 @@ where
 \end{equation}
 is independent of $\mathbf{s}$. Metadynamics thus converges to the desired result. Two interesting consequences arise.
 
-First, it can be shown that a time-dependent estimator for $F(\mathbf{s})$ is given by\cite{TiwaryJPCB2015}
+First, it can be shown that, by taking the assumption of quasi-equilibrium, a time-dependent estimator for $F(\mathbf{s})$ is given by\cite{TiwaryJPCB2015}
 \begin{equation}
     F(\mathbf{s})=-\left(\frac{\gamma}{\gamma -1}\right)V(\mathbf{s},t)+\frac{1}{\beta}\log{\int \diff \mathbf{s}\, \exp{\left[\frac{\gamma}{\gamma-1}\beta V(\mathbf{s},t)\right]}}.
 \end{equation}
@@ -85,6 +85,7 @@ Taking this equation into Eq.~\ref{Eq:ES:metadynamics:c}, one obtains
 \begin{equation}
     c(t)=\frac{1}{\beta}\log{\frac{\int \diff \mathbf{s}\exp{\left[\frac{\gamma}{\gamma-1}\beta V(\mathbf{s},t)\right]}}{\int \diff \mathbf{s}\exp{\left[\frac{1}{\gamma-1}\beta V(\mathbf{s},t)\right]}}}.
 \end{equation}
+For a brief discussion on the calculations of $c(t)$, please refer to Ref.~\cite{GibertiJCTC2020}.
 
 Second, it offers a practical way of calculating the expectation value of any $\mathbf{R}$-dependent function $O(\mathbf{R})$ as the simulation proceeds. The idea is that at time $t$ the biased probability distribution for $\mathbf{R}$ is given by
 \begin{equation}
