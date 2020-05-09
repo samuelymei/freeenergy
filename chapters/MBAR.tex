@@ -45,7 +45,7 @@ In Boltzmann statistics, $q_k(\mathbf{R})=\exp{\left[-\beta_kU_k(\mathbf{R})\rig
 
 If $q_k$ and $q_i$ follow Boltzmann statistics, and we define free energy $f_i=-{\beta_i}^{-1}\ln{c_i}$, Eq.~\ref{Eq:FEM:MBAR:c_i} becomes
 \begin{equation}
-    f_i=-{\beta_i}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left(-\beta_i U_i(\mathbf{R}_n)\right)}}{\sum_{k=1}^{K}N_k\exp{\left(\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right)}}},
+    f_i=-{\beta_i}^{-1}\ln{\sum\limits_{n=1}^N \frac{\exp{\left[-\beta_i U_i(\mathbf{R}_n)\right]}}{\sum_{k=1}^{K}N_k\exp{\left[\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right]}}},
     \label{Eq:FEM:MBAR:f_i_final}
 \end{equation}
 which must be solved self-consistently and can be determined up to a constant. We can fix $f_1$ (to 0 usually). 
@@ -79,6 +79,34 @@ By moving the term $\exp{(-\beta f_0)}$ to left hand side of this equation, we h
     \Delta f=-\beta^{-1}\ln{\sum\limits_{n=1}^N\frac{1}{N}\exp{(-\beta \Delta U)}}=-\beta^{-1}\ln{\left<\exp{(-\beta \Delta U)}\right>_0},
 \end{equation}
 which is Eq.~\ref{Eq:FEM:TP:deltaA5}.
+
+Equation~\ref{Eq:FEM:MBAR:f_i_final} can also be solved using the Newton-Raphson algorithm by defining the residual $\mathbf{r}$ with element
+\begin{equation}
+    r_i=1-\sum_{n-1}^{N}\frac{\exp{\left[\beta_i f_i-\beta_i U_i(\mathbf{R}_n)\right]}}{\sum_{k=1}^{K}N_k\exp{\left[\beta_kf_k-\beta_kU_k(\mathbf{R}_n)\right]}}.
+\end{equation}
+With the current value of $\mathbf{f^\nu}=[f_1^\nu,f_2^\nu,\dots,f_K^\nu]^T$ and $\mathbf{r}(\mathbf{f}^\nu)\neq \mathbf{0}$, we look for $\Delta \mathbf{f}^\nu$ so that $\mathbf{r}(\mathbf{f}^\nu+\Delta \mathbf{f}^\nu)=\mathbf{0}$. Truncating after the first-order term of the Taylor expansion, $\mathbf{r}(\mathbf{f}^\nu+\Delta \mathbf{f}^\nu)$ can be approximately expressed as
+\begin{equation}
+    \mathbf{r}(\mathbf{f}^\nu+\Delta \mathbf{f}^\nu)\approx \mathbf{r}(\mathbf{f}^\nu) + \mathbf{J}^\nu\Delta \mathbf{f}^\nu,
+\end{equation}
+where $\mathbf{J}^\nu$ is the $K\times K$ Jacobian:
+\begin{equation}
+    \mathbf{J}^\nu=\begin{bmatrix}
+        \frac{\partial r_1(\mathbf{f}^\nu)}{\partial f_1^\nu}&\frac{\partial r_1(\mathbf{f}^\nu)}{\partial f_2^\nu}&\dots& \frac{\partial r_1(\mathbf{f}^\nu)}{\partial f_K^\nu}\\
+        \frac{\partial r_2(\mathbf{f}^\nu)}{\partial f_1^\nu}&\frac{\partial r_2(\mathbf{f}^\nu)}{\partial f_2^\nu}&\dots& \frac{\partial r_2(\mathbf{f}^\nu)}{\partial f_K^\nu}\\
+        \vdots&\vdots&\ddots&\vdots\\
+        \frac{\partial r_K(\mathbf{f}^\nu)}{\partial f_1^\nu}&\frac{\partial r_K(\mathbf{f}^\nu)}{\partial f_2^\nu}&\dots& \frac{\partial r_K(\mathbf{f}^\nu)}{\partial f_K^\nu}
+    \end{bmatrix}
+\end{equation}
+Since $\mathbf{r}(\mathbf{f}^\nu+\Delta \mathbf{f}^\nu)=\mathbf{0}$, we find
+\begin{equation}
+    \Delta \mathbf{f}^\nu\approx -\left[\mathbf{J}^\nu\right]^{-1}\mathbf{r}(\mathbf{f}^\nu).
+\end{equation}
+and
+\begin{equation}
+    \mathbf{f}^{\nu+1}=\mathbf{f}^\nu+\Delta \mathbf{f}^\nu
+\end{equation}
+This iteration continues until this convergence has been reached by checking if $|\Delta \mathbf{f}|<\boldsymbol{\epsilon}$.
+
 
 Ding et al\cite{DingJCTC2019} showed that solving Eq.~\ref{Eq:FEM:MBAR:f_i_final} is equivalent to minimizing
 \begin{equation}
