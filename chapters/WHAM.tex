@@ -499,7 +499,7 @@ by noting that
 \begin{align}
      &\int_0^\infty\cdots\int_0^\infty \diff t_1\cdots\diff t_M\prod_it_i^{N_i-1}\prod_{k,i}e^{-g_kt_iq_{ki}}\notag\\
     =&\int_0^\infty\cdots\int_0^\infty \diff t_1\cdots\diff t_M \prod_it_i^{N_i-1}\prod_i e^{-t_i\sum\limits_k g_kq_{ki}}\notag\\
-    =&\prod_i \int_0^\infty t_i^{N_i-1}e^{-t_i\sum\limits_k g_kq_{ki}}\notag\\
+    =&\prod_i \int_0^\infty \diff t_i t_i^{N_i-1}e^{-t_i\sum\limits_k g_kq_{ki}}\notag\\
     =&\prod_i (N_i-1)!\left(\sum_k g_kq_{ki}\right)^{N_i}.
 \end{align}
 The conditional posterior probabilities for $g$ and $t$ can be drawn from Gibbs sampling iteratively via
