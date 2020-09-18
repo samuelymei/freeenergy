@@ -108,7 +108,7 @@ This can be satisfied by the usual Metropolis criterion:
 After long time simulations, all the replicas have arrived at a global equilibrium. In order to calculate the the free energy or the ensemble average of an operator $\hat A$ at $T_m$, we can extract all the snapshots that have a temperature $T_m$ from $M$ trajectories, if this temperature was among the $M$ chosen temperatures. However, the optimal way is to use Weighted Histogram Analysis Method in Section~\ref{Sec:FEM:WHAM} or the Multistate Bennett Acceptance Ratio method in Section~\ref{Sec:FEM:MBAR}.  
 
 \subsection{Hamiltonian-Replica Exchange Molecular Dynamics\label{Sec:ES:REMD:HREMD}}
-Another type of REMD simulation is called Hamiltonian replica exchange molecular dynamics (H-REMD), in which each replicas has its own Hamiltonian, but is coupled to the same temperature. One example is the H-REMD simulation for a torsional angle. The $m$th replica has a torsional energy term of 
+Another type of REMD simulation is called Hamiltonian replica exchange molecular dynamics (H-REMD), in which each replicas has its own Hamiltonian, but is coupled to the same temperature.\cite{JangPRL2003} One example is the H-REMD simulation for a torsional angle. The $m$th replica has a torsional energy term of 
 \begin{equation}
 	H_m(\phi)=\lambda(m)\sum_n\left(V_n/2\right)\left(1+\cos{\left[n\phi-\delta\right]}\right),
 \end{equation}
