@@ -1,0 +1,94 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+\section{Optimally Adjusted Mixed Sampling\label{Sec:ES:OAMS}}
+Optimally Adjusted Mixed Sampling method was proposed by Tan in 2017\cite{TanJCGS2017}, which accommodates both \hyperref[Sec:ES:ST]{adaptive serial tempering} and a generalized \hyperref[Sec:ES:Wang--Landau]{Wang--Landau algorithm}.
+
+\subsection{Labeled Mixture Sampling}
+Let us begin with the non-adaptive version of self-adjusted mixture sampling, which is termed labeled mixture sampling. With $m$ simulation conditions in total, we define the joint distribution on the space $\{1,\dots,m\}\times \chi$, 
+\begin{equation}
+     (L,X)\sim p(j,x;\xi)\propto \frac{\pi_j}{e^{-\xi_j}}q_j(x),
+\end{equation}
+where $\pi=(\pi_1,\dots,\pi_m)^T$ are the fixed mixture weights with $\sum_{j=1}^m \pi_j=1$, $q_j(x)$ is the unnormalized density function for state $j$, and $\xi=(\xi_1,\dots,\xi_m)^T$ with $\xi_1=0$ are the \textit{hypothesized} values of the true ratios of normalizing constants $\xi^\ast=(\xi_1^\ast,\dots,\xi_m^\ast)^T$ with 
+\begin{equation}
+    \xi_j^\ast=-\ln{(Z_j/Z_1)}.
+\end{equation}
+Note that there is a minus sign in this equation, following the convention of chemists.
+In a serial tempering method, $m$ is the total number of temperature states. By normalization
+\begin{equation}
+    C\sum_{j=1}^m\int \frac{\pi_j}{e^{-\xi_j}}q_j(x)\diff x=1,
+\end{equation}
+we find
+\begin{equation}
+    C=\frac{1}{\sum_{l=1}^m\pi_l e^{\xi_l-\xi_l^\ast}}.
+\end{equation}
+Therefore,
+\begin{equation}
+    p(j,x;\xi)=\frac{\pi_je^{\xi_j}q_j(x)}{\sum_{l=1}^m\pi_l e^{\xi_l-\xi_l^\ast}}.
+    \label{eq:ES:OAMS:pjx}
+\end{equation}
+
+The marginal distribution of $L$ is
+\begin{equation}
+    p(L=j;\xi)=\sum_{j=1}^{m}p(j,x;\xi)=\frac{\pi_je^{\xi_j-\xi_j^\ast}}{\sum_{l=1}^m\pi_l e^{\xi_l-\xi_l^\ast}},\quad j=1,\dots,m.
+\end{equation}
+The marginal distribution of $X$ is
+\begin{equation}
+    p(x;\xi)=\sum_{j=1}^m p(j,x;\xi)=\frac{\sum_{j=1}^m\pi_je^{\xi_j}q_j(x)}{\sum_{l=1}^m\pi_l e^{\xi_l-\xi_l^\ast}},\quad x\in \chi.
+\end{equation}
+
+Given any fixed choice of $\xi$ and $\pi$, this mixed ensemble can be sampled by standard Markov Chain Monte Carlo (MCMC). Starting from some initial values $(L_0,X_0)$, the Metropolis-Hasting (MH) algorithm is as follows
+\begin{enumerate}
+	\item Generate $(j,x)$ from a proposal distribution $Q\{(L_{t-1},X_{t-1}),\cdot;\xi\}$.
+	\item Set $(L_t,X_t)=(j,x)$ with probability
+	\[
+	\min{\left[1,\frac{Q\{(j,x),(L_{t-1},X_{t-1});\xi\}}{Q\{(L_{t-1},X_{t-1}),(j,x);\xi\}}\frac{p(j,x;\xi)}{p(L_{t-1},X_{t-1};\xi)}\right]},
+	\]
+	and with the remaining probability, set $(L_t,X_t)=(L_{t-1},X_{t-1})$.
+\end{enumerate}
+
+For overlap-based sampling, assume that a Markov transition kernel $\Psi_j(x;\cdot)$ is constructed by MCMC with $P_j=q_j/Z_j$ being the stationary distribution. Then, a particular choice of $Q(\cdot,\cdot;\xi)$ is to update $L_t$ and $X_t$ one at a time, leading to a two-block MH algorithm using $\Psi=(\Psi_1,\dots,\Psi_m)$. The conditional distributions are
+\begin{align}
+	&p(x|L=j)\propto q_j(x),\\
+	&p(L=j|x;\xi)=\frac{\pi_je^{\xi_j}q_j(x)}{\sum_{l=1}^m\pi_le^{\xi_l}q_l(x)}\propto\frac{\pi_j}{e^{-\xi_j}}q_j(x).
+\end{align}
+
+Specifically, two sampling schemes can be proposed. One is global-jump algorithm by sampling directly from $p(L=j|x;\xi)$.
+
+\textit{Global-jump labeled mixture sampling:}
+\begin{enumerate}
+	\item \textit{Global jump}: Generate $L_t\sim p(L=\cdot|X_{t-1};\xi)$.
+	\item \textit{Markov move}: Generate $X_t\sim \Psi_{L_t}(X_{t-1},\cdot)$.
+\end{enumerate}
+
+The other is local-jump algorithm, which is exactly serial tempering method.
+
+\textit{Local-jump labeled mixture sampling:}
+\begin{enumerate}
+	\item \textit{Local jump}: Generate $j\sim \Gamma(L_{t-1},\cdot)$ and then set $L_t=j$ with probability
+	\begin{equation*}
+	   \min{\left[1,\frac{\Gamma(j,L_{t-1})}{\Gamma(L_{t-1},j)}\frac{p(j|X_{t-1};\xi)}{p(L_{t-1}|X_{t-1};\xi)}\right]},
+	\end{equation*}
+	and, with the remaining probability, set $L_t=L_{t-1}$.
+	\item \textit{Markov move}: Generate $X_t\sim \Psi_{L_t}(X_{t-1},\cdot)$.
+\end{enumerate}
+
+\subsection{Self-Adjusted Mixture Sampling}
+It can be seen from Eq.~\ref{eq:ES:OAMS:pjx} that if we choose $\xi=\xi^\ast$, we have
+\begin{equation}
+    P(L=j;\xi)=\pi_j,
+\end{equation}
+which is the optimum condition. However, $\xi^\ast$ is unknown \textit{a priori}. If we are unlucky by choosing $\xi$ not close to $\xi^\ast$, then the marginal probability of one label $j$ may be orders of magnitude smaller than those of other labels, indicating that $P_j$ is not adequately sampled. Motivated by the Wang--Landau algorithm, the self-adjusted mixture sampling method was proposed. Let $\xi^{(0)}$ be some initial choice of $\xi$, for example, the $m\time 1$ vector of zeros. Denote by $\xi^{(t)}=(\xi_1^{(t)},\dots,\xi_m^{(t)})^T$ a choice of $\xi$ at iteration $t$.
+
+\textit{Stochastic approximation Monte Carlo (SAMC)}:
+\begin{enumerate}
+	\item \textit{Local jump and Markov move}: same as local-jump labeled mixture sampling.
+	\item \textit{Free energy update}: set $\delta^{(t)}=(1\{L_t=1\},\dots,\textcolor{red}{q}\{L_t=m\})^T$ and
+	\begin{equation*}
+	    \xi^{t-\frac12}=\xi^{t-1}+\gamma_t(\delta^{(t)}-\pi),\quad \xi^{(t)}=\xi^{(t-\frac12)}-\xi_1^{t-\frac12},
+	\end{equation*}
+	where $\xi_1^{(t-\frac12)}$ is the first element of $\xi^{(t-\frac12)}$ and $\gamma_t=t_0/\max(t_0,t)$ for some fixed value $t_0>1$.
+\end{enumerate}
+
+The free energy update in the SAMC algorithm is an application of stochastic approximation to find $\xi^\ast$ as a unique solution to $p(L=j;\xi)=\pi_j\,(j=1,\dots,m)$. Informally, there is a self-adjusting mechanism as follows. If the $j$th element $\xi_j^{t-1}$ is greater (or smaller) than $\xi_j^\ast$, then the label $L_t$ will take value $j$ more likely (or less likely) than with probability $\pi_j$.
+
+\emph{\textcolor{red}{TO BE CHECKED}}
