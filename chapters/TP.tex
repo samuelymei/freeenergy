@@ -145,3 +145,69 @@ If the distribution of $\Delta U$ deviates from Gaussian, there will be extra te
 %O_{i,j} = \sum_{n=1}^{N}\frac{N_{i} e^{\beta G_{i} - \beta U_{i}(x_{n})}}{\sum_{k=1}^{K} N_{k}e^{\beta G_{k}-\beta U_{k}(x_{n})}}\frac{e^{\beta G_{j} - \beta U_{j}(x_{n})}}{\sum_{l=1}^{L} N_{l}e^{\beta G_{l}-\beta U_{l}(x_{n})}}
 %\label{Eq:FEM:TP:om}
 %\end{equation}
+
+In 2002, Jarzynski proposed a generalized free energy perturbation method termed ``targeted free energy perturbation''.\cite{JarzynskiPRE2002} This method generalizes the free energy perturbation method between two states, $A$ and $B$, by introducing an intermediate state $A^\prime(\mathbf{y})$ by mapping $\mathcal{M}$ from the microstate of the system $\mathbf{x}$ to another one $\mathbf{y}$ in the configuration space or phase space
+\begin{equation}
+	\mathcal{M}: \mathbf{x} \to \mathbf{y}(\mathbf{x}),
+\end{equation}
+The potential energy function of the mapped state $A^\prime(\mathbf{y})$ is
+\begin{equation}
+	U_{A^\prime}(\mathbf{y})=U_A(\mathbf{x})+\beta^{-1}\ln J(\mathbf{x}),
+\end{equation}
+where $J(\mathbf{x})=|\partial \mathbf{y}/\partial \mathbf{x}|$ is the Jacobian of the mapping $\mathcal{M}$. The Helmholtz free energy difference between state $A$ and state $A^\prime$ is zero by noticing that
+\begin{align*}
+	\Delta F_{A^\prime A}=&-\beta^{-1}\ln\frac{Z_{A^\prime}}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\int e^{-\beta U_{A^\prime}(\mathbf{y})}\diff y}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\int e^{-\beta (U_{A^\prime}(\mathbf{y})-U_A(\mathbf{x}))}e^{-\beta U_A(\mathbf{x})}\diff y}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\int J^{-1}(\mathbf{x})e^{-\beta U_A(\mathbf{x})}\diff y}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\int e^{-\beta U_A(\mathbf{x})}\diff x}{Z_A}\notag\\
+	                     =&0.
+\end{align*}
+The calculation of the free energy difference between state $A$ and state $B$ can be replaced by the calculation of free energy difference between state $A^\prime$ and state $B$. The latter can be written as
+\begin{align}
+	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{x})-U_{A^\prime}(\mathbf{y}))}\rho_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
+	                    =&-\beta^{-1}\ln {\int e^{-\beta \Phi(\mathbf{x})}\rho_{A}(\mathbf{x})\diff \mathbf{x}}
+\end{align}
+in which 
+\begin{align}
+	\Phi(\mathbf{x})\equiv& U_B(\mathbf{y}) - U_{A^\prime}(\mathbf{y})\notag\\
+	                =&U_B(\mathbf{y})-U_A(\mathbf{x})-\beta^{-1}\ln J(\mathbf{x}),
+\end{align}
+and the relationship between the distributions
+\begin{equation}
+	\eta(\mathbf{y})=\rho(\mathbf{x})/J(\mathbf{x})
+	\label{Eq:FEM:TP:TFEPdistribution}
+\end{equation}
+has been invoked.
+
+As a special case $\mathcal{M}: \mathbf{x} \to\mathbf{x}$,
+\begin{equation}
+	\Phi(\mathbf{x})\equiv U_B(\mathbf{x})-U_A(\mathbf{x}),
+\end{equation}
+and it reduces to the traditional free energy perturbation. It implies that there may exist mapping $\mathcal{M}$ for which the average of $\exp\{-\beta \Phi\}$ converges more rapidly than the average of $\exp\{-\beta (U_B-U_A)\}$. It can also be asserted that
+\begin{align}
+	e^{-\beta \Delta F}=&\left<e^{-\beta \Phi}\right>_A\notag\\
+	                =&\int \diff \mathbf{x} \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\notag\\
+	                =&\int \diff\phi \int \diff \mathbf{x} \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\delta(\Phi(\mathbf{x})-\phi)\notag\\
+	                =&\int \diff\phi e^{-\beta \phi}\int \rho(\mathbf{x})\delta(\Phi(\mathbf{x})-\phi)\diff \mathbf{x}\notag\\
+	                =&\int \diff\phi e^{-\beta \phi} p(\phi|\mathcal{M}),
+\end{align}
+where $p(\phi|\mathcal{M})$ is the distribution of values of $\phi=\Phi(\mathbf{x})$ for $\mathbf{x}$ sampled from $A$. In practice, $\Delta F$ can be estimated by averaging $\exp{(-\beta \Phi)}$ over a finite number of sampled microstates $\mathbf{x}_1,\,\mathbf{x}_2,\dots,\mathbf{x}_N$
+\begin{equation}
+	\Delta F=-\beta^{-1}\ln\frac{1}{N}\sum_{n=1}^N e^{-\beta \Phi(\mathbf{x}_n)}.
+\end{equation}
+The rate of convergence depends on the choice of $\mathcal{M}$. A perfect mapping $\mathcal{M}^\ast$ that transforms $A$ exactly onto $B$, we will find from Eq.~\ref{Eq:FEM:TP:TFEPdistribution} that
+\begin{equation}
+	\frac{1}{Z_B}e^{-\beta E_B(\mathbf{y})}=\frac{1}{Z_A}e^{-\beta E_A(\mathbf{x})}/J(\mathbf{x}),
+\end{equation}
+which leads to
+\begin{equation}
+	p(\phi|\mathcal{M}^\ast)=\delta (\phi-\Delta F).
+\end{equation}
+Then the convergence of the finite sampling is immediate: $\Phi(\mathbf{x})=\Delta F$ for every sampled $\mathbf{x}$. Although constructing a perfect transformation is usually impossible for real-world problems, a transformation that keeps a narrow distribution of $\phi$'s, which implies good overlap between the transformed state and state $B$, can accelerate the convergence of the generalized free energy perturbation calculations.
+
+In 2009, Hahn and Then extended this idea and proposed a bidirectional formulation as a generalized Bennett Acceptance Ratio method\cite{HahnPRE2009}, which reads
+\begin{equation}
+	\sum_{j=1}^{n_1}\frac{1}{1+e^{\beta\left(\widehat{\Delta F}_{01}+\frac{1}{\beta}\ln{\frac{n_1}{n_0}}-W_j^1\right)}}=	\sum_{i=1}^{n_0}\frac{1}{1+e^{\beta\left(\widehat{\Delta F}_{01}+\frac{1}{\beta}\ln{\frac{n_1}{n_0}}-W_i^0\right)}}.
+\end{equation}
+They also suggested using Kullback-Leibler divergence to characterize the similarity between the mapped state $A^\prime$ and state $B$.
