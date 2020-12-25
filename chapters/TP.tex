@@ -165,7 +165,7 @@ where $J(\mathbf{x})=|\partial \mathbf{y}/\partial \mathbf{x}|$ is the Jacobian 
 \end{align*}
 The calculation of the free energy difference between state $A$ and state $B$ can be replaced by the calculation of free energy difference between state $A^\prime$ and state $B$. The latter can be written as
 \begin{align}
-	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{x})-U_{A^\prime}(\mathbf{y}))}\rho_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
+	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{y})-U_{A^\prime}(\mathbf{y}))}\rho_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
 	                    =&-\beta^{-1}\ln {\int e^{-\beta \Phi(\mathbf{x})}\rho_{A}(\mathbf{x})\diff \mathbf{x}}
 \end{align}
 in which 
@@ -175,7 +175,7 @@ in which
 \end{align}
 and the relationship between the distributions
 \begin{equation}
-	\eta(\mathbf{y})=\rho(\mathbf{x})/J(\mathbf{x})
+	\rho(\mathbf{y})=\rho(\mathbf{x})/J(\mathbf{x})
 	\label{Eq:FEM:TP:TFEPdistribution}
 \end{equation}
 has been invoked.
