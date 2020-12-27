@@ -165,13 +165,13 @@ where $J(\mathbf{x})=|\partial \mathbf{y}/\partial \mathbf{x}|$ is the Jacobian 
 \end{align*}
 The calculation of the free energy difference between state $A$ and state $B$ can be replaced by the calculation of free energy difference between state $A^\prime$ and state $B$. The latter can be written as
 \begin{align}
-	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{y})-U_{A^\prime}(\mathbf{y}))}\rho_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
+	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{x}(\mathbf{y}))-U_{A^\prime}(\mathbf{y}))}\rho_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
 	                    =&-\beta^{-1}\ln {\int e^{-\beta \Phi(\mathbf{x})}\rho_{A}(\mathbf{x})\diff \mathbf{x}}
 \end{align}
 in which 
 \begin{align}
-	\Phi(\mathbf{x})\equiv& U_B(\mathbf{y}) - U_{A^\prime}(\mathbf{y})\notag\\
-	                =&U_B(\mathbf{y})-U_A(\mathbf{x})-\beta^{-1}\ln J(\mathbf{x}),
+	\Phi(\mathbf{x})\equiv& U_B(\mathbf{x}(\mathbf{y})) - U_{A^\prime}(\mathbf{y})\notag\\
+	                =&U_B(\mathbf{x}(\mathbf{y}))-U_A(\mathbf{x})-\beta^{-1}\ln J(\mathbf{x}),
 \end{align}
 and the relationship between the distributions
 \begin{equation}
@@ -184,7 +184,7 @@ As a special case $\mathcal{M}: \mathbf{x} \to\mathbf{x}$,
 \begin{equation}
 	\Phi(\mathbf{x})\equiv U_B(\mathbf{x})-U_A(\mathbf{x}),
 \end{equation}
-and it reduces to the traditional free energy perturbation. It implies that there may exist mapping $\mathcal{M}$ for which the average of $\exp\{-\beta \Phi\}$ converges more rapidly than the average of $\exp\{-\beta (U_B-U_A)\}$. It can also be asserted that
+and it reduces to the traditional free energy perturbation. It implies that there may exist invertible mapping $\mathcal{M}$ for which the average of $\exp\{-\beta \Phi\}$ converges more rapidly than the average of $\exp\{-\beta (U_B-U_A)\}$. It can also be asserted that
 \begin{align}
 	e^{-\beta \Delta F}=&\left<e^{-\beta \Phi}\right>_A\notag\\
 	                =&\int \diff \mathbf{x} \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\notag\\
@@ -198,7 +198,7 @@ where $p(\phi|\mathcal{M})$ is the distribution of values of $\phi=\Phi(\mathbf{
 \end{equation}
 The rate of convergence depends on the choice of $\mathcal{M}$. A perfect mapping $\mathcal{M}^\ast$ that transforms $A$ exactly onto $B$, we will find from Eq.~\ref{Eq:FEM:TP:TFEPdistribution} that
 \begin{equation}
-	\frac{1}{Z_B}e^{-\beta E_B(\mathbf{y})}=\frac{1}{Z_A}e^{-\beta E_A(\mathbf{x})}/J(\mathbf{x}),
+	\frac{1}{Z_B}e^{-\beta E_B(\mathbf{x}(\mathbf{y}))}=\frac{1}{Z_A}e^{-\beta E_A(\mathbf{x})}/J(\mathbf{x}),
 \end{equation}
 which leads to
 \begin{equation}
