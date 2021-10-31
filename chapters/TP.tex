@@ -175,7 +175,7 @@ in which
 \end{align}
 and the relationship between the distributions
 \begin{equation}
-	\eta(\mathbf{y})=\rho(\mathbf{x})/J(\mathbf{x})
+	\eta_{A^\prime}(\mathbf{y})=\rho_{A}(\mathbf{x})/J(\mathbf{x})
 	\label{Eq:FEM:TP:TFEPdistribution}
 \end{equation}
 has been invoked.
@@ -208,7 +208,7 @@ Then the convergence of the finite sampling is immediate: $\Phi(\mathbf{x})=\Del
 
 In 2009, Hahn and Then extended this idea and proposed a bidirectional formulation as a generalized Bennett Acceptance Ratio method\cite{HahnPRE2009}, which reads
 \begin{equation}
-	\sum_{j=1}^{n_1}\frac{1}{1+e^{\beta\left(\widehat{\Delta F}_{01}+\frac{1}{\beta}\ln{\frac{n_1}{n_0}}-W_j^1\right)}}=	\sum_{i=1}^{n_0}\frac{1}{1+e^{\beta\left(\widehat{\Delta F}_{01}+\frac{1}{\beta}\ln{\frac{n_1}{n_0}}-W_i^0\right)}}.
+	\sum_{j=1}^{n_1}\frac{1}{1+\frac{n_1}{n_0}\exp{\left(\beta\widehat{\Delta F}_{01}-\beta W_j^1\right)}}=	\sum_{i=1}^{n_0}\frac{1}{1+\frac{n_1}{n_0}\exp{\left(-\beta\widehat{\Delta F}_{01}+\beta W_i^0\right)}}.
 \end{equation}
 They also suggested using Kullback-Leibler divergence to characterize the similarity between the mapped state $A^\prime$ and state $B$.
 
