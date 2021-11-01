@@ -165,7 +165,7 @@ where $J(\mathbf{x})=|\partial \mathbf{y}/\partial \mathbf{x}|$ is the Jacobian 
 \end{align*}
 The calculation of the free energy difference between state $A$ and state $B$ can be replaced by the calculation of free energy difference between state $A^\prime$ and state $B$. The latter can be written as
 \begin{align}
-	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{y})-U_{A^\prime}(\mathbf{y}))}\eta_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
+	\Delta F_{BA^\prime}=&-\beta^{-1}\ln {\int e^{-\beta (U_B(\mathbf{y})-U_{A^\prime}(\mathbf{y}))}\rho_{A^\prime}(\mathbf{y})\diff \mathbf{y}}\notag\\
 	                    =&-\beta^{-1}\ln {\int e^{-\beta \Phi(\mathbf{x})}\rho_{A}(\mathbf{x})\diff \mathbf{x}}
 \end{align}
 in which 
@@ -175,7 +175,7 @@ in which
 \end{align}
 and the relationship between the distributions
 \begin{equation}
-	\eta_{A^\prime}(\mathbf{y})=\rho_{A}(\mathbf{x})/J(\mathbf{x})
+	\rho_{A^\prime}(\mathbf{y})=\rho_{A}(\mathbf{x})/J(\mathbf{x})
 	\label{Eq:FEM:TP:TFEPdistribution}
 \end{equation}
 has been invoked.
@@ -206,9 +206,61 @@ which leads to
 \end{equation}
 Then the convergence of the finite sampling is immediate: $\Phi(\mathbf{x})=\Delta F$ for every sampled $\mathbf{x}$. Although constructing a perfect transformation is usually impossible for real-world problems, a transformation that keeps a narrow distribution of $\phi$'s, which implies good overlap between the transformed state and state $B$, can accelerate the convergence of the generalized free energy perturbation calculations.
 
-In 2009, Hahn and Then extended this idea and proposed a bidirectional formulation as a generalized Bennett Acceptance Ratio method\cite{HahnPRE2009}, which reads
+In 2009, Hahn and Then extended this idea and proposed a bidirectional formulation as a generalized Bennett Acceptance Ratio method\cite{HahnPRE2009}.
+They began with the identity
 \begin{equation}
-	\sum_{j=1}^{n_1}\frac{1}{1+\frac{n_1}{n_0}\exp{\left(\beta\widehat{\Delta F}_{01}-\beta W_j^1\right)}}=	\sum_{i=1}^{n_0}\frac{1}{1+\frac{n_1}{n_0}\exp{\left(-\beta\widehat{\Delta F}_{01}+\beta W_i^0\right)}}.
+	\frac{\rho_{A^\prime}(\mathbf{y}(\mathbf{x}))}{\rho_B(\mathbf{y}(\mathbf{x}))}=e^{\beta\left[\Phi(\mathbf{x})-\Delta F\right]}\qquad \forall x\in \Gamma_0.
+\end{equation}
+Multiplying both sides with $\delta [W-\Phi(\mathbf{x})]\rho_B(\mathbf{y}(\mathbf{x}))$ and integrating with respect to $\mathbf{y}$, the left-hand side yields
+\begin{align}
+	\int_{\mathbf{y}(\Gamma_A)}&\delta[W-\Phi(\mathbf{x})]\rho_{A^\prime}(\mathbf{y}(\mathbf{x}))\diff \mathbf{y}\notag\\
+	                          =&\int_{\Gamma_0}\delta[W-\Phi(\mathbf{x})]\rho_A(\mathbf{x})\diff \mathbf{x}\notag\\
+	                          =&p(W|A;\mathcal{M}),
+\end{align}
+and the right-hand side yields
+\begin{align}
+	\int_{\mathbf{y}(\Gamma_A)}&e^{\beta\left[\Phi(\mathbf{x})-\Delta F\right]}\delta[W-\Phi(\mathbf{x})]\rho_B(\mathbf{y})\diff \mathbf{y}\notag\\
+	                          =&e^{\beta\left[W-\Delta F\right]}\int_{\mathbf{y}(\Gamma_A)}\delta[W-\Phi(\mathbf{x})]\rho_B(\mathbf{y})\diff \mathbf{y}\notag\\
+	                          =&e^{\beta\left[W-\Delta F\right]}p(W|B;\mathcal{M}),
+\end{align}
+where $p(W|A;\mathcal{M})$ ($p(W|B;\mathcal{M})$) is the probability density for the outcome of a specific value of the generalized work in forward (reverse) direction subject to the map $\mathcal{M}$ when sampled from $\rho_A$ ($\rho_B$). Therefore,
+\begin{equation}
+	\frac{p(W|A;\mathcal{M})}{p(W|B;\mathcal{M})}=e^{\beta\left[W-\Delta F\right]}.
+	\label{Eq:FEM:TP:FluctTheo}
+\end{equation}
+Bayes theorem,
+\begin{equation}
+	p(W|Y)p_Y=p(Y|W)p(W), \quad \text{with $Y=A$ or $B$}
+	\label{Eq:FEM:TP:Bayes}
+\end{equation}
+implies the ``balance'' equation
+\begin{align}
+	p_B\int p(A|W)p(W|B)\diff W=&\int p(A|W)p(B|W)p(W)\diff W\notag\\
+	                           =&\int p(B|W)p(W|A)p_A\diff W\notag\\
+	                           =&p_A\int p(B|W)p(W|A)\diff W,
+	                           \label{Eq:FEM:TP:BalEq}
+\end{align}
+or $p_B\left<p(A|W)\right>_B=p_A\left<p(B|W)\right>_A$.
+
+Combining Eq.~\ref{Eq:FEM:TP:FluctTheo} and Eq.~\ref{Eq:FEM:TP:Bayes} leads to
+\begin{equation}
+	\frac{p(A|W)}{p(B|W)}=e^{\beta(W-C)}
+\end{equation}
+with
+\begin{equation}
+	C=\Delta F+\frac{1}{\beta}\ln{\frac{p_B}{p_A}}.
+\end{equation}
+With the normalization condition $p(A|W)+p(B|W)=1$, it yields
+\begin{equation}
+	p(A|W)=\frac{1}{1+e^{\beta(C-W)}}
+\end{equation}
+and
+\begin{equation}
+	p(B|W)=\frac{e^{\beta(C-W)}}{1+e^{\beta(C-W)}}=\frac{1}{1+e^{\beta(-C+W)}}.
+\end{equation}
+Replacing both, the ensemble averages by sample averages and the ratio $\frac{p_B}{p_A}$ by $\frac{n_B}{n_A}$, the balance equation results in
+\begin{equation}
+	\sum_{j=1}^{n_B}\frac{1}{1+\frac{n_B}{n_A}\exp{\left(\beta\widehat{\Delta F}_{AB}-\beta W^j_B\right)}}=	\sum_{i=1}^{n_A}\frac{1}{1+\frac{n_B}{n_A}\exp{\left(-\beta\widehat{\Delta F}_{AB}+\beta W^i_A\right)}}.
 \end{equation}
 They also suggested using Kullback-Leibler divergence to characterize the similarity between the mapped state $A^\prime$ and state $B$.
 
