@@ -209,7 +209,7 @@ Then the convergence of the finite sampling is immediate: $\Phi(\mathbf{x})=\Del
 In 2009, Hahn and Then extended this idea and proposed a bidirectional formulation as a generalized Bennett Acceptance Ratio method\cite{HahnPRE2009}.
 They began with the identity
 \begin{equation}
-	\frac{\rho_{A^\prime}(\mathbf{y}(\mathbf{x}))}{\rho_B(\mathbf{y}(\mathbf{x}))}=e^{\beta\left[\Phi(\mathbf{x})-\Delta F\right]}\qquad \forall x\in \Gamma_0.
+	\frac{\rho_{A^\prime}(\mathbf{y}(\mathbf{x}))}{\rho_B(\mathbf{y}(\mathbf{x}))}=e^{\beta\left[\Phi(\mathbf{x})-\Delta F\right]}\qquad \forall \mathbf{x}\in \Gamma_0.
 \end{equation}
 Multiplying both sides with $\delta [W-\Phi(\mathbf{x})]\rho_B(\mathbf{y}(\mathbf{x}))$ and integrating with respect to $\mathbf{y}$, the left-hand side yields
 \begin{align}
@@ -223,7 +223,7 @@ and the right-hand side yields
 	                          =&e^{\beta\left[W-\Delta F\right]}\int_{\mathbf{y}(\Gamma_A)}\delta[W-\Phi(\mathbf{x})]\rho_B(\mathbf{y})\diff \mathbf{y}\notag\\
 	                          =&e^{\beta\left[W-\Delta F\right]}p(W|B;\mathcal{M}),
 \end{align}
-where $p(W|A;\mathcal{M})$ ($p(W|B;\mathcal{M})$) is the probability density for the outcome of a specific value of the generalized work in forward (reverse) direction subject to the map $\mathcal{M}$ when sampled from $\rho_A$ ($\rho_B$). Therefore,
+where $p(W|A;\mathcal{M})$ ($p(W|B;\mathcal{M})$) is the probability density for the outcome of a specific value of the generalized work $W$ in forward (reverse) direction subject to the map $\mathcal{M}$ when sampled from $\rho_A$ ($\rho_B$). Therefore,
 \begin{equation}
 	\frac{p(W|A;\mathcal{M})}{p(W|B;\mathcal{M})}=e^{\beta\left[W-\Delta F\right]}.
 	\label{Eq:FEM:TP:FluctTheo}
