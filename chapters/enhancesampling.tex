@@ -5,28 +5,28 @@
 \end{chapquote}
 From the definition, the free energy of a specific system is dominated by phase space regions with a low potential energy. However, these regions might be separated by high energy barriers. Transitions among these potential energy wells are often hindered by these barriers. According to the Boltzmann's Law, the probability of a sample $\mathbf{R}$ being visited is proportional to the Boltzmann's factor $\exp{\left[-\beta E(\mathbf{R})\right]}$, where $\beta=1/k_BT$ is called the inverse temperature. $k_B$ is the Boltzmann constant and $T$ is the temperature. According to some experience, in a $100\, ns$ simulation, the system can overcome a barrier of $10\, k_BT$, which is $6\, kcal/mol$ at room temperature ($300\, K$). If the barrier is $1.5\, kcal/mol$ higher, it takes about $1\, \mu s$ (10 times longer) in average for the system to go over the barrier. If the barrier height reaches $9\, kcal/mol$, it takes $10\,\mu s$. And so on. With modern computers, the longest all-atom molecular dynamics simulation for biological systems is probably the one done by D.E. Shaw, which was on a time scale of 1 ms on a special-purpose computer ``Anton''. For most classical molecular dynamics simulations, the time scales are normally several $\mu s$ to tens of $\mu s$. For simulations using expensive Hamiltonians, such as in QM/MM simulations, the time scales that can be reached are usually three orders shorter. Clearly, molecular dynamics simulations are plagued by a timescale problem. In order to observe abundant transitions among these energy minima, which is required by free energy calculations, enhanced samplings are often indispensable. As shown in the Boltzmann's factor, the essential quantity that determines the rate of transitions is $\beta E$. In order to accelerate the phase space sampling, we can either increase the temperature or decrease the energy barrier. All the methods shown below can be classified into these two categories. 
 \clearpage 
-\input chapters/REMD.tex
+\input {chapters/REMD.tex}
 \clearpage
-\input chapters/SimulatedTempering.tex
+\input {chapters/SimulatedTempering.tex}
 \clearpage 
-\input chapters/US.tex
+\input {chapters/US.tex}
 \clearpage
-\input chapters/ABF.tex
+\input {chapters/ABF.tex}
 \clearpage 
-\input chapters/lambdadynamics.tex
+\input {chapters/lambdadynamics.tex}
 \clearpage 
-\input chapters/Wang_Landau.tex
+\input {chapters/Wang_Landau.tex}
 \clearpage 
-\input chapters/metadynamics.tex
+\input {chapters/metadynamics.tex}
 \clearpage 
-\input chapters/VES.tex
+\input {chapters/VES.tex}
 \clearpage 
-\input chapters/OSRW.tex
+\input {chapters/OSRW.tex}
 \clearpage
-\input chapters/EDS.tex
+\input {chapters/EDS.tex}
 %\clearpage
 %\input chapters/NEB.tex
 \clearpage
-\input chapters/string.tex
+\input {chapters/string.tex}
 \clearpage
-\input chapters/OAMS.tex
+\input {chapters/OAMS.tex}
