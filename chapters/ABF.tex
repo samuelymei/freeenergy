@@ -68,7 +68,7 @@ $\beta$ has been absorbed. Now define a thin matrix $\mathbf{W}$ with $N_\xi$ co
 \begin{equation}
     \mathbf{J}_{\boldsymbol{\xi}} \mathbf{W}=\mathbf{I},
 \end{equation} 
-where $\mathbf{J}_{\boldsymbol{\xi}}$ is a fat matrix with its element defined by
+where the Jacobian $\mathbf{J}_{\boldsymbol{\xi}}$ is a fat matrix with its element defined by
 \begin{equation}
     [\mathbf{J}_{\boldsymbol{\xi}}]_{ij}=\frac{\partial \xi_i}{\partial x_j},
 \end{equation}
@@ -76,8 +76,9 @@ and $\mathbf{I}$ is a unit matrix. Using the definition of ensemble average and 
 \begin{align}
     \left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>=&\frac{\int\left(\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right)e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
     =&\frac{-\int (\nabla\cdot(e^{-U}\mathbf{W}))^t\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff\mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
-    =&\frac{\int e^{-U}\mathbf{W}^t\nabla\left(\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}.
+    =&\frac{\int e^{-U}\mathbf{W}^t\nabla\left(\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}},
 \end{align}
+in which $t$ is the transpose of a vector or matrix.
 
 Let us choose an index $i$ ($1\leq i\leq N_\xi$) and focus on $\partial A/\partial \xi_i$. Only row $i$ of $\mathbf{W}^t$, $w_i$, needs to be considered. The gradient can be computed as
 \begin{equation}
@@ -107,9 +108,9 @@ For multiple reaction coordinates, the calculation of $\nabla_\xi A$ can require
     \left<\left.\frac{\diff }{\diff t}(w_i\cdot \mathbf{p})\right|_{\boldsymbol{\xi}}\right>=&\left<\left.\mathbf{p}^t\mathbf{M}^{-1}\mathbf{J}(w_i)^t\mathbf{p}-w_i\cdot \nabla U\right|_{\boldsymbol{\xi}}\right>\notag\\
     =&\left<\left.-w_i\cdot \nabla U+\Tr(\mathbf{J}(w_i))\right|_{\boldsymbol{\xi}}\right>\notag\\
     =&-\left<\left.w_i\cdot\nabla U-\nabla\cdot w_i\right|_{\boldsymbol{\xi}}\right>\notag\\
-    =&-\frac{\partial A}{\partial \xi_i}.
+    =&-\frac{\partial A}{\partial \xi_i},
 \end{align}
-During the deviation, the equality
+where $\mathbf{p}$ is the momenta and $\mathbf{M}$ is the mass matrix. During the deviation, the equality
 \begin{equation}
     \int \mathbf{u}^t\mathbf{B}\mathbf{u}e^{-\mathbf{u}^t\mathbf{A}\mathbf{u}}\diff \mathbf{u}=\frac{1}{2}\Tr{(A^{-1}B)}\int e^{-\mathbf{u}^{t}\mathbf{A}\mathbf{u}}\diff \mathbf{u}
 \end{equation}
