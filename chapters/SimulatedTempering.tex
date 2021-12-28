@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{Simulated Tempering\label{Sec:ES:ST}}
-Simulated tempering (ST) was proposed by Marinari and Parisi\cite{MarinariEPL1992} and by Lyubartsev et al\cite{LyubartsevJCP1992} in 1992, and by Geyer and Thompson\cite{GeyerJASA1995} in 1995. In ST, there is only one trajectory with controlled jumps in temperature space, which is different from the implementation of T-REMD\ref{Sec:ES:REMD:TREMD}, in which multiple trajectories are running in parallel. In ST, the simulation is carried out in an extended space defined by the configuration variables $\mathbf{X}$ and a new variable $m$. The latter can take $M$ values ($m=1,\dots,M$). Corresponding to each $m$, there is an inverse temperature $\beta_m$. Let
+Simulated tempering (ST), aka serial tempering, was proposed by Marinari and Parisi\cite{MarinariEPL1992} and by Lyubartsev et al\cite{LyubartsevJCP1992} in 1992, and by Geyer and Thompson\cite{GeyerJASA1995} in 1995. In ST, there is only one trajectory with controlled jumps in temperature space, which is different from the implementation of T-REMD\ref{Sec:ES:REMD:TREMD}, in which multiple trajectories are running in parallel. In ST, the simulation is carried out in an extended space defined by the configuration variables $\mathbf{X}$ and a new variable $m$. The latter can take $M$ values ($m=1,\dots,M$). Corresponding to each $m$, there is an inverse temperature $\beta_m$. Let
 \begin{equation}
     \beta_1>\beta_2>\beta_3>\cdots >\beta_M.
 \end{equation}
