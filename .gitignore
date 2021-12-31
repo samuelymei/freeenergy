@@ -1,3 +1,4 @@
+# Exclude intermediate files
 *.aux
 *.bbl
 *.blg
@@ -7,3 +8,10 @@
 *.out
 *.synctex.gz
 *.toc
+*.fls
+*.fdb_latexmk
+*.dvi
+*.xdv
+
+# Exclude compiled document
+freeenergy.pdf
