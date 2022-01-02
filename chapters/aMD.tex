@@ -1,0 +1,111 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+\section{Accelerated Molecular Dynamics\label{Sec:ES:aMD}}
+Accelerated molecular dynamics, or aMD for short, was proposed by Hamelberg et al in 2004.\cite{HamelbergJCP2004}
+
+In this method, the simulation is performed on the modified potential $V^\ast(\mathbf{r})$
+\begin{equation}
+	V^\ast(\mathbf{r})= 
+	\left\{ 
+	\begin{array}{rl} 
+		V(\mathbf{r}), &\quad V(\mathbf{r})\geq E\\ 
+		V(\mathbf{r})+\Delta V(\mathbf{r}), &\quad V(\mathbf{r})< E\\  
+	\end{array} 
+	\right.
+\end{equation}
+in which $E$ is a certain chosen energy, $\Delta V(\mathbf{r})$ is a continuous nonnegative bias boost potential function, and $V(\mathbf{r})$ is the true potential. The bias potential increases the escape rate of the system from potential basins, and the subsequent state to state evolution of the system on the modified potential occurs at an accelerated rate with a nonlinear time scale of $\Delta t^\ast_i$, where
+\begin{equation}
+	\Delta t^\ast_i=\Delta t_i e^{\beta \Delta V(\mathbf{r}(t_i))}
+\end{equation}
+The ensemble average value of any observable $A(\mathbf{r})$ taken on the modified potential can be written as
+\begin{align}
+	\left<A^\ast\right>=&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V^{\ast}(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V^{\ast}(\mathbf{r})}}\notag\\
+	        =&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}
+\end{align}
+The correct ensemble average can be written as
+\begin{align}
+	\left<A\right>=&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V(\mathbf{r})}}\notag\\
+	=&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V^\ast(\mathbf{r})+\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V^\ast(\mathbf{r})+\beta \Delta V(\mathbf{r})}}\notag\\
+	=&\frac{\left<A(\mathbf{r})e^{\beta \Delta V(\mathbf{r})}\right>_{V^\ast}}{\left<e^{\beta \Delta V(\mathbf{r}) }\right>_{V^\ast}}.
+\end{align}
+Some technique can improve the numerical stability of this reweighting process.\cite{MiaoJCTC2014} The definition of $\Delta V(\mathbf{r})$ is nonunique, and Hamelberg et al proposed a modification of the potential energy surface more akin to snow drifts, which smooths the landscape by filling minima, but maintains the underlying shape of the unmodified potential energy surface and merges smoothly with the original potential at the threshold ``boost energy'' value $E$. It is defined as
+\begin{equation}
+	\Delta V(\mathbf{r})=\frac{(E-V(\mathbf{r}))^2}{\alpha+(E-V(\mathbf{r}))},
+\end{equation}
+where $\alpha$ is a tuning parameter that determines how deep the modified potential energy basin is. With this biasing potential, the derivative of $V^{\ast}(\mathbf{r})$ has no discontinuity, and the modified potential reproduces the shape of the minima even at high value of $E$. Furthermore, $E$ should be carefully chosen, which may require a short trial simulation.
+
+The most recent variant of aMD, the Gaussian accelerated molecular dynamics (GaMD), was developed by Miao et al\cite{MiaoJCTC2015}, in which the biasing potential is defined as
+\begin{equation}
+	\Delta V(\mathbf{r})= 
+	\left\{ 
+	\begin{array}{rl} 
+		\frac{1}{2}k(E-V(\mathbf{r}))^2, &\quad V(\mathbf{r})\geq E\\ 
+		0, &\quad V(\mathbf{r})< E\\  
+	\end{array} 
+	\right.
+\end{equation}
+
+In order to smoothen the potential energy surface for enhanced sampling, the boost potential needs to satisfy the following criteria. First, for any two arbitrary potential values $V(\mathbf{r}_1)$ and $\mathbf{r}_2$ found on the original energy surface, $\Delta V$ should be a monotonic function that does no change the relative order of the biased potential values, i.e. 
+\begin{equation}
+	\sign{(V(\mathbf{r}_1)-V(\mathbf{r}_2))}=\sign{(V^\ast(\mathbf{r}_1)-V^\ast(\mathbf{r}_2))}.
+\end{equation}
+Without losing generality, let $V(\mathbf{r}_1)<V(\mathbf{r}_2)$, we have
+\begin{equation}
+	V^\ast(\mathbf{r}_1)<V^\ast(\mathbf{r}_2),
+\end{equation}
+which leads to
+\begin{align}
+    V(\mathbf{r}_1)+\frac{1}{2}k\left[E-V(\mathbf{r}_1)\right]^2-V(\mathbf{r}_2)-\frac{1}{2}k\left[E-V(\mathbf{r}_2)\right]^2<&0\notag\\
+    \left[V(\mathbf{r}_1)-V(\mathbf{r}_2)\right]+\frac{1}{2}k\left[(2E-V(\mathbf{r}_1)-V(\mathbf{r}_2))(V(\mathbf{r}_2)-V(\mathbf{r}_1))\right]<&0\notag\\
+    \left[V(\mathbf{r}_1)-V(\mathbf{r}_2)\right]\left[1-\frac{1}{2}k(2E-V(\mathbf{r}_1)-V(\mathbf{r}_2))\right]<&0.
+\end{align}
+Since $V(\mathbf{r}_1)<V(\mathbf{r}_2)$, we have
+\begin{equation}
+	1-\frac{1}{2}k(2E-V(\mathbf{r}_1)-V(\mathbf{r}_2))>0,
+\end{equation}
+or equivalently
+\begin{equation}
+	\text{Criterion 1: } E<\frac{1}{k}+\frac{1}{2}\left[V(\mathbf{r}_1)+V(\mathbf{r}_2)\right].
+\end{equation}
+
+Second, if $V(\mathbf{r}_1)<V(\mathbf{r}_2)$, the potential difference observed on the smoothened energy surface should be smaller than that of the original; i.e., $V^\ast(\mathbf{r}_2)-V^\ast(\mathbf{r}_1)<V(\mathbf{r}_2)-V(\mathbf{r}_1)$, which leads to
+\begin{equation}
+	\text{Criterion 2: } E>\frac{1}{2}\left[V(\mathbf{r}_1)+V(\mathbf{r}_2)\right].
+\end{equation}
+Therefore, the threshold energy must satisfy
+\begin{equation}
+	V_{\mathrm{max}}\leq E \leq V_{\mathrm{min}}+\frac{1}{k},
+\end{equation}
+where $V_{\mathrm{max}}$ and $V_{\mathrm{min}}$ are the maximum and minimum of potential energies, and $k$ has to satisfy
+\begin{equation}
+	k\leq \frac{1}{V_{\mathrm{max}}-V_{\mathrm{min}}}.
+\end{equation}
+It can be rewritten as
+\begin{equation}
+	k=k_0\frac{1}{V_{\mathrm{max}}-V_{\mathrm{min}}},
+\end{equation}
+where $k_0\in (0,1)$. $k_0$ determines the magnitude of the applied boost potential. With greater $k_0$, higher boost potential is added to the potential energy surface. The boost potential is
+\begin{equation}
+	\Delta V(\mathbf{r})=\frac{1}{2} k_{0} \frac{1}{V_{\max }-V_{\min }}(E-V(\mathbf{r}))^{2}, \quad V(\mathbf{r})<E.
+\end{equation}
+
+Third, the standard deviation of $\Delta V$ needs to be small enough (i.e., narrow distribution) to ensure accurate reweighting using cumulant expansion to the second order:\cite{MiaoJCTC2014}
+\begin{equation}
+	\sigma_{\Delta V}=\sqrt{\left(\left.\frac{\partial \Delta V}{\partial V}\right|_{V=V_{\mathrm{av}}}\right)^{2} \sigma_{V}^{2}}=k\left(E-V_{\mathrm{av}}\right) \sigma_{V} \leq \sigma_{0},
+\end{equation}
+where $V_{av}$ and $\sigma_{V}$ are the average and standard deviation of the system potential energies and $\sigma_{\Delta V}$ is the standard deviation of $\Delta V$ with $\sigma_{0}$ as a user-specified upper limit (e.g., $10k_BT$) for accurate reweighting. If $E$ is set to the lower bound $E=V_{\mathrm{max}}$, we have
+\begin{equation}
+	k_{0} \leq \frac{\sigma_{0}}{\sigma_{V}} \frac{V_{\max }-V_{\min }}{V_{\max }-V_{\mathrm{av}}}.
+\end{equation}
+For efficient enhanced sampling with the highest possible acceleration, $k_0$ can then be set to its upper bound as
+\begin{equation}
+	k_{0}=\min \left(1.0, \frac{\sigma_{0}}{\sigma_{V}} \frac{V_{\max }-V_{\min }}{V_{\max }-V_{\mathrm{av}}}\right).
+\end{equation}
+Alternatively, when the threshold energy E is set to its upper bound $E = V_{\mathrm{min}} + (1/k)$, we have
+\begin{equation}
+	k_{0} \geq\left(1-\frac{\sigma_{0}}{\sigma_{V}}\right) \frac{V_{\max }-V_{\min }}{V_{\mathrm{av}}-V_{\min }}.
+\end{equation}
+Then, we have
+\begin{equation}
+	\text{Criterion 3: } \left(1-\frac{\sigma_{0}}{\sigma_{V}}\right) \frac{V_{\max }-V_{\min }}{V_{\mathrm{av}}-V_{\min }} \leq k_0 \leq \frac{\sigma_{0}}{\sigma_{V}} \frac{V_{\max }-V_{\min }}{V_{\max }-V_{\mathrm{av}}}.
+\end{equation}
