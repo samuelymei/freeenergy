@@ -117,14 +117,15 @@ where
 \end{equation}
 to Eq.~\ref{Eq:FEM:TP:deltaA7}, we obtain
 \begin{equation}
-  \exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp{\left[-\frac{(\Delta U - \left \langle \Delta U \right \rangle_{0} + \beta \sigma ^2)^2}{2\sigma^2}\right]} \diff\Delta U
+  \exp(-\beta \Delta A) = \frac{C}{\sqrt{2\pi}\sigma} \int \exp{\left[-\frac{\left[\Delta U - \left(\left \langle \Delta U \right \rangle_{0} - \beta \sigma ^2\right)\right]^2}{2\sigma^2}\right]} \diff\Delta U
   \label{Eq:FEM:TP:expdeltaA}
 \end{equation}
-Here, $C$ is independent of $\Delta U$
+Here,
 \begin{equation}
   C = \exp{\left[-\beta \left(\left \langle \Delta U \right \rangle_{0} - \frac{1}{2} \beta \sigma ^2\right)\right]}
   \label{Eq:FEM:TP:C}
 \end{equation}
+is independent of $\Delta U$. It can be seen from Eq.~\ref{Eq:FEM:TP:expdeltaA} that from $P_{0}(\Delta U)$ to $\exp{(-\beta \Delta U)}P_{0}(\Delta U)$, the maximum shifts to the left by $\beta \sigma ^2$, which is proportional to the variance of the Gaussian distribution $P_{0}(\Delta U)$, $\sigma^2$. In other words, the wider the distribution $P_{0}(\Delta U)$, the slower the convergence of TP calculation is. 
 If $P_{0}(\Delta U)$ is Gaussian, the integral in Eq.~\ref{Eq:FEM:TP:expdeltaA} can be evaluated analytically using cumulant expansion (see appendix~\ref{chapter:Appendix:CE})
 \begin{equation}
   \Delta A = \left< \Delta U \right>_{0} - \frac{1}{2} \beta \sigma ^2.
