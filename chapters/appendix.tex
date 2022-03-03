@@ -108,15 +108,15 @@ with
 \chapter{The Relationship between the $\Delta U$ Distributions in Forward and Backward TP\label{chapter:Appendix:DeltaUDistributions}}
 In a forward TP calculation between $H_0$ and $H_1$, the distribution of $\Delta U$ is
 \begin{equation}
-    f(\Delta U)=\frac{\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}{\int e^{-\beta H_0}\diff x}.
+    f(\Delta U)=\frac{{\displaystyle\int} e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}{{\displaystyle\int} e^{-\beta H_0}\diff x}.
 \end{equation}
 While in a backward TP, the distribution is
 \begin{align}
-    g(\Delta U)=&\frac{\int e^{-\beta H_1}\delta(H_1-H_0-\Delta U)\diff x}{\int e^{-\beta H_1}\diff x}\notag\\
-               =&\frac{f(\Delta U)\int e^{-\beta H_1}\delta(H_1-H_0-\Delta U)\diff x\int e^{-\beta H_0}\diff x}{\int e^{-\beta H_1}\diff x\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
-               =&f(\Delta U)\frac{\int e^{-\beta H_0}\diff x }{\int e^{-\beta H_1}\diff x}\frac{\int e^{-\beta H_1}\delta(H_1-H_0-\Delta U)\diff x}{\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
-               =&f(\Delta U)e^{\beta\Delta A}\frac{\int e^{-\beta\Delta H}e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}{\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
-               =&f(\Delta U)e^{\beta\Delta A}\frac{e^{-\beta\Delta U}\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}{\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
+    g(\Delta U)=&\frac{\displaystyle\int e^{-\beta H_1}\delta(H_1-H_0-\Delta U)\diff x}{\displaystyle\int e^{-\beta H_1}\diff x}\notag\\
+               =&\frac{f(\Delta U)\displaystyle\int e^{-\beta H_1}\delta(H_1-H_0-\Delta U)\diff x\int e^{-\beta H_0}\diff x}{\displaystyle\int e^{-\beta H_1}\diff x\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
+               =&f(\Delta U)\frac{\displaystyle\int e^{-\beta H_0}\diff x }{\displaystyle\int e^{-\beta H_1}\diff x}\frac{\displaystyle\int e^{-\beta H_1}\delta(H_1-H_0-\Delta U)\diff x}{\displaystyle\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
+               =&f(\Delta U)e^{\beta\Delta A}\frac{\displaystyle\int e^{-\beta\Delta H}e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}{\displaystyle\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
+               =&f(\Delta U)e^{\beta\Delta A}\frac{e^{-\beta\Delta U}\displaystyle\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}{\displaystyle\int e^{-\beta H_0}\delta(H_1-H_0-\Delta U)\diff x}\notag\\
                =&f(\Delta U)e^{\beta\Delta A}e^{-\beta\Delta U}
 \end{align}
 Or it can be written as

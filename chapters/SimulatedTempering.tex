@@ -15,9 +15,9 @@ with
 \end{equation}
 The total partition function for this extended ensemble is
 \begin{align}
-    Z=&\sum_{m=1}^M \int\diff \mathbf{X} \exp{\left[-H(\mathbf{X},m)\right]}\notag\\
-     =&\sum_{m=1}^M \int\diff \mathbf{X} \exp{\left[-\beta_m H(X)+g_m\right]}\notag\\
-     =&\sum_{m=1}^M \exp{(g_m)}\int\diff \mathbf{X} \exp{\left[-\beta_m H(X)\right]}
+    Z=&\sum_{m=1}^M \int\diff \mathbf{X}\, \exp{\left[-H(\mathbf{X},m)\right]}\notag\\
+     =&\sum_{m=1}^M \int\diff \mathbf{X}\, \exp{\left[-\beta_m H(X)+g_m\right]}\notag\\
+     =&\sum_{m=1}^M \exp{(g_m)}\int\diff \mathbf{X}\, \exp{\left[-\beta_m H(X)\right]}
 \end{align}
 
 For each $\beta_m$, there is a canonical ensemble with the probability for a configuration $\mathbf{X}$ follows the usual Boltzmann distribution, i.e. 
@@ -26,7 +26,7 @@ For each $\beta_m$, there is a canonical ensemble with the probability for a con
 \end{equation}
 and the partition function (with $1/N!$ omitted)
 \begin{equation}
-    Z_m=\int \diff \mathbf{X} \exp{[-\beta_m H(\mathbf{X})]}=\exp{(-\beta_m f_m)},
+    Z_m=\int \diff \mathbf{X}\, \exp{[-\beta_m H(\mathbf{X})]}=\exp{(-\beta_m f_m)},
 \end{equation}
 where $f_m$ is the associated free energy. With this definition of $Z_m$, the total partition function can be written as
 \begin{equation}
@@ -36,7 +36,7 @@ where $\exp{(g_m)}$ can be thought as the weight for the $m$th canonical ensembl
 
 On the other hand, the probability of having a given value of $m$ is simply given by
 \begin{equation}
-    \rho_m=\frac{\int\diff \mathbf{X} \exp{\left[-H(\mathbf{X},m)\right]}}{Z}=\frac{Z_m\exp{(g_m)}}{Z}=\frac{1}{Z}\exp{(-\beta_m f_m+g_m)}.
+    \rho_m=\frac{\int\diff \mathbf{X}\, \exp{\left[-H(\mathbf{X},m)\right]}}{Z}=\frac{Z_m\exp{(g_m)}}{Z}=\frac{1}{Z}\exp{(-\beta_m f_m+g_m)}.
 \end{equation}
 If we make the choice $g_m=\beta_m f_m$, then all the $\rho_m$ become equal. However, $f_m$ is usually unknown beforehand, or it may be never known.
 

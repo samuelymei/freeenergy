@@ -22,12 +22,12 @@ where $U(r_A,r_S)$ is the potential energy as a function of all solute coordinat
 \end{equation}
 The ratio of configuration integrals in Eq.~\ref{Eq:FEM:MMPBSA:deltaG} can be simplified with an implicit solvent approximation, as
 \begin{align}
-	\frac{Z_{N,A}}{Z_{N,0}}=Z_A=&\frac{\int e^{-\beta U(r_A)}\left\{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S\right\}\diff r_A}{\int e^{-\beta U(r_S)}\diff r_S}\notag\\
+	\frac{Z_{N,A}}{Z_{N,0}}=Z_A=&\frac{\displaystyle\int e^{-\beta U(r_A)}\left\{\displaystyle\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S\right\}\diff r_A}{\displaystyle\int e^{-\beta U(r_S)}\diff r_S}\notag\\
 	                           =&\int e^{-\beta \left[U(r_A)+W(r_A)\right]}\diff r_A,
 \end{align}
 where
 \begin{equation}
-	W(r_A)=-\beta^{-1}\ln{\left(\frac{\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S}{\int e^{-\beta U(r_S)}\diff r_S}\right)}
+	W(r_A)=-\beta^{-1}\ln{\left(\frac{\displaystyle\int e^{-\beta\Delta U(r_A,r_S)}e^{-\beta U(r_S)}\diff r_S}{\displaystyle\int e^{-\beta U(r_S)}\diff r_S}\right)}
 \end{equation}
 is the solvation free energy of the receptor $A$ at fixed coordinate $r_A$. Analogous equations hold for the complex and substrate.
 

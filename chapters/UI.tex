@@ -37,11 +37,11 @@ To combine the different windows, the reaction coordinate is divided into bins t
 \end{equation}
 with the normalized weight
 \begin{equation}
-    p_i(\xi)=N_ip_i^b{\xi}/\sum_i N_iP_i^b(\xi).
+    p_i(\xi)=N_iP_i^b(\xi)/\sum_i N_iP_i^b(\xi).
 \end{equation}
 $N_i$ is the total number of steps sampled for window $i$. This ensures a high weight at the center of the distribution. The variance is
 \begin{equation}
-    \mathrm{var}\left(\frac{\partial A^u}{\partial \xi}\right)=\sum_{i}^{windows}p_i^2\mathrm{var}\left(\frac{\partial A_i^u}{\partial \xi}\right).
+    \mathrm{var}\left(\frac{\partial A^u}{\partial \xi}\right)=\sum_{i}^{windows}{p_i}^2\mathrm{var}\left(\frac{\partial A_i^u}{\partial \xi}\right).
 \end{equation}
 
 High-order correction to the biased distribution can be found in Ref.~\cite{KaestnerJCP2012}.

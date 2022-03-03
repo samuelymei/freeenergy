@@ -19,16 +19,16 @@ in which $E$ is a certain chosen energy, $\Delta V(\mathbf{r})$ is a continuous 
 \end{equation}
 The ensemble average value of any observable $A(\mathbf{r})$ taken on the modified potential can be written as
 \begin{align}
-	\left<A^\ast\right>=&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V^{\ast}(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V^{\ast}(\mathbf{r})}}\notag\\
-	        =&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}
+	\left<A^\ast\right>=&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V^{\ast}(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V^{\ast}(\mathbf{r})}}\notag\\
+	        =&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}
 \end{align}
 The correct ensemble average can be written as
 \begin{align}
-	\left<A\right>=&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V(\mathbf{r})}}\notag\\
-	=&\frac{\int \diff \mathbf{r}A(\mathbf{r})e^{-\beta V^\ast(\mathbf{r})+\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r} e^{-\beta V^\ast(\mathbf{r})+\beta \Delta V(\mathbf{r})}}\notag\\
+	\left<A\right>=&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V(\mathbf{r})}}\notag\\
+	=&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V^\ast(\mathbf{r})+\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V^\ast(\mathbf{r})+\beta \Delta V(\mathbf{r})}}\notag\\
 	=&\frac{\left<A(\mathbf{r})e^{\beta \Delta V(\mathbf{r})}\right>_{V^\ast}}{\left<e^{\beta \Delta V(\mathbf{r}) }\right>_{V^\ast}}.
 \end{align}
-Some technique can improve the numerical stability of this reweighting process.\cite{MiaoJCTC2014} The definition of $\Delta V(\mathbf{r})$ is nonunique, and Hamelberg et al proposed a modification of the potential energy surface more akin to snow drifts, which smooths the landscape by filling minima, but maintains the underlying shape of the unmodified potential energy surface and merges smoothly with the original potential at the threshold ``boost energy'' value $E$. It is defined as
+Some technique can improve the numerical stability of this reweighting process.\cite{MiaoJCTC2014} The definition of $\Delta V(\mathbf{r})$ is non-unique, and Hamelberg et al proposed a modification of the potential energy surface more akin to snow drifts, which smooths the landscape by filling minima, but maintains the underlying shape of the unmodified potential energy surface and merges smoothly with the original potential at the threshold ``boost energy'' value $E$. It is defined as
 \begin{equation}
 	\Delta V(\mathbf{r})=\frac{(E-V(\mathbf{r}))^2}{\alpha+(E-V(\mathbf{r}))},
 \end{equation}

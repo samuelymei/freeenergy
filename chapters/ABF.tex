@@ -52,7 +52,7 @@ after integration by parts. After rearrangement, the gradient of $F(z)$ (i.e. th
 \end{equation}
 where $\left<\cdot\right>_{q(x)=z,\sigma(x)=0}$ denotes the conditional average under the constraints $q(x)=z$, $\sigma(x)=0$. For any function $f(x)$
 \begin{equation}
-	\left<f\right>_{q(x)=z,\sigma(x)=0}=\frac{\int f(x)e^{-\beta V(x)}\prod\limits_{k=1}^{M}\delta(q_k(x)-z_k)\prod\limits_{j=1}^M\delta(\sigma_j(x))\diff x}{\int e^{-\beta V(x)}\prod\limits_{k=1}^{M}\delta(q_k(x)-z_k)\prod\limits_{j=1}^M\delta(\sigma_j(x))\diff x}.
+	\left<f\right>_{q(x)=z,\sigma(x)=0}=\frac{\displaystyle\int f(x)e^{-\beta V(x)}\prod\limits_{k=1}^{M}\delta(q_k(x)-z_k)\prod\limits_{j=1}^M\delta(\sigma_j(x))\diff x}{\displaystyle\int e^{-\beta V(x)}\prod\limits_{k=1}^{M}\delta(q_k(x)-z_k)\prod\limits_{j=1}^M\delta(\sigma_j(x))\diff x}.
 	\label{eq:FEM:ABF:expectation}
 \end{equation}
 
@@ -74,9 +74,9 @@ where the Jacobian $\mathbf{J}_{\boldsymbol{\xi}}$ is a fat matrix with its elem
 \end{equation}
 and $\mathbf{I}$ is a unit matrix. Using the definition of ensemble average and integration by parts, we find
 \begin{align}
-    \left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>=&\frac{\int\left(\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right)e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
-    =&\frac{-\int (\nabla\cdot(e^{-U}\mathbf{W}))^t\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff\mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
-    =&\frac{\int e^{-U}\mathbf{W}^t\nabla\left(\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}},
+    \left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>=&\frac{\displaystyle\int\left(\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right)e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
+    =&\frac{-\displaystyle\int (\nabla\cdot(e^{-U}\mathbf{W}))^t\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff\mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
+    =&\frac{\displaystyle\int e^{-U}\mathbf{W}^t\nabla\left(\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}},
 \end{align}
 in which $t$ is the transpose of a vector or matrix.
 
@@ -90,7 +90,7 @@ Since we have $\nabla \xi_k w_i=\delta_{ik}$,
 \end{equation}
 Therefore, the $i$th component of $\left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot\mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>$ is
 \begin{equation}
-    \frac{\int e^{-U}\delta^\prime(\xi_i(\mathbf{x})-\xi_i)\prod\limits_{j\neq i}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}=\frac{\partial A}{\partial \xi_i},
+    \frac{\displaystyle\int e^{-U}\delta^\prime(\xi_i(\mathbf{x})-\xi_i)\prod\limits_{j\neq i}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}=\frac{\partial A}{\partial \xi_i},
 \end{equation}
 where a property of $\delta$ function
 \begin{equation}

@@ -113,7 +113,7 @@ Let us begin with a system of which the phase-space density evolves according to
 \end{equation}
 $\mathscr{L}_t$ is an explicitly time-dependent evolution operator that has the Boltzmann distribution as a stationary solution, $\mathscr{L}_t e^{-\beta \mathscr{H}(\mathbf{x},t)}=0$, where $\mathscr{H}(\mathbf{x},t)$ is a time-dependent Hamiltonian. For diffusive dynamics on a potential $V(\mathbf{x},t)$, the time evolution is governed by $\mathscr{L}_t=D\nabla e^{-\beta V(\mathbf{x},t)}\nabla e^{\beta V(\mathbf{x},t)}$, where $D$ is the diffusion coefficient and $\nabla=\partial/\partial \mathbf{x}$. Now consider the unnormalized Boltzmann distribution at time $t$,
 \begin{align}
-	p(\mathbf{x},t)=\frac{e^{-\beta \mathscr{H}(\mathbf{x},t)}}{\int e^{-\beta \mathscr{H}(\mathbf{x}^\prime,0)} \diff\mathbf{x}^\prime}.
+	p(\mathbf{x},t)=\frac{e^{-\beta \mathscr{H}(\mathbf{x},t)}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x}^\prime,0)} \diff\mathbf{x}^\prime}.
 \end{align}
 Because this distribution is stationary ($\mathscr{L}_tp=0$), and because $\partial p/\partial t=-\beta(\partial \mathscr{H}/\partial t)p$, it follows that the above $p(\mathbf{x},t)$ is a solution of the sink equation
 \begin{align}
@@ -121,7 +121,7 @@ Because this distribution is stationary ($\mathscr{L}_tp=0$), and because $\part
 \end{align}
 of which the solution, starting from an equilibrium distribution at time $t=0$, can be expressed as a path integral by using the Feynman-Kac theorem. Equating these two differential solutions immediately gives:
 \begin{equation}
-	\frac{e^{-\beta\mathscr{H}(\mathbf{x},t)}}{\int e^{-\beta \mathscr{H}(\mathbf{x}^\prime,0)} d\mathbf{x}^\prime}=\left\langle \delta(\mathbf{x}-\mathbf{x}_t)\exp{\left[-\beta\int_0^t\frac{\partial \mathscr{H}}{\partial t^\prime}(\mathbf{x}_{t^{\prime}},t^{\prime})\diff t^\prime\right]}\right\rangle.
+	\frac{e^{-\beta\mathscr{H}(\mathbf{x},t)}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x}^\prime,0)} \diff \mathbf{x}^\prime}=\left\langle \delta(\mathbf{x}-\mathbf{x}_t)\exp{\left[-\beta\int_0^t\frac{\partial \mathscr{H}}{\partial t^\prime}(\mathbf{x}_{t^{\prime}},t^{\prime})\diff t^\prime\right]}\right\rangle.
 	\label{Eq:FEM:NEW:SinkFK}
 \end{equation}
 The average $\left\langle \cdots \right\rangle$ is over an ensemble of trajectories starting from the equilibrium distribution at $t=0$ and evolving according to Eq.~\ref{Eq:FEM:NEW:Liouville}. Each trajectory is weighted with the Boltzmann factor of the external work $w_t$ done to the system,
@@ -130,23 +130,23 @@ The average $\left\langle \cdots \right\rangle$ is over an ensemble of trajector
 \end{equation}
 Integrating on both sides of Eq.~\ref{Eq:FEM:NEW:SinkFK} with respect to $\mathbf{x}$, we obtain Jarzynski equality
 \begin{equation}
-	e^{-\beta \Delta G(t)}\equiv \frac{\int e^{-\beta\mathscr{H}(\mathbf{x},t)}\diff \mathbf{x}}{\int e^{-\beta \mathscr{H}(\mathbf{x},0)} d\mathbf{x}}=\left \langle e^{-\beta w_t}\right\rangle
+	e^{-\beta \Delta G(t)}\equiv \frac{\displaystyle\int e^{-\beta\mathscr{H}(\mathbf{x},t)}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x},0)} \diff \mathbf{x}}=\left \langle e^{-\beta w_t}\right\rangle
 \end{equation}
 between the Boltzmann-averaged work $w_t$ and the equilibrium free energy difference $\Delta G(t)$ between times $t$ and $0$.
 
 In a single-molecule pulling experiment, e.g. using atomic force microscope (AFM), the sample is moved at a constant speed $v$ relative to the cantilever with spring constant $k$. The position $z_t=vt+\delta z_t$ of the cantilever tip with respect to the sample is recorded, where $\delta z_t$ is the displacement of the cantilever tip. It can be described by a Hamiltonian $\mathscr{H}(\mathbf{x},t)=\mathscr{H}_0(\mathbf{x})+k(z(\mathbf{x})-vt)^2/2$, where $\mathscr{H}_0(\mathbf{x})$ is the Hamiltonian of the resting, unperturbed system. \textit{It is worth noting that $\mathscr{H}(\mathbf{x},t)$ is the Hamiltonian for the total system, including the cantilever.} Substituting this Hamiltonian into Eq.~\ref{Eq:FEM:NEW:SinkFK}, multiplying both sides by $\delta[z-z(\mathbf{x})]$, and integrating over all $\mathbf{x}$, we have
 \begin{align}
-	\frac{\int\delta[z-z(\mathbf{x})]e^{-\beta \left\{\mathscr{H}_0(\mathbf{x})+k[z(\mathbf{x})-vt]^2/2\right\}}\diff \mathbf{x}}{\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}=\qquad\qquad\qquad\qquad\qquad&\notag\\
+	\frac{\displaystyle\int\delta[z-z(\mathbf{x})]e^{-\beta \left\{\mathscr{H}_0(\mathbf{x})+k[z(\mathbf{x})-vt]^2/2\right\}}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}=\qquad\qquad\qquad\qquad\qquad&\notag\\
 	\int \delta[z-z(\mathbf{x})] \left\langle \delta(\mathbf{x}-\mathbf{x}_t)e^{-\beta\int_0^t -kv\left[z(\mathbf{x}_{t^\prime}-vt^\prime)\right] \diff t^\prime}\right\rangle \diff \mathbf{x}\notag\\
-	\frac{\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}e^{-\beta k(z-vt)^2/2}=\qquad\qquad\qquad\qquad\qquad\quad&\notag\\
+	\frac{\displaystyle\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}e^{-\beta k(z-vt)^2/2}=\qquad\qquad\qquad\qquad\qquad\quad&\notag\\
 	\left\langle \delta[z-z(\mathbf{x_{t}})] e^{-\beta \left[-kv\int_0^t z(\mathbf{x}_{t^\prime})\diff t^\prime+kv^2t^2/2\right]}\right\rangle\notag\\
-	\frac{\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}=\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad&\notag\\
+	\frac{\displaystyle\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}=\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad&\notag\\
 	\left\langle \delta[z-z(\mathbf{x_{t}})] e^{-\beta \left[kv^2t^2/2-kv\int_0^t z(\mathbf{x}_{t^\prime})\diff t^\prime-k(z(\mathbf{x}_t)-vt)^2/2\right]}\right\rangle
 \end{align}
 and finally taking the logarithm, we have:
 \begin{align}
-	G_0(z)\equiv&-\beta^{-1}\ln{\frac{\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\int e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}}\notag\\
-	      =&-\beta^{-1}\ln{\left<\delta(z-z_t)e^{-\beta \Delta w_t}\right>}-\beta^{-1}\ln{\frac{\int e^{-\beta \mathscr{H}_0(\mathbf{x})+k[z(\mathbf{x})]^2/2}\diff \mathbf{x}}{\int e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}}\notag\\
+	G_0(z)\equiv&-\beta^{-1}\ln{\frac{\displaystyle\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}}\notag\\
+	      =&-\beta^{-1}\ln{\left<\delta(z-z_t)e^{-\beta \Delta w_t}\right>}-\beta^{-1}\ln{\frac{\displaystyle\int e^{-\beta \mathscr{H}_0(\mathbf{x})+k[z(\mathbf{x})]^2/2}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}}\notag\\
 	      =&-\beta^{-1}\ln{\left<\delta(z-z_t)e^{-\beta \Delta w_t}\right>}+\delta G,
 \end{align}
 where $G_0(z)$ is the unperturbed free energy profile along the pulling coordinate $z$, and $\Delta w_t$ is the external work minus the instantaneous biasing potential, $\Delta w_t=w_t-k(z_t-vt)^2/2=kv(vt^2/2-\int_0^t z_{t^\prime}\diff t^\prime)-k(z_t-vt)^2/2$. %The expression can be obtained by integrating the power over time. At any moment $t^\prime$, the force acting on the system is $f=k(vt^\prime-z_{t^\prime})$. Correspondingly, the power $p=f\cdot v$. Therefore, $w_t=\int p\diff t^\prime=\int_0^t kv(vt^\prime-z_{t^\prime})\diff t^\prime=kv(vt^2/2-\int_0^t z_{t^\prime}\diff t^\prime)$. 
@@ -160,7 +160,7 @@ At each time slice $t$, one can in principle obtain an estimate of the whole fre
 \end{align}
 where the sum is over time slices $t$ and $u(z,t)=k(z-vt)^2/2$ is the time dependent biasing potential. As in the weighted histogram method, this procedure can be refined by making Eq.~\ref{Eq:FEM:NEW:FEprofile} self-consistent through replacement of $\left<\exp{(-\beta w_t)}\right>$ with
 \begin{equation}
-	\exp{[-\beta \Delta G(t)]}=\frac{\int \exp{\left\{-\beta \left[u(z,t)+G_0(z)\right]\right\}}\diff z}{\int \exp{\left\{-\beta[u(z,0)+G_0(z)]\right\}\diff z}},
+	\exp{[-\beta \Delta G(t)]}=\frac{\displaystyle\int \exp{\left\{-\beta \left[u(z,t)+G_0(z)\right]\right\}}\diff z}{\displaystyle\int \exp{\left\{-\beta[u(z,0)+G_0(z)]\right\}\diff z}},
 \end{equation}
 thus requiring an iterative solution for $\Delta G(t)$. Note that Eq.~\ref{Eq:FEM:NEW:FEprofile} can be rewritten as
 \begin{equation}

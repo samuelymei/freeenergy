@@ -13,11 +13,11 @@ Z=\int \Omega(U)\exp{(-\beta U)}\diff U,
 \end{equation}
 where $\Omega(U)$ is density of states and $\Omega(U)\Delta U$ is the number of states in the region $U-\Delta U/2<U<U+\Delta U/2$. Accordingly, the statistical expectation of an operator $\mathbf{A}$ can be calculated by
 \begin{equation}
-\langle \mathbf{A}\rangle=\frac {\int \mathbf{A}(U)\Omega(U)\exp{(-\beta U)}\diff U}{\int \Omega(U)\exp{(-\beta U)}\diff U},
+\langle \mathbf{A}\rangle=\frac {\displaystyle\int \mathbf{A}(U)\Omega(U)\exp{(-\beta U)}\diff U}{\displaystyle\int \Omega(U)\exp{(-\beta U)}\diff U},
 \end{equation}
 where
 \begin{equation}
-\mathbf{A}(U^\prime)=\frac{\int \delta (U(\mathbf{R})-U^\prime)\mathbf{A}(\mathbf{R})\diff \mathbf{R}}{\int \delta (U(\mathbf{R})-U^\prime)\diff\mathbf{R}},
+\mathbf{A}(U^\prime)=\frac{\displaystyle\int \delta (U(\mathbf{R})-U^\prime)\mathbf{A}(\mathbf{R})\diff \mathbf{R}}{\displaystyle\int \delta (U(\mathbf{R})-U^\prime)\diff\mathbf{R}},
 \end{equation}
 is the average of $\mathbf{A}$ over all the samples with an energy $U^\prime$. Therefore, the core objective is to calculate $\Omega(U)$.
 
@@ -158,7 +158,7 @@ Using the density of states and its variance, we can estimate the expectation of
 \end{equation}
 where
 \begin{equation}
-A_m=\frac{\int \diff\mathbf{R}A(\mathbf{R})\psi_m(U(\mathbf{R}))}{\int \diff\mathbf{R}\psi_m(U(\mathbf{R}))}.
+A_m=\frac{\displaystyle\int \diff\mathbf{R}\,A(\mathbf{R})\psi_m(U(\mathbf{R}))}{\displaystyle\int \diff\mathbf{R}\,\psi_m(U(\mathbf{R}))}.
 \end{equation}
 Using histograms of bin $m$ from all the simulations and defining $H_m=\sum\limits_{k=1}^KH_{mk}$, an estimator of $A_m$ denoted as $\hat{A}_m$ can be calculated as
 \begin{equation}
@@ -187,7 +187,7 @@ where $W_{i}(\eta(\textbf{x}))$ is the biasing potential added on the reaction c
 \rho_{i}^{(b)}(\eta) = \frac{e^{-\beta U_{i}^{(b)}(\eta)}}{Q_{i}^{(b)}},
 \label{Eq:FEM:WHAM:bias}
 \end{equation}
-where $Q_{i}^{(b)}=\int e^{-\beta U_{i}^{(b)}(\eta)} \diff\eta = e^{-\beta f_{i}^{(b)}}$ and $f_{i}^{(b)}$ is the biased free energy.
+where $Q_{i}^{(b)}=\displaystyle\int e^{-\beta U_{i}^{(b)}(\eta)} \diff\eta = e^{-\beta f_{i}^{(b)}}$ and $f_{i}^{(b)}$ is the biased free energy.
 The corresponding unnormalized unbiased probability distribution $\rho_{i}^{(u)}(\eta)$ from the $i$th simulation is defined as, 
 \begin{align}
 \rho_{i}^{(u)}(\eta) = e^{\beta[W_{i}(\eta)-f_{i}^{(b)}]}\rho_{i}^{(b)}(\eta)

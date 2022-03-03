@@ -3,7 +3,7 @@
 \section{Variationally Enhanced Sampling Method\label{Sec:ES:VES}}
 Variationally Enhanced Sampling (VES) method was developed by Valsson and Parrinello in 2014 an evolution of Metadynamic.\cite{ValssonPRL2014} It begins with the following functional of a bias potential $V(\mathbf{s})$
 \begin{equation}
-    \Omega[V]=\frac{1}{\beta} \ln \frac{\int d \mathbf{s} e^{-\beta[F(\mathbf{s})+V(\mathbf{s})]}}{\int d \mathbf{s} e^{-\beta F(\mathbf{s})}}+\int d \mathbf{s} p(\mathbf{s}) V(\mathbf{s}),
+    \Omega[V]=\frac{1}{\beta} \ln \frac{\displaystyle\int \diff \mathbf{s}\, e^{-\beta[F(\mathbf{s})+V(\mathbf{s})]}}{\displaystyle\int \diff \mathbf{s}\, e^{-\beta F(\mathbf{s})}}+\int \diff \mathbf{s}\, p(\mathbf{s}) V(\mathbf{s}),
 \end{equation}
 where $p(\mathbf{s})$ is an arbitrary normalized probability distribution, and $F(\mathbf{s})$ is the unbiased free energy surface. This functional is convex and invariant under the addition of an arbitrary constant to $V(\mathbf{s})$, $\Omega[V+k]=\Omega[V]$. The potential that renders $\Omega[V]$ stationary is, with an constant,
 \begin{equation}

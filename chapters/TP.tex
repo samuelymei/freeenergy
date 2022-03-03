@@ -19,13 +19,13 @@ where $\beta = {(k_{B}T)}^{-1}$, and
 \end{equation}
 Taking Eq.~\ref{Eq:FEM:TP:PF} into Eq.~\ref{Eq:FEM:TP:deltaA}, we obtain
 \begin{align}
-  \Delta A  =&  -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta H_{1}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) \right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}}\\
-            =& -\frac{1}{\beta}\ln{\frac{\iint \exp\left[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})\right] \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}{\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}},
+  \Delta A  =&  -\frac{1}{\beta}\ln{\frac{\displaystyle\iint \exp\left[-\beta H_{1}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}{\displaystyle\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) \right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}}\\
+            =& -\frac{1}{\beta}\ln{\frac{\displaystyle\iint \exp\left[-\beta \Delta H(\mathbf{x},\mathbf{p}_{x})\right] \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}{\displaystyle\iint \exp\left[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x})\right] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}},
   \label{Eq:FEM:TP:deltaA2}
 \end{align}
 The probability density function of finding the reference system in a state defined by positions $\mathbf{x}$ and momenta $\mathbf{p}_{x}$ is 
 \begin{equation}
-  P_{0}(\mathbf{x},\mathbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] }{\iint \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}
+  P_{0}(\mathbf{x},\mathbf{p}_{x}) = \frac{ \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] }{\displaystyle\iint \exp[-\beta H_{0}(\mathbf{x},\mathbf{p}_{x}) ] \diff\mathbf{x}\diff\mathbf{p}_\mathbf{x}}
   \label{Eq:FEM:TP:proden}
 \end{equation}
 If the probability density function is used, Eq.~\ref{Eq:FEM:TP:deltaA2} becomes
@@ -159,10 +159,10 @@ The potential energy function of the mapped state $A^\prime(\mathbf{y})$ is
 where $J(\mathbf{x})=|\partial \mathbf{y}/\partial \mathbf{x}|$ is the Jacobian of the mapping $\mathcal{M}$. The Helmholtz free energy difference between state $A$ and state $A^\prime$ is zero by noticing that
 \begin{align*}
 	\Delta F_{A^\prime A}=&-\beta^{-1}\ln\frac{Z_{A^\prime}}{Z_A}\notag\\
-	                     =&-\beta^{-1}\ln \frac{\int e^{-\beta U_{A^\prime}(\mathbf{y})}\diff y}{Z_A}\notag\\
-	                     =&-\beta^{-1}\ln \frac{\int e^{-\beta (U_{A^\prime}(\mathbf{y})-U_A(\mathbf{x}))}e^{-\beta U_A(\mathbf{x})}\diff y}{Z_A}\notag\\
-	                     =&-\beta^{-1}\ln \frac{\int J^{-1}(\mathbf{x})e^{-\beta U_A(\mathbf{x})}\diff y}{Z_A}\notag\\
-	                     =&-\beta^{-1}\ln \frac{\int e^{-\beta U_A(\mathbf{x})}\diff x}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\displaystyle\int e^{-\beta U_{A^\prime}(\mathbf{y})}\diff y}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\displaystyle\int e^{-\beta (U_{A^\prime}(\mathbf{y})-U_A(\mathbf{x}))}e^{-\beta U_A(\mathbf{x})}\diff y}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\displaystyle\int J^{-1}(\mathbf{x})e^{-\beta U_A(\mathbf{x})}\diff y}{Z_A}\notag\\
+	                     =&-\beta^{-1}\ln \frac{\displaystyle\int e^{-\beta U_A(\mathbf{x})}\diff x}{Z_A}\notag\\
 	                     =&0.
 \end{align*}
 The calculation of the free energy difference between state $A$ and state $B$ can be replaced by the calculation of free energy difference between state $A^\prime$ and state $B$. The latter can be written as
@@ -189,10 +189,10 @@ As a special case $\mathcal{M}: \mathbf{x} \to\mathbf{x}$,
 and it reduces to the traditional free energy perturbation. It implies that there may exist an invertible mapping $\mathcal{M}$ for which the average of $\exp\{-\beta \Phi\}$ converges more rapidly than the average of $\exp\{-\beta (U_B-U_A)\}$. It can also be asserted that
 \begin{align}
 	e^{-\beta \Delta F}=&\left<e^{-\beta \Phi}\right>_A\notag\\
-	                =&\int \diff \mathbf{x} \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\notag\\
-	                =&\int \diff\phi \int \diff \mathbf{x} \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\delta(\Phi(\mathbf{x})-\phi)\notag\\
-	                =&\int \diff\phi e^{-\beta \phi}\int \rho(\mathbf{x})\delta(\Phi(\mathbf{x})-\phi)\diff \mathbf{x}\notag\\
-	                =&\int \diff\phi e^{-\beta \phi} p(\phi|\mathcal{M}),
+	                =&\int \diff \mathbf{x}\, \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\notag\\
+	                =&\int \diff\phi \int \diff \mathbf{x}\, \rho(\mathbf{x})e^{-\beta \Phi(\mathbf{x})}\delta(\Phi(\mathbf{x})-\phi)\notag\\
+	                =&\int \diff\phi\, e^{-\beta \phi}\int \rho(\mathbf{x})\delta(\Phi(\mathbf{x})-\phi)\diff \mathbf{x}\notag\\
+	                =&\int \diff\phi\, e^{-\beta \phi} p(\phi|\mathcal{M}),
 \end{align}
 where $p(\phi|\mathcal{M})$ is the distribution of values of $\phi=\Phi(\mathbf{x})$ for $\mathbf{x}$ sampled from $A$. In practice, $\Delta F$ can be estimated by averaging $\exp{(-\beta \Phi)}$ over a finite number of sampled microstates $\mathbf{x}_1,\,\mathbf{x}_2,\dots,\mathbf{x}_N$
 \begin{equation}

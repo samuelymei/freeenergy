@@ -47,16 +47,16 @@ The normalization of $\boldsymbol{\pi}^{(k)}$ is naturally satisfied due to Eqs.
 
 Using the Lagrange duality theory, it can be shown that the optimal solution of the discrete TRAM problem above fulfills the following two conditions
 \begin{align}
-	\sum_k\sum_j\frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_i^{(k)}\pi_i\nu_j^{(k)}}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}=\sum_k\sum_jc_{ji}^{(k)},\\
-	\sum_j\frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_j^{(k)}\pi_j}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}=1
+	\sum_k\sum_j\frac{\left(c_{ij}^{(k)}+c_{ji}^{(k)}\right)\gamma_i^{(k)}\pi_i\nu_j^{(k)}}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}=&\sum_k\sum_jc_{ji}^{(k)},\\
+	\sum_j\frac{\left(c_{ij}^{(k)}+c_{ji}^{(k)}\right)\gamma_j^{(k)}\pi_j}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}=&1
 \end{align}
 where $\nu_i^{(k)}$ are unknown Lagrange multipliers. To numerically solve the discrete TRAM problem, an initial guess for $\boldsymbol{\pi}$ and $\mathbf{v}^{(k)}$ can be made as
 \begin{align}
-	\pi_i^{init}:=1/n,
+	\pi_i^{init}:=1/n,\qquad
 	v_i^{(k),init}:=\sum_j c_{ij}^{(k)},
 \end{align}
 and the following equations must be solved iteratively until $\boldsymbol{\pi}$ is converged:
 \begin{align}
-	v_i^{(k),new}:=v_i^{(k)}\sum_j \frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_i^{(k)}\pi_j}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}},\\
-	\pi_i^{new}:=\frac{\sum_{k,j}c_{ji}^{(k)}}{\sum_{k,j}\frac{(c_{ij}^{(k)}+c_{ji}^{(k)})\gamma_i^{(k)}\nu_j^{(k)}}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}}.
+	v_i^{(k),new}:=&v_i^{(k)}\sum_j \frac{\left(c_{ij}^{(k)}+c_{ji}^{(k)}\right)\gamma_i^{(k)}\pi_j}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}},\\
+	\pi_i^{new}:=&\frac{\sum_{k,j}c_{ji}^{(k)}}{\sum_{k,j}\frac{\left(c_{ij}^{(k)}+c_{ji}^{(k)}\right)\gamma_i^{(k)}\nu_j^{(k)}}{\gamma_i^{(k)}\pi_i\nu_j^{(k)}+\gamma_j^{(k)}\pi_j\nu_i^{(k)}}}.
 \end{align}

@@ -124,17 +124,17 @@ K_b=\frac{[\operatorname{P-L}]}{[\mathrm{P}][\mathrm{L}]},
 \end{equation} 
 where [P-L], [P] and [L] are the equilibrium concentrations of the complex, protein and ligand, respectively. A standard binding free energy can be calculated via $\Delta G_{bind}\equiv -\beta^{-1}\ln{\left[ K_bC^0\right]}$, where $C^0$ is the standard state concentration of 1 mol/liter ($\equiv 1/1661 {\AA}^{-3}$). $K_b$ can be expressed in terms of a ratio of configurational integrals as
 \begin{equation}
-K_b=\frac{1}{[L]}\frac{N\int_{site}\diff(\mathbf{1})\int_{bulk}\diff(\mathbf{2})\cdots\int_{bulk}\diff(\mathbf{N})\int \diff\mathbf{X}e^{-\beta U}}{\int_{bulk}\diff(\mathbf{1})\int_{bulk}\diff(\mathbf{2})\cdots\int_{bulk}\diff(\mathbf{N})\int \diff\mathbf{X}e^{-\beta U}},
+K_b=\frac{1}{[L]}\frac{N\int_{site}\diff(\mathbf{1})\int_{bulk}\diff(\mathbf{2})\cdots\int_{bulk}\diff(\mathbf{N})\int \diff\mathbf{X}\,e^{-\beta U}}{\int_{bulk}\diff(\mathbf{1})\int_{bulk}\diff(\mathbf{2})\cdots\int_{bulk}\diff(\mathbf{N})\int \diff\mathbf{X}\,e^{-\beta U}},
 \end{equation}
-where $U$ is the total potential energy of the system, (\textbf{1}), (\textbf{2}), $\cdots$, (\textbf{N}) and \textbf{X} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and notice that $\int_{bulk}\diff(\mathbf{1})=V_{bulk}\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
+where $U$ is the total potential energy of the system, (\textbf{1}), (\textbf{2}), $\cdots$, (\textbf{N}) and \textbf{X} are the coordinates of the $N$ ligand molecules and the remaining atoms, respectively. For simplicity, we omit the integrals over the $(N-1)$ ligands in bulk, and notice that $\int_{bulk}\diff(\mathbf{1})=V_{bulk}\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r_1}-\mathbf{r}^*)$. Then, we have
 \begin{align}
-   K_b=&\frac{1}{[L]}\frac{N\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{V_{bulk}\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}\notag\\
-      =&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}.
+   K_b=&\frac{1}{[L]}\frac{N\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta U}}{V_{bulk}\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta U}}\notag\\
+      =&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta U}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta U}}.
 \end{align}
 
 A direct calculation of this ratio is not easy. Practically, we can define a series of intermediate states. Thereupon, the calculation of this ratio can be facilitated by
 \begin{align}
-K_b=\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{Z_1}\times&\frac{Z_1}{Z_2}\times\cdots\times\frac{Z_{n-1}}{Z_n}\times\notag\\ &\frac{Z_n}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}.
+K_b=\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta U}}{Z_1}\times&\frac{Z_1}{Z_2}\times\cdots\times\frac{Z_{n-1}}{Z_n}\times\notag\\ &\frac{Z_n}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r_1}-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta U}}.
 \label{Eq:Intro:K_b_path}
 \end{align}
 
@@ -142,23 +142,23 @@ There are two categories of methods for computing $K_b$, i.e. the alchemical str
 
 In alchemical strategy, the ligand is decoupled from its environment in the binding pocket and then recouples in water. However, a series of steps with restraints on the conformation, translation and rotation are introduced. Equation~\ref{Eq:Intro:K_b_path} is now realized as
 \begin{align}
-  K_b=&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U_1}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
-      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}\times\notag\\
-      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}\times\notag\\
-      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_1+U_c+U_t+U_r]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}\times\notag\\
-      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t+U_r]}}{\int_{bulk}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}\times\notag\\
-      &\frac{\int_{bulk}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U_0+U_c+U_t]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_0+U_c]}}\times\notag\\
-      &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_0+U_c]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}\times\notag\\
-      &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U_1+U_c]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U_1}}.
+  K_b=&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta U_1}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c+U_t]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c+U_t]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c+U_t+U_r]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c+U_t+U_r]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_0+U_c+U_t+U_r]}}\times\notag\\
+      &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_0+U_c+U_t+U_r]}}{\int_{bulk}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_0+U_c+U_t]}}\times\notag\\
+      &\frac{\int_{bulk}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U_0+U_c+U_t]}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U_0+U_c]}}\times\notag\\
+      &\frac{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U_0+U_c]}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c]}}\times\notag\\
+      &\frac{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U_1+U_c]}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta U_1}}.
 \end{align}
 
 In PMF-based strategy, the ligand is gradually pulled out of the binding pocket into water. Similarly, restraints on the conformation, translation and rotation should also be applied when pulling the ligand molecule. Equation~\ref{Eq:Intro:K_b_path} is now realized as
 \begin{align}
-K_b=&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta U}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
-    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
-    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}\times\notag\\
-    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o+U_a]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}\times\notag\\
-    &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c+U_o]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c]}}\times\notag\\
-    &\frac{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta [U+U_c]}}{\int_{bulk}\diff(\mathbf{1})\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}e^{-\beta U}}.
+K_b=&\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta U}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U+U_c]}}\times\notag\\
+    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U+U_c]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U+U_c+U_o]}}\times\notag\\
+    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U+U_c+U_o]}}{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U+U_c+U_o+U_a]}}\times\notag\\
+    &\frac{\int_{site}\diff(\mathbf{1})\int \diff\mathbf{X}\,e^{-\beta [U+U_c+U_o+U_a]}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U+U_c+U_o]}}\times\notag\\
+    &\frac{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U+U_c+U_o]}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U+U_c]}}\times\notag\\
+    &\frac{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta [U+U_c]}}{\int_{bulk}\diff(\mathbf{1})\,\delta(\mathbf{r}_1-\mathbf{r}^*)\int \diff\mathbf{X}\,e^{-\beta U}}.
 \end{align}
 It is worth emphasizing that this PMF-based strategy does not yield the real entry/escaping pathways nor the free energy barriers.

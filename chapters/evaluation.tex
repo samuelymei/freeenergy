@@ -24,7 +24,7 @@ Consecutive windows should have substantial overlap with the diagonal and the fi
 
 For a series of alchemical window simulations, it is a $K \times K$ matrix with entries
 \begin{equation}
-O_{ij}=\sum\limits_{n=1}^{N}\frac{N_{i}p_{i}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})}\frac{p_{j}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})},
+O_{ij}=\sum\limits_{n=1}^{N}\frac{N_{i}p_{i}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})}\cdot \frac{p_{j}(x_{n})}{\sum\limits_{k=1}^{K}N_{k}p_{k}(x_{n})},
 \end{equation}
 where $p_{i}(x_{n})=e^{\beta G_{i}-\beta U_{i}(x_{n})}$ is the probability of sample $x_{n}$ occurring when simulation state $i$ and $N$ samples are collected with $N_{1}$ samples from $p_{1}(x)$ distribution, $N_{2}$ samples from $p_{2}(x)$ distribution, and so on. $K$ is the total number of the states. $O_{ij}$ can be interpreted as the average probability of a sample generated in state $j$ being observed in the $i$th state. The average is computed over samples collected from all the $K$ states, not just the samples from state $j$. Therefore $O_{ij}$ is a measure of the overlap in the phase space of state $i$ and $j$. The larger the better. The largest eigenvalue is 1.
 Similarly, consecutive windows should have substantial overlap with the diagonal and the first off-diagonal elements no smaller than 0.03 as recommended\cite{KlimovichJCAMD2015}. 
@@ -61,9 +61,9 @@ and
 The bias can be written as
 \begin{align}
     B(M)=&\left<\Delta A(M)\right>-\Delta A\notag\\
-        =&-\beta^{-1}\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast}+(M-1)\times \frac{\int_{W^\ast}^{\infty}\diff We^{-\beta W}p_A(W)}{1-C_A(W^\ast)}\right)\right]}-
+        =&-\beta^{-1}\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast}+(M-1)\cdot \frac{\displaystyle\int_{W^\ast}^{\infty}\diff We^{-\beta W}p_A(W)}{1-C_A(W^\ast)}\right)\right]}-
         \Delta A\notag\\
-        =&-\beta^{-1}\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast_{dis}}+(M-1)\times \frac{1-C_B(W^\ast)}{1-C_A(W^\ast)}\right)\right]},
+        =&-\beta^{-1}\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast_{dis}}+(M-1)\cdot \frac{1-C_B(W^\ast)}{1-C_A(W^\ast)}\right)\right]},
         \label{Eq:Eva:Pi:bias}
 \end{align}
 where
@@ -72,7 +72,7 @@ where
 \end{equation}
 is the dissipated work. For the third equality, we have employed Eq.~\ref{Eq:Eva:Pi:distributions_and_dA}. The bias can be evaluated as the average of the inaccuracy over the distribution of $W^\ast$
 \begin{equation}
-    B(M)=-\beta^{-1}\int_{-\infty}^\infty\diff W^\ast P_A^\ast(W^\ast)\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast_{dis}}+(M-1)\times \frac{1-C_B(W^\ast)}{1-C_A(W^\ast)}\right)\right]}.
+    B(M)=-\beta^{-1}\int_{-\infty}^\infty\diff W^\ast P_A^\ast(W^\ast)\ln{\left[\frac{1}{M}\left(e^{-\beta W^\ast_{dis}}+(M-1)\cdot \frac{1-C_B(W^\ast)}{1-C_A(W^\ast)}\right)\right]}.
 \end{equation}
 Alternatively, it can be estimated for a single value of $W^\ast$, for instance the mode $\hat{W}^\ast$ of $P_A^\ast$. It follows from  
 \begin{equation}
@@ -90,11 +90,11 @@ or, with a small approximation
 \end{equation}
 Assuming $W^\ast$ has a Gaussian distribution centered at $\hat{W}^\ast$ as
 \begin{equation}
-    P_A^\ast(W^\ast)\approx \frac{1}{\sqrt{2\pi}\sigma^\ast}\exp{\left[-(W^\ast-\hat{W}^\ast)^2/2{\sigma^\ast}^2\right]}
+    P_A^\ast(W^\ast)\approx \frac{1}{\sqrt{2\pi}\sigma^\ast}\exp{\left[-(W^\ast-\hat{W}^\ast)^2/2{\left(\sigma^\ast\right)}^2\right]}
 \end{equation}
 in which, using Eq.~\ref{Eq:Eva:Pi:prob_of_Wstar} and the property in Eq.~\ref{Eq:Eva:Pi:Wmax},
 \begin{equation}
-    \frac{1}{{\sigma^\ast}^2}=-\frac{\diff^2\,\ln{P_A^\ast}}{\diff\, {W^\ast}^2}=-\left.\left[\frac{\partial^2 \ln{p_A}}{\partial W^2}-\frac{M}{M-1}\left(\frac{\partial \ln p_A}{\partial W}\right)^2\right]\right\rvert_{W=\hat{W}^\ast}.
+    \frac{1}{{\left(\sigma^\ast\right)}^2}=-\frac{\diff^2\,\ln{P_A^\ast}}{\diff\, {\left(W^\ast\right)}^2}=-\left.\left[\frac{\partial^2 \ln{p_A}}{\partial W^2}-\frac{M}{M-1}\left(\frac{\partial \ln p_A}{\partial W}\right)^2\right]\right\rvert_{W=\hat{W}^\ast}.
 \end{equation}
 Corresponding relations can be given for the bias of the $B\to A$ work process. Thus from the work distributions the expected performance of a simulation of given sampling length can be predicted.
 
