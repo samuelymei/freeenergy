@@ -11,13 +11,13 @@ The weights $e^{f_m}$ allow tuning the marginal distribution $P(m)$ to approach 
 \begin{equation}
 	P(x|m)\equiv \pi_m(x)=e^{F_m-E_m(x)}.
 \end{equation}
-Usually, this can be done without knowledge of $F_m$. 
+Usually, this can be done without knowledge of $F_m=-\ln\int e^{-E_m(x)}\diff x$, the exact (dimensionless) free energy at $\lambda_m$. 
 
 Complementing the ordinary (MD or MC) moves, transitions in parameter space have to be carried out to make the marginal distribution
 \begin{equation}
 	P(m)=\sum_x P(x,m)=\frac{1}{\mathcal{Z}}e^{f_m-F_m}
 \end{equation}
-approximately flat. It indicates that $f_m\approx F_m$. where $F_m$ is the exact (dimensionless) free energy at $\lambda_m$. However, it is unknown at the beginning of the simulation.
+approximately flat. It indicates that $f_m\approx F_m$. However, $F_m$ is unknown at the beginning of the simulation.
 
 In the AWH algorithm, $f_m$ is updated in an iterative way. The whole procedure can be summarized as follows:
 \begin{enumerate}[label=(\arabic*)]
@@ -29,7 +29,7 @@ In the AWH algorithm, $f_m$ is updated in an iterative way. The whole procedure 
     which is independent of $m$. Therefore, the subscript $m$ can be omitted, and we denote it as $w_{m^\prime}$. 
     \item Update the weight histogram using
     \begin{equation}
-        W_m\leftarrow W_m+w_{m}(x),\quad \forall m. 
+        W_m\leftarrow W_m+w_{m}(x)\qquad \forall m. 
     \end{equation}
     Sample any observables of interest using
     \begin{equation}
@@ -39,7 +39,7 @@ In the AWH algorithm, $f_m$ is updated in an iterative way. The whole procedure 
     \item Repeat steps 1-3 until $N_I$ samples have been obtained.
     \item Update the free energy parameters $f_m$ using
     \begin{equation}
-    	f_m\leftarrow f_m-\ln\left(\frac{W_m\mathcal{M}}{N}\right) \quad \forall m
+    	f_m\leftarrow f_m-\ln\left(\frac{W_m\mathcal{M}}{N}\right) \qquad \forall m
     \end{equation}
     and the weight histogram using
     \begin{equation}
