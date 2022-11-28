@@ -36,7 +36,16 @@ We then carry out a simulation for the reference state and the free energy diffe
 which is a combination of two thermodynamic perturbation calculations from the reference state to the target states.
 
 However, building the Hamiltonian of the reference state is not trivial. Without knowledge of the Hamiltonians for state $A$ and state $B$, we cannot generate an effective Hamiltonian,
-especially in a high dimensional space. Enveloping distribution sampling method provides a natural way to generate the Hamiltonian for the reference state with simply mixing the Hamiltonians of state $A$ and state $B$ in the following way
+especially in a high dimensional space. Enveloping distribution sampling method provides a natural way to generate the reference state, of which the configurational integral is the sum of the configurational integral of state A and B
+\begin{align}
+	Z_R=&Z_A+Z_B\notag\\
+	   =&\int \left(e^{-\beta H_A(\mathbf{r})}+e^{-\beta H_B(\mathbf{r})}\right) \diff \mathbf{r}.
+\end{align}
+Correspondingly, the Hamiltonian is
+\begin{equation}
+	H_R(\mathbf{r})=-\beta^{-1}\ln{\left(e^{-\beta H_A(\mathbf{r})}+e^{-\beta H_B(\mathbf{r})}\right)}.
+\end{equation}
+A more general form can be written as
 \begin{equation}
 	H_R(\mathbf{r})=-\left(s\beta\right)^{-1}\ln{\left(e^{-s\beta H_A(\mathbf{r})}+e^{-s\beta H_B(\mathbf{r})}\right)},
 	\label{Eq:ES:EDS:H_R}
@@ -46,16 +55,21 @@ If you take a close look at Eq.~\ref{Eq:ES:EDS:H_R}, you will find that $s$ appe
 \begin{figure}[htbp]
 	\centering
 	%	\resizebox{2cm}{!}{
-	\begin{tikzpicture}
+	\begin{tikzpicture}[
+	declare function={ f0(\x)=pow((\x+5),2);
+		               f1(\x)=10+2*pow((\x-5),2);
+ 		               fR(\x,\s)=-1.0/(0.5*\s)*ln(exp(-0.5*\s*f0(\x))+exp(-0.5*\s*f1(\x)));
+	},
+	]
 	\def\lims{xmin=-13,xmax=10,ymin=-20,ymax=50}
 	\begin{axis}[\lims,hide x axis, hide y axis,width=0.9\textwidth,height=0.7\textwidth]
-	\addplot[mark=none,smooth,domain=-13:10] {(x+5)*(x+5)};
-	\addplot[mark=none,smooth,domain=-13:10] {10+2*(x-5)*(x-5)};
-	\addplot[color=red,mark=none,samples=500,domain=-13:10] { -2*ln(exp(-0.5*(x+5)*(x+5))+exp(-0.5*(10+2*(x-5)*(x-5))))};
-	\addplot[color=olive,mark=none,samples=500,domain=-13:10] {-10*ln(exp(-0.1*(x+5)*(x+5))+exp(-0.1*(10+2*(x-5)*(x-5))))};
-	\addplot[color=blue,mark=none,samples=500,domain=-13:10] {-20*ln(exp(-0.05*(x+5)*(x+5))+exp(-0.05*(10+2*(x-5)*(x-5))))};
-	\addplot[color=violet,mark=none,samples=500,domain=-13:10] {-40*ln(exp(-0.025*(x+5)*(x+5))+exp(-0.025*(10+2*(x-5)*(x-5))))};
-	\addplot[color=orange,mark=none,samples=500,domain=-13:10] {-80*ln(exp(-0.0125*(x+5)*(x+5))+exp(-0.0125*(10+2*(x-5)*(x-5))))};
+	\addplot[mark=none,smooth,domain=-13:10] {f0(x)};
+	\addplot[mark=none,smooth,domain=-13:10] {f1(x)};
+	\addplot[color=red,mark=none,samples=500,domain=-13:10] {fR(x,1.0)};
+	\addplot[color=olive,mark=none,samples=500,domain=-13:10] {fR(x,0.2)};
+	\addplot[color=blue,mark=none,samples=500,domain=-13:10] {fR(x,0.1)};
+	\addplot[color=violet,mark=none,samples=500,domain=-13:10] {fR(x,0.05)};
+	\addplot[color=orange,mark=none,samples=500,domain=-13:10] {fR(x,0.025)};
     \node[] at (axis cs: 2.5,45) {\footnotesize$A$};
     \node[] at (axis cs: 0.0,45) {\footnotesize$B$};
     \node[color=red] at (axis cs: 3.3,36) {\footnotesize$s=s_0=1$};
@@ -83,32 +97,45 @@ The force is also a mixing quantity from two Hamiltonians as
 
 A slight extension of the original EDS implementation reads
 \begin{equation}
-	H_R(\mathbf{r})=-\left(s\beta\right)^{-1}\ln{\left(e^{-s\beta H_A(\mathbf{r})}+e^{-s\beta (H_B(\mathbf{r})-\delta E)}\right)},
+	H_R(\mathbf{r})=-\left(s\beta\right)^{-1}\ln{\left(e^{-s\beta (H_A(\mathbf{r})-F_A)}+e^{-s\beta (H_B(\mathbf{r})-F_B)}\right)},
 	\label{Eq:ES:EDS:H_Rext}
 \end{equation}
-where $\delta E$ is an energy offset that compensates for a possible potential energy mismatch between the two states. With this offset, the mixed state can change the barrier separating the two minima correspondingly. 
+where $F_A$ and $F_B$ are the (free) energy offsets. With this new functional form, the mixed state looks like
 \begin{figure}[htbp]
 	\centering
 	%	\resizebox{2cm}{!}{
-	\begin{tikzpicture}
+	\begin{tikzpicture}[
+	declare function={ f0(\x)=(\x+5)*(\x+5);
+		f1(\x)=10+2*(\x-5)*(\x-5);
+		fR(\x,\s)=-1.0/(0.5*\s)*ln(exp(-0.5*\s*(f0(\x)-1.84))+exp(-0.5*\s*(f1(\x)-10-1.14)));
+	},
+	]
 	\def\lims{xmin=-13,xmax=10,ymin=-30,ymax=40}
 	\begin{axis}[\lims,hide x axis, hide y axis,width=0.9\textwidth,height=0.7\textwidth]
-	\addplot[mark=none,smooth,domain=-13:10] {(x+5)*(x+5)};
-	\addplot[mark=none,smooth,domain=-13:10] {2*(x-5)*(x-5)};
-	\addplot[color=red,mark=none,samples=500,domain=-13:10] { -2*ln(exp(-0.5*(x+5)*(x+5))+exp(-0.5*2*(x-5)*(x-5)))};
-	\addplot[color=olive,mark=none,samples=500,domain=-13:10] {-10*ln(exp(-0.1*(x+5)*(x+5))+exp(-0.1*2*(x-5)*(x-5)))};
-	\addplot[color=blue,mark=none,samples=500,domain=-13:10] {-20*ln(exp(-0.05*(x+5)*(x+5))+exp(-0.05*2*(x-5)*(x-5)))};
-	\addplot[color=violet,mark=none,samples=500,domain=-13:10] {-40*ln(exp(-0.025*(x+5)*(x+5))+exp(-0.025*2*(x-5)*(x-5)))};
-	\addplot[color=orange,mark=none,samples=500,domain=-13:10] {-80*ln(exp(-0.0125*(x+5)*(x+5))+exp(-0.0125*2*(x-5)*(x-5)))};
+	\addplot[mark=none,smooth,domain=-13:10] {f0(x)};
+	\addplot[mark=none,smooth,domain=-13:10] {f1(x)};
+	\addplot[color=red,mark=none,samples=500,domain=-13:10] {fR(x,1.0)};
+	\addplot[color=olive,mark=none,samples=500,domain=-13:10] {fR(x,0.2)};
+	\addplot[color=blue,mark=none,samples=500,domain=-13:10] {fR(x,0.1)};
+	\addplot[color=violet,mark=none,samples=500,domain=-13:10] {fR(x,0.05)};
+	\addplot[color=orange,mark=none,samples=500,domain=-13:10] {fR(x,0.025)};
 	\node[] at (axis cs: 2.5,45) {\footnotesize$A$};
 	\node[] at (axis cs: 0.0,45) {\footnotesize$B$};
-	\node[color=red] at (axis cs: 3.3,32.5) {\footnotesize$s=s_0=1$};
-	\node[color=olive] at (axis cs: 0.64,21.5) {\footnotesize$s=s_1$};
-	\node[color=blue] at (axis cs: 0.5,16) {\footnotesize$s=s_2$};
-	\node[color=violet] at (axis cs: -0.2,5) {\footnotesize$s=s_3$};
+	\node[color=red] at (axis cs: 2.8,31.5) {\footnotesize$s=s_0=1$};
+	\node[color=olive] at (axis cs: 2.7,25.0) {\footnotesize$s=s_1$};
+	\node[color=blue] at (axis cs: 0.5,15) {\footnotesize$s=s_2$};
+	\node[color=violet] at (axis cs: -0.2,3) {\footnotesize$s=s_3$};
 	\node[color=orange] at (axis cs: 2.5,-19.2) {\footnotesize$s=s_4$};
 	\end{axis}
 	\end{tikzpicture}
 	%	}
-	\caption{The reference state generated by the mixing of state A and shifted state B tuned by $s$. Increasing $s$ may lower the barrier between the dominant wells. $s_0, s_1, s_2, s_3, s_4 = 1.0, 0.2, 0.1, 0.05, 0.025$.}\label{Fig:ES:EDS_ext}
+	\caption{The reference state generated by the mixing of state A and state B tuned by $s$, $F_A$ and $F_B$. $s_0, s_1, s_2, s_3, s_4 = 1.0, 0.2, 0.1, 0.05, 0.025$.}\label{Fig:ES:EDS_ext}
 \end{figure}
+
+Interestingly, the idea of EDS can be dated back to the early work by Han\cite{HanPRA1992}, of which the best estimate of $s$ is 2.
+
+Recently, K\"onig et al proposed $\lambda$-EDS method\cite{KonigJCIM2020}, in which the reference (intermediate) Hamiltonian reads
+\begin{align}
+	H_{\lambda-EDS}=-[\beta s(\lambda)]^{-1}\ln\left\{(1-\lambda)e^{-\beta s(\lambda)H_A}+\lambda e^{-\beta s(\lambda)[H_B-E(\lambda)]}\right\}.
+\end{align}
+In this definition, the parameter $s$ is also a function of $\lambda$. It returns to EDS with $\lambda=0.5$, and returns to the minimum variance pathway (MVP) method\cite{BlondelJCC2004} with $s=0.5$ and $E=\Delta G_{A\rightarrow B}$. With this definition of intermediate states, it can replace soft-core potentials\cite{ZachariasJCP1994} used in alchemical transformations.
