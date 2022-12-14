@@ -58,17 +58,17 @@ Substituting the Eq.~\ref{Eq:FEM:NEW:limitW} into the Eq.~\ref{Eq:FEM:NEW:Jar}, 
 	\fill[red] (axis cs:7,3.5) circle[radius=1pt];
 	\fill[red] (axis cs:8.5,4.25) circle[radius=1pt];
 	\addplot[thick,yellow,mark=none,samples=1000,domain=8:12,y domain=-0.001:9] {5+(x-10)*(x-10)};
-	\draw[very thick,->,>=stealth] (axis cs:0,0) to (axis cs:0,5);
-	\draw[very thick,->,>=stealth] (axis cs:2,1) to (axis cs:2,6);
-	\draw[very thick,->,>=stealth] (axis cs:4,2) to (axis cs:4,7);
-	\draw[very thick,->,>=stealth] (axis cs:8,4) to (axis cs:8,9);
+	\draw[thick,dashed,->,>=stealth] (axis cs:0,0) to (axis cs:0,5);
+	\draw[thick,dashed,->,>=stealth] (axis cs:2,1) to (axis cs:2,6);
+	\draw[thick,dashed,->,>=stealth] (axis cs:4,2) to (axis cs:4,7);
+	\draw[thick,dashed,->,>=stealth] (axis cs:8,4) to (axis cs:8,9);
 	\draw (axis cs:0-0.7,4) node{$W$};
 	\draw (axis cs:2-0.7,5) node{$W$};
 	\draw (axis cs:4-0.7,6) node{$W$};
 	\draw (axis cs:8-0.7,8) node{$W$};
-	\draw[very thick,->,>=stealth] (axis cs:0,5) to [out=285,in=130] (axis cs:2,1) node[right]{$Q$};
-	\draw[very thick,->,>=stealth] (axis cs:2,6) to [out=285,in=130] (axis cs:4,2) node[right]{$Q$};
-	\draw[very thick,->,>=stealth] (axis cs:8,9) to [out=285,in=130] (axis cs:10,5) node[right]{$Q$};
+	\draw[thick,dashed,->,>=stealth] (axis cs:0,5) to [out=285,in=130] (axis cs:2,1) node[right]{$Q$};
+	\draw[thick,dashed,->,>=stealth] (axis cs:2,6) to [out=285,in=130] (axis cs:4,2) node[right]{$Q$};
+	\draw[thick,dashed,->,>=stealth] (axis cs:8,9) to [out=285,in=130] (axis cs:10,5) node[right]{$Q$};
 	
 	\end{axis}
 	
