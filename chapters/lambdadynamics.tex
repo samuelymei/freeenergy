@@ -1,15 +1,15 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{\texorpdfstring{$\lambda$-dynamics and extended-system dynamics}{λ-dynamics and extended-system dynamics}\label{Sec:ES:lambdadynamics}}
-The coupling parameter $\lambda$ is treated as a pseudo particle with fictitious mass $m_\lambda$.
+$\lambda$-dynamics was developed by Kong and Brooks in 1996.\cite{KongJCP1996} In this method, the coupling parameter $\lambda$ is treated as a pseudo particle with fictitious mass $m_\lambda$.
 %\vspace{10pt}
 The extended Hamiltonian for the system with a coupling parameter in one dimension can be written as
 \begin{equation}
-	H(\mathbf{R},\lambda)=H_{Rxn}(\mathbf{R},\lambda) + \frac{m_\lambda}{2}{\dot{\lambda}}^2+U^{*}(\lambda),
+	H(\mathbf{R},\{\lambda_i, i=1,\dots,n\})=H_{Rxn}(\mathbf{R},\{\lambda_i\}) + \sum_{i=1}^n\frac{m_i}{2}{\dot{\lambda}_i}^2+U^{*}(\{\lambda_i\}),
 \end{equation}
-where $H_{Rxn}$ is a legitimate mapping provided that $H_{Rxn}(\mathbf{R},\lambda=0)$ and $H_{Rxn}(\mathbf{R},\lambda=1)$ correspond to the Hamiltonians for the reactant and product states respectively, and $U^{*}(\lambda)$ is a restraint that limits the range of $\lambda$. Extension of this method to multiple coupling parameters $\{\lambda_i\}$ is straightforward. The pseudo particles can be coupled to high temperature baths, so it can have strengthened ability to overcome the barrier. However, this might lead to energy transfer between the pseudo degrees of freedom to the configuration degrees of freedom. Therefore, the fictitious mass $m_\lambda$ should be large enough to make this degree of freedom nearly adiabatic from the rest of the system.\cite{AbramsJCP2006} $\lambda$-dynamics can also be coupled with metadynamics,\cite{WuJPCL2011} which will be introduced in Sec.~\ref{Sec:ES:metadynamics}.
+where $H_{Rxn}$ is a legitimate mapping provided that $H_{Rxn}(\mathbf{R},\lambda_i=0)$ and $H_{Rxn}(\mathbf{R},\lambda_i=1)$ correspond to the Hamiltonians for the reactant and product states respectively, and $U^{*}(\lambda)$ is a restraint that limits the range of $\lambda$. The pseudo particles can be coupled to high temperature baths, so it can have strengthened ability to overcome the barrier. However, this might lead to energy transfer between the pseudo degrees of freedom to the configuration degrees of freedom. Therefore, the fictitious mass $m_\lambda$ should be large enough to make this degree of freedom nearly adiabatic from the rest of the system.\cite{AbramsJCP2006} $\lambda$-dynamics can also be coupled with metadynamics,\cite{WuJPCL2011} which will be introduced in Sec.~\ref{Sec:ES:metadynamics}.
 
-In extended-system dynamics, which can be regarded a ``geometric'' version of $\lambda$-dynamics, the extended Lagrangian is coupled with the usual Lagrangian. For the one-dimensional case,
+In extended-system dynamics, which can be regarded as a ``geometric'' version of $\lambda$-dynamics, the extended Lagrangian is coupled with the usual Lagrangian. For the one-dimensional case,
 \begin{equation}
 	L(\mathbf{R})=L_{0}(\mathbf{R}) + \frac{m_\xi}{2}{\dot{\xi}}^2+U^{*}(\xi)
 \end{equation}
@@ -21,7 +21,7 @@ where $\xi_{0}(\mathbf{R})$ is the real CV, $\xi$ is the extended CV and $=L_{0}
 
 The method that makes the pseudo particles, namely $\xi$ in the one-dimensional case, coupled to high-temperature baths, is called temperature accelerated molecular dynamics (TAMD).\cite{MaraglianoCPL2006} 
 
-In principle, extended-system dynamics can be coupled with many enhanced-sampling algorithms. In such cases, the biases are added on the pseudo particles instead of the real system. The combination of extended-system dynamics and ABF, called extended ABF (eABF) \cite{FuJCTC2016}, is practically useful, because i) ABF requires the second derivative of the collective variables to calculate the biasing forces, while in eABF, the biasing forces is directly obtained from the pseudo springs and ii) forces are vectors, implying in multidimensional case, biasing forces along different CVs may affect each other when they are not completely decoupled. While in eABF, the extended CVs are always independent.
+In principle, extended-system dynamics can be coupled with many enhanced-sampling algorithms. In such cases, the biases are added on the pseudo particles instead of the real system. The combination of extended-system dynamics and ABF, called extended ABF (eABF)\cite{FuJCTC2016}, is practically useful, because i) ABF requires the second derivative of the collective variables to calculate the biasing forces, while in eABF, the biasing forces is directly obtained from the pseudo springs and ii) forces are vectors, implying in multidimensional case, biasing forces along different CVs may affect each other when they are not completely decoupled. While in eABF, the extended CVs are always independent.
 
 For any extended-system-based enhanced-sampling algorithm, when the pseudo springs are hard enough, namely, $k$ is sufficiently large for each collective variable, there is approximately
 \begin{equation}
@@ -29,9 +29,9 @@ For any extended-system-based enhanced-sampling algorithm, when the pseudo sprin
 \end{equation}
 This approximation is obvious if the spring is regarded as a two-force member. To estimate the free-energy profile rigorously, an umbrella-integration (UI)\cite{ZhengJCTC2012} or corrected $z$-averaged restraint (CZAR)\cite{LesageJPCB2017} estimator can be adopted. For the UI estimator, when the simulation reaches equilibrium, samples that satisfy
 \begin{equation}
-	\xi \in [\xi_{i}, \xi_{i+1}).
+	\xi \in [\xi_{i}, \xi_{i+1})
 \end{equation}
-Namely, $\xi$ of bin $i$ are extracted. Then these samples can be regarded as those from an umbrella sampling simulation, with the restraining center at $\frac{1}{2}(\xi_{i} + \xi_{i+1})$. Hence, the umbrella integration method can be used to estimate the free-energy profile,
+namely, $\xi$ of bin $i$ are extracted. Then these samples can be regarded as those from an umbrella sampling simulation, with the restraining center at $\frac{1}{2}(\xi_{i} + \xi_{i+1})$. Hence, the umbrella integration method can be used to estimate the free-energy profile,
 \begin{equation}
 	\frac{\partial A_{i}}{\partial \xi_{0}}=\frac{1}{\beta }\frac{\xi - \left \langle \xi_{0} \right \rangle_{\xi}}{(\sigma ( \xi_{0})_{\xi})^{2} }-k(\xi_{0} - \xi)
 \end{equation}

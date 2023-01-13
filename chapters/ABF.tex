@@ -75,8 +75,8 @@ where the Jacobian $\mathbf{J}_{\boldsymbol{\xi}}$ is a fat matrix with its elem
 and $\mathbf{I}$ is a unit matrix. Using the definition of ensemble average and integration by parts, we find
 \begin{align}
     \left<\left.\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right|_{\boldsymbol{\xi}}\right>=&\frac{\displaystyle\int\left(\mathbf{W}^t\nabla U-(\nabla\cdot \mathbf{W})^t\right)e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
-    =&\frac{-\displaystyle\int (\nabla\cdot(e^{-U}\mathbf{W}))^t\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff\mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
-    =&\frac{\displaystyle\int e^{-U}\mathbf{W}^t\nabla\left(\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}},
+    =&\frac{-\displaystyle\int (\nabla\cdot(e^{-U(\mathbf{x})}\mathbf{W}))^t\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff\mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}}\notag\\
+    =&\frac{\displaystyle\int e^{-U(\mathbf{x})}\mathbf{W}^t\nabla\left(\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\right)\diff \mathbf{x}}{\displaystyle\int e^{-U(\mathbf{x})}\prod\limits_{j=1}^{N_\xi}\delta(\xi_j-\xi_j(\mathbf{x}))\diff \mathbf{x}},
 \end{align}
 in which $t$ is the transpose of a vector or matrix.
 
