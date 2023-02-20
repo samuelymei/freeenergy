@@ -46,6 +46,7 @@ for which
 \begin{equation}
 	\frac{\partial{H(\lambda)}}{\partial{\lambda}}=H_B-H_A. 
 \end{equation}
+However, this simple mixing scheme does not provide the optimal alchemical transformation pathway. Better schemes are possible, for instance the minimum variance path (MVP)\cite{BlondelJCC2004} and the optimal transport pathway\cite{DecherchiJPCL2023}. 
 The accuracy of TI integral formula depends on the exactness of the numerical integration method.\cite{PaliwalJCTC2011} Practically, the integrand in Eq.~\ref{Eq:FEM:TI:TI} needs to be evaluated over a number of discrete points $\lambda_{i}$, and then be summed up to give the free energy difference between $\lambda=0$ and $1$, for instance via the trapezoidal rule
 \begin{equation}
 \Delta A = \sum_{i=0}^{N-1}\frac{1}{2}\left(\left \langle \frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i}} + \left \langle\frac{\partial{H(\lambda)}}{\partial{\lambda}} \right \rangle_{\lambda_{i+1}}\right)
