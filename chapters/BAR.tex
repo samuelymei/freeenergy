@@ -115,3 +115,33 @@ in which $\rho_i=\exp{(-U_i)}/Q_i$ is the probability.
 
 It is worth emphasizing that Bennett acceptance ratio is asymptotically unbiased, and no other asymptotically unbiased estimator has lower asymptotic mean-squared error. However, it is not clear whether its behavior is always better than other estimators with finite sample sizes.
 
+Shirts et al showed that BAR can be interpreted in terms of the maximum likelihood estimate of the free energy difference given a set of work values in the forward and reverse directions.\cite{ShirtsPRL2003} Starting from (refer to Appendix~\ref{chapter:Appendix:DeltaUDistributions} for the proof)
+\begin{equation}
+	\ln\left[\frac{P(W|F)}{P(-W|R)}\right]=\beta (W-\Delta F),
+	\label{eq:FEM:BAR:distributionratio}
+\end{equation}
+where $P(W|F)$ ($P(W|R)$) is probability distribution for the work from the two states in the forward (reverse) direction, which can also be thought as the conditional probability of a work value given that it is a forward (reverse) measurement. To simplify the notation, the work $W$ from the reverse direction will be replaced by $-W$. Using the fact that $P(F|W)+P(R|W)=1$, the ratio can be rewritten as
+\begin{equation}
+	\frac{P(W|F)}{P(R|R)}=\frac{P(F|W)P(R)}{P(R|W)P(F)}=\frac{P(F|W)}{1-P(F|W)}\frac{P(R)}{P(F)}.
+\end{equation}
+It can be realized that $P(R)/P(F)=n_R/n_F$, where $n_F$ ($n_R$) is the number of forward (reverse) measurement. Defining $M=\ln{n_F/n_R}$, Eq.~\ref{eq:FEM:BAR:distributionratio} can be rewritten as
+\begin{equation}
+	\ln\frac{P(F|W)}{1-P(F|W)}=(M+W-\Delta F),
+\end{equation}
+which leads to
+\begin{align}
+	P(F|W_i)=&\frac{1}{1+\exp[-(M-W_i-\Delta F)]},\\
+	P(R|W_i)=&\frac{1}{1+\exp[M-W_i-\Delta F]}
+\end{align}
+for a single work measurement $W_i$, given a value of the free energy difference $\Delta F$.
+
+Given a value for $\Delta F$, the overall likelihood $L$ becomes
+\begin{equation}
+	L(\Delta F)=\prod_{i=1}^{n_F}P(F|W_i)\prod_{i=1}^{n_R}P(R|W_i).
+\end{equation}
+The most likely value of $\Delta F$ is the value that maximizes the (log) likelihood, therefore we have
+\begin{align}
+	0=\frac{\partial \log L(\Delta F)}{\partial \Delta F}=&-\sum_{i=1}^{n_F}\frac{1}{1+\exp\left[M+W_i-\Delta F\right]}\notag\\
+	                                                      &+\sum_{j=1}^{n_R}\frac{1}{1+\exp\left[-(M+W_j-\Delta F)\right]},
+\end{align}
+which equivalent to the BAR method.
