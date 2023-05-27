@@ -13,14 +13,14 @@ In this method, the simulation is performed on the modified potential $V^\ast(\m
 	\end{array} 
 	\right.
 \end{equation}
-in which $E$ is a certain chosen energy, $\Delta V(\mathbf{r})$ is a continuous nonnegative bias boost potential function, and $V(\mathbf{r})$ is the true potential. The bias potential increases the escape rate of the system from potential basins, and the subsequent state to state evolution of the system on the modified potential occurs at an accelerated rate with a nonlinear time scale of $\Delta t^\ast_i$, where
+in which $E$ is a certain chosen energy, $\Delta V(\mathbf{r})$ is a continuous non-negative boost potential function, and $V(\mathbf{r})$ is the true potential. The bias potential increases the escape rate of the system from potential basins, and the subsequent state to state evolution of the system on the modified potential occurs at an accelerated rate with a nonlinear time scale of $\Delta t^\ast_i$, where
 \begin{equation}
-	\Delta t^\ast_i=\Delta t_i e^{\beta \Delta V(\mathbf{r}(t_i))}
+	\Delta t^\ast_i=\Delta t_i e^{\beta \Delta V(\mathbf{r}(t_i))}.
 \end{equation}
 The ensemble average value of any observable $A(\mathbf{r})$ taken on the modified potential can be written as
 \begin{align}
 	\left<A^\ast\right>=&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V^{\ast}(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V^{\ast}(\mathbf{r})}}\notag\\
-	        =&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}
+	        =&\frac{\int \diff \mathbf{r}\,A(\mathbf{r})e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}{\int \diff \mathbf{r}\, e^{-\beta V(\mathbf{r})-\beta \Delta V(\mathbf{r})}}.
 \end{align}
 The correct ensemble average can be written as
 \begin{align}
@@ -32,20 +32,20 @@ Some technique can improve the numerical stability of this reweighting process.\
 \begin{equation}
 	\Delta V(\mathbf{r})=\frac{(E-V(\mathbf{r}))^2}{\alpha+(E-V(\mathbf{r}))},
 \end{equation}
-where $\alpha$ is a tuning parameter that determines how deep the modified potential energy basin is. With this biasing potential, the derivative of $V^{\ast}(\mathbf{r})$ has no discontinuity, and the modified potential reproduces the shape of the minima even at high value of $E$. Furthermore, $E$ should be carefully chosen, which may require a short trial simulation.
+where $\alpha$ is a tuning parameter that determines how deep the modified potential energy basin is (when $E-V(\mathbf{r})=\alpha, \Delta V(\mathbf{r})=\alpha/2$). With this biasing potential, the derivative of $V^{\ast}(\mathbf{r})$ has no discontinuity, and the modified potential reproduces the shape of the minima even at high value of $E$. Furthermore, $E$ should be carefully chosen, which may require a short trial simulation.
 
 The most recent variant of aMD, the Gaussian accelerated molecular dynamics (GaMD), was developed by Miao et al\cite{MiaoJCTC2015}, in which the biasing potential is defined as
 \begin{equation}
 	\Delta V(\mathbf{r})= 
 	\left\{ 
 	\begin{array}{rl} 
-		\frac{1}{2}k(E-V(\mathbf{r}))^2, &\quad V(\mathbf{r})\geq E\\ 
-		0, &\quad V(\mathbf{r})< E\\  
+		\frac{1}{2}k(E-V(\mathbf{r}))^2, &\quad V(\mathbf{r})< E\\ 
+		0, &\quad V(\mathbf{r})\geq E\\  
 	\end{array} 
 	\right.
 \end{equation}
 
-In order to smoothen the potential energy surface for enhanced sampling, the boost potential needs to satisfy the following criteria. First, for any two arbitrary potential values $V(\mathbf{r}_1)$ and $\mathbf{r}_2$ found on the original energy surface, $\Delta V$ should be a monotonic function that does no change the relative order of the biased potential values, i.e. 
+In order to smoothen the potential energy surface for enhanced sampling, the boost potential needs to satisfy the following criteria. First, for any two arbitrary potential values $V(\mathbf{r}_1)$ and $V(\mathbf{r}_2)$ found on the original energy surface, $\Delta V$ should be a monotonic function that does no change the relative order of the biased potential values, i.e. 
 \begin{equation}
 	\sign{(V(\mathbf{r}_1)-V(\mathbf{r}_2))}=\sign{(V^\ast(\mathbf{r}_1)-V^\ast(\mathbf{r}_2))}.
 \end{equation}
@@ -93,7 +93,7 @@ Third, the standard deviation of $\Delta V$ needs to be small enough (i.e., narr
 \begin{equation}
 	\sigma_{\Delta V}=\sqrt{\left(\left.\frac{\partial \Delta V}{\partial V}\right|_{V=V_{\mathrm{av}}}\right)^{2} \sigma_{V}^{2}}=k\left(E-V_{\mathrm{av}}\right) \sigma_{V} \leq \sigma_{0},
 \end{equation}
-where $V_{av}$ and $\sigma_{V}$ are the average and standard deviation of the system potential energies and $\sigma_{\Delta V}$ is the standard deviation of $\Delta V$ with $\sigma_{0}$ as a user-specified upper limit (e.g., $10k_BT$) for accurate reweighting. If $E$ is set to the lower bound $E=V_{\mathrm{max}}$, we have
+where $V_{av}$ and $\sigma_{V}$ are the average and standard deviation of the system potential energies, and $\sigma_{\Delta V}$ is the standard deviation of $\Delta V$ with $\sigma_{0}$ as a user-specified upper limit (e.g., $10k_BT$) for accurate reweighting. If $E$ is set to the lower bound $E=V_{\mathrm{max}}$, we have
 \begin{equation}
 	k_{0} \leq \frac{\sigma_{0}}{\sigma_{V}} \frac{V_{\max }-V_{\min }}{V_{\max }-V_{\mathrm{av}}}.
 \end{equation}
@@ -101,7 +101,7 @@ For efficient enhanced sampling with the highest possible acceleration, $k_0$ ca
 \begin{equation}
 	k_{0}=\min \left(1.0, \frac{\sigma_{0}}{\sigma_{V}} \frac{V_{\max }-V_{\min }}{V_{\max }-V_{\mathrm{av}}}\right).
 \end{equation}
-Alternatively, when the threshold energy E is set to its upper bound $E = V_{\mathrm{min}} + (1/k)$, we have
+Alternatively, when the threshold energy $E$ is set to its upper bound $E = V_{\mathrm{min}} + (1/k)$, we have
 \begin{equation}
 	k_{0} \geq\left(1-\frac{\sigma_{0}}{\sigma_{V}}\right) \frac{V_{\max }-V_{\min }}{V_{\mathrm{av}}-V_{\min }}.
 \end{equation}
