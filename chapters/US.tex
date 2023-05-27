@@ -7,9 +7,10 @@ Suppose we are studying a transition process between two states such as conversi
 	\centering
 %	\resizebox{2cm}{!}{
 		\begin{tikzpicture}
-		\def\lims{xmin=-5,xmax=5,ymin=-30,ymax=14}
+		\def\lims{xmin=-5,xmax=5,ymin=-38,ymax=14}
 		\begin{axis}[\lims,hide x axis, hide y axis,width=0.65\textwidth,height=0.4\textwidth]
-           \addplot[mark=none,smooth,domain=-5:5] {0.4*((x+2)*(x-2))*((x+2)*(x-2))-4*x*x};
+           \addplot[mark=none,smooth,domain=-5:5] {0.4*((x+2)*(x-2))*((x+2)*(x-2))-2*(x+0.5)*(x+0.5)-4};
+           \draw[solid,->,>=Latex] (axis cs:-5,-29)--(axis cs:5,-29) node[below]{$\xi$};
 		\end{axis}
 		\end{tikzpicture}
 %	}
