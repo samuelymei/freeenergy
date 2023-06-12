@@ -14,7 +14,7 @@ where $E_1$ and $E_2$ are energies of the configurations before and after the ch
 	\tikzstyle{data}=[trapezium, draw, text centered, trapezium left angle=60, trapezium right angle=120, minimum height=2em]
 	\tikzstyle{connector} = [draw, -latex']
 	\node [terminator, fill=blue!20] at (0,-0.3) (Start) {\textbf{Start}};
-	\node [terminator, fill=blue!20] at (0,-2.0) (Initialization) {$\mathbf{i=0,\, \mathbf{x}_i=\mathbf{x}0},\, f=e^0,\, \Omega(E)=1,\, H(E)=0 \quad \forall E$};
+	\node [terminator, fill=blue!20] at (0,-2.0) (Initialization) {$\mathbf{i=0,\, \mathbf{x}_i=\mathbf{x}0},\, f=e^1,\, \Omega(E)=1,\, H(E)=0 \quad \forall E$};
 	\node [process, fill=green!20, text width=10.5cm] at (0,-5.4) (Propagation) {Propose a trial state $\mathbf{x}_t$ \\ generate a random number \mbox{$s\in[0,1]$}
 		\begin{equation*}
 			\mathbf{x}_{i+1}=\begin{cases}
