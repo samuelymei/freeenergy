@@ -35,10 +35,33 @@ The above texts are merely an informal explanation of metadynamics. Formally, me
 \end{equation}
 on a collective variable $\mathbf{s}$ in $d$-dimension. $\sigma$ and $\omega$ are two parameters tuning the shape of the Gaussians, which can be time-dependent. Asymptotically, 
 \begin{equation}
-   V_G(\mathbf{s},t\rightarrow \infty) = -G(\mathbf{s})+C.
+   V_G(\mathbf{s},t\rightarrow \infty) = -F(\mathbf{s})+C.
 \end{equation}
 
-Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics (WTMetaD), can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. In this method, a gradually tempered Gaussian hill
+However, metadynamics suffers from several practical difficulties. First of all, it is often difficult to decide when to stop a metdynamics simulation. Practically, the free energy does not converge. Instead, it fluctuates around the correct values, leading to an average error proportional to the square root of the bias potential deposition rate. Furthermore, the system may be pushed into regions of configurational space not physically relevant in a long run. Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics (WTMetaD), can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. The idea of WTMetaD is that instead of completely filling the free energy well, it aims at enhancing the fluctuation of the CVs in a controllable manner. For instance, we can broaden the ensemble distribution by letting the biased probability distribution
+\begin{equation}
+	P_V(\mathbf{s})=\frac{[P(\mathbf{s})]^{1/\gamma}}{\int \diff \mathbf{s}^\prime[P(\mathbf{s}^\prime)]^{1/\gamma}},
+	\label{Eq:ES:metadynamics:PvP}
+\end{equation}
+with $\gamma >1$. Taking the definition of the unbiased probability distribution $P(\mathbf{s})=\frac{\exp{[-\beta F(\mathbf{s})]}}{\int \exp{[-\beta F(\mathbf{s}^\prime)]} \diff\mathbf{s}^\prime}$ into the above equation, we find
+\begin{align}
+	P_V(\mathbf{s})=&\frac{\exp{[-\beta \frac{1}{\gamma}F(\mathbf{s})]}}{\int\diff \mathbf{s}^\prime \exp{[-\beta \frac{1}{\gamma}F(\mathbf{s}^\prime)]}}\notag\\
+	               =&\frac{\exp{\left\{-\beta \left[F(\mathbf{s})-\left(1-\frac{1}{\gamma}\right)F(\mathbf{s})\right]\right\}}}{\int\diff \mathbf{s}^\prime \exp{\left\{-\beta \left[F(\mathbf{s}^\prime)-\left(1-\frac{1}{\gamma}\right)F(\mathbf{s}^\prime)\right]\right\}}}
+\end{align}
+where
+$-\left(1-\frac{1}{\gamma}\right)F(\mathbf{s})$ is the biasing potential $V(\mathbf{s})$. The limit $\gamma \to 1$ corresponds to the unbiased ensemble.
+
+If $\gamma \to \infty$ limit, then
+\begin{equation}
+	V(\mathbf{s})=-F(\mathbf{s})
+\end{equation}
+and
+\begin{equation}
+	P_V(\mathbf{s})=\frac{1}{\int \diff \mathbf{s}^\prime}=const,
+\end{equation}
+leading to a uniform distribution and the complete disappearance of the free energy barriers in the CV space, and the plain version of metadynamics is recovered.
+
+Toward this end (Eq.~\ref{Eq:ES:metadynamics:PvP}), a gradually tempered Gaussian hill
 \begin{equation}
     V_n(\mathbf{s})=V_{n-1}(\mathbf{s})+G(\mathbf{s},\mathbf{s}_n)\exp{\left[-\frac{1}{\gamma-1}\beta V_{n-1}(\mathbf{s}_n)\right]}
 \end{equation}
@@ -50,15 +73,15 @@ with $||\mathbf{s}-\mathbf{s}^\prime||^2$ being a distance metric such as
 \begin{equation}
     ||\mathbf{s}-\mathbf{s}^\prime||^2=\frac{1}{2}\sum_{i,j}{(\mathbf{s}_i-\mathbf{s}_i^\prime)\Sigma_{i,j}^{-1}(\mathbf{s}_j-\mathbf{s}_j^\prime)}.
 \end{equation}
-$\Sigma_{i,j}^{-1}$ is the inverse of the covariance matrix $\Sigma_{i,j}$, and the latter is normally diagonal $\Sigma_{i,j}=\delta_{i,j}\sigma_i^2$. $W$ is the height of the Gaussian. $G(\mathbf{s},\mathbf{s}_n)$ is the biasing kernel centered on the current CV value $\mathbf{s}_n$ and is scaled by $\exp{\left[-\frac{1}{\gamma-1}\beta V_{n-1}(\mathbf{s}_n)\right]}$ when being accumulated. The scaling factor itself decreases as $1/n$, therefore the change of the biasing potential becomes smaller as the metadynamics simulation progresses.\cite{DamaPRL2014}
+$\Sigma_{i,j}^{-1}$ is the inverse of the covariance matrix $\Sigma_{i,j}$, and the latter is normally diagonal $\Sigma_{i,j}=\delta_{i,j}\sigma_i^2$. $W$ is the height of the Gaussian. $G(\mathbf{s},\mathbf{s}_n)$ is the biasing kernel centered on the current CV value $\mathbf{s}_n$ and is scaled by $\exp{\left[-\frac{1}{\gamma-1}\beta V_{n-1}(\mathbf{s}_n)\right]}$ when being accumulated. The scaling factor itself decreases as $1/n$, therefore the change of the biasing potential becomes smaller as the metadynamics simulation progresses.\cite{BarducciPRL2008,DamaPRL2014}
 
 Practically, the update of the biasing potential is performed every $N_G$ steps. Between any two adjacent updates, the system evolves under the action of the biasing potential $V_n(\mathbf{s}(\mathbf{R}))$. After the $n$th update, the biasing potential is
 \begin{equation}
     V(\mathbf{s},t)=\sum_{k=1}^n W\exp{\left(-||\mathbf{s}-\mathbf{s}_k||^2\right)}\exp{\left[-\frac{1}{\gamma-1}\beta V_{k-1}(\mathbf{s}_k)\right]}.
 \end{equation}
-The factor $(\gamma-1)\beta^{-1}$ is sometimes referred to as $k_B\Delta T$.
+The factor $(\gamma-1)\beta^{-1}$ is sometimes referred to as $k_B\Delta T$, or $\gamma=\frac{\Delta T+T}{T}$.
 
-The remarkable feature of this stochastic update of the biasing potential is that the evolution of the bias can be described asymptotically by an ordinary differential equation (ODE), which after some manipulations reads
+The remarkable feature of this stochastic update of the biasing potential is that the evolution of the bias can be described asymptotically by an ordinary differential equation (ODE)\cite{DamaPRL2014,TiwaryJCP2015}
 \begin{equation}
     \frac{\diff V(\mathbf{s},t)}{\diff t}=\int \diff \mathbf{s}^\prime\, G(\mathbf{s},\mathbf{s}^\prime)\exp{\left[-\frac{1}{\gamma-1}\beta V(\mathbf{s}^\prime,t)\right]}P_V(\mathbf{s}^\prime,t),
 \end{equation}
@@ -80,6 +103,7 @@ is independent of $\mathbf{s}$. Metadynamics thus converges to the desired resul
 First, it can be shown that, by taking the assumption of quasi-equilibrium, a time-dependent estimator for $F(\mathbf{s})$ is given by\cite{TiwaryJPCB2015}
 \begin{equation}
     F(\mathbf{s})=-\left(\frac{\gamma}{\gamma -1}\right)V(\mathbf{s},t)+\frac{1}{\beta}\log{\int \diff \mathbf{s}\, \exp{\left[\frac{\gamma}{\gamma-1}\beta V(\mathbf{s},t)\right]}}.
+    \label{eq:ES:metadynamics:FsFromBiasedPotential}
 \end{equation}
 Taking this equation into Eq.~\ref{Eq:ES:metadynamics:c}, one obtains
 \begin{equation}
@@ -88,17 +112,18 @@ Taking this equation into Eq.~\ref{Eq:ES:metadynamics:c}, one obtains
 For a brief discussion on the calculations of $c(t)$, please refer to Ref.~\cite{GibertiJCTC2020}.
 
 Second, it offers a practical way of calculating the expectation value of any $\mathbf{R}$-dependent function $O(\mathbf{R})$ as the simulation proceeds. The idea is that at time $t$ the biased probability distribution for $\mathbf{R}$ is given by
+\begin{align}
+    P_V{(\mathbf{R},t)}=&\frac{e^{-\beta\left[U(\mathbf{R})+V(\mathbf{s}(\mathbf{R}),t)\right]}}{\int \diff \mathbf{R}^\prime\, e^{-\beta\left[U(\mathbf{R}^\prime)+V(\mathbf{s}(\mathbf{R}^\prime),t)\right]}}\notag\\
+                       =&\frac{e^{-\beta U(\mathbf{R})}e^{-\beta V(\mathbf{s}(\mathbf{R}),t)}\int e^{-\beta U(\mathbf{R^\prime})}\diff \mathbf{R}^\prime}{\int e^{-\beta U(\mathbf{R^\prime})}\diff \mathbf{R}^\prime \int e^{-\beta \left[U(\mathbf{R}^\prime)+V(\mathbf{s}(\mathbf{R}),t)\right]}\diff \mathbf{R}^\prime}\notag\\
+                       =&P(\mathbf{R})\frac{e^{-\beta V(\mathbf{s}(\mathbf{R}),t)}\iint e^{-\beta U(\mathbf{R^\prime})}\delta (\mathbf{s}(\mathbf{R})-s)\diff \mathbf{R}^\prime \diff \mathbf{s}}{\iint e^{-\beta \left[U(\mathbf{R}^\prime)+V(\mathbf{s}(\mathbf{R}),t)\right]}\delta (\mathbf{s}(\mathbf{R})-s)\diff \mathbf{R}^\prime \diff \mathbf{s}}\notag\\
+                       =&P(\mathbf{R})\frac{e^{-\beta V(\mathbf{s}(\mathbf{R}),t)}\int e^{-\beta F(\mathbf{s})}\diff \mathbf{s}}{\int e^{-\beta F(\mathbf{s})}e^{-\beta V(\mathbf{s},t)}\diff \mathbf{s}}\notag\\
+                       =&P{(\mathbf{R})}e^{-\beta\left[V(\mathbf{s}(\mathbf{R}),t)-c(t)\right]},
+\end{align}
+where $P{(\mathbf{R})}=\frac{e^{-\beta U(\mathbf{R})}}{\int e^{-\beta U(\mathbf{R}^\prime)}\diff \mathbf{R}^\prime}$ is the unbiased Boltzmann distribution, and $e^{\beta\left[V(\mathbf{s}(\mathbf{R}),t)-c(t)\right]}$ is the time-dependent unbiasing factor. Here, $e^{-\beta c(t)}$ serves as a normalizing factor. Straightforwardly, the average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
 \begin{equation}
-    P_V{(\mathbf{R},t)}=\frac{e^{-\beta\left[U(\mathbf{R})+V(\mathbf{s}(\mathbf{R}),t)\right]}}{\int \diff \mathbf{R}\, e^{-\beta\left[U(\mathbf{R})+V(\mathbf{s}(\mathbf{R}),t)\right]}},
+    \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R},t)-c(t))\right]}\right>_V.
+    \label{eq:ES:metadynamics:reweighting}
 \end{equation}
-which can be rewritten as
-\begin{equation}
-    P_V{(\mathbf{R},t)}=P{(\mathbf{R})}e^{-\beta\left[V(\mathbf{s}(R),t)-c(t)\right]},
-\end{equation}
-where $P{(\mathbf{R})}$ is the unbiased Boltzmann distribution, and $e^{\beta\left[V(\mathbf{s}(R),t)-c(t)\right]}$ is the time-dependent unbiasing factor. Straightforwardly, the average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
-\begin{equation}
-    \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R},t)-c(t))\right]}\right>_V.	
-\end{equation}
-This reweighting can be used to obtain the FES for some set of CVs $\mathbf{s}^\prime$ either biased or unbiased by setting $O(\mathbf{R})=\delta[\mathbf{s}^\prime-\mathbf{s}^\prime(\mathbf{R})]$. It is also useful if one chooses $\mathbf{s}^\prime$ as the biased degree of freedom $\mathbf{s}$ and obtain the FES. Disagreement between the FESs obtained directly from the bias potential and through reweighting is a clear sign that the metadynamics simulation has not converged.
+This reweighting can be used to obtain the FES for some set of CVs $\mathbf{s}^\prime$ either biased or unbiased by setting $O(\mathbf{R})=\delta[\mathbf{s}^\prime-\mathbf{s}^\prime(\mathbf{R})]$. It is also useful if one chooses $\mathbf{s}^\prime$ as the biased degree of freedom $\mathbf{s}$ and obtain the FES. Disagreement between the FESs obtained directly from the bias potential (Eq.~\ref{eq:ES:metadynamics:FsFromBiasedPotential}) and through reweighting (Eq.~\ref{eq:ES:metadynamics:reweighting}) is a clear sign that the metadynamics simulation has not converged.
 
 Metadynamics has been implemented in PLUMED (\url{https://plumed.github.io/doc-v2.3/user-doc/html/_metadyn.html}), which can work with major molecular dynamics packages.
