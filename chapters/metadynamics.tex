@@ -121,7 +121,7 @@ Second, it offers a practical way of calculating the expectation value of any $\
 \end{align}
 where $P{(\mathbf{R})}=\frac{e^{-\beta U(\mathbf{R})}}{\int e^{-\beta U(\mathbf{R}^\prime)}\diff \mathbf{R}^\prime}$ is the unbiased Boltzmann distribution, and $e^{\beta\left[V(\mathbf{s}(\mathbf{R}),t)-c(t)\right]}$ is the time-dependent unbiasing factor. Here, $e^{-\beta c(t)}$ serves as a normalizing factor. Straightforwardly, the average of $O(\mathbf{R})$ over the unbiased ensemble can be calculated from the metadynamics trajectory as
 \begin{equation}
-    \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R},t)-c(t))\right]}\right>_V.
+    \left<O(\mathbf{R})\right>=\left<O(\mathbf{R})e^{\beta\left[V(\mathbf{s}(\mathbf{R}),t)-c(t)\right]}\right>_V.
     \label{eq:ES:metadynamics:reweighting}
 \end{equation}
 This reweighting can be used to obtain the FES for some set of CVs $\mathbf{s}^\prime$ either biased or unbiased by setting $O(\mathbf{R})=\delta[\mathbf{s}^\prime-\mathbf{s}^\prime(\mathbf{R})]$. It is also useful if one chooses $\mathbf{s}^\prime$ as the biased degree of freedom $\mathbf{s}$ and obtain the FES. Disagreement between the FESs obtained directly from the bias potential (Eq.~\ref{eq:ES:metadynamics:FsFromBiasedPotential}) and through reweighting (Eq.~\ref{eq:ES:metadynamics:reweighting}) is a clear sign that the metadynamics simulation has not converged.
