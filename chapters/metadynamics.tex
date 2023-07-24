@@ -38,7 +38,7 @@ on a collective variable $\mathbf{s}$ in $d$-dimension. $\sigma$ and $\omega$ ar
    V_G(\mathbf{s},t\rightarrow \infty) = -F(\mathbf{s})+C.
 \end{equation}
 
-However, metadynamics suffers from several practical difficulties. First of all, it is often difficult to decide when to stop a metdynamics simulation. Practically, the free energy does not converge. Instead, it fluctuates around the correct values, leading to an average error proportional to the square root of the bias potential deposition rate. Furthermore, the system may be pushed into regions of configurational space not physically relevant in a long run. Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics (WTMetaD), can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. The idea of WTMetaD is that instead of completely filling the free energy well, it aims at enhancing the fluctuation of the CVs in a controllable manner. For instance, we can broaden the ensemble distribution by letting the biased probability distribution
+However, metadynamics suffers from several practical difficulties. First of all, it is often difficult to decide when to stop a metadynamics simulation. Practically, the free energy does not converge. Instead, it fluctuates around the correct values, leading to an average error proportional to the square root of the bias potential deposition rate. Furthermore, the system may be pushed into regions of configurational space not physically relevant in a long run. Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics (WTMetaD), can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. Instead of completely filling the free energy well, WTMetaD tends to enhance the fluctuation of the CVs in a controllable manner. For instance, we can broaden the ensemble distribution by letting the biased probability distribution
 \begin{equation}
 	P_V(\mathbf{s})=\frac{[P(\mathbf{s})]^{1/\gamma}}{\int \diff \mathbf{s}^\prime[P(\mathbf{s}^\prime)]^{1/\gamma}},
 	\label{Eq:ES:metadynamics:PvP}
@@ -59,7 +59,7 @@ and
 \begin{equation}
 	P_V(\mathbf{s})=\frac{1}{\int \diff \mathbf{s}^\prime}=const,
 \end{equation}
-leading to a uniform distribution and the complete disappearance of the free energy barriers in the CV space, and the plain version of metadynamics is recovered.
+leading to a uniform distribution without any free energy barriers in the CV space, and the plain version of metadynamics is recovered.
 
 Toward this end (Eq.~\ref{Eq:ES:metadynamics:PvP}), a gradually tempered Gaussian hill
 \begin{equation}
@@ -126,4 +126,4 @@ where $P{(\mathbf{R})}=\frac{e^{-\beta U(\mathbf{R})}}{\int e^{-\beta U(\mathbf{
 \end{equation}
 This reweighting can be used to obtain the FES for some set of CVs $\mathbf{s}^\prime$ either biased or unbiased by setting $O(\mathbf{R})=\delta[\mathbf{s}^\prime-\mathbf{s}^\prime(\mathbf{R})]$. It is also useful if one chooses $\mathbf{s}^\prime$ as the biased degree of freedom $\mathbf{s}$ and obtain the FES. Disagreement between the FESs obtained directly from the bias potential (Eq.~\ref{eq:ES:metadynamics:FsFromBiasedPotential}) and through reweighting (Eq.~\ref{eq:ES:metadynamics:reweighting}) is a clear sign that the metadynamics simulation has not converged.
 
-Metadynamics has been implemented in PLUMED (\url{https://plumed.github.io/doc-v2.3/user-doc/html/_metadyn.html}), which can work with major molecular dynamics packages.
+Metadynamics has been implemented in PLUMED (\url{https://www.plumed.org/doc-v2.9/user-doc/html/index.html}), which can work with major molecular dynamics packages.
