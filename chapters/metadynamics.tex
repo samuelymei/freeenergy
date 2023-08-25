@@ -20,7 +20,7 @@ Imaging you were standing in a valley and were surrounded by high mountains. In 
 	    \addplot[blue,mark=none,samples=1000,domain=4.6:7.35] {-0.4+0.01*sin(1000*(x-4.6))};
 	\end{axis}
 	\end{tikzpicture}
-	\caption{A schematic representation of metadynamics. The free energy well is gradually filled up with small Gaussians, and a transition is facilitated.}\label{Fig:ES:metadynamics}
+	\caption{A schematic representation of metadynamics. The free energy well is gradually filled up with small Gaussian hills, and a transition is facilitated.}\label{Fig:ES:metadynamics}
 \end{figure}
 
 %\begin{figure}[htbp]
@@ -37,6 +37,7 @@ on a collective variable $\mathbf{s}$ in $d$-dimension. $\sigma$ and $\omega$ ar
 \begin{equation}
    V_G(\mathbf{s},t\rightarrow \infty) = -F(\mathbf{s})+C.
 \end{equation}
+Since the potential energy function for the dynamic variable $\mathbf{s}$ is history-dependent, the dynamics of $\mathbf{s}$ is non-Markovian. However, Bussi et al showed that the extended set of variables including $\mathbf{s}$ and the accumulated field is Markovian.\cite{BussiPRL2006}
 
 However, metadynamics suffers from several practical difficulties. First of all, it is often difficult to decide when to stop a metadynamics simulation. Practically, the free energy does not converge. Instead, it fluctuates around the correct values, leading to an average error proportional to the square root of the bias potential deposition rate. Furthermore, the system may be pushed into regions of configurational space not physically relevant in a long run. Recent improvement over the ordinary metadynamics on convergence issue, which is termed well-tempered metadynamics (WTMetaD), can be found in Ref.~\cite{BarducciPRL2008} and is reviewed in Ref.~\cite{ValssonARPC2016}. Instead of completely filling the free energy well, WTMetaD tends to enhance the fluctuation of the CVs in a controllable manner. For instance, we can broaden the ensemble distribution by letting the biased probability distribution
 \begin{equation}
@@ -95,7 +96,7 @@ For any $G(\mathbf{s},\mathbf{s}^\prime)$, this ODE has the asymptotic solution
 \end{equation}
 where
 \begin{equation}
-    c(t)=\frac{1}{\beta}\log{\frac{\displaystyle\int \diff \mathbf{s}\, e^{-\beta F(\mathbf{s})}}{\displaystyle\int \diff \mathbf{s}\, e^{-\beta \left[F(\mathbf{s})+V(\mathbf{s},t)\right]}}}
+    c(t)=-\frac{1}{\beta}\log{\frac{\displaystyle\int \diff \mathbf{s}\, e^{-\beta \left[F(\mathbf{s})+V(\mathbf{s},t)\right]}}{\displaystyle\int \diff \mathbf{s}\, e^{-\beta F(\mathbf{s})}}}=-\frac{1}{\beta}\log{\frac{\int \diff \mathbf{s}P(\mathbf{s})e^{-\beta V(\mathbf{s},t)}}{\int \diff \mathbf{s}P(\mathbf{s})}}
     \label{Eq:ES:metadynamics:c}
 \end{equation}
 is independent of $\mathbf{s}$. Metadynamics thus converges to the desired result. Two interesting consequences arise.
