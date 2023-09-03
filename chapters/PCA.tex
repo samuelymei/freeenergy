@@ -6,13 +6,13 @@ Principal component analysis (PCA) is one of the dimension reduction methods tha
 
 Suppose that $\mathbf{x}$ is a vector of $p$ random variables, of which the covariance matrix is $\boldsymbol{\Sigma}$. When $\boldsymbol{\Sigma}$ is unknown, it is often replaced by a sample variance $\mathbf{S}$. Let $\boldsymbol{\alpha}_k$ (for $k=1,\dots, p$ ) be the $k$th eigenvector of $\boldsymbol{\Sigma}$ corresponding to its $k$th largest eigenvalue of $\lambda_k$. The $k$th PC can be written as
 \begin{equation}
-	z_k={\boldsymbol{\alpha}_k}^T \mathbf{x}=\sum_{j=1}^p \alpha_{kj}x_j,
+	z_k={\boldsymbol{\alpha}_k}^{\operatorname{T}} \mathbf{x}=\sum_{j=1}^p \alpha_{kj}x_j,
 \end{equation}
-where $T$ denotes transpose. Normally, $\boldsymbol{\alpha}_k$ is chosen to have a unit length (\textit{i.e.} ${\boldsymbol{\alpha}_k}^T\boldsymbol{\alpha}_k=1$). Then the variance of $z_k$, $\operatorname{var}(z_k)$, equals to $\lambda_k$.
+where $\operatorname{T}$ denotes transpose. Normally, $\boldsymbol{\alpha}_k$ is chosen to have a unit length (\textit{i.e.} ${\boldsymbol{\alpha}_k}^{\operatorname{T}}\boldsymbol{\alpha}_k=1$). Then the variance of $z_k$, $\operatorname{var}(z_k)$, equals to $\lambda_k$.
 
-To derive the form of the PCs, first consider $\boldsymbol{\alpha}_1$, which maximizes $\operatorname{var}\left[{\boldsymbol{\alpha}_1}^T\mathbf{x}\right]={\boldsymbol{\alpha}_1}^T\boldsymbol{\Sigma}\boldsymbol{\alpha}_1$ subject to ${\boldsymbol{\alpha}_1}^T\boldsymbol{\alpha}_1=1$. Using the technique of Lagrange multipliers, it becomes to maximize
+To derive the form of the PCs, first consider $\boldsymbol{\alpha}_1$, which maximizes $\operatorname{var}\left[{\boldsymbol{\alpha}_1}^{\operatorname{T}}\mathbf{x}\right]={\boldsymbol{\alpha}_1}^{\operatorname{T}}\boldsymbol{\Sigma}\boldsymbol{\alpha}_1$ subject to ${\boldsymbol{\alpha}_1}^{\operatorname{T}}\boldsymbol{\alpha}_1=1$. Using the technique of Lagrange multipliers, it becomes to maximize
 \begin{equation}
-	{\boldsymbol{\alpha}_1}^T\boldsymbol{\Sigma}\boldsymbol{\alpha}_1-\lambda ({\boldsymbol{\alpha}_1}^T\boldsymbol{\alpha}_1-1),
+	{\boldsymbol{\alpha}_1}^{\operatorname{T}}\boldsymbol{\Sigma}\boldsymbol{\alpha}_1-\lambda ({\boldsymbol{\alpha}_1}^{\operatorname{T}}\boldsymbol{\alpha}_1-1),
 \end{equation}
 where $\lambda$ is a Lagrange multiplier. Differentiation with respect to $\boldsymbol{\alpha}_1$ gives
 \begin{equation}
@@ -20,38 +20,38 @@ where $\lambda$ is a Lagrange multiplier. Differentiation with respect to $\bold
 \end{equation}
 Thus, $\lambda$ is an eigenvalue of $\boldsymbol{\Sigma}$, and $\boldsymbol{\alpha}_1$ is the corresponding eigenvector. Also note that
 \begin{equation}
-	{\boldsymbol{\alpha}_1}^T\boldsymbol{\Sigma} \boldsymbol{\alpha}_1={\boldsymbol{\alpha}_1}^T \lambda \boldsymbol{\alpha}_1=\lambda {\boldsymbol{\alpha}_1}^T \boldsymbol{\alpha}_1=\lambda.
+	{\boldsymbol{\alpha}_1}^{\operatorname{T}}\boldsymbol{\Sigma} \boldsymbol{\alpha}_1={\boldsymbol{\alpha}_1}^{\operatorname{T}} \lambda \boldsymbol{\alpha}_1=\lambda {\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\alpha}_1=\lambda.
 \end{equation}
-Therefore, in order to maximize ${\boldsymbol{\alpha}_1}^T\boldsymbol{\Sigma} \boldsymbol{\alpha}_1$, $\lambda$ must be the largest eigenvalue of $\boldsymbol{\Sigma}$.
+Therefore, in order to maximize ${\boldsymbol{\alpha}_1}^{\operatorname{T}}\boldsymbol{\Sigma} \boldsymbol{\alpha}_1$, $\lambda$ must be the largest eigenvalue of $\boldsymbol{\Sigma}$.
 
-Now, let us look at the second PC, $\boldsymbol{\alpha}_2\mathbf{x}$, which maximizes ${\boldsymbol{\alpha}_2}^T\boldsymbol{\Sigma} \boldsymbol{\alpha}_2$ subject to being uncorrelated with the first PC, $\boldsymbol{\alpha}_1\mathbf{x}$, \textit{i.e.} $\operatorname{cov}\left[{\boldsymbol{\alpha}_1}^{T} \mathrm{x}, {\boldsymbol{\alpha}_2}^{T} \mathrm{x}\right]=0$. Since
+Now, let us look at the second PC, $\boldsymbol{\alpha}_2\mathbf{x}$, which maximizes ${\boldsymbol{\alpha}_2}^{\operatorname{T}}\boldsymbol{\Sigma} \boldsymbol{\alpha}_2$ subject to being uncorrelated with the first PC, $\boldsymbol{\alpha}_1\mathbf{x}$, \textit{i.e.} $\operatorname{cov}\left[{\boldsymbol{\alpha}_1}^{\operatorname{T}} \mathrm{x}, {\boldsymbol{\alpha}_2}^{\operatorname{T}} \mathrm{x}\right]=0$. Since
 \begin{equation}
-	\operatorname{cov}\left[{\boldsymbol{\alpha}_1}^{T} \mathrm{x}, {\boldsymbol{\alpha}_2}^{T} \mathrm{x}\right]={\boldsymbol{\alpha}_1}^T \boldsymbol{\Sigma} \boldsymbol{\alpha}_2={\boldsymbol{\alpha}_2}^T \boldsymbol{\Sigma} \boldsymbol{\alpha}_1=\lambda_1 {\boldsymbol{\alpha}_2}^T \boldsymbol{\alpha}_1,
+	\operatorname{cov}\left[{\boldsymbol{\alpha}_1}^{\operatorname{T}} \mathrm{x}, {\boldsymbol{\alpha}_2}^{\operatorname{T}} \mathrm{x}\right]={\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\Sigma} \boldsymbol{\alpha}_2={\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\Sigma} \boldsymbol{\alpha}_1=\lambda_1 {\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\alpha}_1,
 \end{equation}
 any one of the following equations
 \begin{equation}
 \begin{array}{rr}
-	{\boldsymbol{\alpha}_1}^T \boldsymbol{\Sigma} \boldsymbol{\alpha}_2=0, & {\boldsymbol{\alpha}_2}^T \boldsymbol{\Sigma} \boldsymbol{\alpha}_1=0 \\
-	{\boldsymbol{\alpha}_1}^T \boldsymbol{\alpha}_2=0, & {\boldsymbol{\alpha}_2}^T \boldsymbol{\alpha}_1=0
+	{\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\Sigma} \boldsymbol{\alpha}_2=0, & {\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\Sigma} \boldsymbol{\alpha}_1=0 \\
+	{\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\alpha}_2=0, & {\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\alpha}_1=0
 \end{array}
 \end{equation}
 could be used to specify the constraint. Using, for instance, the last one, as well as the normalization condition, the quantity to be maximized is
 \begin{equation}
-	{\boldsymbol{\alpha}_2}^T \boldsymbol{\Sigma} \boldsymbol{\alpha}_2-\lambda\left({\boldsymbol{\alpha}_2}^T \boldsymbol{\alpha}_2-1\right)-\phi {\boldsymbol{\alpha}_2}^T \boldsymbol{\alpha}_1,
+	{\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\Sigma} \boldsymbol{\alpha}_2-\lambda\left({\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\alpha}_2-1\right)-\phi {\boldsymbol{\alpha}_2}^{\operatorname{T}} \boldsymbol{\alpha}_1,
 \end{equation}
 where $\lambda$ and $\phi$ are Lagrange multipliers. Differentiation with respect to $\boldsymbol{\alpha}_2$ gives
 \begin{equation}
 	\boldsymbol{\Sigma} \boldsymbol{\alpha}_2-\lambda \boldsymbol{\alpha}_2-\phi \boldsymbol{\alpha}_1=\mathbf{0}.
 \end{equation}
-Multiplying on the left by ${\boldsymbol{\alpha}_1}^T$ gives
+Multiplying on the left by ${\boldsymbol{\alpha}_1}^{\operatorname{T}}$ gives
 \begin{equation}
-	{\boldsymbol{\alpha}_1}^T \boldsymbol{\Sigma} \boldsymbol{\alpha}_2-\lambda {\boldsymbol{\alpha}_1}^T \boldsymbol{\alpha}_2-\phi {\boldsymbol{\alpha}_1}^T \boldsymbol{\alpha}_1=0.
+	{\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\Sigma} \boldsymbol{\alpha}_2-\lambda {\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\alpha}_2-\phi {\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\alpha}_1=0.
 \end{equation}
-Since the first two terms are zero and ${\boldsymbol{\alpha}_1}^T \boldsymbol{\alpha}_1=1$, it leads to $\phi=0$. Therefore,
+Since the first two terms are zero and ${\boldsymbol{\alpha}_1}^{\operatorname{T}} \boldsymbol{\alpha}_1=1$, it leads to $\phi=0$. Therefore,
 \begin{equation}
 	\boldsymbol{\Sigma} \boldsymbol{\alpha}_2-\lambda \boldsymbol{\alpha}_2=\mathbf{0},
 \end{equation}
 indicating that $\lambda$ is an eigenvalue of $\boldsymbol{\Sigma}$ again, and $\boldsymbol{\alpha}_2$ the corresponding eigenvector. We can keep on doing this analysis for the third, fourth, $\dots$, $p$th PCs, and show that $\lambda_3$, $\lambda_4$, $\dots$, $\lambda_p$ are the third, fourth largest, $\dots$, and the smallest eigenvalue of $\boldsymbol{\Sigma}$, and $\boldsymbol{\alpha}_3$, $\boldsymbol{\alpha}_4$, $\dots$, $\boldsymbol{\alpha}_p$ are the corresponding eigenvectors. Furthermore,
 \begin{equation}
-	\operatorname{var}\left[{\boldsymbol{\alpha}_k}^T \mathbf{x}\right]=\lambda_k \quad \text { for } k=1,2, \ldots, p.
+	\operatorname{var}\left[{\boldsymbol{\alpha}_k}^{\operatorname{T}} \mathbf{x}\right]=\lambda_k \quad \text { for } k=1,2, \ldots, p.
 \end{equation}

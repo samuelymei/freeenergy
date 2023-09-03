@@ -3,3 +3,50 @@
 Multidimensional scaling (MDS) is a method that represents measurements of similarity (or dissimilarity) among pairs of objects as distances between points of a low-dimensional multidimensional space. Since MDS is often used for data visualization, the mapped space usually has a very low dimension, for instance 2.
 
 There are two main variations of MDS: metric MDS and non-metric MDS. Metric MDS aims to preserve the actual distances or dissimilarities between objects as accurately as possible in the lower-dimensional space. Metric MDS assumes that the pairwise distances or dissimilarities are metric, meaning they satisfy the triangle inequality. It uses techniques such as eigenvalue decomposition or optimization algorithms to find the configuration of points that minimizes the difference between the original distances and the distances in the lower-dimensional space. Non-metric MDS, also known as ordinal MDS, does not assume that the pairwise distances or dissimilarities are metric. Instead, it focuses on preserving the ordinal relationships between objects, meaning it tries to maintain the rank order of distances or dissimilarities rather than their actual values.
+
+Here, we only look at metric MDS. For two vectors $\mathbf{a}$ and $\mathbf{b}$, the distance between them can be written as
+\begin{equation}
+	d^2(\mathbf{a},\mathbf{b})=(\mathbf{a}-\mathbf{b})^{\operatorname{T}}(\mathbf{a}-\mathbf{b})=\mathbf{a}^{\operatorname{T}}\mathbf{a}+\mathbf{b}^{\operatorname{T}}\mathbf{b}-2\times(\mathbf{a}^{\operatorname{T}}\mathbf{b}),
+\end{equation}
+where $\mathbf{a}^{\operatorname{T}}\mathbf{b}$ is the scalar product between $\mathbf{a}$ and $\mathbf{b}$. For $n$ observations in a $m$-dimensional space ($x_1, x_2, \dots, x_n\in \mathbb{R}^m$) stored in a matrix denoted by $\mathbf{X}$, which has a shape of $m\times n$, the cross product matrix $\mathbf{S}$ is then obtained as
+\begin{equation}
+	\mathbf{S}=\mathbf{X}^{\operatorname{T}}\mathbf{X},
+\end{equation}
+which has a shape of $n\times n$. The squared Euclidean distance matrix
+\begin{equation}
+	\mathbf{D}=\mathbf{s}\cdot\mathbf{1}^{\operatorname{T}}+\mathbf{1}\cdot\mathbf{s}^{\operatorname{T}}-2\mathbf{S},
+	\label{eq:DR:MDS:D_vs_S}
+\end{equation}
+where $\mathbf{s}=\operatorname{diag}(S_{ii})$ is the $n\times 1$ vector of the diagonal element of $\mathbf{S}$ and $\mathbf{1}$ is a $n\times 1$ vector of 1s. It shows that the cross product matrix $\mathbf{S}$ can be computed from the distance matrix $\mathbf{D}$, which is the basic idea of metric MDS. Clearly, the solutions are not unique, since distances are invariant with respect to any change of origin. Therefore, constraints must be imposed on the calculations of $\mathbf{X}$. An obvious choice is to choose the origin of the distance as the center of gravity of the dimensions.
+
+Defining a $n\times n$ centering matrix
+\begin{equation}
+	\mathbf{H}=\mathbf{I}_n- \frac{1}{n}\mathbf{1}\cdot\mathbf{1}^{\operatorname{T}},
+\end{equation}
+the cross-product matrix is obtained from matrix $\mathbf{D}$ as
+\begin{equation}
+	\tilde{\mathbf{S}}=-\frac{1}{2}\mathbf{HD}\mathbf{H}^{\operatorname{T}}.
+	\label{eq:DR:MDS:tildeS}
+\end{equation}
+To show the relationship between $\tilde{\mathbf{S}}$ and $\mathbf{S}$, let us take Eq.~\ref{eq:DR:MDS:D_vs_S} into Eq.~\ref{eq:DR:MDS:tildeS}, we find
+\begin{equation}
+	\tilde{\mathbf{S}}=-\frac{1}{2}\mathbf{H}\left(\mathbf{s}\cdot\mathbf{1}^{\operatorname{T}}+\mathbf{1}\cdot\mathbf{s}^{\operatorname{T}}-2\mathbf{S}\right)\mathbf{H}^{\operatorname{T}}
+\end{equation}
+Note that $\mathbf{1}^{\operatorname{T}}\cdot \mathbf{H}^{\operatorname{T}}=\mathbf{1}^{\operatorname{T}}\cdot\left(\mathbf{I}_n- \frac{1}{n}\mathbf{1}\cdot\mathbf{1}^{\operatorname{T}}\right)=0$, it yields
+\begin{equation}
+	\tilde{\mathbf{S}}=\mathbf{HS}\mathbf{H}^{\operatorname{T}}.
+\end{equation}
+The eigen-decomposition of this matrix gives
+\begin{equation}
+	\tilde{\mathbf{S}}=\mathbf{U\Lambda}\mathbf{U}^{\operatorname{T}},
+\end{equation}
+where $\mathbf{U}\mathbf{U}^{\operatorname{T}}=\mathbf{I}$ and $\mathbf{\Lambda}$ is a diagonal matrix of eigenvalues. The best Euclidean approximation of the original distance matrix is thus obtained as
+\begin{equation}
+	\tilde{\mathbf{X}}=\mathbf{\Lambda}^{\operatorname{\frac{1}{2}}}\mathbf{U}^{\operatorname{T}}.
+\end{equation}
+In practice, one often chooses the top $k$ nonzero eigenvalues of $\tilde{\mathbf{S}}$ and build a $k$-dimensional Euclidean embedding of data $\tilde{\mathbf{X}}_k={\mathbf{\Lambda}_k}^{1/2}{\mathbf{U}_k}^{\operatorname{T}}$, where
+\begin{align*}
+	{\mathbf{U}_k}^{\operatorname{T}}=&\left[u_1, \dots, u_k\right]^{\operatorname{T}},\quad u_k\in \mathbb{R}^n,\\
+	\mathbf{\Lambda}_k=&\operatorname{diag}(\lambda_1,\dots,\lambda_k)
+\end{align*}
+with $\lambda_1\ge \lambda_2\ge \dots \ge \lambda_k>0$.
