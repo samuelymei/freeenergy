@@ -70,30 +70,35 @@ with variances (see Appendix~\ref{chapter:Appendix:Uncertainty})
 %    \caption{A sample histogram in 2D space, for instance potential energy and a reaction coordinate $\xi$.}\label{Fig:FEM:WHAM:histogram}
 %\end{figure}
 A sample histogram is shown in Fig.~\ref{Fig:FEM:WHAM:histogram}.
-\begin{figure}[htbp]
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[ymode=log,]
-	    	\addplot plot coordinates{
-		    	(-32.0, 2)
-			    (-24.0, 32)
-			    (-20.0, 64)
-			    (-16.0, 424)
-			    (-12.0, 1728)
-			    (-8.0, 6688)
-			    (-4.0, 13568)
-			    (0.0, 20524)
-			    (4.0, 13568)
-			    (8.0, 6688)
-			    (12.0, 1728)
-			    (16.0, 424)
-			    (20.0, 64)
-			    (24.0, 32)
-			    (32.0, 2)
-		};
-	\end{axis}
-	\end{tikzpicture}
-	\caption{Density of states of a 4$\times$4 periodic Ising model}\label{Fig:FEM:WHAM:histogram}
+%\begin{figure}[htbp]
+%	\centering
+%	\begin{tikzpicture}
+%		\begin{axis}[ymode=log,]
+%	    	\addplot plot coordinates{
+%		    	(-32.0, 2)
+%			    (-24.0, 32)
+%			    (-20.0, 64)
+%			    (-16.0, 424)
+%			    (-12.0, 1728)
+%			    (-8.0, 6688)
+%			    (-4.0, 13568)
+%			    (0.0, 20524)
+%			    (4.0, 13568)
+%			    (8.0, 6688)
+%			    (12.0, 1728)
+%			    (16.0, 424)
+%			    (20.0, 64)
+%			    (24.0, 32)
+%			    (32.0, 2)
+%		};
+%	\end{axis}
+%	\end{tikzpicture}
+%	\caption{Density of states of a 4$\times$4 periodic Ising model}\label{Fig:FEM:WHAM:histogram}
+%\end{figure}
+
+\begin{figure}
+	\includegraphics[angle=90,width=0.9\textwidth]{figures/dos}
+	\caption{Density of states of a 2D periodic Ising model\label{Fig:FEM:WHAM:histogram}}
 \end{figure}
 
 The ratio of the histogram $H_m$ to the total number of snapshots $N$ divided by the bin width $\Delta U$ can be approximately taken as the probability of states in this bin, i.e.,
