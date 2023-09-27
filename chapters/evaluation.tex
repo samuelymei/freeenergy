@@ -142,13 +142,14 @@ By using Eq.~\ref{Eq:Eva:Pi:dA}, it can be rewritten as
 Wu and Kofke suggested that the number of work samples (non-equilibrium trajectories) should be sufficient to ensure $\Pi>0.5$.\cite{WuJCP2004} This idea has also been applied to the estimate of the bias in bridge estimators such as BAR.\cite{RadakJCP2019}
 
 \section{Kullback–Leibler divergence\label{Sec:Eva:KLDverg}}
-The convergence rate of thermodynamic perturbation heavily depends on the similarity between the simulated Hamiltonian (A) and the target one (B). Kullback–Leibler divergence offers a quantitative way to measure the similarity by
+The convergence rate of thermodynamic perturbation heavily depends on the similarity between the simulated Hamiltonian ($A$) and the target one ($B$). Kullback–Leibler divergence offers a quantitative way to measure the similarity by
+\begin{align}
+	KL(p_A||p_B)=&\int_\Gamma \diff \mathrm{x}\, p_A(\mathbf{x})\ln\left[\frac{p_A(\mathbf{x})}{p_B(\mathbf{x})}\right]\notag\\
+	   =&-\left(-\int_\Gamma \diff \mathbf{x}\, p_A(\mathbf{x})\ln p_A(\mathbf{x})\right)-\int_\Gamma \diff \mathbf{x}\, p_A(\mathbf{x})\ln p_B(\mathbf{x}),
+\end{align}
+where $H(p_A)=-\int_\Gamma \diff \mathbf{x}\, p_A(\mathbf{x})\ln p_A(\mathbf{x})$ is the entropy of the distribution under Hamiltonian $A$, and $-\int_\Gamma \diff \mathbf{x}\, p_A(\mathbf{x})\ln p_B(\mathbf{x})$ is the cross-entropy between the distribution under Hamiltonian $A$ and that under Hamiltonian $B$. $KL(p_A||p_B)$ is also known as the relative entropy in Information theory. Similarly, we can also have
 \begin{equation}
-	s_A=\int_\Gamma \diff \mathrm{x}\, p_A(\mathbf{x})\ln\left[\frac{p_A(\mathbf{x})}{p_B(\mathbf{x})}\right].
-\end{equation}
-$s_A$ is also known as the relative entropy in Information theory. Similarly, we can also have
-\begin{equation}
-	s_B=\int_\Gamma \diff \mathrm{x}\, p_B(\mathbf{x})\ln\left[\frac{p_B(\mathbf{x})}{p_A(\mathbf{x})}\right].
+	KL(p_B||p_A)=\int_\Gamma \diff \mathrm{x}\, p_B(\mathbf{x})\ln\left[\frac{p_B(\mathbf{x})}{p_A(\mathbf{x})}\right].
 \end{equation}
 With the Boltzmann statistics,
 \begin{equation}
@@ -156,13 +157,52 @@ With the Boltzmann statistics,
 \end{equation}
 The relative entropies can be written as
 \begin{align}
-	s_A=&\int_\Gamma \diff \mathrm{x}\, \frac{e^{-\beta U_A(\mathbf{x})}}{Q_A}\ln\left[\frac{e^{-\beta U_A(\mathbf{x})}}{Q_A}\frac{Q_B}{e^{-\beta U_B(\mathbf{x})}}\right]\notag\\
+	KL(p_A||p_B)=&\int_\Gamma \diff \mathrm{x}\, \frac{e^{-\beta U_A(\mathbf{x})}}{Q_A}\ln\left[\frac{e^{-\beta U_A(\mathbf{x})}}{Q_A}\frac{Q_B}{e^{-\beta U_B(\mathbf{x})}}\right]\notag\\
 	   =&\int_\Gamma \diff \mathrm{x}\, \frac{e^{-\beta U_A(\mathbf{x})}}{Q_A} \left\{\beta \left[U_B(\mathbf{x})-U_A(\mathbf{x})\right]-\beta \Delta A\right\}\\
 	   =&\beta\left<\Delta U\right>_A-\beta \Delta A
 \end{align}
 and
 \begin{equation}
-	s_B=-\beta\left<\Delta U\right>_B+\beta \Delta A,
+	KL(p_B||p_A)=-\beta\left<\Delta U\right>_B+\beta \Delta A,
 \end{equation}
 which are exactly the dissipated work\cite{WuJCP2005}.
 
+\section{Mutual information\label{Sec:Eva:MI}}
+The definition of entropy
+\begin{equation}
+	H(p)=-\int \diff \mathbf{x}\, p(\mathbf{x})\ln p(\mathbf{x})
+\end{equation}
+can be extended to joint distributions as
+\begin{equation}
+	H(p)=\iint \diff \mathbf{x}\diff \mathbf{y}\, p(\mathbf{x},\mathbf{y})\ln p(\mathbf{x},\mathbf{y})
+\end{equation}
+
+The conditional entropy $H(\mathbf{Y}|\mathbf{X})$ is the amount of information needed to determine $\mathbf{Y}$ when $\mathbf{X}$ is known
+\begin{align}
+	H(\mathbf{Y}|\mathbf{X})=&\int \diff \mathbf{x}\, p(\mathbf{x})  H(\mathbf{Y}|\mathbf{X}=\mathbf{x})\notag\\
+	  =&-\iint \diff \mathbf{x}\diff \mathbf{y}\, p(\mathbf{x},\mathbf{y})\log{p(\mathbf{y}|\mathbf{x})}.
+\end{align}
+The chain rule
+\begin{equation}
+	H(\mathbf{X}_{1:n})=H(\mathbf{X}_1)+H(\mathbf{X}_2|\mathbf{X}_1)+\dots+H(\mathbf{X}_n|\mathbf{X}_{1:n-1})
+\end{equation}
+can be easily derived from above. In general, $H(\mathbf{Y}|\mathbf{X})\neq H(\mathbf{X}|\mathbf{Y})$ , and $H(\mathbf{Y}|\mathbf{X})=H(\mathbf{Y})$ when $\mathbf{X}$ and $\mathbf{Y}$ are independent.
+
+From the chain rule above, it can be seen that
+\begin{equation}
+	H(\mathbf{X},\mathbf{Y})=H(\mathbf{X})+H(\mathbf{Y}|\mathbf{X})=H(\mathbf{Y})+H(\mathbf{X}|\mathbf{Y}).
+\end{equation}
+By switching the terms, it can be found that
+\begin{equation}
+	H(\mathbf{X})-H(\mathbf{X}|\mathbf{Y})=H(\mathbf{Y})-H(\mathbf{Y}|\mathbf{X}),
+\end{equation}
+which can be interpreted as the entropy reduction in $\mathbf{X}$ when $\mathbf{Y}$ is known, or vice versa. The mutual information is thus defined
+\begin{align}
+	I(\mathbf{X};\mathbf{Y})=&H(\mathbf{X})-H(\mathbf{X}|\mathbf{Y})\notag\\
+	=&H(\mathbf{Y})-H(\mathbf{Y}|\mathbf{X})\notag\\
+	=&\iint \diff \mathbf{x}\diff \mathbf{y}\, p(\mathbf{x},\mathbf{y})\log{\frac{p(\mathbf{x},\mathbf{y})}{p(\mathbf{x})p(\mathbf{y})}}.
+\end{align}
+It can also be written as
+\begin{equation}
+	I(\mathbf{X};\mathbf{Y})=KL\left(p(\mathbf{x},\mathbf{y})||p(\mathbf{x})p(\mathbf{y})\right).
+\end{equation}
