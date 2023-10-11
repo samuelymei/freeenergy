@@ -1,3 +1,15 @@
 % !TeX spellcheck = en_US
 \section{Locally Linear Embedding (LLE)\label{Sec:DR:LLE}}
-Locally linear embedding was introduced by Roweis and Saul in 2000.\cite{RoweisScience2000}
+Locally linear embedding was introduced by Roweis and Saul in 2000.\cite{RoweisScience2000} It differs from Isomap by eliminating the need to estimate pairwise distances between widely separated data points.
+
+Suppose sufficient data have been sampled from some underlying manifold, which are denoted as $\{\mathbf{X}_i\}\in \mathbb{R}^D, \text{for }i\in [1,N]$. It can be expected that each data point and its neighbors lie on or close to a locally linear patch of the manifold. Then each data point is reconstructed linearly from its neighbors, and the reconstruction errors measured by the cost function
+\begin{equation}
+	\epsilon(\mathbf{W})=\sum_i\vert X_i-\sum_j W_{ij}X_j\vert^2.
+\end{equation}
+The weights $\mathbf{W}$ can be obtained by minimizing the cost function subject to two constraints: first, $W_{ij}=0$ if $X_j$ does not belong to the set of neighbors of $X_i$; second, the rows of $\mathbf{W}$ sum to one: $\sum_j W_{ij}=1$.
+
+In the final step of this algorithm, each high-dimensional data points $X_i$ is mapped to a low-dimensional observation $Y_i$ by minimizing the embedding cost function
+\begin{equation}
+	\phi(\mathbf{Y})=\sum_i \vert Y_i -\sum_j W_{ij}Y_j\vert ^2
+\end{equation}
+with fixed $\mathbf{W}$.
