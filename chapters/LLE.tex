@@ -2,14 +2,37 @@
 \section{Locally Linear Embedding (LLE)\label{Sec:DR:LLE}}
 Locally linear embedding was introduced by Roweis and Saul in 2000.\cite{RoweisScience2000} It differs from Isomap by eliminating the need to estimate pairwise distances between widely separated data points.
 
-Suppose sufficient data have been sampled from some underlying manifold, which are denoted as $\{\mathbf{X}_i\}\in \mathbb{R}^D, \text{for }i\in [1,N]$. It can be expected that each data point and its neighbors lie on or close to a locally linear patch of the manifold. Then each data point is reconstructed linearly from its neighbors, and the reconstruction errors measured by the cost function
+Suppose sufficient data have been sampled from some underlying manifold, which are denoted as $\{\mathbf{x}_i\}\in \mathbb{R}^D, \text{for }i\in [1,N]$. It can be expected that each data point and its neighbors lie on or close to a locally linear patch of the manifold. Then each data point is reconstructed linearly from its neighbors, and the reconstruction errors measured by the cost function
 \begin{equation}
-	\epsilon(\mathbf{W})=\sum_i\vert X_i-\sum_j W_{ij}X_j\vert^2.
+	\epsilon(\mathbf{W})=\sum_i\lVert \mathbf{x}_i-\sum_j W_{ij}\mathbf{x}_j\rVert^2.
 \end{equation}
-The weights $\mathbf{W}$ can be obtained by minimizing the cost function subject to two constraints: first, $W_{ij}=0$ if $X_j$ does not belong to the set of neighbors of $X_i$; second, the rows of $\mathbf{W}$ sum to one: $\sum_j W_{ij}=1$.
+The weights $\mathbf{W}$ can be obtained by minimizing the cost function subject to two constraints: first, $W_{ij}=0$ if $\mathbf{x}_j$ does not belong to the set of neighbors of $\mathbf{x}_i$; second, the rows of $\mathbf{W}$ sum to one: $\sum_j W_{ij}=1$. Formally, we minimize the Lagrangian function
+\begin{equation}
+	f(\mathbf{x}_i)=\mathbf{w}_i^{\operatorname{T}}G_i\mathbf{w}_i-\lambda \left(\mathbf{1}_n^{\operatorname{T}}\mathbf{w}_i-1\right)
+\end{equation}
+with respect to $\mathbf{w}_i$, where $G_i=(G_{i,jk})$ is an $(n\times n)$ Gram matrix with $G_{i,jk}=(\mathbf{x}_i-\mathbf{x}_j)^{\operatorname{T}}(\mathbf{x}_i-\mathbf{x}_k)$. Minimizing $f(\mathbf{x}_i)$ with respect to $\mathbf{w}_i$ yields
+\begin{equation}
+	\widehat{\mathbf{w}}_i=\frac{\lambda}{2}G_{i}^{-1}\mathbf{1}_n.
+\end{equation}
+Multiplying both sides of this equation from the left by $\mathbf{1}_n^{\operatorname{T}}$ and using the normalization condition $\mathbf{1}_n^{\operatorname{T}}\mathbf{w}_i=1$, we find
+\begin{equation}
+	\frac{\lambda}{2}=\frac{1}{\mathbf{1}_n^{\operatorname{T}}\mathbf{G}_i^{-1}\mathbf{1}_n}.
+\end{equation}
+Then, the optimal weights can be rewritten as
+\begin{equation}
+	\widehat{\mathbf{w}}_i=\frac{\mathbf{G}_i^{-1}\mathbf{1}_n}{\mathbf{1}_n^{\operatorname{T}}\mathbf{G}_i^{-1}\mathbf{1}_n}.
+\end{equation}
 
-In the final step of this algorithm, each high-dimensional data points $X_i$ is mapped to a low-dimensional observation $Y_i$ by minimizing the embedding cost function
+In the final step of this algorithm, each high-dimensional data points $\mathbf{x}_i$ is mapped to a low-dimensional observation $\mathbf{y}_i$ by minimizing the embedding cost function
 \begin{equation}
-	\phi(\mathbf{Y})=\sum_i \vert Y_i -\sum_j W_{ij}Y_j\vert ^2
+	\phi(\mathbf{Y})=\sum_i \lVert \mathbf{y}_i -\sum_j W_{ij}\mathbf{y}_j\rVert ^2
 \end{equation}
-with fixed $\mathbf{W}$.
+with fixed $\mathbf{W}$. It can be converted into a $N\times N$ eigenvalue problem by the transformation
+\begin{equation}
+	\phi(\mathbf{Y})=\sum_{ij}(\delta_{ij}-W_{ij}-W_{ji}+\sum_k W_{ki}W_{kj})\mathbf{y}_i\cdot \mathbf{y}_j,
+\end{equation}
+in which we have assumed/forced
+\begin{equation}
+	\sum_i \mathbf{y}_i=0\quad \text{and} \quad \frac{1}{N}\sum_i \mathbf{y}_i\otimes \mathbf{y}_i=\mathbf{I}.
+\end{equation}
+The smallest eigenvalue is zero with corresponding eigenvector $\mathbf{v}_n=n^{-1/2}\mathbf{1}_n$. The next $d$ smallest eigenvectors define the embedding coordinates.
