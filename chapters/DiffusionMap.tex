@@ -16,10 +16,11 @@ with $0<\epsilon \ll 1$. The kernel $k(x,y)$ defines a local measure of similari
 is frequently used, where $\alpha$ tunes the size of the neighborhood. Transition probability matrix $\mathbf{P}$ must be row-normalized, which leads to
 \begin{equation}
 	p(x_i,x_j)= \begin{cases}
-		k(x_i,x_j)/\sum\limits_{x_j}k(x_i,x_j), & \text{if } k(x_i,x_j) >\epsilon\\
+		k(x_i,x_j)/\sum\limits_{x_j\in S_i}k(x_i,x_j), & \text{if } k(x_i,x_j) >\epsilon\\
 		0, & \text{otherwise}
 	\end{cases}.
 \end{equation}
+$S_i$ is the neighborhood of $x_i$.
  
 Suppose there are three data points $\{x_1, x_2, x_3\}$ and the single-step transition probability matrix is
 \begin{equation}
@@ -38,4 +39,44 @@ where we have assumed that the transition probability from $x_1$ to $x_3$ is zer
   	p_{32}p_{21}      & p_{32}p_{22}+p_{33}p_{32} & p_{32}p_{23}+p_{33}p_{33}
   \end{bmatrix}.
 \end{equation}
-It shows that after two steps of propagation, the probability of transition from $x_1$ to $x_3$ is no longer zero, instead it equals to the probability of transition from $x_1$ to $x_2$, $p_{12}$, in the first step multiplied by the probability of transition from $x_2$ to $x_3$, $p_{23}$, in the second step.
+It shows that after two steps of propagation, the probability of transition from $x_1$ to $x_3$ is no longer zero, instead it equals to the probability of transition from $x_1$ to $x_2$, $p_{12}$, in the first step multiplied by the probability of transition from $x_2$ to $x_3$, $p_{23}$, in the second step. Similar observation can also be found for other transitions among the data points.
+
+It can be seen from the above that $P^t_{ij}$ sum all paths of length $t$ from point $x_i$ to point $x_j$. With increasing value of $t$, different scales of the data structure can be visualized. This is the diffusion process, during which the local connectivity is integrated to present the global connectivity of a data set. Besides, pathways built by long, low probability jumps are gradually replaced by short, high probability jumps. 
+
+With the global geometric structure of a data set uncovered by the diffusion process described above, a diffusion metric can be defined for this structure. The metric measures the similarity of two points in the observed space as the connectivity between them, and is defined as
+\begin{align}
+	D_t(x_i,x_j)^2=&\sum_{u\in X}|p_t(x_i,u)-p_t(x_j,u)|^2\notag\\
+	              =&\sum_k |P_{ik}^t-P_{kj}^t|^2.
+\end{align}
+In order to have a small diffusion distance between two points, there should be many high probability paths of length $t$ linking these two points. Since it sums over all possible paths, this algorithm is robust to noise perturbation. Besides, the path probabilities between $x_i$, $u$ and $u$, $x_j$ must be roughly equal. This happens when both $x_i$ and $x_j$ are well connected via $u$. However, calculating diffusion distances is computational expensive. Therefore, it is convenient to map data points into a Euclidean space, in which the diffusion distance becomes the Euclidean distance in this new diffusion space. 
+
+A diffusion map maps coordinates between data and diffusion space by reorganizing data according to the diffusion metric. It preserves a data set's intrinsic geometry with data points mapped to a lower-dimensional structure. With the mapping
+\begin{equation}
+	y_i := \begin{bmatrix}
+		p_t(x_i, x_{1}) \\
+		p_t(x_i, x_{2}) \\
+		\vdots \\
+		p_t(x_i, x_{1N})
+	\end{bmatrix}=P_{i\ast}^{\operatorname{T}},
+\end{equation}
+the Euclidean distance between two mapped points, $y_i$ and $y_j$, is
+\begin{align}
+	\lVert y_i-y_j\rVert_E^2=&\sum_{u\in X} |p_t(x_i,u)-p_t(x_j,u)|^2\notag\\
+	                        =&\sum_k |P_{ik}^t-P_{kj}^t|^2\notag\\
+	                        =&D_t(x_i,x_j)^2.
+\end{align}
+
+To reduce the dimensionality, we define the normalized diffusion matrix
+\begin{equation}
+	P=D^{-1}K,
+\end{equation}
+where $D$ is the diagonal matrix consisting of the row-sums of $K$. With the eigenvectors $\phi_i$ and $\lambda_i$ of $P$, the mapped points can be rewritten as
+\begin{equation}
+	y_i^\prime=\begin{bmatrix}
+		\lambda_1^t\phi_1(i) \\
+		\lambda_2^t\phi_2(i) \\
+		\vdots \\
+		\lambda_n^t\phi_n(i)
+	\end{bmatrix},
+\end{equation}
+where $\phi_k(s)$ indicates the $s$th element of the $k$th eigenvector of $P$. The Euclidean distance between mapped points $y_i^\prime$ and $y_j^\prime$ is the diffusion distance. Dimension reduction is achieved by retaining the $m$ dimensions associated with the dominant eigenvectors.
