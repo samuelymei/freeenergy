@@ -1,0 +1,41 @@
+% !TeX spellcheck = en_US
+\section{Diffusion Map\label{Sec:DR:DM}}
+A diffusion map was developed by Coifman and Lafon in 2006\cite{CoifmanACHA2006}, which embeds data in a lower-dimensional space, such that the diffusion distance in the original space between points is well approximated by the Euclidean distance in the reduced-dimensional space.
+
+Given a set of $N$ data points $\mathbf{x}=\{x_1, x_2,\dots,x_N\}$, the connectivity between data points $x_i$ and $x_j$ is defined by the transition probability between these two points $p(x_i,x_j)$, which is measured by their distance
+\begin{equation}
+	p(x_i,x_j)\propto \begin{cases}
+		k(x_i,x_j), & \text{if } k(x_i,x_j) >\epsilon\\
+		0, & \text{otherwise}
+	\end{cases},
+\end{equation}
+with $0<\epsilon \ll 1$. The kernel $k(x,y)$ defines a local measure of similarity within a certain neighborhood, and Gaussian kernel
+\begin{equation}
+	k(x,y)=\exp{\left(-\frac{|x-y|^2}{\alpha}\right)}
+\end{equation}
+is frequently used, where $\alpha$ tunes the size of the neighborhood. Transition probability matrix $\mathbf{P}$ must be row-normalized, which leads to
+\begin{equation}
+	p(x_i,x_j)= \begin{cases}
+		k(x_i,x_j)/\sum\limits_{x_j}k(x_i,x_j), & \text{if } k(x_i,x_j) >\epsilon\\
+		0, & \text{otherwise}
+	\end{cases}.
+\end{equation}
+ 
+Suppose there are three data points $\{x_1, x_2, x_3\}$ and the single-step transition probability matrix is
+\begin{equation}
+  P=\begin{bmatrix}
+	p_{11} & p_{12} & 0\\
+	p_{21} & p_{22} & p_{23} \\
+	0      & p_{32} & p_{33}
+\end{bmatrix},
+\end{equation}
+where we have assumed that the transition probability from $x_1$ to $x_3$ is zero and vice versa. It can be easily found that
+\begin{equation}
+  P^2=
+  \begin{bmatrix}
+  	p_{11}p_{11}+p_{12}p_{21} & p_{11}p_{12}+p_{12}p_{22} & p_{12}p_{23}\\
+  	p_{21}p_{11}+p_{22}p_{21} & p_{21}p_{12}+p_{22}p_{22}+p_{23}p_{32} & p_{22}p_{23}+p_{23}p_{33} \\
+  	p_{32}p_{21}      & p_{32}p_{22}+p_{33}p_{32} & p_{32}p_{23}+p_{33}p_{33}
+  \end{bmatrix}.
+\end{equation}
+It shows that after two steps of propagation, the probability of transition from $x_1$ to $x_3$ is no longer zero, instead it equals to the probability of transition from $x_1$ to $x_2$, $p_{12}$, in the first step multiplied by the probability of transition from $x_2$ to $x_3$, $p_{23}$, in the second step.
