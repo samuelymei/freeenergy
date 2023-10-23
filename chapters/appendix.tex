@@ -226,3 +226,22 @@ which is Eq.~\ref{Eq:FEM:MBAR:f_i_final}.
 \end{equation}
 %\addtocontents{toc}{\endgroup}
 \end{appendices}
+
+\chapter{Bias-variance decomposition\label{chapter:Appendix:BVD}}
+Given a set of samples, the mean squared error (M.S.E.) of an estimator $\hat{\theta}$ for some parameter $\theta$ is
+\begin{equation}
+	\text{M.S.E.} = \mathbb{E}{\left[\left(\hat{\theta}-\theta\right)^2\right]}.
+\end{equation}
+It can be decomposed into a bias term and a variance term as following
+\begin{align}
+	\text{M.S.E.} =& \mathbb{E}{\left[\left(\hat{\theta}-\theta\right)^2\right]}\notag\\
+	       =& \mathbb{E}{\left[\left(\hat{\theta}-\mathbb{E}{\left(\hat{\theta}\right)}+\mathbb{E}{\left(\hat{\theta}\right)}-\theta\right)^2\right]}\notag\\
+	       =& \mathbb{E}{\left[ \left(\hat{\theta}-\mathbb{E}{\left(\hat{\theta}\right)}\right)^2+ 2\left(\hat{\theta}-\mathbb{E}{\left(\hat{\theta}\right)}\right)\left(\mathbb{E}{\left(\hat{\theta}\right)}-\theta\right)  +\left(\mathbb{E}{\left(\hat{\theta}\right)}-\theta\right)^2\right]}\notag\\
+	       =&\mathbb{E}{\left[ \left(\hat{\theta}-\mathbb{E}{\left(\hat{\theta}\right)}\right)^2\right]}+\mathbb{E}{\left[\left(\mathbb{E}{\left(\hat{\theta}\right)}-\theta\right)^2\right]}\notag\\
+	       =& \operatorname{Var}+\operatorname{Bias}^2,
+\end{align}
+where we have utilized 
+\begin{equation}
+	\mathbb{E}{\left[\left(\hat{\theta}-\mathbb{E}{\left(\hat{\theta}\right)}\right)\left(\mathbb{E}{\left(\hat{\theta}\right)}-\theta\right)\right]}=\left(\mathbb{E}\left(\hat{\theta}\right)-\mathbb{E}{\left(\hat{\theta}\right)}\right)\left(\mathbb{E}{\left(\hat{\theta}\right)}-\theta\right)=0,
+\end{equation}
+since $\mathbb{E}(\hat{\theta})$ and $\theta$ are constants.
