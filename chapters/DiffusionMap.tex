@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_US
 \section{Diffusion Map\label{Sec:DR:DM}}
-A diffusion map was developed by Coifman and Lafon in 2006\cite{CoifmanACHA2006}, which embeds data in a lower-dimensional space, such that the diffusion distance in the original space between points is well approximated by the Euclidean distance in the reduced-dimensional space.
+A diffusion map was developed by Coifman et al. in 2005\cite{CoifmanPNAS2005a,CoifmanPNAS2005b,CoifmanACHA2006}, which computes a family of embeddings of a data set into Euclidean space (often low-dimensional) whose coordinates can be computed from the eigenvectors and eigenvalues of a diffusion operator on the data, while ensuring that the diffusion distance in the original space between points is well approximated by the Euclidean distance in the reduced-dimensional space. Diffusion maps are part of the family of nonlinear dimensionality reduction methods which focus on discovering the underlying manifold that the data has been sampled from. By integrating local similarities at different scales, diffusion maps give a global description of the data-set. Compared with other methods, the diffusion map algorithm is robust to noise perturbation and computationally inexpensive.
 
 Given a set of $N$ data points $\mathbf{x}=\{x_1, x_2,\dots,x_N\}$, the connectivity between data points $x_i$ and $x_j$ is defined by the transition probability between these two points $p(x_i,x_j)$, which is measured by their distance
 \begin{equation}
@@ -9,7 +9,7 @@ Given a set of $N$ data points $\mathbf{x}=\{x_1, x_2,\dots,x_N\}$, the connecti
 		0, & \text{otherwise}
 	\end{cases},
 \end{equation}
-with $0<\epsilon \ll 1$. The kernel $k(x,y)$ defines a local measure of similarity within a certain neighborhood, and Gaussian kernel
+with $0<\epsilon \ll 1$. The kernel $k(x,y)$ defines a local measure of similarity within a certain neighborhood. Since a given kernel will capture a specific feature of the data set, it should be well-designed to match the requirement of the application. A Gaussian kernel
 \begin{equation}
 	k(x,y)=\exp{\left(-\frac{|x-y|^2}{\alpha}\right)}
 \end{equation}
