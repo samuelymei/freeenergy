@@ -1,3 +1,59 @@
 % !TeX spellcheck = en_US
 \section{t-Distributed Stochastic Neighbor Embedding Algorithm (t-SNE)\label{Sec:DR:t-SNE}}
-t-SNE algorithm was proposed by Laurens van der Maaten and Geoffrey Hinton in the year 2008.\cite{vandermaatenJMLR2008}
+The t-distributed Stochastic Neighbor Embedding (t-SNE) algorithm, proposed by Laurens van der Maaten and Geoffrey Hinton in the year 2008,\cite{vandermaatenJMLR2008} was an improved version of the SNE algorithm developed by Hinton and Roweis in 2002.\cite{HintonNIPS2002}
+
+In SNE, the high-dimensional Euclidean distances between data points are converted by conditional probabilities that represent similarities. The similarity of data point $x_j$ to data point $x_i$ is the conditional probability, $p_{j|i}$, that $x_i$ would take $x_j$ as its neighbor, which is proportional to their probability density under a Gaussian centered at $x_i$
+\begin{equation}
+	p_{j|i}=\frac{\exp{\left(-\lVert x_i-x_j\rVert^2/2\sigma_i^2\right)}}{\sum_{k\neq i}\exp{\left(-\lVert x_i-x_j\rVert^2/2\sigma_i^2\right)}}.
+\end{equation}
+The magnitudes of $\{\sigma_i\}$ tune the structure of the connections.
+Similarly, for the low-dimensional mapped data points $y_i$ and $y_j$, the conditional probability, denoted as $q_{j|i}$, is written also in a Gaussian form
+\begin{equation}
+	q_{j|i}=\frac{\exp{\left(-\lVert y_i-y_j\rVert^2\right)}}{\sum_{k\neq i}\exp{\left(-\lVert y_i-y_j\rVert^2\right)}}
+\end{equation}
+with variance set to $1/\sqrt{2}$.
+
+If the mapped data points $y_i$ and $y_j$ faithfully model the similarity between the data points $x_i$ and $x_j$, the conditional probabilities $p_{j|i}$ and $q_{j|i}$ will be equal. A natural way to measure the faithfulness is the Kullback--Leibler divergence. SNE minimizes the sum of Kullback--Leibler divergence over all data points
+\begin{equation}
+	C=\sum_i KL(P_i\Vert Q_i)=\sum_i \sum_j p_{j|i} \log{\frac{p_{j|i}}{q_{j|i}}}
+\end{equation}
+using a gradient descent method. Because the Kullback--Leibler is not symmetric, the cost function of SNE focuses on retaining the local structure of the data point in the map.
+
+The minimization of the cost function $C$ is performed using a gradient descent method with the gradient
+\begin{equation}
+	\frac{\delta C}{\delta y_i}=2\sum_j(p_{j|i}-q_{j|i}+p_{i|j}-q_{i|j})(y_i-y_j).
+\end{equation}
+To escape from poor local minima, a relatively large momentum term is added to the gradient, and the update of $\mathcal{Y}$ is written as
+\begin{equation}
+  \mathcal{Y}^{(t)}=\mathcal{Y}^{(t-1)}+\eta \frac{\delta C}{\delta \mathcal{Y}}+\alpha(t)(\mathcal{Y}^{(t-1)}-\mathcal{Y}^{(t-2)}).
+\end{equation}  
+Despite this optimization strategy, the method still does not ensure that the global best is obtained. Therefore, it is common to run the optimization several times on the data set with different initial condition and random numbers.
+
+Usually, it is unlikely that a single value of $\sigma_i$ will be optimal for all the data points. Instead, it is related to the distribution density of the data points, that is varying in the high-dimensional space. In SNE, the value of $\sigma_i$ is determined by a fixed perplexity specified by the user. The perplexity can be interpreted as a smooth measure of the effective number of neighbors, which is defined as
+\begin{equation}
+	perp(P_i)=2^{H(P_i)},
+\end{equation} 
+where $H(P_i)$ is the Shannon entropy of $P_i$ measured in bits
+\begin{equation}
+	H(P_i)=-\sum_j p_{j|i}\log_2{p_{j|i}}.
+\end{equation}
+
+Because of the asymmetry of the Kullback--Leibler divergence in the cost function, SNE often suffers from the ``crowding problem''. In order to solve this problem, t-SNE algorithm utilizes symmetrized version of the cost function and a heavily-tailed Student-t distribution rather than a Gaussian to compute the similarity between two points \textit{in the low-dimensional space}. 
+
+As an alternative to minimizing the sum of the Kullback--Leibler divergences between the conditional probabilities $p_{j|i}$ and $q_{j|i}$, it is also possible to minimizes a single Kullback-Leibler divergence between a joint probability distribution, $P$, in the high-dimensional space and a joint probability distribution, $Q$, in the low-dimensional space:
+\begin{equation}
+	C=KL(P\Vert Q)=\sum_i\sum_j p_{ij}\log \frac{p_{ij}}{q_{ij}},
+\end{equation}
+in which
+\begin{equation}
+	p_{ij}=\frac{\exp{\left(-\lVert x_i-x_j\rVert^2/2\sigma^2\right)}}{\sum_{k\neq l}\exp{\left(-\lVert x_k-x_l\rVert^2/2\sigma^2\right)}}
+\end{equation}
+and
+\begin{equation}
+	q_{ij}=\frac{\exp{\left(-\lVert y_i-y_j\rVert^2\right)}}{\sum_{k\neq l}\exp{\left(-\lVert y_k-y_l\rVert^2\right)}}
+	\label{eq:DR:t-SNE:symmetricQ}
+\end{equation}
+with $p_{ii}=q_{ii}=0$. However, t-SNE circumvent this problem by forcing the joint probabilities $p_{ij}$ in the high-dimensional space to be symmetric as $p_{ij}=\frac{p_{i|j}+p_{j|i}}{2n}$ and using Eq.~\ref{eq:DR:t-SNE:symmetricQ} for $q_{ij}$ in the low-dimensional space. The gradient of the cost function with respect to the mapped points becomes
+\begin{equation}
+	\frac{\delta C}{\delta y_i}=4\sum_j(p_{ij}-q_{ij})(y_i-y_j).
+\end{equation}
