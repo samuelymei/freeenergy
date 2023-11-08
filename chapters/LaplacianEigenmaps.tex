@@ -12,8 +12,9 @@ Now the weight for each edge can be calculated in either of the two ways:
 \begin{itemize}
 	\item Heat kernel: If nodes $i$ and $j$ are connected, set
 	\begin{equation}
-	    W_{ij}=e^{-\frac{\lVert \mathbf{x}_i-\mathbf{x}_j\rVert^2}{t}}
+	    W_{ij}=e^{-\frac{\lVert \mathbf{x}_i-\mathbf{x}_j\rVert^2}{2\sigma^2}},
 	\end{equation}
+	where $\sigma$ is the kernel bandwidth.
 	
 	\item Simple-minded: $W_{ij}=1$ if and only if vertices $i$ and $j$ are connected by an edge.
 \end{itemize}
@@ -22,7 +23,7 @@ Compute eigenvalues and eigenvectors for the generalized eigenvector problem:
 \begin{equation}
     L\mathbf{y}=\lambda D\mathbf{y}
 \end{equation}
-where $D$ is a diagonal weight matrix with $D_{ii}=\sum_j W_{ji}$, $L=D-W$ is the Laplacian matrix. let $\mathbf{y}_0, \dots, \mathbf{y}_{k-1}$ be the solutions of the equation above, ordered by their eigenvalues with $\mathbf{y}_0$ having the smallest eigenvalue (in fact 0). The image of $\mathbf{x}_i$ under the embedding into the lower dimensional space $\mathbf{R}^m$ is given by $(\mathbf{y}_1(i),\dots, \mathbf{y}_m(i))$. 
+where $D$ is a diagonal weight matrix with $D_{ii}=\sum_j W_{ji}$, and $L=D-W$ is the Laplacian matrix. Let $\mathbf{y}_0, \dots, \mathbf{y}_{k-1}$ be the solutions of the equation above, ordered by their eigenvalues with $\mathbf{y}_0$ having the smallest eigenvalue (in fact 0). The image of $\mathbf{x}_i$ under the embedding into the lower dimensional space $\mathbf{R}^m$ is given by $(\mathbf{y}_1(i),\dots, \mathbf{y}_m(i))$. 
 
 Justification for the process above is that the points connected on the graph should stay as close as possible after embedding, which means we should minimize the objective function
 \begin{equation}
@@ -31,6 +32,7 @@ Justification for the process above is that the points connected on the graph sh
 with respect to $\mathbf{y}_1, \dots, \mathbf{y}_n$ subject to appropriate constraints. It means that when $W_{ij}$ is large, $\mathbf{x}_i$ and $\mathbf{x}_j$ are very close to each other. Then, $\mathbf{y}_i$ and $\mathbf{y}_j$ must still be close. On the contrary, when $W_{ij}$ is small, meaning that $\mathbf{x}_i$ and $\mathbf{x}_j$ are far away from each other, then there is much flexibility in putting $\mathbf{y}_i$ and $\mathbf{y}_j$ on the line. For any $\mathbf{y}$, we have
 \begin{align}
 	\frac{1}{2}\sum_{i,j\in E}(\mathbf{y}_i-\mathbf{y}_j)^2 W_{ij}=&\frac{1}{2}\sum_{i,j\in E}(\mathbf{y}_i^2+\mathbf{y}_j^2-2\mathbf{y}_i\mathbf{y}_j)W_{ij}\notag\\
+	=&\frac{1}{2}\sum_{i}\mathbf{y}_i^2\sum_j W_{ij}+\frac{1}{2}\sum_j \mathbf{y}_j^2\sum_i W_{ij}-\sum_{i,j\in E}\mathbf{y}_i\mathbf{y}_j W_{ij}\notag\\
 	=&\frac{1}{2}\sum_{i}\mathbf{y}_i^2 D_{ii}+\frac{1}{2}\sum_j \mathbf{y}_j^2 D_{jj}-\sum_{i,j\in E}\mathbf{y}_i\mathbf{y}_j W_{ij}\notag\\
 	=&\sum_i \mathbf{y}_i^2D_{ii} -\sum_{i,j\in E}\mathbf{y}_i\mathbf{y}_jW_{ij}\notag\\
 	=&\sum_{i,j\in E}\mathbf{y}_iD_{i,j}\mathbf{y}_j-\sum_{i,j\in E}\mathbf{y}_i\mathbf{y}_jW_{ij}\notag\\
@@ -47,12 +49,13 @@ and it leads to
 	L\mathbf{y}=\lambda D\mathbf{y}.
 \end{equation}
 
-Since All the rows (and columns) sum to 0, it is easy to see that $\mathbf{y}=\mathbf{1}$ (all 1s) si an eigenvector with eigenvalue 0. To eliminate this trivial solution which collapses all vertices of $G$ onto the real number 1, an additional constraint of orthogonality must be imposed to obtain
+Since All the rows (and columns) sum to 0, it is easy to see that $\mathbf{y}=\mathbf{1}$ (all 1s) is an eigenvector with eigenvalue 0. To eliminate this trivial solution which collapses all vertices of $G$ onto the real number 1, an additional constraint of orthogonality must be imposed to obtain
 \begin{equation}
 	\mathbf{y}_{opt}=\operatorname*{arg\,min}\limits_{\substack{\mathbf{y}\\\mathbf{y}^{\operatorname{T}}D\mathbf{y}=1\\\mathbf{y}^{\operatorname{T}}D\mathbf{1}=0}} \mathbf{y}^{\operatorname{T}}L\mathbf{y}.
 \end{equation}
 
-Thus, the solution $\mathbf{y}_{opt}$ is now given by the eigenvector with smallest non-zero eigenvalue. More generally, the embedding of the graph into $\mathbb{R}^m $ ($m>1$) is given by the $n\times m$ matrix $Y=\left[\mathbf{y}_1\,\mathbf{y}_2\cdots \mathbf{y}_m\right]$. It reduces to
+Thus, the solution $\mathbf{y}_{opt}$ is now given by the eigenvector with smallest non-zero eigenvalue. More generally, the embedding of the graph into $\mathbb{R}^m $ ($m>1$) is given by the $m\times k$ matrix $Y=\left[\mathbf{y}_1\,\mathbf{y}_2\cdots \mathbf{y}_k\right]$. It reduces to
 \begin{equation}
-	Y_{opt}=\operatorname*{arg\,min}\limits_{\substack{Y\\Y^{\operatorname{T}}DY=I}} \operatorname{tr}{\left(Y^{\operatorname{T}}LY\right)}.
+	Y_{opt}=\operatorname*{arg\,min}\limits_{\substack{Y\\YDY^{\operatorname{T}}=I}} \operatorname{tr}{\left(YLY^{\operatorname{T}}\right)}.
 \end{equation} 
+The constraint is used to prevent a collapse onto a subspace of fewer than $m-1$ dimensions.
