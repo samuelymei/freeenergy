@@ -15,7 +15,7 @@ Given a set of $N$ data points $\mathbf{x}=\{x_1, x_2,\dots,x_N\}$, the connecti
 %with $0<\epsilon \ll 1$. 
 The kernel $k(x,y)$ defines a local measure of similarity within a certain neighborhood. Since a given kernel will capture a specific feature of the data set, it should be well-designed to match the requirement of the application. A Gaussian kernel
 \begin{equation}
-	k(x,y)=\exp{\left(-\frac{|x-y|^2}{\alpha}\right)}
+	k(x,y)=\exp{\left(-\frac{\lVert x-y\rVert^2}{\alpha}\right)}
 \end{equation}
 is frequently used, where $\alpha$ tunes the size of the neighborhood. Transition probability matrix $\mathbf{P}$ must be row-normalized, which leads to
 %\begin{equation}
@@ -63,7 +63,7 @@ A diffusion map maps coordinates between data and diffusion space by reorganizin
 		p_t(x_i, x_{1}) \\
 		p_t(x_i, x_{2}) \\
 		\vdots \\
-		p_t(x_i, x_{1N})
+		p_t(x_i, x_{N})
 	\end{bmatrix}=P_{i\ast}^{\operatorname{T}},
 \end{equation}
 the Euclidean distance between two mapped points, $y_i$ and $y_j$, is

@@ -8,7 +8,7 @@ Here, we only look at metric MDS. For two vectors $\mathbf{a}$ and $\mathbf{b}$,
 \begin{equation}
 	d^2(\mathbf{a},\mathbf{b})=(\mathbf{a}-\mathbf{b})^{\operatorname{T}}(\mathbf{a}-\mathbf{b})=\mathbf{a}^{\operatorname{T}}\mathbf{a}+\mathbf{b}^{\operatorname{T}}\mathbf{b}-2\times(\mathbf{a}^{\operatorname{T}}\mathbf{b}),
 \end{equation}
-where $\mathbf{a}^{\operatorname{T}}\mathbf{b}$ is the scalar product between $\mathbf{a}$ and $\mathbf{b}$. For $n$ observations in a $m$-dimensional space ($x_1, x_2, \dots, x_n\in \mathbb{R}^m$) stored in a matrix denoted by $\mathbf{X}$, which has a shape of $m\times n$, the cross product matrix $\mathbf{S}$ is then obtained as
+where $\mathbf{a}^{\operatorname{T}}\mathbf{b}$ is the scalar product between $\mathbf{a}$ and $\mathbf{b}$. For $n$ observations in a $m$-dimensional space ($\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n\in \mathbb{R}^m$) stored in a matrix denoted by $\mathbf{X}$, which has a shape of $m\times n$, the cross product matrix $\mathbf{S}$ is then obtained as
 \begin{equation}
 	\mathbf{S}=\mathbf{X}^{\operatorname{T}}\mathbf{X},
 \end{equation}
@@ -42,9 +42,9 @@ The eigen-decomposition of this matrix gives
 \end{equation}
 where $\mathbf{U}\mathbf{U}^{\operatorname{T}}=\mathbf{I}$ and $\mathbf{\Lambda}$ is a diagonal matrix of eigenvalues. The best Euclidean approximation of the original distance matrix is thus obtained as
 \begin{equation}
-	\tilde{\mathbf{X}}=\mathbf{\Lambda}^{\operatorname{\frac{1}{2}}}\mathbf{U}^{\operatorname{T}}.
+	\tilde{\mathbf{Y}}=\mathbf{\Lambda}^{\operatorname{\frac{1}{2}}}\mathbf{U}^{\operatorname{T}}.
 \end{equation}
-In practice, one often chooses the top $k$ nonzero eigenvalues of $\tilde{\mathbf{S}}$ and build a $k$-dimensional Euclidean embedding of data $\tilde{\mathbf{X}}_k={\mathbf{\Lambda}_k}^{1/2}{\mathbf{U}_k}^{\operatorname{T}}$, where
+In practice, one often chooses the top $k$ nonzero eigenvalues of $\tilde{\mathbf{S}}$ and build a $k$-dimensional Euclidean embedding of data $\tilde{\mathbf{Y}}_k={\mathbf{\Lambda}_k}^{1/2}{\mathbf{U}_k}^{\operatorname{T}}$, where
 \begin{align*}
 	{\mathbf{U}_k}^{\operatorname{T}}=&\left[u_1, \dots, u_k\right]^{\operatorname{T}},\quad u_k\in \mathbb{R}^n,\\
 	\mathbf{\Lambda}_k=&\operatorname{diag}(\lambda_1,\dots,\lambda_k)

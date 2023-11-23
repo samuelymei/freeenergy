@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_US
 \section{t-Distributed Stochastic Neighbor Embedding Algorithm (t-SNE)\label{Sec:DR:t-SNE}}
-The t-distributed Stochastic Neighbor Embedding (t-SNE) algorithm, proposed by Laurens van der Maaten and Geoffrey Hinton in the year 2008,\cite{vandermaatenJMLR2008} was an improved version of the SNE algorithm developed by Hinton and Roweis in 2002.\cite{HintonNIPS2002}
+The t-distributed Stochastic Neighbor Embedding (t-SNE) algorithm, proposed by Laurens van der Maaten and Geoffrey Hinton in 2008,\cite{vandermaatenJMLR2008} was an improved version of the SNE algorithm developed by Hinton and Roweis in 2002.\cite{HintonNIPS2002}
 
 In SNE, the high-dimensional Euclidean distances between data points are converted by conditional probabilities that represent similarities. The similarity of data point $x_j$ to data point $x_i$ is the conditional probability, $p_{j|i}$, that $x_i$ would take $x_j$ as its neighbor, which is proportional to their probability density under a Gaussian centered at $x_i$
 \begin{equation}
