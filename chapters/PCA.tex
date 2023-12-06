@@ -55,3 +55,44 @@ indicating that $\lambda$ is an eigenvalue of $\boldsymbol{\Sigma}$ again, and $
 \begin{equation}
 	\operatorname{var}\left[{\boldsymbol{\alpha}_k}^{\operatorname{T}} \mathbf{x}\right]=\lambda_k \quad \text { for } k=1,2, \ldots, p.
 \end{equation}
+
+
+\textbf{Kernel Principal Component Analysis} (Kernel PCA): Let us suppose all the data have being mapped into feature space, $\boldsymbol{\phi}(\mathbf{x}_1),\dots,\boldsymbol{\phi}(\mathbf{x}_l)$, and are centered, i.e. $\sum_{k=l}^l \boldsymbol{\phi}(\mathbf{x}_k)=0$. PCA for the covariance matrix
+\begin{equation}
+	\bar{C}=\frac{1}{l}\sum_{j=1}^l \boldsymbol{\phi}(\mathbf{x}_j)\boldsymbol{\phi}(\mathbf{x}_k)^{\operatorname{T}}
+	\label{eq:DR:PCA:Cbar}
+\end{equation}
+gives eigenvalues $\lambda >0$ and eigenvectors $\mathbf{V}$ satisfying $\lambda \mathbf{V}=\bar{C} \mathbf{V}$. $\mathbf{V}$ lies in the span of $\boldsymbol{\phi}(\mathbf{x}_1),\dots,\boldsymbol{\phi}(\mathbf{x}_l)$. Therefore, the eigen equation can be written as
+\begin{equation}
+	\lambda (\boldsymbol{\phi}(\mathbf{x}_k)\cdot \mathbf{V})=(\boldsymbol{\phi}(\mathbf{x}_k)\cdot \bar{C}\mathbf{V}) \text{ for all }k=1,\dots,l,
+	\label{eq:DR:PCA:eigenequationprime}
+\end{equation}
+and there exist coefficients $\alpha_1,\dots,\alpha_l$ such that
+\begin{equation}
+	\mathbf{V}=\sum_{i=1}^l \alpha_i \boldsymbol{\phi}(\mathbf{x}_i).
+	\label{eq:DR:PCA:Vdecompose}
+\end{equation}
+Now let us define
+\begin{equation}
+	K_{ij} :=(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x}_j)),
+\end{equation}
+and take Eq.~\ref{eq:DR:PCA:Cbar} and \ref{eq:DR:PCA:Vdecompose} into Eq.~\ref{eq:DR:PCA:eigenequationprime}, it leads to
+\begin{equation}
+	l\lambda K\boldsymbol{\alpha} =K^2\boldsymbol{\alpha},
+\end{equation}
+where $\boldsymbol{\alpha}$ is the column vector with elements $\alpha_1,\dots,\alpha_l$. Its solutions can be found by solving the eigenvalue problem
+\begin{equation}
+	l\lambda \boldsymbol{\alpha} =K\boldsymbol{\alpha}
+\end{equation}
+for nonzero eigenvalues. Enforcing the eigenvectors to be normalized, i.e. $(\mathbf{V}^k\cdot \mathbf{V}^k)=1$, the solution $\boldsymbol{\alpha}^k$ must satisfy
+\begin{equation}
+	1=\sum_{i,j=1}^l \alpha_i^k\alpha_j^k(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x}_j))=(\boldsymbol{\alpha}^k\cdot K\boldsymbol{\alpha}^k)=\lambda_k(\boldsymbol{\alpha}^k\cdot \boldsymbol{\alpha}^k).
+\end{equation}
+Projections of the data in the feature space $\boldsymbol{\phi}(\mathbf{x})$ onto the eigenvectors $\mathbf{V}^k$ can be computed via
+\begin{equation}
+	(\mathbf{V}^k\cdot \boldsymbol{\phi}(\mathbf{x}))=\sum_{i=1}^l\alpha_i^k(\boldsymbol{\phi}(\mathbf{x})\cdot \boldsymbol{\phi}(\mathbf{x})),
+\end{equation}
+which gives the principal components.
+
+
+ 
