@@ -57,14 +57,14 @@ indicating that $\lambda$ is an eigenvalue of $\boldsymbol{\Sigma}$ again, and $
 \end{equation}
 
 
-\textbf{Kernel Principal Component Analysis} (Kernel PCA): Let us suppose all the data have being mapped into feature space, $\boldsymbol{\phi}(\mathbf{x}_1),\dots,\boldsymbol{\phi}(\mathbf{x}_l)$, and are centered, i.e. $\sum_{k=l}^l \boldsymbol{\phi}(\mathbf{x}_k)=0$. PCA for the covariance matrix
+\textbf{Kernel Principal Component Analysis}\cite{ScholkopfNC1998} (Kernel PCA): Let us suppose all the data have being mapped into feature space, $\boldsymbol{\phi}(\mathbf{x}_1),\dots,\boldsymbol{\phi}(\mathbf{x}_l)$, and are centered, i.e. $\sum_{k=l}^l \boldsymbol{\phi}(\mathbf{x}_k)=0$. PCA for the covariance matrix
 \begin{equation}
-	\bar{C}=\frac{1}{l}\sum_{j=1}^l \boldsymbol{\phi}(\mathbf{x}_j)\boldsymbol{\phi}(\mathbf{x}_k)^{\operatorname{T}}
+	\bar{C}=\frac{1}{l}\sum_{j=1}^l \boldsymbol{\phi}(\mathbf{x}_j)\boldsymbol{\phi}(\mathbf{x}_j)^{\operatorname{T}}
 	\label{eq:DR:PCA:Cbar}
 \end{equation}
 gives eigenvalues $\lambda >0$ and eigenvectors $\mathbf{V}$ satisfying $\lambda \mathbf{V}=\bar{C} \mathbf{V}$. $\mathbf{V}$ lies in the span of $\boldsymbol{\phi}(\mathbf{x}_1),\dots,\boldsymbol{\phi}(\mathbf{x}_l)$. Therefore, the eigen equation can be written as
 \begin{equation}
-	\lambda (\boldsymbol{\phi}(\mathbf{x}_k)\cdot \mathbf{V})=(\boldsymbol{\phi}(\mathbf{x}_k)\cdot \bar{C}\mathbf{V}) \text{ for all }k=1,\dots,l,
+	\lambda (\boldsymbol{\phi}(\mathbf{x}_k)\cdot \mathbf{V})=(\boldsymbol{\phi}(\mathbf{x}_k)\cdot \bar{C}\mathbf{V}) \quad \text{for all}\quad k=1,\dots,l,
 	\label{eq:DR:PCA:eigenequationprime}
 \end{equation}
 and there exist coefficients $\alpha_1,\dots,\alpha_l$ such that
@@ -72,7 +72,7 @@ and there exist coefficients $\alpha_1,\dots,\alpha_l$ such that
 	\mathbf{V}=\sum_{i=1}^l \alpha_i \boldsymbol{\phi}(\mathbf{x}_i).
 	\label{eq:DR:PCA:Vdecompose}
 \end{equation}
-Now let us define
+Now let us define an $l \times l$ matrix $K$ by
 \begin{equation}
 	K_{ij} :=(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x}_j)),
 \end{equation}
@@ -83,16 +83,25 @@ and take Eq.~\ref{eq:DR:PCA:Cbar} and \ref{eq:DR:PCA:Vdecompose} into Eq.~\ref{e
 where $\boldsymbol{\alpha}$ is the column vector with elements $\alpha_1,\dots,\alpha_l$. Its solutions can be found by solving the eigenvalue problem
 \begin{equation}
 	l\lambda \boldsymbol{\alpha} =K\boldsymbol{\alpha}
+	\label{eq:DR:PCA:eigenequatiionK}
 \end{equation}
-for nonzero eigenvalues. Enforcing the eigenvectors to be normalized, i.e. $(\mathbf{V}^k\cdot \mathbf{V}^k)=1$, the solution $\boldsymbol{\alpha}^k$ must satisfy
+for nonzero eigenvalues. Enforcing the eigenvectors corresponding to nonzero eigenvalues to be normalized, i.e. $(\mathbf{V}^k\cdot \mathbf{V}^k)=1$, the solution $\boldsymbol{\alpha}^k$ must satisfy
 \begin{equation}
-	1=\sum_{i,j=1}^l \alpha_i^k\alpha_j^k(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x}_j))=(\boldsymbol{\alpha}^k\cdot K\boldsymbol{\alpha}^k)=\lambda_k(\boldsymbol{\alpha}^k\cdot \boldsymbol{\alpha}^k).
+	1=\sum_{i,j=1}^l \alpha_i^k\alpha_j^k(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x}_j))=(\boldsymbol{\alpha}^k\cdot K\boldsymbol{\alpha}^k)=l\lambda_k(\boldsymbol{\alpha}^k\cdot \boldsymbol{\alpha}^k).
+	\label{eq:DR:PCA:normalizingAlpha}
 \end{equation}
 Projections of the data in the feature space $\boldsymbol{\phi}(\mathbf{x})$ onto the eigenvectors $\mathbf{V}^k$ can be computed via
 \begin{equation}
-	(\mathbf{V}^k\cdot \boldsymbol{\phi}(\mathbf{x}))=\sum_{i=1}^l\alpha_i^k(\boldsymbol{\phi}(\mathbf{x})\cdot \boldsymbol{\phi}(\mathbf{x})),
+	(\mathbf{V}^k\cdot \boldsymbol{\phi}(\mathbf{x}))=\sum_{i=1}^l\alpha_i^k(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x})),
+	\label{eq:DR:PCA:kPC}
 \end{equation}
 which gives the principal components.
 
-
+The algorithm for kernel PCA:
+\begin{enumerate}
+	\item Computing the dot product matrix $K_{ij} =(\boldsymbol{\phi}(\mathbf{x}_i)\cdot \boldsymbol{\phi}(\mathbf{x}_j))$
+	\item Calculating the eigenvalue and eigenvectors of $K$ (Eq.~\ref{eq:DR:PCA:eigenequatiionK}), and normalizing the eigenvector expansion coefficients $\boldsymbol{\alpha}^k$ (Eq.~\ref{eq:DR:PCA:normalizingAlpha})
+	\item Extracting principal components in correspondence to the kernel $K$ for any point $\mathbf{x}$ by projection onto the eigenvectors (Eq.~\ref{eq:DR:PCA:kPC})
+	components
+\end{enumerate}
  
