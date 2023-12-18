@@ -95,7 +95,7 @@ where $U(\mathbf{x})$ is the potential energy of this microstate. With this prob
 \left<O\right>=\frac{\int \hat{O}(\mathbf{x})\exp{(-\beta U(\mathbf{x}))}\diff\mathbf{x}}{Z}.
 \end{equation}
 
-Besides state free energies, we may also be interested in free energy profiles along one or several degrees of freedom
+Besides state free energies, we may also be interested in free energy profiles along one or several degrees of freedom $\xi(\mathbf{x})$ known as collective variable (CV), reaction coordinate (RC), or order parameter (OP) 
 \begin{align}
 	A(\xi)=&-\beta^{-1}\ln{Z(\xi)}\notag\\
 	      =&-\beta^{-1}\ln\int \exp{\left(-\beta U\right)}\delta(\xi-\xi(\mathbf{x}))\diff\mathbf{x}\notag\\
@@ -111,6 +111,13 @@ where $\mathbf{J}$ is the Jacobian matrix upon changing from Cartesian to some g
                                     \label{Eq:Intro:meanforce}
 \end{align}
 Here, $-\frac{\partial U}{\partial \xi}+\beta^{-1}\frac{\partial \ln |\mathbf{J}|}{\partial \xi}$ is the generalized force on $\xi$ to be averaged over the degrees of freedom other than $\xi$ itself. Therefore, $A(\xi)$ is called the potential of mean force. \textit{Note: Some define the potential of mean force as $\left<\frac{\partial U}{\partial \xi}\right>_\xi$ only. But we do not strictly differentiate potential of mean force and free energy profile here.}
+
+Correspondingly, the probability of the CV $\xi(\mathbf{x})$ having a value of $\xi$ is
+\begin{align}
+	\rho(\xi)=&\frac{Z(\xi)}{Z}\notag\\
+	         =&\frac{\int \delta(\xi-\xi(\mathbf{x}))\exp{\left(-\beta U\right)}\diff\mathbf{x}}{\int \exp{\left(-\beta U\right)}\diff\mathbf{x}}\notag\\
+	         =&\left<\delta(\xi-\xi(\mathbf{x}))\right>.
+\end{align}  
 
 Let us take protein-ligand binding
 \begin{center}
