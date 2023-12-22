@@ -26,8 +26,13 @@ is frequently used, where $\alpha$ tunes the size of the neighborhood. Transitio
 %\end{equation}
 %$S_i$ is the neighborhood of $x_i$.
 \begin{equation}
-	p(x_i,x_j)= k(x_i,x_j)/\sum\limits_{x_j\in \mathbf{x}}k(x_i,x_j)
+	p(x_i,x_j)= k(x_i,x_j)/\sum\limits_{x_j\in \mathbf{x}}k(x_i,x_j),
 \end{equation}
+or in matrix form
+\begin{equation}
+	P=D^{-1}K,
+\end{equation}
+where $D$ is the diagonal matrix consisting of the row-sums of $K$. \textit{Note}: $P$ is non-symmetric.
  
 Suppose there are three data points $\{x_1, x_2, x_3\}$ and the single-step transition probability matrix is
 \begin{equation}
@@ -55,9 +60,9 @@ With the global geometric structure of a data set uncovered by the diffusion pro
 	D_t(x_i,x_j)^2=&\sum_{u\in X}|p_t(x_i,u)-p_t(x_j,u)|^2\notag\\
 	              =&\sum_k |P_{ik}^t-P_{kj}^t|^2.
 \end{align}
-In order to have a small diffusion distance between two points, there should be many high probability paths of length $t$ linking these two points. Since it sums over all possible paths, this algorithm is robust to noise perturbation. Besides, the path probabilities between $x_i$, $u$ and $u$, $x_j$ must be roughly equal. This happens when both $x_i$ and $x_j$ are well connected via $u$. However, calculating diffusion distances is computational expensive. Therefore, it is convenient to map data points into a Euclidean space, in which the diffusion distance becomes the Euclidean distance in this new diffusion space. 
+$D_t(x_i,x_j)^2$ is known as the diffusion distance between point $x_i$ and $x_j$. In order to have a small diffusion distance between two points, there should be many high probability paths of length $t$ linking these two points. Since it sums over all possible paths, this algorithm is robust to noise perturbation. Besides, the path probabilities between $x_i$, $u$ and $u$, $x_j$ must be roughly equal. This happens when both $x_i$ and $x_j$ are well connected via $u$. However, calculating diffusion distances is computational expensive. Therefore, it is convenient to map data points into a Euclidean space, in which the diffusion distance becomes the Euclidean distance in this new diffusion space. 
 
-A diffusion map maps coordinates between data and diffusion space by reorganizing data according to the diffusion metric. It preserves a data set's intrinsic geometry with data points mapped to a lower-dimensional structure. With the mapping
+A diffusion map maps coordinates between data and diffusion space by reorganizing data according to the diffusion metric. It preserves a data set's intrinsic geometry with data points mapped to a lower-dimensional structure. With the mapping 
 \begin{equation}
 	y_i := \begin{bmatrix}
 		p_t(x_i, x_{1}) \\
@@ -72,12 +77,11 @@ the Euclidean distance between two mapped points, $y_i$ and $y_j$, is
 	                        =&\sum_k |P_{ik}^t-P_{kj}^t|^2\notag\\
 	                        =&D_t(x_i,x_j)^2.
 \end{align}
-
-To reduce the dimensionality, we define the normalized diffusion matrix
+However, this is not a good mapping for dimension reduction, and we must transform this mapping into a new coordinate system. As said above, $P$ is non-symmetric. Let its left and right eigenvectors be $\left\{e_k\right\}$ and $\left\{v_k\right\}$ and the eigenvalues $\left\{\lambda_k\right\}$. The eigen decomposition
 \begin{equation}
-	P=D^{-1}K,
+	P=\sum_k\lambda_kv_ke_k^{\operatorname{T}}
 \end{equation}
-where $D$ is the diagonal matrix consisting of the row-sums of $K$. With the eigenvectors $\phi_i$ and $\lambda_i$ of $P$, the mapped points can be rewritten as
+indicates that each row of the diffusion matrix $P$ can be expressed in terms of a new basis $\left\{e_k\right\}$, the left eigenvectors of $P$. In this new coordinate system, each row of $P$ is represented by a point
 \begin{equation}
 	y_i^\prime=\begin{bmatrix}
 		\lambda_1^t\phi_1(i) \\
