@@ -32,7 +32,7 @@ or in matrix form
 \begin{equation}
 	P=D^{-1}K,
 \end{equation}
-where $D$ is the diagonal matrix consisting of the row-sums of $K$. \textit{Note}: $P$ is non-symmetric.
+where $D$ is the diagonal matrix consisting of the row-sums of $K$. \textit{Note}: $P$ is non-symmetric, which has a leading eigenvalue $\lambda_1=1$ with multiplicity 1.
  
 Suppose there are three data points $\{x_1, x_2, x_3\}$ and the single-step transition probability matrix is
 \begin{equation}
@@ -90,4 +90,4 @@ indicates that each row of the diffusion matrix $P$ can be expressed in terms of
 		\lambda_n^t\phi_n(i)
 	\end{bmatrix},
 \end{equation}
-where $\phi_k(s)$ indicates the $s$th element of the $k$th eigenvector of $P$. The Euclidean distance between mapped points $y_i^\prime$ and $y_j^\prime$ is the diffusion distance. Dimension reduction is achieved by retaining the $m$ dimensions associated with the dominant eigenvectors.
+where $\phi_k(s)$ indicates the $s$th element of the $k$th eigenvector of $P$. The Euclidean distance between mapped points $y_i^\prime$ and $y_j^\prime$ is the diffusion distance. In most cases, $\lambda_k$ decays very fast. Therefore, dimension reduction can be achieved by retaining the $m$ dimensions associated with the dominant eigenvectors.
