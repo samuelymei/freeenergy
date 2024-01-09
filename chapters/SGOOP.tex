@@ -1,3 +1,34 @@
 % !TeX spellcheck = en_US
 \section{Spectral Gap optimization of Order Parameters\label{Sec:DR:SGOOP}}
-Spectral Gap optimization of Order Parameters (SGOOP) was proposed by Tiwary and Berne in 2016.\cite{TiwaryPNAS2016}
+Spectral Gap Optimization of Order Parameters (SGOOP) was proposed by Tiwary and Berne in 2016.\cite{TiwaryPNAS2016} The idea of this method is that the best CV is one with the maximum separation of timescales between visible slow and hidden fast processes, and the timescale separation is calculated as the spectral gap between the slow and fast eigenvalues of the transition probability matrix. Input to this method is any available information about the static and dynamic properties of the system, accumulated through (i) a biased simulation performed along a suboptimal trial CV, and/or (ii) short unbiased simulations or experimental observations. This information is then processed utilizing the principle of maximum caliber to set up an unbiased master equation for the dynamics of various trial CV, and the best CV is optimized by maximizing the spectral gap of the associated transfer matrix.
+
+With a set of order parameters $\left\{\Theta\right\}$, a trial CV is defined as $f(\Theta)$. This CV can be multidimensional. The CV is then discretized in grids labeled by $n$. For a fixed $\Delta t$, the instantaneous probability $p_n(t)$ follows the master equation
+\begin{equation}
+	\frac{\Delta p_n(t)}{\Delta t}=\sum_m k_{mn} p_m(t)-\sum_m k_{nm} p_n(t)=\sum_m \mathbf{K}_{nm}p_m(t),
+\end{equation} 
+where $k_{nm}$ is the rate of transition from grid $n$ to $m$ per unit time, $\mathbf{K}_{nm}=k_{mn}$ and
+\begin{equation}
+	\mathbf{K}_{nn}=-\sum_{m\neq n}k_{nm}=k_{nn}-1.
+\end{equation}
+If the dynamics of $f(\Theta)$ is Markovian, the transition probability matrix $\boldsymbol{\Omega}$ is given for small $\Delta t$ by the following
+\begin{equation}
+	\boldsymbol{\Omega}=\exp{(\mathbf{K}\Delta t)}\approx \mathbf{I}-\mathbf{K}\Delta t.
+\end{equation}
+Maximum caliber approach defines an entropy $S$ as a functional of the probabilities of micropaths as
+\begin{equation}
+	S=-\sum_{ab}p_a\omega_{ab}\log\omega_{ab}.
+\end{equation}
+Path ensemble averages of time-dependent quantities $A_{ab}$ can be calculated via
+\begin{equation}
+	\langle A\rangle =\sum_{ab} p_a\omega_{ab}A_{ab}.
+\end{equation}
+The path entropy $S$, constraints on the observables $\langle A^n\rangle$, and some others constraints such as detailed balance is collectively called caliber. Maximizing the caliber leads to
+\begin{equation}
+	\omega_{ab}=\sqrt{\frac{p_b}{p_a}}e^{-\sum_i\rho_iA_{ab}^i},
+\end{equation}
+where $\rho_i$ is the Lagrange multiplier for the associated constraint. When the only observable available is the mean number of transition $\langle N \rangle$ in observation interval $\Delta t$ over the entire gridded CV, the above equation takes a particularly simple form
+\begin{equation}
+	\omega_{ab}=\sqrt{\frac{p_b}{p_a}}e^{-\rho}.
+\end{equation}
+
+Let $\left\{\lambda\right\}$ denote the set of eigenvalue of $\boldsymbol{\Omega}$ with $\lambda_0=1>\lambda_1>\lambda_2\cdots$. The spectral gap is defined as $\lambda_s-\lambda_{s+1}$, where $s$ is the number of barriers apparent from the free-energy estimate projected on the CV at hand, that are higher than a user-defined threshold. The optimal CV is obtained by maximizing the spectral gap.
