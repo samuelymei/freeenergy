@@ -1,0 +1,80 @@
+% !TeX spellcheck = en_US
+\section{Linear Discriminant Analysis\label{Sec:DR:LDA}}
+Linear discriminant analysis (LDA), aka Fisher linear discriminant analysis, was originally developed in 1936 by Ronald A. Fisher\cite{FisherAE1936}. It is a dimensionality reduction method for classification problems that preserves as much of the class discriminatory information as possible by maximizing the ratio of the between-class variance to the within-class variance. Closely related to PCA, LDA is also based on linear transformations.
+
+Given the original data set $\mathbf{X}=\left\{\mathbf{x}_1, \mathbf{x}_2,\cdots,\mathbf{x}_N\right\}$, where $\mathbf{x}_i$ represents the $i^{th}$ sample with $M$ features ($\mathbf{x}_i\in \mathbb{R}^M$), and $N$ is the total number of samples. Assume the data samples are catagorized into $C$ classes, $\mathbf{X}=\left[\boldsymbol{\omega_1}, \boldsymbol{\omega_2}, \cdots, \boldsymbol{\omega_C}\right]$, and class $j$ contains $n_j$ samples. The sum of $n_j$ equals to the  total number of samples.
+\begin{equation}
+	N=\sum_{j=1}^C n_j.
+\end{equation}
+LDA seeks to obtain a transformation of $\mathbf{X}$ to $\mathbf{Y}$ through projecting the samples in $\mathbf{X}$ onto a hyperplane with dimension $C-1$. The sample mean for class $\boldsymbol{\mu_j}$ is calculated as
+\begin{equation}
+    \boldsymbol{\mu_j}=\frac{1}{n_j}\sum_{\mathbf{x}_i\in \boldsymbol{\omega_j}} \mathbf{x}_i,
+\end{equation} 
+and the sample mean of all the classes is computed as
+\begin{equation}
+    \boldsymbol{\mu}=\frac{1}{N}\sum_{i=1}^{N} \mathbf{x}_i=\sum_{j=1}^C \frac{n_j}{N}\boldsymbol{\mu}_j.
+\end{equation}
+Their projections, $\mathbf{m}_i$ and $\mathbf{m}$, are computed via
+\begin{equation}
+    \mathbf{m}_j=\mathbf{W}^{\operatorname{T}}\boldsymbol{\mu}_j
+\end{equation}
+and
+\begin{equation}
+	\mathbf{m}=\mathbf{W}^{\operatorname{T}}\boldsymbol{\mu},
+\end{equation}
+where $\mathbf{W}$ is the transformation matrix of LDA.
+
+To calculate the between-class variance (scatter) $\mathbf{S}_B$, the separation distance between different classes will be calculated by
+\begin{equation}
+    \mathbf{S}_B=\sum_{j=1}^C n_j\mathbf{S}_{Bj},
+\end{equation}
+where
+\begin{equation}
+	\mathbf{S}_{Bj}=(\boldsymbol{\mu}_j-\boldsymbol{\mu})(\boldsymbol{\mu}_j-\boldsymbol{\mu})^{\operatorname{T}}.
+\end{equation}
+In the projected space,
+\begin{equation}
+	(\mathbf{m}_j-\mathbf{m})(\mathbf{m}_j-\mathbf{m})^{\operatorname{T}}=\mathbf{W}^{\operatorname{T}}\mathbf{S}_{Bj}\mathbf{W}.
+\end{equation}
+
+The within-class variance represents the difference between the mean and the samples within each class. The within-class variance (scatter) of each class $\mathbf{S}_{Wj}$ is calculated as
+\begin{align}
+	\sum_{j=1}^C\sum_{\mathbf{x}_i\in \boldsymbol{\omega_j}}&\left(\mathbf{x}_i-\mathbf{m}_j\right)\left(\mathbf{x}_i-\mathbf{m}_j\right)^{\operatorname{T}}\notag\\
+	=&\sum_{j=1}^C\sum_{\mathbf{x}_i\in \boldsymbol{\omega_j}} \left(\mathbf{W}^{\operatorname{T}}\mathbf{x}_i-\mathbf{W}^{\operatorname{T}}\boldsymbol{\mu}_j\right)\left(\mathbf{W}^{\operatorname{T}}\mathbf{x}_i-\mathbf{W}^{\operatorname{T}}\boldsymbol{\mu}_j\right)^{\operatorname{T}}\notag\\
+	=&\sum_{j=1}^C\sum_{\mathbf{x}_i\in \boldsymbol{\omega_j}} \mathbf{W}^{\operatorname{T}}\left(\mathbf{x}_i-\boldsymbol{\mu}_j\right)\left(\mathbf{x}_i-\boldsymbol{\mu}_j\right)^{\operatorname{T}}\mathbf{W}\notag\\
+	=&\sum_{j=1}^C\mathbf{W}^{\operatorname{T}}\mathbf{S}_{Wj}\mathbf{W}\notag\\
+	=&\mathbf{W}^{\operatorname{T}}\mathbf{S}_{W}\mathbf{W}
+\end{align}
+
+The transformation matrix $\mathbf{W}$ can be calculated by maximizing the ratio of the determinant of $\mathbf{S}_B$ to the determinant of $\mathbf{S}_W$ in the projected space (known as Fishers criterion) 
+\begin{equation}
+	\operatorname*{arg\,max}\limits_{\substack{\mathbf{W}}}\frac{|\mathbf{W}^{\operatorname{T}}\mathbf{S}_B\mathbf{W}|}{|\mathbf{W}^{\operatorname{T}}\mathbf{S}_W\mathbf{W}|}.
+\end{equation}
+Note that the determinant of the co-variance matrix tells us how much variance a class has, and it has the same value under any ortho-normal projection. So Fishers criterion tries to find the projection that maximizes the variance of the class means and minimzses the variance of the individual classes.
+
+This optimization problem can have infinitely number of solutions with the same objective function value, due that for a solution $\mathbf{W}$ all the vectors $c\cdot\mathbf{W}$ give exactly the same value for the objective function. Without loss of generality, the constraint
+\begin{equation}
+	\mathbf{W}^{\operatorname{T}}\mathbf{S}_W\mathbf{W}=1
+\end{equation}
+can be applied. Then the problem becomes
+\begin{equation}
+	\operatorname*{arg\,max}\limits_{\substack{\mathbf{W}}}\mathbf{W}^{\operatorname{T}}\mathbf{S}_B\mathbf{W}
+\end{equation}
+$\text{s.t.}$
+\begin{equation}
+	\mathbf{W}^{\operatorname{T}}\mathbf{S}_W\mathbf{W}=1.
+\end{equation}
+
+The Lagrangian for this optimization is
+\begin{equation}
+	\mathcal{L}_{LDA}=\mathbf{W}^{\operatorname{T}}\mathbf{S}_B\mathbf{W}-\lambda(\mathbf{W}^{\operatorname{T}}\mathbf{S}_W\mathbf{W}-1).
+\end{equation}
+Minimizing  $\mathcal{L}_{LDA}$ with respect to $\mathbf{W}$ leads to
+\begin{equation}
+	\mathbf{S}_B \mathbf{W}=\mathbf{S}_W \mathbf{W}\Lambda.
+\end{equation}
+Multiplying on both sides by the inverse of $\mathbf{S}_W$ (if $\mathbf{S}_W$ is a non-singular), it becomes
+\begin{align}
+	{\mathbf{S}_W}^{-1}\mathbf{S_B} \mathbf{W}=\mathbf{W}\Lambda.
+\end{align}
+Then the Fisher’s criterion is maximized when the projection matrix $\mathbf{W}$ is composed of the eigenvectors of ${\mathbf{S}_W}^{-1}\mathbf{S_B}$, and $\Lambda$ are the associated eigenvalues. Notice that there will be at most $C-1$ eigenvectors with non-zero real corresponding eigenvalues. Each eigenvectors represents one axis of the LDA space, and the corresponding eigenvalues represents the discriminatory ability between different classes. Thus, the eigenvectors with the $k$ highest eigenvalues are used to construct a lower dimensional space.

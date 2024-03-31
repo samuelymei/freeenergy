@@ -8,10 +8,28 @@ Natural data is often represented in high-dimensional spaces, leading to the ``c
 
 For a brief introduction to the modern dimension reduction methods or manifold learning methods, please refer to Ref.~\cite{IzamanWIREsCS2012}. Specially, the generic problem addressed by dimension reduction, or manifold learning, is as follows: given a set of $k$ observations $\mathbf{x}_1,\dots,\mathbf{x}_k$ in $\mathbb{R}^D$, find a set of points $\mathbf{y}_1,\dots,\mathbf{y}_k$ in $\mathbb{R}^d$ ($d\ll D$) that serve as the best representation of $\mathbf{x}_i$. Most dimensionality reduction algorithms fit into either one of two broad categories: Matrix factorization (such as PCA) or Graph layout (such as t-SNE and UMAP).
 
+But, how can one gauge a dimensionality reduction algorithm's performance effectively? The answer may not be unique, and some metrics should be considered.
+\begin{itemize}
+	\item \textbf{Data reconstruction error} is the difference between the original data and the reconstructed data, which is obtained by applying the inverse transformation of the dimensionality reduction algorithm. The lower the data reconstruction error, the better the algorithm is at retaining the essential features of the original data. The data reconstruction error can be quantified in different ways, such as mean squared error, root mean squared error, or mean absolute error.
+	
+	\item \textbf{Data compression ratio} is the ratio of the size of the original data to the size of the reduced data. The higher the data compression ratio, the more efficient the algorithm is at reducing the dimensionality of the data. However, large data compression ratio often leads to high data reconstructure error. Therefore, one should always balance the trade-off between data compression and data reconstruction when choosing a dimensionality reduction algorithm.
+	
+	\item \textbf{Data visualization quality} can be used when the dimensionality of the data is reduced to two or three dimensions, which can be easily plotted and visualized with bare eyes to find how well the reduced data captures the patterns, clusters, and outliers in the original data.
+	
+	\item \textbf{Data classification accuracy} is the proportion of correctly predicted labels out of the total number of labels for a supervised learning problem. Different classifiers, such as logistic regression, k-nearest neighbors, or support vector machines, can be used to test the data classification accuracy. The higher the data classification accuracy, the better the algorithm is at preserving the discriminative power of the data.
+	
+	\item \textbf{Algorithm complexity and scalability}, such as time complexity, space complexity, or iteration complexity, refers to how fast and how well the algorithm can handle large and high-dimensional datasets. The algorithm complexity and scalability depend on factors such as the computational cost, the memory usage, and the convergence rate of the algorithm. 
+	
+	\item \textbf{Algorithm suitability and robustness} means how well the algorithm fits the characteristics and the objectives of the data and the problem. The algorithm suitability and robustness depend on various aspects such as the data type, the data distribution, the data noise, and the data interpretation. One can use various methods to test the algorithm suitability and robustness, such as cross-validation, sensitivity analysis, or parameter tuning.
+	
+\end{itemize}
+
 \clearpage 
 \input {chapters/PCA.tex}
 \clearpage
 \input {chapters/MDS.tex}
+\clearpage
+\input {chapters/LDA.tex}
 \clearpage
 \input {chapters/CUR.tex}
 \clearpage
