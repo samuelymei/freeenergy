@@ -1,5 +1,5 @@
 % !TeX spellcheck = en_US
-\section{Spectral Gap optimization of Order Parameters\label{Sec:DR:SGOOP}}
+\section{Spectral Gap Optimization of Order Parameters\label{Sec:DR:SGOOP}}
 Spectral Gap Optimization of Order Parameters (SGOOP) was proposed by Tiwary and Berne in 2016.\cite{TiwaryPNAS2016} The idea of this method is that the best CV is one with the maximum separation of timescales between visible slow and hidden fast processes, and the timescale separation is calculated as the spectral gap between the slow and fast eigenvalues of the transition probability matrix. Input to this method is any available information about the static and dynamic properties of the system, accumulated through (i) a biased simulation performed along a suboptimal trial CV, and/or (ii) short unbiased simulations or experimental observations. This information is then processed utilizing the principle of maximum caliber to set up an unbiased master equation for the dynamics of various trial CV, and the best CV is optimized by maximizing the spectral gap of the associated transfer matrix.
 
 With a set of order parameters $\left\{\Theta\right\}$, a trial CV is defined as $f(\Theta)$. This CV can be multidimensional. The CV is then discretized in grids labeled by $n$. For a fixed $\Delta t$, the instantaneous probability $p_n(t)$ follows the master equation
