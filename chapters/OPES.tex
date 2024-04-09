@@ -1,0 +1,40 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+\section{On-the-fly Probability Enhanced Sampling\label{Sec:ES:OPES}}
+The On-the-fly Probability Enhanced Sampling (OPES) method was developed by Invernizzi and Parrinello in 2020.\cite{InvernizziJPCL2020} Different from the well-tempered metadynamics (WTMetaD), in which the biasing potential is defined independent of the probability distribution, the core idea of OPES is to update self-consistently the estimate of the probability distributions and of the biasing potential in an on-the-fly fashion. The probability distribution is constructed via reweighting and is used to estimate the biasing potential.
+
+In order to converge to the flat distribution, the biasing potential at the $n^{th}$ step can be defined as
+\begin{equation}
+	V_n(\mathbf{s})=\frac{1}{\beta} \log{\hat{P}_n(\mathbf{s})},
+\end{equation}
+where $\hat{P}_n(\mathbf{s})$ is an estimate of the probability. However, in WTMetaD, we aim at reaching a target distribution $P^{tg}(\mathbf{s})$, which can be obtained if the bias is defined as
+\begin{equation}
+	V(\mathbf{s})=\frac{1}{\beta} \log{\frac{P(\mathbf{s})}{P^{tg}(\mathbf{s})}}.
+\end{equation}
+In WTMetaD,
+\begin{equation}
+	P^{tg}(\mathbf{s})\propto \left[P(\mathbf{s})\right]^{1/\gamma},
+\end{equation}
+which leads to
+\begin{equation}
+	V(\mathbf{s})=(1-1/\gamma)\frac{1}{\beta} \log{P(\mathbf{s})}.
+\end{equation}
+
+During the simulation, the estimated probability distribution is expressed as weighted sum of the Gaussian hills according to the previously deposited bias potential as
+\begin{equation}
+	\tilde{P}_n(\mathbf{s})=\frac{\sum_k^n w_k G(\mathbf{s},\mathbf{s}_k)}{\sum_k^n w_k},
+\end{equation}
+where the weights $w_k=e^{\beta V_{k-1}(\mathbf{s}_k)}$. The tilde above $P$ indicates that the probability distribution is not normalized. The normalization should be carried out with respect to the CV space, denoted as $\Omega_n$, actually explored up to step $n$. Thus, the normalization factor is
+\begin{equation}
+	Z_n=\frac{1}{|\Omega_n|}\int_{\Omega_n}\tilde{P}_n(\mathbf{s})\diff \mathbf{s}.
+\end{equation}
+
+With an additional positive term $\epsilon \ll 1$, the bias at the $n^{th}$ step becomes
+\begin{equation}
+	V(\mathbf{s})=(1-1/\gamma)\frac{1}{\beta} \log{\left(\frac{\tilde{P}_n(\mathbf{s})}{Z_n}+\epsilon\right)}.
+\end{equation}
+$\epsilon$ can also allow one to set a limit on the bias, thus providing better control over the desired exploration. It can be chosen to be $\epsilon=e^{-\beta \Delta E/(1-1/\gamma)}$, where $\Delta E$ is the height of the free energy barriers one wishes to overcome during the enhanced sampling. It leads to
+\begin{equation}
+	V(\mathbf{s})= -\Delta E
+\end{equation}
+without depositing biasing potential.
