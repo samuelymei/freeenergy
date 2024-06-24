@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_US
-\section{Diffusion Map\label{Sec:DR:DM}}
-A diffusion map was developed by Coifman et al. in 2005\cite{CoifmanPNAS2005a,CoifmanPNAS2005b,CoifmanACHA2006}, which computes a family of embeddings of a data set into Euclidean space (often low-dimensional) whose coordinates can be computed from the eigenvectors and eigenvalues of a diffusion operator on the data, while ensuring that the diffusion distance in the original space between points is well approximated by the Euclidean distance in the reduced-dimensional space. Diffusion maps are part of the family of nonlinear dimensionality reduction methods which focus on discovering the underlying manifold that the data has been sampled from. By integrating local similarities at different scales, diffusion maps give a global description of the data-set. Compared with other methods, the diffusion map algorithm is robust to noise perturbation and computationally inexpensive.
+\section{Diffusion Maps\label{Sec:DR:DM}}
+Diffusion maps was developed by Coifman et al. in 2005\cite{CoifmanPNAS2005a,CoifmanPNAS2005b,CoifmanACHA2006}, which computes a family of embeddings of a data set into Euclidean space (often low-dimensional) whose coordinates can be computed from the eigenvectors and eigenvalues of a diffusion operator on the data, while ensuring that the diffusion distance in the original space between points is well approximated by the Euclidean distance in the reduced-dimensional space. Diffusion maps are part of the family of nonlinear dimensionality reduction methods which focus on discovering the underlying manifold that the data has been sampled from. By integrating local similarities at different scales, diffusion maps give a global description of the data-set. Compared with other methods, the diffusion maps algorithm is robust to noise perturbation and computationally inexpensive.
 
 Given a set of $N$ data points $\mathbf{x}=\{x_1, x_2,\dots,x_N\}$, the connectivity between data points $x_i$ and $x_j$ is defined by the transition probability between these two points $p(x_i,x_j)$, which is measured by their distance
 %\begin{equation}
@@ -62,7 +62,7 @@ With the global geometric structure of a data set uncovered by the diffusion pro
 \end{align}
 $D_t(x_i,x_j)^2$ is known as the diffusion distance between point $x_i$ and $x_j$. In order to have a small diffusion distance between two points, there should be many high probability paths of length $t$ linking these two points. Since it sums over all possible paths, this algorithm is robust to noise perturbation. Besides, the path probabilities between $x_i$, $u$ and $u$, $x_j$ must be roughly equal. This happens when both $x_i$ and $x_j$ are well connected via $u$. However, calculating diffusion distances is computational expensive. Therefore, it is convenient to map data points into a Euclidean space, in which the diffusion distance becomes the Euclidean distance in this new diffusion space. 
 
-A diffusion map maps coordinates between data and diffusion space by reorganizing data according to the diffusion metric. It preserves a data set's intrinsic geometry with data points mapped to a lower-dimensional structure. With the mapping 
+Diffusion maps maps coordinates between data and diffusion space by reorganizing data according to the diffusion metric. It preserves a data set's intrinsic geometry with data points mapped to a lower-dimensional structure. With the mapping 
 \begin{equation}
 	y_i := \begin{bmatrix}
 		p_t(x_i, x_{1}) \\
