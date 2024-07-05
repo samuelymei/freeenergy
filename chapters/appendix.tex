@@ -105,6 +105,46 @@ with
 \label{Eq:Appendix:Mean:varofmeanexpanded}
 \end{equation}
 
+\chapter{Fluctuation Theorem\label{chapter:Appendix:FT}}
+The fluctuation theorem is a fundamental result in non-equilibrium statistical mechanics that quantifies the probability distribution of the entropy production in a system far from equilibrium.\cite{EvansPRL1993} It provides a rigorous mathematical framework for understanding the statistical properties of systems that are driven out of equilibrium by external forces. The fluctuation theorem has been experimentally verified in various systems, including colloidal particles, single-molecule experiments, and electronic systems.
+
+In classical thermodynamics, the second law states that the entropy of an isolated system never decreases. This macroscopic law does not provide detailed information about the microscopic fluctuations that occur in small systems or over short timescales. The fluctuation theorem addresses this limitation by describing the statistical distribution of entropy production and its fluctuations.
+
+\textbf{Statement of the Fluctuation Theorem}
+
+Consider a system in contact with a thermal reservoir at temperature $T$. Let $\Sigma(t)$ denote the entropy production over a time interval $t$. The fluctuation theorem states that the probability distribution of the entropy production satisfies the following relation:
+
+\begin{equation}
+	\frac{P(\Sigma(t) = A)}{P(\Sigma(t) = -A)} = e^{A/k_B},
+\end{equation}
+where $P(\Sigma(t) = A)$ is the probability that the entropy production is $A$ over the time interval $t$, and $k_B$ is the Boltzmann constant.
+
+\textbf{Derivation of the Fluctuation Theorem}
+
+The fluctuation theorem can be derived using the principles of statistical mechanics and the concept of time-reversal symmetry. Here, we outline the key steps of the derivation:
+
+1. Microstates and Entropy Production: Consider the set of microstates $\Gamma$ of the system. Let $\rho(\Gamma, t)$ be the probability density of finding the system in microstate $\Gamma$ at time $t$. The entropy production $\Sigma(t)$ can be related to the probability densities of the forward and time-reversed trajectories.
+
+2. Time-Reversal Symmetry: Under time reversal, the system evolves along a trajectory $\Gamma'$. The probability density $\rho(\Gamma, t)$ transforms into $\rho(\Gamma', t)$, and the entropy production changes sign.
+
+3. Ratio of Probabilities: The ratio of the probability densities for forward and time-reversed trajectories is given by the exponential of the entropy production:
+\begin{equation}
+	\frac{\rho(\Gamma, t)}{\rho(\Gamma', t)} = e^{\Sigma(t)/k_B}.
+\end{equation}
+
+4. Ensemble Averaging: Averaging over all possible microstates and trajectories, we obtain the fluctuation theorem:
+\begin{equation}
+	\frac{P(\Sigma(t) = A)}{P(\Sigma(t) = -A)} = e^{A/k_B}.
+\end{equation}
+
+\textbf{Implications and Applications}
+
+The fluctuation theorem has several important implications:
+
+1. Violation of the Second Law: For small systems or over short timescales, there is a non-zero probability of observing entropy decreases, which appears to violate the second law of thermodynamics. However, these fluctuations are exponentially suppressed for large systems or long timescales.
+
+2. Non-Equilibrium Work Relations: The fluctuation theorem is closely related to work relations such as the Jarzynski equality\cite{JarzynskiPRL1997} and Crooks fluctuation theorem\cite{CrooksPRE1999}, which provide insights into the work done on or by a system during non-equilibrium processes.
+
 \chapter{The Relationship between the $\Delta U$ Distributions in Forward and Backward TP\label{chapter:Appendix:DeltaUDistributions}}
 In a forward TP calculation between $H_0$ and $H_1$, the distribution of $\Delta U$ is
 \begin{equation}
