@@ -35,7 +35,7 @@ For the complex, we define the position (translational degrees of freedom) and o
 \begin{equation}
 	Z_{AB}=\int e^{-\beta\left[U\left(r_A,r_{B^\prime},\delta_B\right)+W\left(r_A,r_{B^\prime},\delta_B\right)\right]}\diff r_A\diff r_{B^\prime}\diff\delta_B,
 \end{equation}
-where $r_{B^\prime}$ represents the remaining internal degrees of freedom of the bound substrate and $\delta_B$ spans conformations where $A$ and $B$ form a complex. 
+where $r_{B^\prime}$ represents the internal degrees of freedom of the bound substrate and $\delta_B$ spans conformations where $A$ and $B$ form a complex. 
 Then we assume that the translational and rotational motions of the substrate in the bound state are not strongly coupled with the other degrees of freedom, and we decompose the potential and solvation energies as (\textit{so weird!})
 \begin{align}
 	U&\left(r_A,r_{B^\prime},\delta_B\right)+W\left(r_A,r_{B^\prime},\delta_B\right)\notag\\
@@ -56,17 +56,20 @@ Now, Eq.~\ref{Eq:FEM:MMPBSA:deltaG} can bre written as
 \end{equation}
 where
 \begin{equation}
-   Z_{B^\prime}^{trans}=\int e^{-\beta\left[U(x_1,x_2,x_3)+W(x_1,x_2,x_3)\right]}\diff x_1\diff x_2\diff x_3
+   Z_{B^\prime}^{trans}=\int e^{-\beta\left[U(x_1,x_2,x_3)+W(x_1,x_2,x_3)\right]}\diff x_1\diff x_2\diff x_3,
+\end{equation}
+\begin{equation}
+	Z_{B^\prime}^{rot}=\int e^{-\beta\left[U(\xi_1,\xi_2,\xi_3)+W(\xi_1,\xi_2,\xi_3)\right]}\diff\xi_1\diff\xi_2\diff\xi_3.
 \end{equation}
 and
 \begin{equation}
-	Z_{B^\prime}^{rot}=\int e^{-\beta\left[U(\xi_1,\xi_2,\xi_3)+W(\xi_1,\xi_2,\xi_3)\right]}\diff\xi_1\diff\xi_2\diff\xi_3.
+	Z_{AB^\prime}=\int e^{-\beta \left[ U_2(r_A,r_{B^\prime})+W_2(r_A,r_{B^\prime})\right]}\diff r_A\diff r_{B^\prime}
 \end{equation}
 As a first-order approximation, we assume that the energetic landscape of each species has an energy and a volume (entropy),
 \begin{equation}
 	Z_A=\int e^{-\beta \left[U(r_A)+W(r_A)\right]}\diff r_A\approx Z_A^{int}e^{-\beta \left<E_A\right>},
 \end{equation}
-where $\left<E_A\right>=\left<U(r_A)+W(r_A)\right>$. We further assume (\textit{how many approximations we have taken!}) that $Z_A^{int}Z_B^{int}\approx Z_{AB}^{int}$,
+where $\left<E_A\right>=\left<U(r_A)+W(r_A)\right>$ is the average of the sum of molecular mechanics and solvation energy over the simulation and $Z_A^{int}$ is the internal configuration integral. We further assume (\textit{how many approximations we have taken!}) that $Z_A^{int}Z_B^{int}\approx Z_{AB}^{int}$,
 then
 \begin{equation}
 	\Delta G_{AB}^0=-\beta^{-1}\ln{\left(\frac{C^0Z_{B^\prime}^{trans}Z_{B^\prime}^{rot}}{8\pi^2}\right)} +\left(\left<E_{AB^\prime}\right>-\left<E_A\right>-\left<E_B\right>\right).
