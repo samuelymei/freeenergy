@@ -2,3 +2,36 @@
 \section{Variational Approach for Conformation (VAC) Dynamics\label{Sec:DR:VAC}}
 
 Variational approach for conformation (VAC) dynamics was developed by No\'e and N\"uske in 2013.\cite{NoeMMS2013}
+
+Continuous-time Markov processes are useful models of real-world processes in a variety of area. For a sufficiently ergodic continuous-time Markov processes $\mathbf{z}_t$ in a large state space $\Omega$, there exist a unique stationary density $\mu$. The probability density of states $\rho_{\tau}$ evolves according to
+\begin{equation}
+	\rho_{\tau}=\mathcal{P}(\tau)\rho_0.
+	\label{eq:DR:VAC:propagation}
+\end{equation}
+$\mathcal{P}(\tau)$ is time-homogeneous that
+\begin{equation}
+	\rho_{n\tau}=\mathcal{P}^n(\tau)\rho_0.
+\end{equation}
+
+For simplified cases where $\mathcal{P}$ is compact and self-adjoint, which means
+\begin{equation}
+	\langle f\mid\mathcal{P}(\tau)  \mid g\rangle_{\pi^{-1}}=\langle g \mid \mathcal{P}(\tau) \mid f\rangle_{\pi^{-1}}.
+\end{equation}
+It can be verified:
+\begin{align}
+	\langle g\mid\mathcal{P}(\tau)  \mid f\rangle_{\pi^{-1}} & =\int_X g(y) \pi^{-1}(y) \left[\int_X p(x, y, \tau) f(x) \mathrm{d} x\right]  \mathrm{d} y \notag\\
+	& =\int_X g(y) \pi^{-1}(y) \left[\int_X p(y, x, \tau) \frac{\pi(y)}{\pi(x)} f(x) \mathrm{d} x\right]  \mathrm{d} y \notag\\
+	& =\int_X \int_X p(y, x, \tau) g(y) \pi^{-1}(x) f(x) \mathrm{d} y \mathrm{~d} x \notag\\
+	& =\int_X f(x) \pi^{-1}(x)\left[\int_X p(y, x, \tau) g(y) \mathrm{d} y\right] \mathrm{d} x \notag\\
+	& =\langle f \mid \mathcal{P}(\tau) \mid g\rangle_{\pi^{-1}}.
+\end{align}
+Then, Eq.~\ref{eq:DR:VAC:propagation} can be decomposed into the propagator's spectral components,
+\begin{equation}
+	\rho_{\tau}=\mu+\sum_{i=2}^m a_i(\rho_0) \lambda_i(\tau)l_i+\mathcal{P}_{fast}(\tau)\rho_0,
+\end{equation}
+where $\mu\, l_2,\,l_3,\dots$ are the propagator's eigenfunctions and $\lambda_i(\tau)=\exp{(-\kappa_i \tau)}$ (sorted in nonascending order) are the propagator's real-valued eigenvectors that decay exponentially in time with rates $\kappa_i$. $a_i(\rho_0)$ are factors depending on the initial density $\rho_0$. 
+
+
+Note that we have assumed that the eigenspaces of slow and fast processes are orthogonal, and only $m$ slowest processes of interest are explicitly considered here, and others are included in the fast processes $\mathcal{P}_{fast}(\tau)$. $\mu$ represents the timescale $\infty$, $t_2=\kappa_2^{-1}=-\tau/\ln{\lambda_2}$ is the slowest dynamical process, etc. Therefore, this equation indicates a timescale separation.
+
+Unfortunately, $\mathcal{P}$ is usually not known explicitly for complex systems, and it is given implicitly through stochastic realizations of process $\mathbf{z}_t$. Therefore, a variational principle is sought that allows eigenfunctions $\mu,\,l_2,\,l_3,\dots$ and eigenvalues $\lambda_i$ to be approximated through statistical observables of $\mathbf{z}_t$.

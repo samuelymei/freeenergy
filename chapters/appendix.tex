@@ -261,10 +261,65 @@ f_i=&-\ln\sum\limits_{k=1}^{K}\sum\limits_{\mathbf{R}}^{(k)}\frac{\exp{(-\beta_i
 which is Eq.~\ref{Eq:FEM:MBAR:f_i_final}.
 
 \chapter{Jensen's inequality\label{chapter:Appendix:JI}}
+if $X$ is a random variable and $ \varphi$ is a convex function (\textit{Note: The definitions of concavity and convexity of a function by some organizations in mainland China's mathematical community are the opposite of those in foreign countries.}), then
+\begin{equation}
+     \varphi(\mathrm{E}[X]) \leq \mathrm{E}[\varphi(X)] .
+\end{equation}
+
+Examples:
 \begin{equation}
 	e^{\left<X\right>}\leq \left<e^X\right>
 \end{equation}
+and
+\begin{equation}
+	\log {\left<X\right>}\geq \log \left<X\right>
+\end{equation}
 
+
+\chapter{Kullback-Leibler divergence\label{chapter:Appendix:KLD}}
+Let $f, g: \mathcal{X} \rightarrow[0, \infty)$ be two probability density functions on $\mathcal{X}$. The Kullback-Leibler divergence between $f$ and $g$ is defined as
+\begin{equation}
+     K L(f||g)=\int_{\mathcal{X}} f(x)  \log \frac{f(x)}{g(x)} \mathrm{d} x
+\end{equation}
+given
+\begin{equation}
+	\int_{\left\{g(x)=0\right\}} f(x)\diff x=0
+\end{equation}
+
+By Jensen's inequality,
+\begin{align}
+	K L(f||g)=\int_{\mathcal{X}} f(x)  \log \frac{f(x)}{g(x)} \mathrm{d} x=&-\int_{\mathcal{X}} f(x)  \log \frac{g(x)}{f(x)} \mathrm{d} x \notag\\
+	                                                                                                               \geq& -\log \int_{\mathcal{X}} f(x)  \frac{g(x)}{f(x)} \mathrm{d} x \notag\\
+	                                                                                                               =& -\log \int_{\mathcal{X}} g(x) \mathrm{d} x \notag\\
+	                                                                                                               =& 0
+\end{align}
+
+\chapter{Two-sided Bogoliubov inequality\label{chapter:Appendix:BI}}
+Let $\pi$ and $\pi_0$ be two probability densities,
+\begin{equation}
+	\pi=\frac{\exp(-H)}{Z},\quad  \pi_0=\frac{\exp(-H_0)}{Z_0}
+\end{equation}
+on $\mathcal{X}$. The non-negativity of the KL divergence implies that
+\begin{equation}
+	0\leq KL(\pi||\pi_0)=-\log\frac{Z}{Z_0}-\mathrm{E}_{\pi} [U],
+\end{equation}
+where $U=H-H_0$. In other words,
+\begin{equation}
+	\Delta F\geq \mathrm{E}_{\pi} [U].
+\end{equation}
+By interchanging $pi$ and $\pi_0$ in the K-L divergence, it yields
+\begin{equation}
+	0\leq KL(\pi_0||\pi)=\log\frac{Z}{Z_0}+\mathrm{E}_{\pi_0} [U],
+\end{equation}
+which leads to
+\begin{equation}
+	\Delta F\leq \mathrm{E}_{\pi_0} [U].
+\end{equation}
+
+Combination of these two inequalities, we arrive at the two-sided Bogoliubov inequality
+\begin{equation}
+	\mathrm{E}_{\pi} [U] \leq \Delta F\leq \mathrm{E}_{\pi_0} [U].
+\end{equation}
 
 \chapter{Bias-variance decomposition\label{chapter:Appendix:BVD}}
 Given a set of samples, the mean squared error (M.S.E.) of an estimator $\hat{\theta}$ for some parameter $\theta$ is
