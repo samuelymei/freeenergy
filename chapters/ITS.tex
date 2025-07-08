@@ -30,24 +30,24 @@ With this, the distribution function in Eq.~\ref{Eq:ES:ITS:distribution} becomes
 \end{equation}
 with weighting factors $n_k$ to be determined. By integration in  the entire configuration space, we find
 \begin{equation}
-	P_k= n_k \int e^{-\beta_k  U}\diff \mathbf{x}=\sum_{k=1}^N n_k Q_k,
+	P_k= n_k \int e^{-\beta_k  U}\diff \mathbf{x}= n_k Q_k,
 \end{equation}
 where $Q_k$ is the partition function at temperature $\beta_k$. One can preselect the ratios between $P_k$'s for all $k$'s between $1$ and $N$, and thus define a set of fixed expectation values $\{p_k^0\}$ for the normalized quantities $p_k$
 \begin{equation}
 	p_k=P_k/\sum_{k=1}^N P_k.
 \end{equation}
 
-However, the partition functions $Q_k$'s are unknown. Therefore, the desired distribution in terms of $\{p_k\}$ in an MD simulation can be achieved in an iterative procedure.
+However, the partition functions $Q_k$'s are unknown. Therefore, the desired distribution in terms of $\{p_k^t\}$ in an MD simulation can be achieved in an iterative procedure.
 \begin{enumerate}
-	\item Select a sequence of $\left\{\beta_k, k=1, N\right\}$ that cover the desired range of temperature.
-	\item With a set of initial guess, $n_k(0)$, for $\left\{n_k, k=1, N\right\}$, a molecular dynamics simulation using force
+	\item Select a sequence of $\left\{\beta_k, k=1, \dots, N\right\}$ that cover the desired range of temperature.
+	\item With a set of initial guess, $n_k(0)$, for $\left\{n_k, k=1, \dots, N\right\}$, a molecular dynamics simulation using force
 	$$
 	F_b=\frac{\sum_k \beta^{\prime} n_k e^{-\beta_k U}}{\beta \sum_k n_k e^{-\beta_k U}} F
 	$$
 	is conducted.
-	\item $P_k$'s and thus $p_k$'s are calculated from the trajectory, and a new set of $\left\{n_k(1), k=1, N\right\}$ are obtained from $n_k(1)=n_k(0) p_k^0 / p_k$, followed by normalization.
-	\item Repeat steps (2) and (3) to update $\left\{n_k, k=1, N\right\}$, until $\left\{p_k, k=1, N\right\}$ converges to $\left\{p_k^0, k=1, N\right\}$.
-	\item Run MD simulations using the biased potential $U^\prime$ with the final set of $\left\{n_k, k=1, N\right\}$. The thermodynamic properties of the system are then calculated by reweighting of each term by multiplying a factor $e^{\beta\left(U^{\prime}(r)-U(r)\right)}=e^{-\beta U(r)} / P(U)$, with $P(U)$ being defined by Eq.~\ref{Eq:ES:ITS:distribution}.
+	\item $P_k$'s and thus $p_k$'s are calculated from the trajectory, and a new set of $\left\{n_k(1), k=1, \dots, N\right\}$ are obtained from $n_k(1)=n_k(0) p_k^0 / p_k$, followed by normalization.
+	\item Repeat steps (2) and (3) to update $\left\{n_k, k=1, \dots, N\right\}$, until the simulated probability $\left\{p_k, k=1, \dots, N\right\}$ converges to $\left\{p_k^0, k=1, \dots, N\right\}$.
+	\item Run MD simulations using the biased potential $U^\prime$ with the final set of $\left\{n_k, k=1, \dots, N\right\}$. The thermodynamic properties of the system are then calculated by reweighting of each term by multiplying a factor $e^{\beta\left(U^{\prime}(r)-U(r)\right)}=e^{-\beta U(r)} / P(U)$, with $P(U)$ being defined by Eq.~\ref{Eq:ES:ITS:distribution}.
 \end{enumerate}
 
 Introducing the idea of solute tempering into ITS leads to the selective integrated tempering sampling (SITS).\cite{YangJCP2009}
