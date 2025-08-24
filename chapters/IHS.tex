@@ -1,0 +1,79 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+\section{Integrated Hamiltonian Sampling\label{Sec:ES:IHS}}
+Integrated Hamiltonian sampling (ITS) was proposed by Cui in 2014.\cite{MoriJPCB2014} , motivated by the idea of Integrated Tempering Sampling.\ref{Sec:ES:ITS} In this method, the sampling is carried out using an effective Hamiltonian constructed by integrating the weighted Boltzmann distributions of a series of Hamiltonians. It also shares similar motivations as the enveloping distribution sampling (EDS) approach\ref{Sec:ES:EDS}.
+
+With two ``end-state'' Hamiltonians with potential functions $U_0$ and $U_1$ and a series of intermediate Hamiltonians
+\begin{equation}
+	U_{\lambda}(\mathbf{R})=(1-\lambda)U_0(\mathbf{R})+\lambda U_1(\mathbf{R}),
+\end{equation}
+an effective Hamiltonian is defined as
+\begin{equation}
+	%U_b(\mathbf{R})=-\frac{1}{\beta} \ln \int_0^1 \mathrm{~d} \lambda \Omega(\lambda) \mathrm{e}^{-\beta U_\lambda(\mathbf{R})}
+    U_b(\mathbf{R})=-\frac{1}{\beta} \ln \int_0^1 \mathrm{~d} \lambda \mathrm{e}^{-\beta \left[U_\lambda(\mathbf{R})-f_\lambda\right]}
+\end{equation}
+by integrating the distributions of the intermediate and end states. 
+%Here, $\Omega(\lambda)$ is a weight function to be determined. 
+Here, the contribution of each state to the integral is tuned by the shift $f_\lambda$ to the potential energy $U_\lambda(\mathbf{R})$. 
+In practice, the integral above is discretized into a sum over
+$N_{\lambda}$ windows
+\begin{equation}
+	%U_b(\mathbf{R})=-\frac{1}{\beta} \ln \sum_{i=1}^{N_\lambda} \Omega_i \mathrm{e}^{-\beta U_i(\mathbf{R})},
+	U_b(\mathbf{R})=-\frac{1}{\beta} \ln \sum_{i=1}^{N_\lambda} \mathrm{e}^{-\beta \left[U_i(\mathbf{R})-f_i\right]},
+\end{equation}
+in which $U_i=U_{\lambda_i}$, 
+%$\Omega_i=\Omega_{\lambda_i}$ 
+$f_i=f_{\lambda_i}$
+and $N_\lambda$ is the number of $\lambda$ grids. 
+
+With the sampled configurational probability $\rho_b$, the unbiased and weighted probability distribution, $\rho_i$  and $\rho_i^{(b)}$, can be calculated via
+\begin{equation}
+	\frac{1}{Z_i} \rho_i(\mathbf{R})=\frac{1}{Z_b} \rho_b(\mathbf{R}) \mathrm{e}^{-\beta\left[U_i(\mathbf{R})-U_b(\mathbf{R})\right]},
+\end{equation}
+\begin{equation}
+	\frac{1}{Z_i^{(b)}} \rho_i^{(b)}(\mathbf{R})=\frac{1}{Z_b} \rho_b(\mathbf{R}) \mathrm{e}^{-\beta\left[U_i(\mathbf{R})-f_i-U_b(\mathbf{R})\right]},
+\end{equation}
+where $Z_i=\int \rho_i(\mathbf{R})\diff \mathbf{R}$ and $Z_i^{(b)}=\int \rho_i^{b}(\mathbf{R})\diff \mathbf{R}$ are the configurational integrals. With this reweighting processing, any equilibrium thermodynamic properties of the end states can be computed from IHS straightforwardly.
+
+The simplest way to optimize the contribution of each intermediate state to the integral is to set the expectation value of the probability for the weighted intermediate states to be uniform
+\begin{equation}
+	%-\beta^{-1} \ln \left\langle\Omega_i \mathrm{e}^{-\beta\left(U_i-U_b\right)}\right\rangle_b=-\beta^{-1} \ln \left\langle\Omega_j \mathrm{e}^{-\beta\left(U_j-U_b\right)}\right\rangle_b
+	-\beta^{-1} \ln \left\langle \mathrm{e}^{-\beta\left(U_i-f_i-U_b\right)}\right\rangle_b=-\beta^{-1} \ln \left\langle\mathrm{e}^{-\beta\left(U_j-f_j-U_b\right)}\right\rangle_b,
+\end{equation}
+which leads to
+\begin{equation}
+	f_i-f_j=-\beta^{-1} \ln \frac{\left\langle\mathrm{e}^{-\beta\left(U_i-U_b\right)}\right\rangle_b}{\left\langle\mathrm{e}^{-\beta\left(U_j-U_b\right)}\right\rangle_b}
+\end{equation}
+or
+\begin{equation}
+	f_i=-\beta^{-1} \ln \left\langle\mathrm{e}^{-\beta\left(U_i-U_b\right)}\right\rangle_b+C_0=-\beta^{-1} \ln Z_i+C_0
+\end{equation}
+with $C_0$ being an arbitrary constant, which can be chosen such that $\sum_i \exp(\beta f_i)=1$. It can be quickly realize that $f_i$ is the free energy of the unweighted state $i$.
+
+However, $f_i$ is usually unknown before the simulation. With an initial guess of $f_i^{(0)}$, it can be updated in an iterative fashion
+\begin{equation}
+	f_i^{(n+1)}=f_i^{(n)}+\Delta f_i^{(n)}
+\end{equation}
+with
+\begin{equation}
+	\begin{aligned}
+		\Delta f_i^{(n)}= & -\beta^{-1} \ln \left\langle\mathrm{e}^{-\beta\left(U_i-f_i^{(n)}-U_b^{(n)}\right)}\right\rangle_b^{(n)} \\
+		& -\min \left[\left\{-\beta^{-1} \ln \left\langle\mathrm{e}^{-\beta\left(U_j-f_j^{(n)}-U_b^{(n)}\right)}\right\rangle_b^{(n)}\right\}_j\right]
+	\end{aligned}
+\end{equation}
+To avoid large oscillation and gently converge the shift $f_i$, a cap $\Delta f_{cap}$ can be applied on the amount to be updated per step:
+\begin{equation}
+	f_i^{(n+1)}=f_i^{(n)}+\min\left[\Delta f_i^{(n)},\Delta f_{cap}\right]
+\end{equation}
+
+To make a full use of all the configurations that have been sampled in the previous $n$ steps, WHAM can be a convenient yet powerful approach for the estimation of $f_i$
+\begin{equation}
+	\begin{aligned}
+		f_i^{(n+1)}= & -\frac{1}{\beta} \ln \frac{\sum_{k=1}^n N^{(k)}\left\{\rho_i^{(b)}\right\}^{(k)}}{\sum_{l=1}^n N^{(l)} \exp \left[-\beta\left(f_i^{(l)}-g^{(l)}\right)\right]} \\
+		& -\frac{1}{\beta} \ln C^{(n+1)}
+	\end{aligned}
+\end{equation}
+and
+\begin{equation}
+	g^{(k)}=-\frac{1}{\beta} \ln \sum_{i=1}^{N_\lambda} \exp \left[-\beta\left(f_i^{(n+1)}+f_i^{(k)}\right)\right].
+\end{equation}
