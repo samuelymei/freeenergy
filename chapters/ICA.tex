@@ -28,7 +28,7 @@ where $\mathbf{S}=(S_1,\dots,S_m)^{\operatorname{T}}$ is an unknown vector of so
 
 With the observed data set $\mathbf{X}=(X_1,\dots,X_r)^{\operatorname{T}}$ as an input, the task of ICA is to transform $\mathbf{X}$ into a vector of source with maximally independent components $\mathbf{Y}=(Y_1,\dots,Y_m)^{\operatorname{T}}$ using a linear static transformation $\mathbf{W}$ as $\mathbf{Y}=\mathbf{WX}$. The independence is measured by some function $F(\mathbf{Y})$. ICA finds the independent components (also called factors, latent variables or sources) by maximizing the statistical independence of the estimated components. There are many ways to define a proxy for independence, and the choice governs the form of the ICA algorithm, such as by 1) minimization of mutual information, which used measures like Kullback-Leibler Divergence and maximum entropy, 2) maximization of non-Gaussianity, which uses kurtosis and negentropy, and 3) using maximum likelihood estimation method. 
 
-\subsection{Maximizing the non-Gaussianity\label{Sec:DR:ICA:MnG}}
+\subsection{Maximizing the Non-Gaussianity\label{Sec:DR:ICA:MnG}}
 Non-Gaussianity can be measured by kurtosis and negative entropy.
 \subsubsection{Kurtosis\label{Sec:DR:ICA:MnG:Kurtosis}}
 The signal (sources) can be extracted by finding the orientation of the weight vectors which maximizes the kurtosis of the extracted signal. \textit{Although it is simple to calculate, it is sensitive to outliers. Therefore, it is not a robust way to measure the non-Gaussianity.} The kurtosis ($K$) for any probability density function is defined as
@@ -62,7 +62,7 @@ and
 \end{equation}
 since $\lVert\mathbf{W}\rVert=1$.
 
-\subsubsection{Negative entropy\label{Sec:DR:ICA:MnG:ne}}
+\subsubsection{Negative Entropy\label{Sec:DR:ICA:MnG:ne}}
 Negative entropy, or negentropy for short, is defined as
 \begin{equation}
 	J(\mathbf{Y})=H(\mathbf{Y}_{Gaussian})-H(\mathbf{Y}),
@@ -81,14 +81,14 @@ where $k_i$ are some positive constants, $v$ indicates a Gaussian variable with 
 \end{equation}
 where $1\leq a_1 \leq 2$.
 
-\subsection{Minimization of mutual information\label{Sec:DR:ICA:MMI}}
+\subsection{Minimization of Mutual Information\label{Sec:DR:ICA:MMI}}
 The amount of mutual information between the $m$ components of $\mathbf{Y}$ can be written as
 \begin{equation}
 	I(\mathbf{Y})=c-\sum_{j=1}^m J(Y_j),
 \end{equation}
 where $c=mH(\mathbf{Y}_{Gaussian})-H(\mathbf{X})$ does not depend on the unmixing matrix $\mathbf{W}$ and is a constant. Therefore, minimizing the mutual information between the components of $\mathbf{Y}$ is equivalent to maximizing the sum of the negentropies of the independent components of $\mathbf{Y}$.
 
-\subsection{Maximum likelihood\label{Sec:DR:ICA:ML}}
+\subsection{Maximum Likelihood\label{Sec:DR:ICA:ML}}
 For a noise-free ICA model, $\mathbf{X}=\mathbf{AS}$. Hence,
 \begin{equation}
 	P_\mathbf{X}(\mathbf{X})=\frac{P_\mathbf{S}(\mathbf{S})}{|{\operatorname{det}}\mathbf{A}|}=|{\operatorname{det}}\mathbf{W}|P_\mathbf{S}(\mathbf{S}).

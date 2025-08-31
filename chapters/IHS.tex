@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
 \section{Integrated Hamiltonian Sampling\label{Sec:ES:IHS}}
-Integrated Hamiltonian sampling (ITS) was proposed by Cui in 2014.\cite{MoriJPCB2014} , motivated by the idea of Integrated Tempering Sampling.\ref{Sec:ES:ITS} In this method, the sampling is carried out using an effective Hamiltonian constructed by integrating the weighted Boltzmann distributions of a series of Hamiltonians. It also shares similar motivations as the enveloping distribution sampling (EDS) approach\ref{Sec:ES:EDS}.
+Integrated Hamiltonian sampling (IHS) was proposed by Cui in 2014.\cite{MoriJPCB2014} , motivated by the idea of Integrated Tempering Sampling.\ref{Sec:ES:ITS} In this method, the sampling is carried out using an effective Hamiltonian constructed by integrating the weighted Boltzmann distributions of a series of Hamiltonians. It also shares similar motivations as the enveloping distribution sampling (EDS) approach\ref{Sec:ES:EDS}.
 
 With two ``end-state'' Hamiltonians with potential functions $U_0$ and $U_1$ and a series of intermediate Hamiltonians
 \begin{equation}
@@ -48,9 +48,9 @@ or
 \begin{equation}
 	f_i=-\beta^{-1} \ln \left\langle\mathrm{e}^{-\beta\left(U_i-U_b\right)}\right\rangle_b+C_0=-\beta^{-1} \ln Z_i+C_0
 \end{equation}
-with $C_0$ being an arbitrary constant, which can be chosen such that $\sum_i \exp(\beta f_i)=1$. It can be quickly realize that $f_i$ is the free energy of the unweighted state $i$.
+with $C_0$ being an arbitrary constant, which can be chosen such that $f_1=0$ or $\sum_i \exp(\beta f_i)=1$. It can be quickly realize that $f_i$ is the free energy of the unweighted state $i$.
 
-However, $f_i$ is usually unknown before the simulation. With an initial guess of $f_i^{(0)}$, it can be updated in an iterative fashion
+However, $f_i$ is usually unknown before the simulation. In the histogram flattening approach, with an initial guess of $f_i^{(0)}$, it can be updated in an iterative fashion
 \begin{equation}
 	f_i^{(n+1)}=f_i^{(n)}+\Delta f_i^{(n)}
 \end{equation}
