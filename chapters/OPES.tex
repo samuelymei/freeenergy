@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 % !TeX encoding = UTF-8
-\section{On-the-fly Probability Enhanced Sampling\label{Sec:ES:OPES}}
-The On-the-fly Probability Enhanced Sampling (OPES) method was developed by Invernizzi and Parrinello in 2020.\cite{InvernizziJPCL2020} Different from the well-tempered metadynamics (WTMetaD), in which the biasing potential is defined independent of the probability distribution, the core idea of OPES is to update self-consistently the estimate of the probability distributions and of the biasing potential in an on-the-fly fashion. The probability distribution is constructed via reweighting and is used to estimate the biasing potential.
+\section{On-the-f{l}y Probability Enhanced Sampling\label{Sec:ES:OPES}}
+The On-the-f{l}y Probability Enhanced Sampling (OPES) method was developed by Invernizzi and Parrinello in 2020.\cite{InvernizziJPCL2020} Different from the well-tempered metadynamics (WTMetaD), in which the biasing potential is defined independent of the probability distribution, the core idea of OPES is to update self-consistently the estimate of the probability distributions and of the biasing potential in an on-the-fly fashion. The probability distribution is constructed via reweighting and is used to estimate the biasing potential.
 
 In order to converge to the flat distribution, the biasing potential at the $n^{th}$ step can be defined as
 \begin{equation}
@@ -20,16 +20,17 @@ which leads to
 	V(\mathbf{s})=(1-1/\gamma)\frac{1}{\beta} \log{P(\mathbf{s})}.
 \end{equation}
 
-During the simulation, the estimated probability distribution is expressed as weighted sum of the Gaussian hills according to the previously deposited bias potential as
+During the simulation, the estimated unbiased probability distribution is expressed as weighted sum of the Gaussian hills according to the previously deposited bias potential as
 \begin{equation}
 	\tilde{P}_n(\mathbf{s})=\frac{\sum_k^n w_k G(\mathbf{s},\mathbf{s}_k)}{\sum_k^n w_k},
 \end{equation}
-where the weights $w_k=e^{\beta V_{k-1}(\mathbf{s}_k)}$. The tilde above $P$ indicates that the probability distribution is not normalized. The normalization should be carried out with respect to the CV space, denoted as $\Omega_n$, actually explored up to step $n$. Thus, the normalization factor is
+where the weights $w_k=e^{\beta V_{k-1}(\mathbf{s}_k)}$. Different from the (well-tempered) metadynamics, the deposited Gaussian here does not play a role of biasing potential, but servers as the density estimate with a Gaussian kernel. The tilde above $P$ indicates that the probability distribution is not normalized. The normalization should be carried out with respect to the CV space, denoted as $\Omega_n$, actually explored up to step $n$. Thus, the normalization factor is
 \begin{equation}
-	Z_n=\frac{1}{|\Omega_n|}\int_{\Omega_n}\tilde{P}_n(\mathbf{s})\diff \mathbf{s}.
+	Z_n=\frac{1}{|\Omega_n|}\int_{\Omega_n}\tilde{P}_n(\mathbf{s})\diff \mathbf{s},
 \end{equation}
+with $|\Omega_n|$ being the volume explored in the CV space.
 
-With an additional positive term $\epsilon \ll 1$, the bias at the $n^{th}$ step becomes
+With an additional positive term $\epsilon \ll 1$, the bias at the $n${th} step becomes
 \begin{equation}
 	V(\mathbf{s})=(1-1/\gamma)\frac{1}{\beta} \log{\left(\frac{\tilde{P}_n(\mathbf{s})}{Z_n}+\epsilon\right)}.
 \end{equation}
@@ -38,3 +39,8 @@ $\epsilon$ can also allow one to set a limit on the bias, thus providing better 
 	V(\mathbf{s})= -\Delta E
 \end{equation}
 without depositing biasing potential.
+
+As an important feature, the reweighting process is simple and straightforward, which can be performed as in the usual umbrella sampling
+\begin{equation}
+	P(\mathbf{s})=\frac{\left\langle\delta[\mathbf{s}-\mathbf{s}(\mathbf{R})] \mathrm{e}^{\beta V(\mathbf{s})}\right\rangle_V}{\left\langle\mathrm{e}^{\beta V(\mathbf{s})}\right\rangle_V}.
+\end{equation}
