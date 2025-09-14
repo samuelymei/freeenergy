@@ -205,7 +205,7 @@ w_{kn}(\beta)=\sum\limits_{m=1}^M{H_{m}}^{-1}\psi_m(U(\mathbf{R}_{kn}))\Omega_m\
 \subsubsection{Weighted Histogram Analysis Method From Minimizing Statistical Error}
 In this section, the ``traditional'' derivation method of WHAM are briefly reviewed.\cite{SouailleCPC2001} In the WHAM, the goal is to get an optimal unbiased probability distribution $\rho_{0}(\eta)$, where $\eta$ is a series of discretized histogram bins indexed by $j=1,2,3,...,M$ along a certain reaction coordinate. WHAM can be used to analyze the Umbrella Sampling (US) simulations, where a set of simulations indexed by $i$ or $k=1,2,3,...,S$ are performed with a series of biasing potentials added on the reaction coordinate $\eta$. To consider a reference molecular system with the potential energy $U_{0}(\textbf{x})$, where $\textbf{x}$ is the set of atomic coordinates. The reaction coordinate $\eta$ is a function of the atomic coordinates, i.e. $\eta(\textbf{x})$. To suppose that the $i$th molecular simulation has been performed using potential energy function
 \begin{equation}
-U_{i}^{(b)}(\eta) = U_{0}(\textbf{x}) + W_{i}(\eta(\textbf{x})),
+U_{i}^{(b)}(\textbf{x}) = U_{0}(\textbf{x}) + W_{i}(\eta(\textbf{x})),
 \label{Eq:FEM:WHAM:biasmd}
 \end{equation}
 where $W_{i}(\eta(\textbf{x}))$ is the biasing potential added on the reaction coordinate $\eta$, e.g. $W_{i}(\eta)=\frac{1}{2}k_{i}(\eta-\eta_{i})^2$ in a harmonic form. From these simulations a set of normalized biased probability distributions ${\rho_{i}^{(b)}(\eta)}$ can be obtained.
@@ -225,7 +225,7 @@ Therefore,
 	\label{Eq:FEM:WHAM:unbias_var2}
 \end{equation}
 In the following, the free energy $f_{i}^{(b)}$ is assumed to be known. 
-Let us assume that the total normalized unbiased probability distribution $\rho_{0}(\eta)$ can be obtained by a linear $\eta$-dependent combination of the unbiased histograms $\rho_{i}^{(u)}(\eta)$ 
+Let us assume that the total normalized unbiased probability distribution $\rho_{0}(\eta)$ can be obtained by a linear $\eta$-dependent combination of the unbiased probability distribution $\rho_{i}^{(u)}(\eta)$ 
 \begin{equation}
 \rho_{0}(\eta)=C\sum_{i=1}^{S}p_{i}(\eta)\rho_{i}^{(u)}(\eta),
 \label{Eq:FEM:WHAM:unbias0}
@@ -247,8 +247,9 @@ Using the standard Lagrange multiplier, minimizing the statistical error
 with respect to $p_i(\eta)$ leads to
 \begin{align}
 	p_i(\eta)=&\frac{\left(\sigma^2\left[\rho_i^{(u)}(\eta)\right]\right)^{-1}}{\sum_{j=1}^N \left(\sigma^2\left[\rho_j^{(u)}(\eta)\right]\right)^{-1}}\notag\\
-	              =&\frac{e^{-2\beta[W_{i}(\eta)-f_{i}^{(b)}]}\left(\sigma^2\left[\rho_{i}^{(b)}(\eta)\right]\right)^{-1}}{\sum_{j=1}^N e^{-2\beta[W_{j}(\eta)-f_{j}^{(b)}]}\left(\sigma^2\left[\rho_{j}^{(b)}(\eta)\right]\right)^{-1}}.
+	              =&\frac{e^{-2\beta[W_{i}(\eta)-f_{i}^{(b)}]}\left(\sigma^2\left[\rho_{i}^{(b)}(\eta)\right]\right)^{-1}}{\sum_{j=1}^N e^{-2\beta[W_{j}(\eta)-f_{j}^{(b)}]}\left(\sigma^2\left[\rho_{j}^{(b)}(\eta)\right]\right)^{-1}},
 \end{align}
+i.e. $p_i(\eta)$ is inversely proportional to $\sigma^2\left[\rho_i^{(u)}(\eta)\right]$.
 The statistical error $\sigma^2\left[\rho_{i}^{(b)}(\eta)\right]$ of the computed histogram $\rho_{i}^{(b)}(\eta)$ may be expressed as
 \begin{equation}
 	\sigma^2\left[\rho_{i}^{(b)}(\eta)\right]=\frac{g_i(\eta)}{N_i\Delta \eta}\overline{\rho_{i}^{(b)}(\eta)},
@@ -278,19 +279,16 @@ where $\rho_{i}^{(b)}(\eta)$ can be written as a $\delta$ function,
 \end{equation} 
 where $\eta_{i,l}$ is the reaction coordinates of the $l$th configuration in the $i$th biased simulation .
 
-Until now, the treatment assumes that the free energy parameters ${f_{i}^{(b)}}$ are known. In fact, these parameters can be obtained self-consistently. Indeed, the definition of the free energy $f_{i}^{(b)}$ is,
+Until now, the treatment assumes that the free energy parameters ${f_{i}^{(b)}}$ are known. In fact, these parameters can be obtained self-consistently. Indeed, the definition of the free energy $f_{i}^{(b)}$ is
 \begin{align}
 e^{-\beta f_{i}^{(b)}}=&\int e^{-\beta U_{i}^{(b)}(\eta) } \diff\eta \notag\\
-=&\int \rho_{0}(\eta) e^{-\beta W_{i}(\eta)} \diff\eta \notag\\
-=&C \int \frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}e^{-\beta W_{i}(\eta)}  \diff\eta
+=&Q_0\int \rho_{0}(\eta) e^{-\beta W_{i}(\eta)} \diff\eta \notag\\
+=&C \int \frac{\sum_{i=1}^{S}N_{i}\rho_{i}^{(b)}(\eta)}{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta)-f_{k}^{(b)}]}}e^{-\beta W_{i}(\eta)}  \diff\eta \notag\\
+=&C\sum_{i=1}^{S} \sum_{l=1}^{N_{i}} \frac{e^{-\beta W_{i}(\eta_{i,l})} }{\sum_{k=1}^{S}N_{k}e^{-\beta[W_{k}(\eta_{i,l})-f_{k}^{(b)}]}},
 \label{Eq:FEM:WHAM:fi01}
-\end{align} 
-The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:FEM:WHAM:fi01}, which must be solved iteratively with an initial guess of ${f_{i}^{(b)}}$ until convergence is reached. The unbiased free energy corresponding to the histogram can be calculated by
-\begin{equation}
-f_{0}(\eta)=-\beta^{-1}\ln \rho_{0}(\eta) 
-\label{Eq:FEM:WHAM:f0}
-\end{equation}
-with $W$ in Eq.~\ref{Eq:FEM:WHAM:fi01} being 0.
+\end{align}
+where $Q_0$ is the irrelevant unbiased partition function.
+The set of parameters ${f_{i}^{(b)}}$ appear on both sides of Eq.~\ref{Eq:FEM:WHAM:fi01}, which must be solved iteratively with an initial guess of ${f_{i}^{(b)}}$ until convergence is reached. The unbiased free energy can be calculated via Eq.~\ref{Eq:FEM:WHAM:fi01} with $W$ set to 0.
 The constant $C$ in Eq.~\ref{Eq:FEM:WHAM:unbias02} is irrelevant, which only causes a constant shift to the free energy profiles. To get rid of it, one may subtract the offset constant $f_{0}(\eta_{1})$ from all the $f_{0}(\eta_{j})$.  
 
 \subsubsection{Weighted Histogram Analysis Method From Maximum Likelihood}
