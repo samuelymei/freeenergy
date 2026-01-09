@@ -103,10 +103,185 @@ In this approach, $\Delta A$ is calculated via
 where $n_{F}$ and $n_{R}$ are the numbers of the forward and reverse transformations respectively, $W_{i}$ and $W_{j}$ are the work of forward and reverse measurements respectively, and $M=\beta^{-1}\ln(n_{F}/n_{R})$.
 The corresponding statistical variance of $ \Delta A $, $ \sigma^2 $, is calculated using Eq.~10 in Ref.~\cite{ShirtsPRL2003}.
 
+\subsubsection{Escorted Free Energy Simulations\label{Sec:FEM:NEW:EFES}}
+Similar to the thermodynamic perturbation method, Eq.~\ref{Eq:FEM:NEW:Jar} suffers from slow convergence. Vaikuntanathan and Jarzynski noticed that this numerical difficulty can be mitigated by introducing a proper flow field accompanying the transformation.\cite{VaikuntanathanPRL2008}
+
+Consider a classical system with Hamiltonian $H(\mathbf{z};\lambda)$, where $\mathbf{z}$ denotes a point in $d$-dimensional phase space (or configuration space) and $\lambda$ is an external parameter. The equilibrium distribution at temperature $\beta^{-1}$ is
+\begin{equation}
+	p^{\text{eq}}(\mathbf{z},\lambda) = \frac{1}{Z_\lambda} e^{-\beta H(\mathbf{z},\lambda)}.
+\end{equation}
+The free energy is $F_\lambda = -\beta^{-1} \ln Z_\lambda$, and we are interested in the free energy difference $\Delta F = F_B - F_A$.
+
+The system evolves according to a set of equations of motion (which may be deterministic or stochastic) written generically as
+\begin{equation}
+	\dot{\mathbf{z}} = \bar{\mathbf{v}}(\mathbf{z},\lambda),
+\end{equation}
+with $\dot{\mathbf{z}} = \diff \mathbf{z}/\diff t$. The ensemble of trajectories is described by a phase-space density $f(\mathbf{z},t)$ satisfying a Liouville-type equation
+\begin{equation}
+	\frac{\partial f(\mathbf{z},t)}{\partial t} = \mathcal{L}_\lambda f(\mathbf{z},t),
+\end{equation}
+where $\mathcal{L}_\lambda$ is the Liouville operator corresponding to the dynamics. It is assumed that $\mathcal{L}_\lambda e^{-\beta H_\lambda} = 0$, i.e., the equilibrium distribution is preserved when $\lambda$ is fixed.
+
+To improve the convergence of fast-switching free energy estimates, an artificial flow field $\mathbf{u}(\mathbf{z},\lambda)$ is introduced, coupling the evolution of the system coordinates to the time variation of the work parameter $\lambda$. The modified equations of motion are
+\begin{equation}
+	\dot{\mathbf{z}} = \bar{\mathbf{v}} + \dot{\lambda} \mathbf{u}. 
+\end{equation}
+Under these modified dynamics, the phase-space density satisfies
+\begin{equation}
+	\frac{\partial f}{\partial t} = \mathcal{L}_\lambda f - \dot{\lambda} \nabla \cdot (\mathbf{u} f) \equiv \mathcal{L}'_{\lambda,\dot{\lambda}} f. \label{Eq:FEM:NEW:LiouvilleEq}
+\end{equation}
+Here, $\mathcal{L}'_{\lambda,\dot{\lambda}}$ is the modified Liouville operator that includes the effect of the flow field.
+
+The action of the modified Liouville operator on the unnormalized equilibrium distribution $e^{-\beta H}$
+\begin{equation}
+	\mathcal{L}'_{\lambda,\dot{\lambda}} e^{-\beta H} = \mathcal{L}_\lambda e^{-\beta H} - \dot{\lambda} \nabla \cdot (\mathbf{u} e^{-\beta H}).
+\end{equation}
+is computed as follows. By assumption, the original Liouville operator $\mathcal{L}_\lambda$ preserves the equilibrium distribution when $\lambda$ is fixed. Therefore,
+\begin{equation}
+	\mathcal{L}_\lambda e^{-\beta H} = 0. 
+\end{equation}
+This expresses the condition that $e^{-\beta H}$ is a stationary solution of the original dynamics when $\lambda$ is constant. Using the product rule of the divergence 
+\begin{equation}
+	\nabla \cdot (\mathbf{u} e^{-\beta H}) = (\nabla \cdot \mathbf{u}) e^{-\beta H} + \mathbf{u} \cdot \nabla e^{-\beta H}
+\end{equation}
+and the gradient of $e^{-\beta H}$
+\begin{equation}
+	\nabla e^{-\beta H} = e^{-\beta H} \nabla (-\beta H) = -\beta (\nabla H) e^{-\beta H},
+\end{equation}
+it can be found that
+\begin{equation}
+	\nabla \cdot (\mathbf{u} e^{-\beta H}) = \left[ \nabla \cdot \mathbf{u} - \beta \, \mathbf{u} \cdot \nabla H \right] e^{-\beta H}. 
+\end{equation}
+Then
+\begin{align}
+	\mathcal{L}'_{\lambda,\dot{\lambda}} e^{-\beta H} &= 0 - \dot{\lambda} \left[ \nabla \cdot \mathbf{u} - \beta \, \mathbf{u} \cdot \nabla H \right] e^{-\beta H} \notag\\
+	&= \dot{\lambda} \left[ \beta \, \mathbf{u} \cdot \nabla H - \nabla \cdot \mathbf{u} \right] e^{-\beta H}\notag\\
+	&= \beta \dot{\lambda} \left[ \mathbf{u} \cdot \nabla H - \beta^{-1} \nabla \cdot \mathbf{u} \right] e^{-\beta H}.
+\end{align}
+
+This equation shows how the modified Liouville operator acts on the unnormalized equilibrium distribution. The right-hand side consists of two contributions:
+\begin{enumerate}
+	\item $\mathbf{u} \cdot \nabla H$: Represents the change in energy due to the flow field along the gradient of the Hamiltonian.
+	\item $\beta^{-1} \nabla \cdot \mathbf{u}$: Represents the phase-space compression or expansion induced by the flow field.
+\end{enumerate}
+The presence of $\dot{\lambda}$ indicates that these effects are only active when the work parameter $\lambda$ is varied. Now, consider a specific protocol $\lambda_t$ for varying from $\lambda_0=A$ to $\lambda_t=B$. By introducing a compact notation
+\begin{equation}
+	\frac{\not \partial H}{\not \partial \lambda}(\mathbf{z}, \lambda) \equiv \frac{\partial H}{\partial \lambda}+\mathbf{u} \cdot \nabla H-\beta^{-1} \nabla \cdot \mathbf{u},
+\end{equation}
+a sink equation can be written as
+\begin{equation}
+	\frac{\partial g}{\partial t}=\mathcal{L}_{\lambda, \dot{\lambda}}^{\prime} g-\beta \dot{\lambda} \frac{\not \partial H}{\not \partial \lambda} g,\label{Eq:FEM:NEW:sink}
+\end{equation}
+in which $-\beta \dot{\lambda} \frac{\not{\partial} H}{\not{\partial} \lambda} g$ acts as a ``sink'' (or absorption) term that depends on the generalized derivative of $H$ with respect to $\lambda$.
+
+In the following, we will show that $g(\mathbf{z},t) = \frac{1}{Z_A} e^{-\beta H(\mathbf{z},\lambda_t)}$ is a solution of Eq.~\ref{Eq:FEM:NEW:sink}. Since $g$ depends on time only through $\lambda_t$, we have:
+\begin{equation}
+	\frac{\partial g}{\partial t} = \frac{\partial}{\partial t} \left( \frac{1}{Z_A} e^{-\beta H(\mathbf{z},\lambda_t)} \right) = -\beta \dot{\lambda}_t \frac{\partial H}{\partial \lambda} g.
+\end{equation}
+Since $g \propto e^{-\beta H}$, we have
+\begin{align}
+	\mathcal{L}'_{\lambda,\dot{\lambda}} g = &\beta \dot{\lambda}_t \left[ \mathbf{u} \cdot \nabla H - \beta^{-1} \nabla \cdot \mathbf{u} \right] g\notag\\
+	                                                                   = &\beta \dot{\lambda}_t \left[ \frac{\partial H}{\partial \lambda}+\mathbf{u} \cdot \nabla H - \beta^{-1} \nabla \cdot \mathbf{u} \right] g-\beta \dot{\lambda}_t \frac{\partial H}{\partial \lambda} g\notag\\
+	                                                                   = &\beta \dot{\lambda} \frac{\not{\partial} H}{\not{\partial} \lambda} g - \beta \dot{\lambda}_t \frac{\partial H}{\partial \lambda} g
+\end{align}
+Therefore, the two sides of Eq.~\ref{Eq:FEM:NEW:sink} equal to $-\beta \dot{\lambda}_t \frac{\partial H}{\partial \lambda} g$, confirming that 
+\begin{equation}
+	g(\mathbf{z},t)= \frac{1}{Z_A} e^{-\beta H(\mathbf{z},\lambda_t)}\label{Eq:FEM:NEW:g}
+\end{equation}
+indeed satisfies the sink equation.
+
+The Feynman-Kac theorem provides a path-integral representation for the solution of a partial differential equation \ref{Eq:FEM:NEW:sink}. Specifically, the solution can be expressed as an average over trajectories generated by the modified dynamics
+\begin{equation}
+	g(\mathbf{z},t) = \left\langle \delta(\mathbf{z} - \mathbf{z}_t) \exp\left( -\beta \int_0^t \dot{\lambda}_{t'} \frac{\not{\partial} H}{\not{\partial} \lambda}(\mathbf{z}_{t'},\lambda_{t'}) \, \diff t' \right) \right\rangle_{\mathbf{u}},\label{Eq:FEM:NEW:Feynman-KacSolution}
+\end{equation}
+where $\langle \cdots \rangle_{\mathbf{u}}$ denotes an ensemble average over trajectories that evolve under the modified dynamics (with flow field $\mathbf{u}$), starting from initial conditions sampled from the equilibrium distribution at $\lambda = A$. The Dirac delta function $\delta(\mathbf{z} - \mathbf{z}_t)$ picks out those trajectories that end at phase-space point $\mathbf{z}$ at time $t$.
+
+Since both Eq.~\ref{Eq:FEM:NEW:g} and Eq.~\ref{Eq:FEM:NEW:Feynman-KacSolution} are solutions of the same sink equation, we have
+\begin{equation}
+	\frac{1}{Z_A} e^{-\beta H(\mathbf{z},\lambda_t)} = \left\langle \delta(\mathbf{z} - \mathbf{z}_t) \exp\left( -\beta \int_0^t \dot{\lambda}_{t'} \frac{\not{\partial} H}{\not{\partial} \lambda}(\mathbf{z}_{t'},\lambda_{t'}) \, \diff t' \right) \right\rangle_{\mathbf{u}}. 
+\end{equation}
+This identity holds for any time $t \in [0,\tau]$.
+
+To obtain the free energy difference, we set $t = \tau$ (the final time when $\lambda_\tau = B$) and integrate both sides over all phase space
+\begin{align}
+	\int &\frac{1}{Z_A} e^{-\beta H(\mathbf{z},\lambda_\tau)} \, \diff \mathbf{z} \notag\\
+	=& \int \left\langle \delta(\mathbf{z} - \mathbf{z}_\tau) \exp\left( -\beta \int_0^\tau \dot{\lambda}_t \frac{\not{\partial} H}{\not{\partial} \lambda}(\mathbf{z}_t,\lambda_t) \, \diff t \right) \right\rangle_{\mathbf{u}} \, d\mathbf{z}.
+\end{align}
+The left-hand side simplifies to:
+\begin{equation}
+	\frac{1}{Z_A} \int e^{-\beta H(\mathbf{z},B)} \, \diff \mathbf{z} = \frac{Z_B}{Z_A} = e^{-\beta (F_B - F_A)} = e^{-\beta \Delta F}.
+\end{equation}
+On the right-hand side, we can interchange the order of integration and ensemble averaging (assuming appropriate convergence), and note that the integral over $\mathbf{z}$ removes the delta function, leaving:
+\begin{align}
+	\int &\left\langle \delta(\mathbf{z} - \mathbf{z}_\tau) \exp\left( -\beta \int_0^\tau \dot{\lambda}_t \frac{\not{\partial} H}{\not{\partial} \lambda}(\mathbf{z}_t,\lambda_t) \, \diff t \right) \right\rangle_{\mathbf{u}} \, d\mathbf{z} \notag\\
+	=& \left\langle \exp\left( -\beta \int_0^\tau \dot{\lambda}_t \frac{\not{\partial} H}{\not{\partial} \lambda}(\mathbf{z}_t,\lambda_t) \, \diff t \right) \right\rangle_{\mathbf{u}}.
+\end{align}
+Defining the \textit{work} $W$ for a trajectory under the modified dynamics as:
+\begin{equation}
+	W \equiv \int_0^\tau \dot{\lambda}_t \frac{\not{\partial} H}{\not{\partial} \lambda}(\mathbf{z}_t,\lambda_t) \, \diff t,
+\end{equation}
+we finally arrive at the central result
+\begin{equation}
+	e^{-\beta \Delta F} = \left\langle e^{-\beta W} \right\rangle_{\mathbf{u}}.
+\end{equation}
+This equation generalizes the Jarzynski identity (which is recovered by setting $\mathbf{u} = 0$) to the case where the system evolves under dynamics augmented by an artificial flow field $\mathbf{u}$. The work $W$ is now defined in terms of the generalized derivative $\frac{\not{\partial} H}{\not{\partial} \lambda}$, which includes contributions from the flow field. The identity holds for any well-behaved flow field, but the efficiency of the estimator (i.e., the convergence of the exponential average) depends critically on the choice of $\mathbf{u}$. If $\mathbf{u}$ is chosen to reduce the lag between the instantaneous nonequilibrium distribution and the equilibrium distribution, then the dissipation is reduced and the convergence of the free energy estimate is improved.
+
+Assume the flow field $\mathbf{u}^*$ is perfect, then the system's distribution $f(\mathbf{z},t)$ remains equal to the instantaneous equilibrium distribution at all times:
+\begin{equation}
+	f(\mathbf{z},t) = p^{\text{eq}}(\mathbf{z},\lambda_t) = \frac{1}{Z_{\lambda_t}} e^{-\beta H(\mathbf{z},\lambda_t)}.
+\end{equation}
+Substituting this into Eq.~\ref{Eq:FEM:NEW:LiouvilleEq} gives:
+\begin{equation}
+	\frac{\partial p^{\text{eq}}}{\partial t} = \mathcal{L}_\lambda p^{\text{eq}} - \dot{\lambda} \nabla \cdot (\mathbf{u}^* p^{\text{eq}}).
+\end{equation}
+Since $\mathcal{L}_\lambda p^{\text{eq}} = 0$ (the equilibrium distribution is preserved by the physical dynamics when $\lambda$ is fixed), we obtain:
+\begin{equation}
+	\frac{\partial p^{\text{eq}}}{\partial t} = - \dot{\lambda} \nabla \cdot (\mathbf{u}^* p^{\text{eq}}).
+\end{equation}
+Now, $p^{\text{eq}}$ depends on time only through $\lambda_t$, so:
+\begin{equation}
+	\frac{\partial p^{\text{eq}}}{\partial t} = \frac{\partial p^{\text{eq}}}{\partial \lambda} \dot{\lambda}.
+\end{equation}
+Canceling $\dot{\lambda}$ (assuming $\dot{\lambda} \neq 0$) yields the condition for a perfect flow field:
+\begin{equation}
+	\frac{\partial p^{\text{eq}}}{\partial \lambda} = - \nabla \cdot (\mathbf{u}^* p^{\text{eq}}).
+\end{equation}
+Since
+\begin{equation}
+	p^{\text{eq}} = \frac{1}{Z_\lambda} e^{-\beta H} = e^{\beta(F_\lambda - H)},
+\end{equation}
+taking the derivative with respect to $\lambda$:
+\begin{equation}
+	\frac{\partial p^{\text{eq}}}{\partial \lambda} = \beta \left( \frac{\diff F}{\diff \lambda} - \frac{\partial H}{\partial \lambda} \right) p^{\text{eq}}.
+\end{equation}
+On the other hand,
+\begin{align}
+	- \nabla \cdot (\mathbf{u}^* p^{\text{eq}}) &= - (\nabla \cdot \mathbf{u}^*) p^{\text{eq}} - \mathbf{u}^* \cdot \nabla p^{\text{eq}} \notag\\
+	&= - (\nabla \cdot \mathbf{u}^*) p^{\text{eq}} - \mathbf{u}^* \cdot \left( -\beta (\nabla H) p^{\text{eq}} \right) \notag\\
+	&= \left( -\nabla \cdot \mathbf{u}^* + \beta \mathbf{u}^* \cdot \nabla H \right) p^{\text{eq}}.
+\end{align}
+Therefore,
+\begin{equation}
+	\beta \left( \frac{\diff F}{\diff \lambda} - \frac{\partial H}{\partial \lambda} \right) = -\nabla \cdot \mathbf{u}^* + \beta \mathbf{u}^* \cdot \nabla H.
+\end{equation}
+Rearranging,
+\begin{equation}
+	\frac{\diff F}{\diff \lambda} = \frac{\partial H}{\partial \lambda} + \mathbf{u}^* \cdot \nabla H - \beta^{-1} \nabla \cdot \mathbf{u}^*\equiv \frac{\not{\partial} H}{\not{\partial} \lambda}.
+\end{equation}
+Thus, for a perfect flow field, the work
+\begin{equation}
+	W=\int_0^\tau \dot{\lambda} \frac{\not \partial H}{\not \partial \lambda} \diff t=\int_0^\tau \dot{\lambda} \frac{\diff F}{\diff \lambda} \diff t=\Delta F,
+\end{equation}
+and the dissipated work
+\begin{equation}
+	W_{diss}=0.
+\end{equation}
+
+
 \subsubsection{Non-Equilibrium Work for Free Energy Profiles\label{Sec:FEM:NEW:FEP}}
 When calculating the free energy profile in a pulling experiment, the Jarzynski equality is no longer straightforwardly applicable, because it relates the nonequilibrium work to free energy differences at different times, not positions along a predefined reaction coordinate. In order to surmount this difficulty, Hummer and Szabo extended the Jarzynski equality by measuring force/extension along pulling.\cite{HummerPNAS2001}
 
-Let us begin with a system of which the phase-space density evolves according to a Liouville-type equation:
+Let us begin with a system of which the phase-space density evolves according to a Liouville-type equation
 \begin{equation}
 	\frac{\partial f(\mathbf{x},t)}{\partial t}=\mathscr{L}_tf(\mathbf{x},t).
 	\label{Eq:FEM:NEW:Liouville}
@@ -119,7 +294,7 @@ Because this distribution is stationary ($\mathscr{L}_tp=0$), and because $\part
 \begin{align}
 	\frac{\partial p}{\partial t}=\mathscr{L}_tp-\beta\frac{\partial \mathscr{H}}{\partial t}p,
 \end{align}
-of which the solution, starting from an equilibrium distribution at time $t=0$, can be expressed as a path integral by using the Feynman-Kac theorem. Equating these two differential solutions immediately gives:
+of which the solution, starting from an equilibrium distribution at time $t=0$, can be expressed as a path integral by using the Feynman-Kac theorem. Equating these two differential solutions immediately gives
 \begin{equation}
 	\frac{e^{-\beta\mathscr{H}(\mathbf{x},t)}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x}^\prime,0)} \diff \mathbf{x}^\prime}=\left\langle \delta(\mathbf{x}-\mathbf{x}_t)\exp{\left[-\beta\int_0^t\frac{\partial \mathscr{H}}{\partial t^\prime}(\mathbf{x}_{t^{\prime}},t^{\prime})\diff t^\prime\right]}\right\rangle.
 	\label{Eq:FEM:NEW:SinkFK}
@@ -143,7 +318,7 @@ In a single-molecule pulling experiment, e.g. using atomic force microscope (AFM
 	\frac{\displaystyle\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}(\mathbf{x},0)}\diff \mathbf{x}}=\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad&\notag\\
 	\left\langle \delta[z-z(\mathbf{x_{t}})] e^{-\beta \left[kv^2t^2/2-kv\int_0^t z(\mathbf{x}_{t^\prime})\diff t^\prime-k(z(\mathbf{x}_t)-vt)^2/2\right]}\right\rangle
 \end{align}
-and finally taking the logarithm, we have:
+and finally taking the logarithm, we have
 \begin{align}
 	G_0(z)\equiv&-\beta^{-1}\ln{\frac{\displaystyle\int\delta[z-z(\mathbf{x})]e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}}\notag\\
 	      =&-\beta^{-1}\ln{\left<\delta(z-z_t)e^{-\beta \Delta w_t}\right>}-\beta^{-1}\ln{\frac{\displaystyle\int e^{-\beta \mathscr{H}_0(\mathbf{x})+k[z(\mathbf{x})]^2/2}\diff \mathbf{x}}{\displaystyle\int e^{-\beta \mathscr{H}_0(\mathbf{x})}\diff \mathbf{x}}}\notag\\
@@ -153,7 +328,7 @@ where $G_0(z)$ is the unperturbed free energy profile along the pulling coordina
 $\delta G$ is independent of time.
 At time $t=0$, the trajectories are started from points $z_0$ drawn from a Boltzmann distribution corresponding to Hamiltonian $\mathscr{H}(\mathbf{x},0)=\mathscr{H}_0(\mathbf{x})+kz^2/2$, which is \emph{NOT} $\mathscr{H}_0(\mathbf{x})$.
 
-At each time slice $t$, one can in principle obtain an estimate of the whole free energy surface. In practice with finite number of trajectories, at any given time $t$, only a narrow region around the equilibrium position $z=vt$ will be sampled adequately. Thus, an average over several time slices and repeated trajectories is required to obtain an optimal estimate of the free energy profile. At every time slice $t$, one obtains an ensemble of positions $z_t$ and corresponding $w_t$s. The position $z_t$ are binned, and the corresponding histogram values are incremented by $e^{-\beta w_t}$. The complete free energy profile $G_0(z)$ can be reconstructed by adapting the weighted histogram method:
+At each time slice $t$, one can in principle obtain an estimate of the whole free energy surface. In practice with finite number of trajectories, at any given time $t$, only a narrow region around the equilibrium position $z=vt$ will be sampled adequately. Thus, an average over several time slices and repeated trajectories is required to obtain an optimal estimate of the free energy profile. At every time slice $t$, one obtains an ensemble of positions $z_t$ and corresponding $w_t$s. The position $z_t$ are binned, and the corresponding histogram values are incremented by $e^{-\beta w_t}$. The complete free energy profile $G_0(z)$ can be reconstructed by adapting the weighted histogram method
 \begin{align}
 	G_0(z)=-\beta^{-1}\ln{\frac{\sum_t \frac{\left<\delta(z-z_t)\exp{(-\beta w_t)}\right>}{\left<\exp{(-\beta w_t)}\right>}}{\sum_t\frac{\exp{[-\beta u(z,t)]}}{\left<\exp{(-\beta w_t)}\right>}}},
 	\label{Eq:FEM:NEW:FEprofile}
