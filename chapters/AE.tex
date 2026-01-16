@@ -1,0 +1,71 @@
+% !TeX spellcheck = en_US
+\section{Autoencoders\label{Sec:DR:AE}}
+Autoencoders are a type of neural network architecture designed for \textbf{unsupervised learning}. The primary goal is to learn efficient representations (encodings) of input data, typically for dimensionality reduction or feature learning. Unlike supervised models, autoencoders do not require labeled data—they learn by reconstructing their own input.  An autoencoder consists of two main components:
+\begin{itemize}
+	\item \textbf{Encoder}: Maps input data to a lower-dimensional latent representation
+	\item \textbf{Decoder}: Reconstructs the input from this latent representation
+\end{itemize}
+
+The network is trained to minimize the difference between the original input and its reconstruction.
+
+%\subsection{Mathematical Formulation}
+
+Let $x \in \mathbb{R}^d$ be the input data. The encoder function $f_\phi$ with parameters $\phi$ produces a latent code $z$
+\[
+z = f_\phi(x) \in \mathbb{R}^k, \quad k \ll d
+\]
+
+The decoder function $g_\theta$ with parameters $\theta$ reconstructs the input
+\[
+\hat{x} = g_\theta(z) = g_\theta(f_\phi(x))
+\]
+
+The model is trained to minimize the reconstruction loss
+\[
+\mathcal{L}(\theta, \phi) = \frac{1}{n} \sum_{i=1}^n \ell(x^{(i)}, \hat{x}^{(i)})
+\]
+where $\ell$ is a distance measure such as Mean Squared Error (MSE) or Binary Cross-Entropy.
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{autoencoder_architecture.png}
+%	\caption{Basic autoencoder architecture with encoder, bottleneck, and decoder}
+%	\label{fig:ae_arch}
+%end{figure}
+
+%\subsubsection{Encoder}
+The encoder typically consists of one or more dense layers with decreasing dimensionality
+\[
+h_1 = \sigma(W_1 x + b_1), \quad h_2 = \sigma(W_2 h_1 + b_2), \quad \dots, \quad z = \sigma(W_e h_{e-1} + b_e),
+\]
+where $\sigma$ is an activation function (ReLU, sigmoid, tanh).
+
+%\subsubsection{Bottleneck (Latent Space)}
+The bottleneck layer $z$ is the compressed representation
+\begin{itemize}
+	\item Dimensionality $k$ is a hyperparameter
+	\item Represents the most important features of the input
+	\item Acts as an information bottleneck
+\end{itemize}
+
+%\subsubsection{Decoder}
+The decoder mirrors the encoder structure
+\[
+h'_1 = \sigma(W'_1 z + b'_1), \quad \dots, \quad \hat{x} = \sigma(W'_d h'_{d-1} + b'_d)
+\]
+Note: Weights are \textit{not} shared between encoder and decoder.
+
+%\subsection{Loss Functions}
+
+%\subsubsection{Mean Squared Error (MSE)}
+For continuous data (e.g., images normalized to [0,1]),
+\[
+\ell_{\text{MSE}}(x, \hat{x}) = \frac{1}{d} \sum_{j=1}^d (x_j - \hat{x}_j)^2.
+\]
+
+%\subsubsection{Binary Cross-Entropy}
+For binary data or sigmoid outputs,
+\[
+\ell_{\text{BCE}}(x, \hat{x}) = -\frac{1}{d} \sum_{j=1}^d [x_j \log(\hat{x}_j) + (1 - x_j)\log(1 - \hat{x}_j)].
+\]
+
